@@ -34,7 +34,8 @@
     "db:watch": "turbo -F @modular-vsa/db db:watch",
     "db:stop": "turbo -F @modular-vsa/db db:stop",
     "db:down": "turbo -F @modular-vsa/db db:down",
-    "check": "oxlint && oxfmt --write"
+    "check": "oxlint && oxfmt --write",
+    "update:deps": "bun update --interactive --recursive"
   },
   "dependencies": {
     "@modular-vsa/env": "workspace:*",

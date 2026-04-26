@@ -14,6 +14,7 @@
     "@modular-vsa/auth": "workspace:*",
     "@modular-vsa/db": "workspace:*",
     "@modular-vsa/env": "workspace:*",
+    "@sinclair/typebox": "^0.34.49",
     "better-auth": "catalog:",
     "dotenv": "catalog:",
     "elysia": "^1.4.21",
