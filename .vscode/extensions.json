@@ -1,0 +1,20 @@
+{
+  "recommendations": [
+    "oxc.oxc-vscode",
+    "eamodio.gitlens",
+    "oven.bun-vscode",
+    "expo.vscode-expo-tools",
+    "ms-playwright.playwright",
+    "bradlc.vscode-tailwindcss",
+    "naumovs.color-highlight",
+    "yoavbls.pretty-ts-errors",
+    "aaron-bond.better-comments",
+    "ms-azuretools.vscode-docker",
+    "github.vscode-github-actions",
+    "formulahendry.auto-rename-tag",
+    "davidanson.vscode-markdownlint",
+    "ms-vscode.vscode-typescript-next",
+    "streetsidesoftware.code-spell-checker"
+  ],
+  "unwantedRecommendations": ["esbenp.prettier-vscode", "dbaeumer.vscode-eslint"]
+}

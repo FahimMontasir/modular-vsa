@@ -8,7 +8,7 @@
     "build": "vite build",
     "serve": "vite preview",
     "start": "vite",
-    "check-types": "vite build && tsc --noEmit",
+    "check": "oxlint && oxfmt --write && tsc --noEmit",
     "generate-pwa-assets": "pwa-assets-generator",
     "tauri": "tauri",
     "desktop:dev": "tauri dev",

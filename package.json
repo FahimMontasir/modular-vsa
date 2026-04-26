@@ -20,9 +20,10 @@
   },
   "type": "module",
   "scripts": {
+    "prepare": "git config --local core.hooksPath .github/hooks",
     "dev": "turbo dev",
     "build": "turbo build",
-    "check-types": "turbo check-types",
+    "check": "turbo check",
     "dev:native": "turbo -F native dev",
     "dev:web": "turbo -F web dev",
     "dev:server": "turbo -F server dev",
@@ -34,7 +35,6 @@
     "db:watch": "turbo -F @modular-vsa/db db:watch",
     "db:stop": "turbo -F @modular-vsa/db db:stop",
     "db:down": "turbo -F @modular-vsa/db db:down",
-    "check": "oxlint && oxfmt --write",
     "update:deps": "bun update --interactive --recursive"
   },
   "dependencies": {

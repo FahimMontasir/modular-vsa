@@ -1,0 +1,4 @@
+#!/bin/sh
+
+# Run comprehensive monorepo validation: lint, format, and typecheck for all packages
+bun check

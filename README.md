@@ -77,13 +77,13 @@ import { Button } from "@modular-vsa/ui/components/button";
 
 If you want to add app-specific blocks instead of shared primitives, run the shadcn CLI from `apps/web`.
 
-## Git Hooks and Formatting
+## Git Hooks and Validation
 
-- Format and lint fix: `bun run check`
+- Run the monorepo checks: `bun run check`
 
 ## Project Structure
 
-```
+```text
 modular-vsa/
 ├── apps/
 │   ├── web/         # Frontend application (React + TanStack Router)

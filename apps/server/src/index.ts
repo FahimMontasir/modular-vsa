@@ -3,7 +3,7 @@ import { auth } from "@modular-vsa/auth";
 import { env } from "@modular-vsa/env/server";
 import { Elysia } from "elysia";
 
-const app = new Elysia()
+new Elysia()
   .use(
     cors({
       origin: env.CORS_ORIGIN,

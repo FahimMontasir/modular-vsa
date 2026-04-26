@@ -9,7 +9,9 @@
       "default": "./src/*.ts"
     }
   },
-  "scripts": {},
+  "scripts": {
+    "check": "oxlint && oxfmt --write && tsc --noEmit"
+  },
   "dependencies": {
     "@better-auth/expo": "catalog:",
     "@modular-vsa/db": "workspace:*",
