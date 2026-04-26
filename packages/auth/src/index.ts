@@ -1,9 +1,10 @@
 import { expo } from "@better-auth/expo";
+import { betterAuth } from "better-auth";
+import { drizzleAdapter } from "better-auth/adapters/drizzle";
+
 import { createDb } from "@modular-vsa/db";
 import * as schema from "@modular-vsa/db/schema/auth";
 import { env } from "@modular-vsa/env/server";
-import { betterAuth } from "better-auth";
-import { drizzleAdapter } from "better-auth/adapters/drizzle";
 
 export function createAuth() {
   const db = createDb();

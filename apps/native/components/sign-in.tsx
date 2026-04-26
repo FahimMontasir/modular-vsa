@@ -79,7 +79,7 @@ function SignIn() {
               label: "Signed in successfully",
             });
           },
-        },
+        }
       );
     },
   });

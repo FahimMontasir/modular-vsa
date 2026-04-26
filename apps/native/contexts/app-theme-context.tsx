@@ -40,7 +40,7 @@ export const AppThemeProvider = ({ children }: { children: React.ReactNode }) =>
       setTheme,
       toggleTheme,
     }),
-    [theme, isLight, isDark, setTheme, toggleTheme],
+    [theme, isLight, isDark, setTheme, toggleTheme]
   );
 
   return <AppThemeContext.Provider value={value}>{children}</AppThemeContext.Provider>;

@@ -83,7 +83,7 @@ export function SignUp() {
               label: "Account created successfully",
             });
           },
-        },
+        }
       );
     },
   });
