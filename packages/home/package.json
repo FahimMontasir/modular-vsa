@@ -1,0 +1,22 @@
+{
+  "name": "@modular-vsa/home",
+  "type": "module",
+  "exports": {
+    ".": {
+      "default": "./src/index.ts"
+    },
+    "./*": {
+      "default": "./src/*.ts"
+    }
+  },
+  "scripts": {
+    "check": "oxlint && oxfmt --write && tsc --noEmit"
+  },
+  "dependencies": {
+    "@modular-vsa/env": "workspace:*"
+  },
+  "devDependencies": {
+    "@modular-vsa/config": "workspace:*",
+    "typescript": "catalog:"
+  }
+}

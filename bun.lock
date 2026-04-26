@@ -150,26 +150,35 @@
         "vite": "^8.0.8",
       },
     },
-    "packages/auth": {
-      "name": "@modular-vsa/auth",
+    "packages/__config__": {
+      "name": "@modular-vsa/config",
+      "version": "0.0.0",
+    },
+    "packages/__env__": {
+      "name": "@modular-vsa/env",
+      "version": "0.0.0",
       "dependencies": {
-        "@better-auth/expo": "catalog:",
-        "@modular-vsa/db": "workspace:*",
-        "@modular-vsa/env": "workspace:*",
-        "better-auth": "catalog:",
+        "@t3-oss/env-core": "^0.13.1",
         "dotenv": "catalog:",
         "zod": "catalog:",
+      },
+      "devDependencies": {
+        "@modular-vsa/config": "workspace:*",
+        "@types/bun": "catalog:",
+        "typescript": "catalog:",
+      },
+    },
+    "packages/__utils__": {
+      "name": "@modular-vsa/utils",
+      "dependencies": {
+        "@modular-vsa/env": "workspace:*",
       },
       "devDependencies": {
         "@modular-vsa/config": "workspace:*",
         "typescript": "catalog:",
       },
     },
-    "packages/config": {
-      "name": "@modular-vsa/config",
-      "version": "0.0.0",
-    },
-    "packages/db": {
+    "packages/_db": {
       "name": "@modular-vsa/db",
       "dependencies": {
         "@modular-vsa/env": "workspace:*",
@@ -185,21 +194,7 @@
         "typescript": "catalog:",
       },
     },
-    "packages/env": {
-      "name": "@modular-vsa/env",
-      "version": "0.0.0",
-      "dependencies": {
-        "@t3-oss/env-core": "^0.13.1",
-        "dotenv": "catalog:",
-        "zod": "catalog:",
-      },
-      "devDependencies": {
-        "@modular-vsa/config": "workspace:*",
-        "@types/bun": "catalog:",
-        "typescript": "catalog:",
-      },
-    },
-    "packages/ui": {
+    "packages/_ui": {
       "name": "@modular-vsa/ui",
       "version": "0.0.0",
       "dependencies": {
@@ -220,6 +215,31 @@
         "@types/react": "^19.2.10",
         "@types/react-dom": "catalog:",
         "tailwindcss": "^4.1.18",
+        "typescript": "catalog:",
+      },
+    },
+    "packages/auth": {
+      "name": "@modular-vsa/auth",
+      "dependencies": {
+        "@better-auth/expo": "catalog:",
+        "@modular-vsa/db": "workspace:*",
+        "@modular-vsa/env": "workspace:*",
+        "better-auth": "catalog:",
+        "dotenv": "catalog:",
+        "zod": "catalog:",
+      },
+      "devDependencies": {
+        "@modular-vsa/config": "workspace:*",
+        "typescript": "catalog:",
+      },
+    },
+    "packages/home": {
+      "name": "@modular-vsa/home",
+      "dependencies": {
+        "@modular-vsa/env": "workspace:*",
+      },
+      "devDependencies": {
+        "@modular-vsa/config": "workspace:*",
         "typescript": "catalog:",
       },
     },
@@ -766,13 +786,17 @@
 
     "@modular-vsa/auth": ["@modular-vsa/auth@workspace:packages/auth"],
 
-    "@modular-vsa/config": ["@modular-vsa/config@workspace:packages/config"],
+    "@modular-vsa/config": ["@modular-vsa/config@workspace:packages/__config__"],
 
-    "@modular-vsa/db": ["@modular-vsa/db@workspace:packages/db"],
+    "@modular-vsa/db": ["@modular-vsa/db@workspace:packages/_db"],
 
-    "@modular-vsa/env": ["@modular-vsa/env@workspace:packages/env"],
+    "@modular-vsa/env": ["@modular-vsa/env@workspace:packages/__env__"],
 
-    "@modular-vsa/ui": ["@modular-vsa/ui@workspace:packages/ui"],
+    "@modular-vsa/home": ["@modular-vsa/home@workspace:packages/home"],
+
+    "@modular-vsa/ui": ["@modular-vsa/ui@workspace:packages/_ui"],
+
+    "@modular-vsa/utils": ["@modular-vsa/utils@workspace:packages/__utils__"],
 
     "@mongodb-js/saslprep": ["@mongodb-js/saslprep@1.4.8", "", { "dependencies": { "sparse-bitfield": "^3.0.3" } }, "sha512-kpjr2jy2w71w0oqAMI8oibBmiF9lXxWkEQs5gMkW4hVE48bsqINGLxnCSYW62ck/NHXJQpQEfA9WlJ1sY0eqBg=="],
 
