@@ -8,13 +8,15 @@
     "bradlc.vscode-tailwindcss",
     "naumovs.color-highlight",
     "yoavbls.pretty-ts-errors",
-    "aaron-bond.better-comments",
+    "gruntfuggly.todo-tree",
     "ms-azuretools.vscode-docker",
     "github.vscode-github-actions",
     "formulahendry.auto-rename-tag",
     "davidanson.vscode-markdownlint",
     "ms-vscode.vscode-typescript-next",
-    "streetsidesoftware.code-spell-checker"
+    "streetsidesoftware.code-spell-checker",
+    "pkief.material-icon-theme",
+    "omlet.omlet-vscode-extension"
   ],
   "unwantedRecommendations": ["esbenp.prettier-vscode", "dbaeumer.vscode-eslint"]
 }
