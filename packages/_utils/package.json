@@ -1,0 +1,21 @@
+{
+  "name": "@modular-vsa/utils",
+  "type": "module",
+  "exports": {
+    "./*": {
+      "default": "./src/*.ts"
+    }
+  },
+  "scripts": {
+    "check": "oxlint && oxfmt --write && tsc --noEmit"
+  },
+  "dependencies": {
+    "@modular-vsa/auth": "workspace:*",
+    "@modular-vsa/env": "workspace:*",
+    "elysia": "catalog:"
+  },
+  "devDependencies": {
+    "@modular-vsa/config": "workspace:*",
+    "typescript": "catalog:"
+  }
+}

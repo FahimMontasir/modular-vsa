@@ -1,0 +1,28 @@
+{
+  "name": "@modular-vsa/auth",
+  "type": "module",
+  "exports": {
+    ".": {
+      "default": "./src/index.ts"
+    },
+    "./*": {
+      "default": "./src/*.ts"
+    }
+  },
+  "scripts": {
+    "check": "oxlint && oxfmt --write && tsc --noEmit"
+  },
+  "dependencies": {
+    "@better-auth/expo": "catalog:",
+    "@modular-vsa/db": "workspace:*",
+    "@modular-vsa/env": "workspace:*",
+    "better-auth": "catalog:",
+    "dotenv": "catalog:",
+    "elysia": "catalog:",
+    "zod": "catalog:"
+  },
+  "devDependencies": {
+    "@modular-vsa/config": "workspace:*",
+    "typescript": "catalog:"
+  }
+}

@@ -1,10 +1,23 @@
+import { openapi } from "@elysia/openapi";
+import { serverTiming } from "@elysia/server-timing";
 import { cors } from "@elysiajs/cors";
 import { Elysia } from "elysia";
 
 import { auth } from "@modular-vsa/auth";
 import { env } from "@modular-vsa/env/server";
 
-new Elysia()
+import { GlobalErrorHandler } from "./utils/globalError";
+import { APIV1 } from "./v1-routes";
+
+export const app = new Elysia()
+  .use(GlobalErrorHandler)
+  .use(serverTiming())
+  .use(
+    openapi({
+      path: "/api-docs",
+      // references: fromTypes(),
+    })
+  )
   .use(
     cors({
       origin: env.CORS_ORIGIN,
@@ -20,7 +33,9 @@ new Elysia()
     }
     return status(405);
   })
-  .get("/", () => "OK")
-  .listen(3000, () => {
-    console.log("Server is running on http://localhost:3000");
+  .use(APIV1)
+  .listen(env.PORT, () => {
+    console.log(`Server is running on http://localhost:${env.PORT}`);
   });
+
+export const ServerType = typeof app;

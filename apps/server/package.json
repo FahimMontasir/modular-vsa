@@ -10,14 +10,19 @@
     "start": "bun run dist/index.mjs"
   },
   "dependencies": {
+    "@elysia/openapi": "^1.4.15",
+    "@elysia/server-timing": "^1.4.1",
     "@elysiajs/cors": "^1.4.1",
     "@modular-vsa/auth": "workspace:*",
     "@modular-vsa/db": "workspace:*",
     "@modular-vsa/env": "workspace:*",
-    "@sinclair/typebox": "^0.34.49",
+    "@modular-vsa/home": "workspace:*",
+    "@modular-vsa/security": "workspace:*",
+    "@modular-vsa/utils": "workspace:*",
+    "@sinclair/typebox": "catalog:",
     "better-auth": "catalog:",
     "dotenv": "catalog:",
-    "elysia": "^1.4.21",
+    "elysia": "catalog:",
     "zod": "catalog:"
   },
   "devDependencies": {
