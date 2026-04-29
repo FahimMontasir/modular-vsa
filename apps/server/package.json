@@ -7,7 +7,10 @@
     "check": "oxlint && oxfmt --write && tsc -b",
     "compile": "bun build --compile --minify --sourcemap --bytecode ./src/index.ts --outfile server",
     "dev": "bun run --hot src/index.ts",
-    "start": "bun run dist/index.mjs"
+    "start": "bun run dist/index.mjs",
+    "dkr:start": "docker compose up -d",
+    "dkr:stop": "docker compose stop",
+    "dkr:down": "docker compose down"
   },
   "dependencies": {
     "@elysia/openapi": "^1.4.15",

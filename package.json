@@ -17,7 +17,9 @@
       "@types/react-dom": "19.2.3",
       "@better-auth/expo": "1.5.5",
       "@sinclair/typebox": "0.34.49",
-      "elysia": "1.4.21"
+      "elysia": "1.4.21",
+      "drizzle-typebox": "0.3.3",
+      "drizzle-orm": "0.45.1"
     }
   },
   "type": "module",
@@ -26,6 +28,7 @@
     "dev": "turbo dev",
     "build": "turbo build",
     "check": "turbo check",
+    "test:unit": "turbo test:unit",
     "dev:native": "turbo -F native dev",
     "dev:web": "turbo -F web dev",
     "dev:server": "turbo -F server dev",
@@ -33,10 +36,9 @@
     "db:studio": "turbo -F @modular-vsa/db db:studio",
     "db:generate": "turbo -F @modular-vsa/db db:generate",
     "db:migrate": "turbo -F @modular-vsa/db db:migrate",
-    "db:start": "turbo -F @modular-vsa/db db:start",
-    "db:watch": "turbo -F @modular-vsa/db db:watch",
-    "db:stop": "turbo -F @modular-vsa/db db:stop",
-    "db:down": "turbo -F @modular-vsa/db db:down",
+    "dkr:start": "turbo -F server dkr:start",
+    "dkr:stop": "turbo -F server dkr:stop",
+    "dkr:down": "turbo -F server dkr:down",
     "update:deps": "bun update --interactive --recursive"
   },
   "dependencies": {

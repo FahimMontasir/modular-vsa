@@ -2,18 +2,25 @@
   "name": "@modular-vsa/home",
   "type": "module",
   "exports": {
-    ".": {
-      "default": "./src/index.ts"
+    "./doc": {
+      "default": "./README.md"
     },
     "./*": {
       "default": "./src/*.ts"
     }
   },
   "scripts": {
-    "check": "oxlint && oxfmt --write && tsc --noEmit"
+    "check": "oxlint && oxfmt --write && tsc --noEmit",
+    "test:unit": "bun test src/server/helpers/__tests__"
   },
   "dependencies": {
-    "@modular-vsa/env": "workspace:*"
+    "@modular-vsa/db": "workspace:*",
+    "@modular-vsa/env": "workspace:*",
+    "@modular-vsa/utils": "workspace:*",
+    "@sinclair/typebox": "catalog:",
+    "drizzle-orm": "catalog:",
+    "drizzle-typebox": "catalog:",
+    "elysia": "catalog:"
   },
   "devDependencies": {
     "@modular-vsa/config": "workspace:*",

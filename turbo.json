@@ -1,6 +1,6 @@
 {
   "$schema": "https://turbo.build/schema.json",
-  "ui": "tui",
+  "ui": "stream",
   "tasks": {
     "build": {
       "dependsOn": ["^build"],
@@ -10,6 +10,10 @@
     "check": {
       "dependsOn": ["^check"],
       "description": "Lint, format, and typecheck all code"
+    },
+    "test:unit": {
+      "dependsOn": ["^test:unit"],
+      "description": "Run unit tests"
     },
     "dev": {
       "cache": false,
@@ -29,18 +33,14 @@
       "cache": false,
       "persistent": true
     },
-    "db:start": {
+    "dkr:start": {
       "cache": false,
       "persistent": true
     },
-    "db:stop": {
+    "dkr:stop": {
       "cache": false
     },
-    "db:watch": {
-      "cache": false,
-      "persistent": true
-    },
-    "db:down": {
+    "dkr:down": {
       "cache": false
     }
   }

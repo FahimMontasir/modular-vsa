@@ -14,16 +14,12 @@
     "db:generate": "drizzle-kit generate",
     "db:studio": "drizzle-kit studio",
     "db:migrate": "drizzle-kit migrate",
-    "db:start": "docker compose up -d",
-    "db:watch": "docker compose up",
-    "db:stop": "docker compose stop",
-    "db:down": "docker compose down",
     "check": "oxlint && oxfmt --write && tsc -b"
   },
   "dependencies": {
     "@modular-vsa/env": "workspace:*",
     "dotenv": "catalog:",
-    "drizzle-orm": "^0.45.1",
+    "drizzle-orm": "catalog:",
     "pg": "^8.17.1",
     "zod": "catalog:"
   },
