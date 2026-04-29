@@ -4,10 +4,12 @@
   "exports": {
     "./*": {
       "default": "./src/*.ts"
-    }
+    },
+    "./doc": "./src/README.md"
   },
   "scripts": {
-    "check": "oxlint && oxfmt --write && tsc --noEmit"
+    "check": "oxlint && oxfmt --write && tsc --noEmit",
+    "test:unit": "bun test __tests__/unit"
   },
   "dependencies": {
     "@modular-vsa/auth": "workspace:*",

@@ -6,6 +6,7 @@ import { Elysia } from "elysia";
 import { auth } from "@modular-vsa/auth";
 import { env } from "@modular-vsa/env/server";
 
+import { CORS_CONFIG } from "./utils/cors";
 import { GlobalErrorHandler } from "./utils/globalError";
 import { APIV1 } from "./v1-routes";
 
@@ -18,14 +19,7 @@ export const app = new Elysia()
       // references: fromTypes(),
     })
   )
-  .use(
-    cors({
-      origin: env.CORS_ORIGIN,
-      methods: ["GET", "POST", "OPTIONS"],
-      allowedHeaders: ["Content-Type", "Authorization"],
-      credentials: true,
-    })
-  )
+  .use(cors(CORS_CONFIG))
   .all("/api/auth/*", async (context) => {
     const { request, status } = context;
     if (["POST", "GET"].includes(request.method)) {

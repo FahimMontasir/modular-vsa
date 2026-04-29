@@ -8,7 +8,7 @@ import {
   normalizeUpdatePostValues,
   requireOne,
   requirePayload,
-} from "../post";
+} from "../../../../src/server/helpers/post";
 
 describe("post helpers", () => {
   test("normalizeCreatePostValues applies defaults and trims title", () => {

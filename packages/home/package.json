@@ -11,7 +11,7 @@
   },
   "scripts": {
     "check": "oxlint && oxfmt --write && tsc --noEmit",
-    "test:unit": "bun test src/server/helpers/__tests__"
+    "test:unit": "bun test __tests__/unit"
   },
   "dependencies": {
     "@modular-vsa/db": "workspace:*",
