@@ -15,7 +15,7 @@
   "dependencies": {
     "@elysia/openapi": "^1.4.15",
     "@elysia/server-timing": "^1.4.1",
-    "@elysiajs/cors": "^1.4.1",
+    "@elysiajs/cors": "^1.4.2",
     "@modular-vsa/auth": "workspace:*",
     "@modular-vsa/db": "workspace:*",
     "@modular-vsa/env": "workspace:*",
@@ -31,7 +31,7 @@
   "devDependencies": {
     "@modular-vsa/config": "workspace:*",
     "@types/bun": "catalog:",
-    "tsdown": "^0.16.5",
+    "tsdown": "^0.21.10",
     "typescript": "catalog:"
   }
 }

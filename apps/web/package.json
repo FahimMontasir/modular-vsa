@@ -9,22 +9,19 @@
     "serve": "vite preview",
     "start": "vite",
     "check": "oxlint && oxfmt --write && tsc --noEmit",
-    "generate-pwa-assets": "pwa-assets-generator",
-    "tauri": "tauri",
-    "desktop:dev": "tauri dev",
-    "desktop:build": "tauri build"
+    "generate-pwa-assets": "pwa-assets-generator"
   },
   "dependencies": {
     "@hookform/resolvers": "^5.2.2",
     "@modular-vsa/auth": "workspace:*",
     "@modular-vsa/env": "workspace:*",
     "@modular-vsa/ui": "workspace:*",
-    "@tailwindcss/vite": "^4.2.2",
+    "@tailwindcss/vite": "^4.2.4",
     "@tanstack/react-form": "catalog:",
-    "@tanstack/react-router": "^1.168.22",
+    "@tanstack/react-router": "^1.168.25",
     "better-auth": "catalog:",
     "dotenv": "catalog:",
-    "lucide-react": "^1.8.0",
+    "lucide-react": "^1.14.0",
     "next-themes": "catalog:",
     "react": "^19.2.5",
     "react-dom": "^19.2.5",
@@ -35,16 +32,15 @@
   "devDependencies": {
     "@modular-vsa/config": "workspace:*",
     "@tanstack/react-router-devtools": "^1.166.13",
-    "@tanstack/router-plugin": "^1.167.22",
-    "@tauri-apps/cli": "^2.4.0",
-    "@types/node": "^22.13.14",
+    "@tanstack/router-plugin": "^1.167.28",
+    "@types/node": "^25.6.0",
     "@types/react": "^19.2.14",
     "@types/react-dom": "catalog:",
     "@vite-pwa/assets-generator": "^1.0.2",
     "@vitejs/plugin-react": "^6.0.1",
-    "postcss": "^8.5.10",
-    "tailwindcss": "^4.2.2",
+    "postcss": "^8.5.12",
+    "tailwindcss": "^4.2.4",
     "typescript": "catalog:",
-    "vite": "^8.0.8"
+    "vite": "^8.0.10"
   }
 }
