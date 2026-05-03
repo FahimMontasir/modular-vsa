@@ -9,7 +9,7 @@ This is a modern TypeScript stack that combines React, TanStack Router, Elysia, 
 - **React Native** - Build mobile apps using React
 - **Expo** - Tools for React Native development
 - **TailwindCSS** - Utility-first CSS for rapid UI development
-- **Shared UI package** - shadcn/ui primitives live in `packages/ui`
+- **Shared UI package** - shadcn/ui primitives live in `packages/_ui`
 - **Elysia** - Type-safe, high-performance framework
 - **Bun** - Runtime environment
 - **Drizzle** - TypeScript-first ORM
@@ -52,18 +52,18 @@ The API is running at [http://localhost:3000](http://localhost:3000).
 
 ## UI Customization
 
-React web apps in this stack share shadcn/ui primitives through `packages/ui`.
+React web apps in this stack share shadcn/ui primitives through `packages/_ui`.
 
-- Change design tokens and global styles in `packages/ui/src/styles/globals.css`
-- Update shared primitives in `packages/ui/src/components/*`
-- Adjust shadcn aliases or style config in `packages/ui/components.json` and `apps/web/components.json`
+- Change design tokens and global styles in `packages/_ui/src/styles/globals.css`
+- Update shared primitives in `packages/_ui/src/components/*`
+- Adjust shadcn aliases or style config in `packages/_ui/components.json` and `apps/web/components.json`
 
 ### Add more shared components
 
 Run this from the project root to add more primitives to the shared UI package:
 
 ```bash
-npx shadcn@latest add accordion dialog popover sheet table -c packages/ui
+npx shadcn@latest add accordion dialog popover sheet table -c packages/_ui
 ```
 
 Import shared components like this:
@@ -72,9 +72,9 @@ Import shared components like this:
 import { Button } from "@modular-vsa/ui/components/button";
 ```
 
-### Add app-specific blocks
+### Add app‑specific blocks
 
-If you want to add app-specific blocks instead of shared primitives, run the shadcn CLI from `apps/web`.
+If you want to add app‑specific blocks instead of shared primitives, run the shadcn CLI from `apps/web`.
 
 ## Git Hooks and Validation
 
@@ -85,13 +85,19 @@ If you want to add app-specific blocks instead of shared primitives, run the sha
 ```text
 modular-vsa/
 ├── apps/
-│   ├── web/         # Frontend application (React + TanStack Router)
-│   ├── native/      # Mobile application (React Native, Expo)
-│   └── server/      # Backend API (Elysia)
+│   ├── native/   # Expo React Native app
+│   ├── server/   # Elysia backend API
+│   └── web/      # Vite React SPA
 ├── packages/
-│   ├── ui/          # Shared shadcn/ui components and styles
-│   ├── auth/        # Authentication configuration & logic
-│   └── db/          # Database schema & queries
+│   ├── __config__/   # Shared TypeScript configuration
+│   ├── __env__/      # Runtime environment schemas
+│   ├── _auth/        # Authentication wrapper (better‑auth)
+│   ├── _db/          # Drizzle ORM schema & connection factory
+│   ├── _utils/       # Shared utility functions
+│   ├── _ui/          # Shared shadcn/ui components and styles
+│   ├── home/         # Feature package for the Home domain (posts, comments)
+│   └── security/     # Security‑related services (placeholder)
+└── ...
 ```
 
 ## Available Scripts

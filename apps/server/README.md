@@ -4,6 +4,15 @@ Backend server for the modular VSA application, built with Elysia.
 
 ## Architecture
 
+```text
+apps/server/src/
+├── index.ts            # Server entry point (Elysia app setup)
+├── v1-routes.ts        # API version 1 route aggregation
+└── utils/
+    ├── cors.ts        # CORS middleware configuration
+    └── globalError.ts # Global error handling middleware
+```
+
 ### `src/`
 
 Main source code directory containing server logic.
