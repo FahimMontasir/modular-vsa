@@ -1,4 +1,4 @@
-name: Run Checks
+name: Run Tests
 
 on:
   pull_request:
@@ -24,5 +24,5 @@ jobs:
       - name: 🏗 Setup Bun
         uses: ./.github/actions/bun
 
-      - name: 🔍 Lint, format, and typecheck
-        run: bun check
+      - name: 🧪 Run Tests
+        run: bun test:unit
