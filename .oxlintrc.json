@@ -19,7 +19,13 @@
   "categories": {
     "correctness": "error"
   },
-  "ignorePatterns": [],
+  "ignorePatterns": [
+    "**/dist/**",
+    "**/dev-dist/**",
+    "**/routeTree.gen.ts",
+    "**/test-results/**",
+    "**/migrations/**"
+  ],
   "rules": {
     "typescript/no-floating-promises": "off",
     "typescript/no-base-to-string": "warn",

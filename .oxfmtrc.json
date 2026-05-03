@@ -12,7 +12,13 @@
   "arrowParens": "always",
   "bracketSameLine": false,
   "bracketSpacing": true,
-  "ignorePatterns": [],
+  "ignorePatterns": [
+    "**/dist/**",
+    "**/dev-dist/**",
+    "**/routeTree.gen.ts",
+    "**/test-results/**",
+    "**/migrations/**"
+  ],
   "sortTailwindcss": {
     "stylesheet": "packages/_ui/src/styles/globals.css",
     "functions": ["clsx", "cva", "cn"]

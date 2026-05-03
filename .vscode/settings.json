@@ -35,7 +35,9 @@
     "**/playwright-report": true,
     "**/dist": true,
     "**/node_modules": true,
-    "**/*.tsbuildinfo": true
+    "**/*.tsbuildinfo": true,
+    "**/.tanstack": true,
+    "**/dev-dist": true
   },
   "files.readonlyInclude": {
     "**/routeTree.gen.ts": true,
