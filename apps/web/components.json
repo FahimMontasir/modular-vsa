@@ -1,11 +1,11 @@
 {
   "$schema": "https://ui.shadcn.com/schema.json",
-  "style": "base-lyra",
+  "style": "base-nova",
   "rsc": false,
   "tsx": true,
   "tailwind": {
     "config": "",
-    "css": "../../packages/ui/src/styles/globals.css",
+    "css": "../../packages/_ui/src/styles/globals.css",
     "baseColor": "neutral",
     "cssVariables": true,
     "prefix": ""
@@ -18,7 +18,7 @@
     "lib": "@/lib",
     "hooks": "@/hooks"
   },
+  "rtl": false,
   "menuColor": "default",
-  "menuAccent": "subtle",
-  "registries": {}
+  "menuAccent": "subtle"
 }

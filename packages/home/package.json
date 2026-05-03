@@ -7,6 +7,10 @@
     },
     "./*": {
       "default": "./src/*.ts"
+    },
+    "./pages/*": {
+      "default": "./src/web/pages/*.tsx",
+      "native": "./src/native/pages/*.tsx"
     }
   },
   "scripts": {
@@ -16,14 +20,9 @@
   "dependencies": {
     "@modular-vsa/db": "workspace:*",
     "@modular-vsa/env": "workspace:*",
-    "@modular-vsa/utils": "workspace:*",
-    "@sinclair/typebox": "catalog:",
-    "drizzle-orm": "catalog:",
-    "drizzle-typebox": "catalog:",
-    "elysia": "catalog:"
+    "@modular-vsa/utils": "workspace:*"
   },
   "devDependencies": {
-    "@modular-vsa/config": "workspace:*",
-    "typescript": "catalog:"
+    "@modular-vsa/config": "workspace:*"
   }
 }

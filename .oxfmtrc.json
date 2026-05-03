@@ -14,7 +14,7 @@
   "bracketSpacing": true,
   "ignorePatterns": [],
   "sortTailwindcss": {
-    "stylesheet": "packages/_ui/src/styles/global.css",
+    "stylesheet": "packages/_ui/src/styles/globals.css",
     "functions": ["clsx", "cva", "cn"]
   },
   "experimentalSortImports": {

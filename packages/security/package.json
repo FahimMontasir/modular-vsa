@@ -6,17 +6,17 @@
       "default": "./src/index.ts"
     },
     "./*": {
-      "default": "./src/*.ts"
+      "default": "./src/*"
     }
   },
   "scripts": {
     "check": "oxlint && oxfmt --write && tsc --noEmit"
   },
   "dependencies": {
-    "@modular-vsa/env": "workspace:*"
+    "@modular-vsa/env": "workspace:*",
+    "@modular-vsa/utils": "workspace:*"
   },
   "devDependencies": {
-    "@modular-vsa/config": "workspace:*",
-    "typescript": "catalog:"
+    "@modular-vsa/config": "workspace:*"
   }
 }

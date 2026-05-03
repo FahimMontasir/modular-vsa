@@ -30,4 +30,9 @@ export default defineConfig({
       devOptions: { enabled: true },
     }),
   ],
+  build: {
+    rolldownOptions: { output: { comments: false } },
+    emptyOutDir: true,
+    sourcemap: "hidden",
+  },
 });

@@ -18,8 +18,6 @@
     "zod": "catalog:"
   },
   "devDependencies": {
-    "@modular-vsa/config": "workspace:*",
-    "@types/bun": "catalog:",
-    "typescript": "catalog:"
+    "@modular-vsa/config": "workspace:*"
   }
 }

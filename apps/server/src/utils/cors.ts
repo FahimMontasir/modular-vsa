@@ -7,8 +7,8 @@ type CORSConfig = Parameters<typeof cors>[0];
 /**
  * CORS Configuration for the server
  *
- * This utility contains the Cross-Origin Resource Sharing (CORS) configuration.
- * CORS settings define which origins are allowed to access the API and what methods/headers they can use.
+ * This utility contains the Cross-Origin Resource Sharing (CORS) configuration. CORS settings
+ * define which origins are allowed to access the API and what methods/headers they can use.
  *
  * @see https://en.wikipedia.org/wiki/Cross-origin_resource_sharing
  */

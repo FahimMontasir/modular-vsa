@@ -16,23 +16,23 @@ export default function Home() {
 
   return (
     <Container className="p-6">
-      <View className="py-4 mb-6">
-        <Text className="text-4xl font-bold text-foreground mb-2">BETTER T STACK</Text>
+      <View className="mb-6 py-4">
+        <Text className="mb-2 text-4xl font-bold text-foreground">BETTER T STACK</Text>
       </View>
 
       {session?.user ? (
         <Card variant="secondary" className="mb-6 p-4">
-          <Text className="text-foreground text-base mb-2">
+          <Text className="mb-2 text-base text-foreground">
             Welcome, <Text className="font-medium">{session.user.name}</Text>
           </Text>
-          <Text className="text-muted text-sm mb-4">{session.user.email}</Text>
+          <Text className="mb-4 text-sm text-muted">{session.user.email}</Text>
           <Pressable
-            className="bg-danger py-3 px-4 rounded-lg self-start active:opacity-70"
+            className="bg-danger self-start rounded-lg px-4 py-3 active:opacity-70"
             onPress={() => {
               authClient.signOut();
             }}
           >
-            <Text className="text-foreground font-medium">Sign Out</Text>
+            <Text className="font-medium text-foreground">Sign Out</Text>
           </Pressable>
         </Card>
       ) : null}

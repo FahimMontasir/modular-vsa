@@ -13,11 +13,9 @@
   },
   "dependencies": {
     "@modular-vsa/auth": "workspace:*",
-    "@modular-vsa/env": "workspace:*",
-    "elysia": "catalog:"
+    "@modular-vsa/env": "workspace:*"
   },
   "devDependencies": {
-    "@modular-vsa/config": "workspace:*",
-    "typescript": "catalog:"
+    "@modular-vsa/config": "workspace:*"
   }
 }

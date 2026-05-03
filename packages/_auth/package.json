@@ -18,11 +18,9 @@
     "@modular-vsa/env": "workspace:*",
     "better-auth": "catalog:",
     "dotenv": "catalog:",
-    "elysia": "catalog:",
     "zod": "catalog:"
   },
   "devDependencies": {
-    "@modular-vsa/config": "workspace:*",
-    "typescript": "catalog:"
+    "@modular-vsa/config": "workspace:*"
   }
 }

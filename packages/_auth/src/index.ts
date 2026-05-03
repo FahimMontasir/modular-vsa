@@ -1,41 +1,37 @@
 import { expo } from "@better-auth/expo";
-import { betterAuth } from "better-auth";
+import { betterAuth, type BetterAuthOptions } from "better-auth";
 import { drizzleAdapter } from "better-auth/adapters/drizzle";
 
-import { createDb } from "@modular-vsa/db";
+import { db } from "@modular-vsa/db";
 import * as schema from "@modular-vsa/db/schema/auth";
 import { env } from "@modular-vsa/env/server";
 
-export function createAuth() {
-  const db = createDb();
+const CONF: BetterAuthOptions = {
+  database: drizzleAdapter(db, {
+    provider: "pg",
 
-  return betterAuth({
-    database: drizzleAdapter(db, {
-      provider: "pg",
-
-      schema: schema,
-    }),
-    trustedOrigins: [
-      env.CORS_ORIGIN,
-      "modular-vsa://",
-      ...(env.NODE_ENV === "development"
-        ? ["exp://", "exp://**", "exp://192.168.*.*:*/**", "http://localhost:8081"]
-        : []),
-    ],
-    emailAndPassword: {
-      enabled: true,
+    schema: schema,
+  }),
+  trustedOrigins: [
+    env.CORS_ORIGIN,
+    "modular-vsa://",
+    ...(env.NODE_ENV === "development"
+      ? ["exp://", "exp://**", "exp://192.168.*.*:*/**", "http://localhost:8081"]
+      : []),
+  ],
+  emailAndPassword: {
+    enabled: true,
+  },
+  secret: env.BETTER_AUTH_SECRET,
+  baseURL: env.BETTER_AUTH_URL,
+  advanced: {
+    defaultCookieAttributes: {
+      sameSite: "none",
+      secure: true,
+      httpOnly: true,
     },
-    secret: env.BETTER_AUTH_SECRET,
-    baseURL: env.BETTER_AUTH_URL,
-    advanced: {
-      defaultCookieAttributes: {
-        sameSite: "none",
-        secure: true,
-        httpOnly: true,
-      },
-    },
-    plugins: [expo()],
-  });
-}
+  },
+  plugins: [expo()],
+};
 
-export const auth = createAuth();
+export const auth = betterAuth(CONF);

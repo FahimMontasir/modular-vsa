@@ -26,7 +26,6 @@
   "devDependencies": {
     "@modular-vsa/config": "workspace:*",
     "@types/pg": "^8.16.0",
-    "drizzle-kit": "^0.31.8",
-    "typescript": "catalog:"
+    "drizzle-kit": "^0.31.8"
   }
 }

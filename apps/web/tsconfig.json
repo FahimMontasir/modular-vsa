@@ -1,17 +1,10 @@
 {
+  "extends": "@modular-vsa/config/tsconfig.base.json",
   "compilerOptions": {
-    "strict": true,
-    "esModuleInterop": true,
     "jsx": "react-jsx",
-    "target": "ESNext",
-    "module": "ESNext",
-    "moduleResolution": "Bundler",
-    "skipLibCheck": true,
-    "types": ["vite/client"],
-    "rootDirs": ["."],
-    "paths": {
-      "@/*": ["./src/*"],
-      "@modular-vsa/ui/*": ["../../packages/ui/src/*"]
-    }
-  }
+    "preserveSymlinks": true,
+    "allowImportingTsExtensions": true,
+    "verbatimModuleSyntax": true
+  },
+  "include": ["**/*.ts", "**/*.tsx"]
 }

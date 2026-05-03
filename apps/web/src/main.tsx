@@ -1,14 +1,15 @@
 import { RouterProvider, createRouter } from "@tanstack/react-router";
 import ReactDOM from "react-dom/client";
 
-import Loader from "./components/loader";
+import "@modular-vsa/ui/globals.css";
+
 import { routeTree } from "./routeTree.gen";
 
 const router = createRouter({
   routeTree,
   defaultPreload: "intent",
   scrollRestoration: true,
-  defaultPendingComponent: () => <Loader />,
+  // defaultPendingComponent: () => <Loader />,
   context: {},
 });
 

@@ -4,7 +4,9 @@
     "target": "ESNext",
     "module": "ESNext",
     "moduleResolution": "bundler",
-    "lib": ["ESNext"],
+    "jsx": "react-jsx",
+    "moduleDetection": "force",
+    "lib": ["ESNext", "ESNext.Array", "DOM"],
     "verbatimModuleSyntax": true,
     "strict": true,
     "skipLibCheck": true,
@@ -17,6 +19,11 @@
     "noUnusedLocals": true,
     "noUnusedParameters": true,
     "noFallthroughCasesInSwitch": true,
-    "types": ["bun"]
+    "noEmit": true,
+    "incremental": true,
+    "noImplicitAny": true,
+    "noImplicitThis": true,
+    "noUncheckedSideEffectImports": true,
+    "types": ["bun", "vite/client"]
   }
 }
