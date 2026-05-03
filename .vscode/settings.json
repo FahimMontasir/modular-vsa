@@ -32,9 +32,10 @@
   "files.exclude": {
     "**/.cache": true,
     "**/.turbo": true,
-    "**/playwright-report": true
-    // "**/dist": true,
-    // "**/node_modules": true
+    "**/playwright-report": true,
+    "**/dist": true,
+    "**/node_modules": true,
+    "**/*.tsbuildinfo": true
   },
   "files.readonlyInclude": {
     "**/routeTree.gen.ts": true,

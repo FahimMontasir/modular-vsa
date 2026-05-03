@@ -43,7 +43,8 @@
     "dkr:start": "turbo -F server dkr:start",
     "dkr:stop": "turbo -F server dkr:stop",
     "dkr:down": "turbo -F server dkr:down",
-    "update:deps": "bun update --interactive --recursive"
+    "update:deps": "bun update --interactive --recursive",
+    "clean": "find . -name 'node_modules' -type d -prune -exec rm -rf '{}' + && find . -name 'dist' -type d -prune -exec rm -rf '{}' + && find . -name '.turbo' -type d -prune -exec rm -rf '{}' + && find . -name '*.tsbuildinfo' -type f -delete"
   },
   "dependencies": {
     "@modular-vsa/env": "workspace:*",
@@ -62,9 +63,12 @@
     "oxfmt": "^0.47.0",
     "oxlint": "^1.62.0",
     "tailwindcss": "catalog:",
-    "turbo": "^2.8.12",
+    "turbo": "^2.9.8",
     "typescript": "catalog:",
     "vite": "catalog:"
+  },
+  "engines": {
+    "bun": ">=1.3.13"
   },
   "packageManager": "bun@1.3.13"
 }
