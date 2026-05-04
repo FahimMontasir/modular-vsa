@@ -100,6 +100,24 @@ modular-vsa/
 └── ...
 ```
 
+## Repository Configuration
+
+### .github
+
+- **actions/** – Custom GitHub Actions used in CI.  
+  - `bun` – Action that sets up Bun runtime for all workflows.  
+- **hooks/** – Server-side Git hooks managed by `pre-commit`.  
+  - `pre-commit` – Runs linting, formatting, and type checks before each commit.  
+- **workflows/** – CI pipelines.  
+  - `tests.yml` – Runs unit, integration, and end‑to‑end tests on push/PR.
+
+### .vscode
+
+- `settings.json` – Workspace settings (e.g., TypeScript validation, ESLint integration, Bun terminal).  
+- `extensions.json` – Recommended extensions for contributors (`esbenp.prettier-vscode`, `bradlc.vscode-tailwindcss`, `Biomejs.biome`, etc.).
+
+These configurations help ensure consistent development environment, automated checks, and reproducible CI runs across the monorepo.
+
 ## Available Scripts
 
 - `bun run dev`: Start all applications in development mode

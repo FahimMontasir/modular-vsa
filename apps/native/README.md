@@ -40,7 +40,7 @@ apps/native/
 All cross‑platform UI primitives live in `packages/_ui`. Import them like:
 
 ```tsx
-import { Button } from "@modular-vsa/_ui/components/button";
+import { Button } from "@modular-vsa/ui/components/button";
 ```
 
 ## Build

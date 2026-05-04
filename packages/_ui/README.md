@@ -22,7 +22,7 @@ packages/_ui/
 ## Usage
 
 ```tsx
-import { Button } from "@modular-vsa/_ui/components/button";
+import { Button } from "@modular-vsa/ui/components/button";
 
 export default function Example() {
   return <Button>Click me</Button>;
