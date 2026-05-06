@@ -52,10 +52,11 @@ This is the main implemented area of the package.
 ### `src/native` and `src/web`
 
 These folders exist as platform‑specific extension points.
-* **src/web/** – contains UI pieces for the home feature:
-  * `components/` – reusable React components.
-  * `pages/` – route‑level page components.
-* **src/native/** – currently empty but reserved for native‑platform implementations.
+
+- **src/web/** – contains UI pieces for the home feature:
+  - `components/` – reusable React components.
+  - `pages/` – route‑level page components.
+- **src/native/** – currently empty but reserved for native‑platform implementations.
 
 If you add platform behavior later, keep the logic isolated to the matching folder instead of leaking platform checks into the shared server code.
 
