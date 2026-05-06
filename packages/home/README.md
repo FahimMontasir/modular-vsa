@@ -26,16 +26,20 @@ packages/home/
 │   ├── server/
 │   │   ├── controllers/         # HTTP route definitions
 │   │   ├── services/            # Database and business logic
-│   │   ├── helpers/             # Normalization and small utilities
+│   │   ├── helpers/             # Normalization and small utilities, including path helpers
 │   │   ├── validators/          # Elysia / TypeBox schemas
 │   │   └── types.ts             # Static types inferred from schemas
 │   ├── native/                  # Native-specific extension point
 │   └── web/                     # Web-specific extension point
+│       ├── components/            # UI components (currently empty)
+│       └── pages/                 # Page components (e.g., home-page.tsx)
 └── __tests__/
  └── unit/                    # Unit tests for package behavior
 ```
 
 ### `src/server`
+
+This area implements the server logic. It includes controllers for each CRUD operation, services for database interaction, helpers for data normalization, a `routes.ts` file that composes the exported `HomeRoutes`, and validators/types that drive runtime validation and static typing.
 
 This is the main implemented area of the package.
 
@@ -47,7 +51,13 @@ This is the main implemented area of the package.
 
 ### `src/native` and `src/web`
 
-These folders exist as platform-specific extension points. If you add platform behavior later, keep the logic isolated to the matching folder instead of leaking platform checks into the shared server code.
+These folders exist as platform‑specific extension points.
+* **src/web/** – contains UI pieces for the home feature:
+  * `components/` – reusable React components.
+  * `pages/` – route‑level page components.
+* **src/native/** – currently empty but reserved for native‑platform implementations.
+
+If you add platform behavior later, keep the logic isolated to the matching folder instead of leaking platform checks into the shared server code.
 
 ## Schema → validation → types
 
