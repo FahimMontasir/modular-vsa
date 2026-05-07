@@ -33,6 +33,8 @@
     "typescript/await-thenable": "warn",
     "typescript/no-redundant-type-constituents": "warn",
     "default-param-last": "error",
+    "func-names": ["error", "always"],
+    "func-style": ["error", "declaration"],
     "no-dupe-else-if": "error",
     "no-param-reassign": "error",
     "no-unused-vars": [

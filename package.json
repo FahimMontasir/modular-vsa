@@ -44,6 +44,7 @@
     "dkr:stop": "turbo -F server dkr:stop",
     "dkr:down": "turbo -F server dkr:down",
     "update:deps": "bun update --interactive --recursive",
+    "add:ui": "cd packages/_ui && bunx --bun shadcn@latest add",
     "clean": "find . -name 'node_modules' -type d -prune -exec rm -rf '{}' + && find . -name 'dist' -type d -prune -exec rm -rf '{}' + && find . -name '.turbo' -type d -prune -exec rm -rf '{}' + && find . -name '*.tsbuildinfo' -type f -delete"
   },
   "dependencies": {

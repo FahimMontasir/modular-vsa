@@ -1,3 +1,11 @@
 {
-  "extends": "@modular-vsa/config/tsconfig.base.json"
+  "extends": "@modular-vsa/config/tsconfig.base.json",
+  "compilerOptions": {
+    "baseUrl": ".",
+    "ignoreDeprecations": "6.0",
+    "paths": {
+      "@modular-vsa/ui/*": ["src/*"]
+    }
+  },
+  "include": ["src", "**/*.ts", "*.ts"]
 }

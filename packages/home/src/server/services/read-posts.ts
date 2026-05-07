@@ -7,7 +7,7 @@ import { post } from "@modular-vsa/db/schema/home";
 import { normalizePostListQuery } from "../helpers/post";
 import type { GetPostsQuery } from "../types";
 
-export const readPosts = async (query: GetPostsQuery) => {
+export async function readPosts(query: GetPostsQuery) {
   const normalized = normalizePostListQuery(query);
   const filters: SQL[] = [];
 
@@ -26,4 +26,4 @@ export const readPosts = async (query: GetPostsQuery) => {
   }
 
   return await baseQuery.where(and(...filters)).orderBy(desc(post.createdAt));
-};
+}

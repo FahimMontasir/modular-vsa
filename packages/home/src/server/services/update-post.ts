@@ -7,7 +7,7 @@ import { ApiError } from "@modular-vsa/utils/server/apiError";
 import { normalizeUpdatePostValues, requirePayload } from "../helpers/post";
 import type { UpdatePostBody } from "../types";
 
-export const updatePost = async (postId: number, postData: UpdatePostBody) => {
+export async function updatePost(postId: number, postData: UpdatePostBody) {
   const values = requirePayload(normalizeUpdatePostValues(postData), "No update fields provided");
   const rows = await db.update(post).set(values).where(eq(post.id, postId)).returning();
 
@@ -16,4 +16,4 @@ export const updatePost = async (postId: number, postData: UpdatePostBody) => {
   }
 
   return rows[0];
-};
+}
