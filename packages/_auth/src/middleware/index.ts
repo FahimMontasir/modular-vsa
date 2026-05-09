@@ -9,7 +9,7 @@ import { getAuthInstance } from "..";
  *
  * @example
  *   ```ts
- *   import { AuthMiddleware } from "@kuno/api/v1/middlewares/auth";
+ *   import { AuthMiddleware } from "@modular-vsa/auth";
  *
  *   const app = secureAPI().get(
  *     "/",
@@ -22,7 +22,6 @@ import { getAuthInstance } from "..";
  */
 export const AuthMiddleware = new Elysia({
   name: "Auth Middleware",
-  detail: { tags: ["Better Auth Middleware"] },
 }).macro({
   // INFO: can pass role or array of roles as a parameter to the middleware
   authenticate: {

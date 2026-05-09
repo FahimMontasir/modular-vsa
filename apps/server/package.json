@@ -1,10 +1,13 @@
 {
-  "name": "server",
+  "name": "@modular-vsa/server",
   "type": "module",
   "main": "src/index.ts",
+  "exports": {
+    "./types": "./src/utils/types.ts",
+    "./doc": "./src/README.md"
+  },
   "scripts": {
     "build": "tsdown",
-    "check": "oxlint && oxfmt --write && tsc -b",
     "compile": "bun build --compile --minify --sourcemap --bytecode ./src/index.ts --outfile server",
     "dev": "bun run --hot src/index.ts",
     "start": "bun run dist/index.mjs",

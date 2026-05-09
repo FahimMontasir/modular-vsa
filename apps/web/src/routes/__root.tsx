@@ -1,6 +1,7 @@
 import { HeadContent, Outlet, createRootRouteWithContext } from "@tanstack/react-router";
 import { TanStackRouterDevtools } from "@tanstack/react-router-devtools";
 
+import { APIClientProvider } from "@modular-vsa/api-bridge/provider";
 import { Toaster } from "@modular-vsa/ui/sonner";
 import { TooltipProvider } from "@modular-vsa/ui/tooltip";
 
@@ -31,10 +32,13 @@ function RootComponent() {
   return (
     <>
       <HeadContent />
-      <TooltipProvider>
-        <Outlet />
-      </TooltipProvider>
-      <Toaster />
+      <APIClientProvider>
+        <TooltipProvider>
+          <Outlet />
+        </TooltipProvider>
+        <Toaster />
+      </APIClientProvider>
+
       <TanStackRouterDevtools position="bottom-left" />
     </>
   );

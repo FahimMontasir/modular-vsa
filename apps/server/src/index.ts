@@ -30,5 +30,3 @@ export const app = new Elysia()
     });
     console.log(`Server is running on http://localhost:${env.PORT}`);
   });
-
-export const ServerType = typeof app;

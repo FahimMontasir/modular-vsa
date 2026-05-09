@@ -17,7 +17,7 @@
     "@modular-vsa/db": "workspace:*",
     "@modular-vsa/env": "workspace:*",
     "better-auth": "catalog:",
-    "bullmq": "^5.76.6",
+    "bullmq": "5.76.6",
     "dotenv": "catalog:",
     "zod": "catalog:"
   },

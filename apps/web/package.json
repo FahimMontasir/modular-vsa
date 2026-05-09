@@ -1,5 +1,5 @@
 {
-  "name": "web",
+  "name": "@modular-vsa/web",
   "version": "0.0.0",
   "private": true,
   "type": "module",
@@ -8,11 +8,11 @@
     "build": "vite build",
     "serve": "vite preview",
     "start": "vite",
-    "check": "oxlint && oxfmt --write && tsc --noEmit",
     "generate-pwa-assets": "pwa-assets-generator"
   },
   "dependencies": {
     "@hookform/resolvers": "5.2.2",
+    "@modular-vsa/api-bridge": "workspace:*",
     "@modular-vsa/auth": "workspace:*",
     "@modular-vsa/env": "workspace:*",
     "@modular-vsa/home": "workspace:*",

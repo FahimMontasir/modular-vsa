@@ -1,21 +1,26 @@
 {
   "name": "@modular-vsa/api-bridge",
-  "version": "0.0.0",
-  "private": true,
   "type": "module",
   "exports": {
-    "./server": "./src/server.ts",
-    "./web": "./src/web.ts",
-    "./native": "./src/native.ts",
+    ".": {
+      "default": "./src/index.ts"
+    },
+    "./provider": "./src/Provider.tsx",
     "./doc": "./src/README.md"
   },
   "scripts": {
     "check": "oxlint && oxfmt --write && tsc --noEmit"
   },
   "dependencies": {
-    "@t3-oss/env-core": "^0.13.1",
-    "dotenv": "catalog:",
-    "zod": "catalog:"
+    "@elysiajs/eden": "1.4.9",
+    "@modular-vsa/env": "workspace:*",
+    "@modular-vsa/server": "workspace:*",
+    "@modular-vsa/ui": "workspace:*",
+    "@tanstack/query-async-storage-persister": "^5.100.9",
+    "@tanstack/react-query": "catalog:",
+    "@tanstack/react-query-persist-client": "^5.100.9",
+    "better-auth": "catalog:",
+    "react": "catalog:"
   },
   "devDependencies": {
     "@modular-vsa/config": "workspace:*"
