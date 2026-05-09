@@ -1,6 +1,7 @@
 import { expo } from "@better-auth/expo";
 import { betterAuth, type BetterAuthOptions } from "better-auth";
 import { drizzleAdapter } from "better-auth/adapters/drizzle";
+import { redis } from "bun";
 import type { Context } from "elysia";
 
 import { db } from "@modular-vsa/db";
@@ -38,6 +39,19 @@ function createAuthConfig(appName: string): BetterAuthOptions {
       },
     },
     plugins: [expo()],
+
+    secondaryStorage: {
+      get: async (key) => await redis.get(key),
+
+      set: async (key, value, ttl) => {
+        if (ttl) await redis.set(key, value, "EX", ttl);
+        else await redis.set(key, value);
+      },
+
+      delete: async (key) => {
+        await redis.del(key);
+      },
+    },
   };
 }
 
