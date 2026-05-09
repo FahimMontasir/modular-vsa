@@ -32,6 +32,7 @@
     "dev": "turbo dev",
     "build": "turbo build",
     "check": "turbo check",
+    "check:perf": "bunx react-doctor@latest",
     "test:unit": "turbo test:unit",
     "dev:native": "turbo -F native dev",
     "dev:web": "turbo -F web dev",

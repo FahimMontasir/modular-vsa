@@ -9,7 +9,6 @@ import { env } from "@modular-vsa/env/server";
 const CONF: BetterAuthOptions = {
   database: drizzleAdapter(db, {
     provider: "pg",
-
     schema: schema,
   }),
   trustedOrigins: [
