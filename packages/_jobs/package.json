@@ -1,0 +1,27 @@
+{
+  "name": "@modular-vsa/jobs",
+  "type": "module",
+  "exports": {
+    ".": {
+      "default": "./src/index.ts"
+    },
+    "./*": {
+      "default": "./src/def/*.ts"
+    }
+  },
+  "scripts": {
+    "check": "oxlint && oxfmt --write && tsc --noEmit"
+  },
+  "dependencies": {
+    "@better-auth/expo": "catalog:",
+    "@modular-vsa/db": "workspace:*",
+    "@modular-vsa/env": "workspace:*",
+    "better-auth": "catalog:",
+    "bullmq": "^5.76.6",
+    "dotenv": "catalog:",
+    "zod": "catalog:"
+  },
+  "devDependencies": {
+    "@modular-vsa/config": "workspace:*"
+  }
+}

@@ -20,6 +20,7 @@
     "@modular-vsa/db": "workspace:*",
     "@modular-vsa/env": "workspace:*",
     "@modular-vsa/home": "workspace:*",
+    "@modular-vsa/jobs": "workspace:*",
     "@modular-vsa/security": "workspace:*",
     "@modular-vsa/utils": "workspace:*",
     "@sinclair/typebox": "catalog:",
