@@ -1,6 +1,6 @@
 import { Elysia } from "elysia";
 
-import { auth } from "..";
+import { getAuthInstance } from "..";
 
 /**
  * Auth middleware
@@ -28,7 +28,7 @@ export const AuthMiddleware = new Elysia({
   authenticate: {
     // INFO: resolve is a hook that is called after the validation is processed
     async resolve({ request }) {
-      const authSession = await auth.api.getSession({
+      const authSession = await getAuthInstance(request).api.getSession({
         headers: request.headers,
       });
 

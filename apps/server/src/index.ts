@@ -3,7 +3,7 @@ import { serverTiming } from "@elysia/server-timing";
 import { cors } from "@elysiajs/cors";
 import { Elysia } from "elysia";
 
-import { auth } from "@modular-vsa/auth";
+import { authHandler } from "@modular-vsa/auth";
 import { env } from "@modular-vsa/env/server";
 
 import { CORS_CONFIG } from "./utils/cors";
@@ -20,13 +20,7 @@ export const app = new Elysia()
     })
   )
   .use(cors(CORS_CONFIG))
-  .all("/api/auth/*", async (context) => {
-    const { request, status } = context;
-    if (["POST", "GET"].includes(request.method)) {
-      return auth.handler(request);
-    }
-    return status(405);
-  })
+  .all("/api/auth/*", async (context) => authHandler(context))
   .use(APIV1)
   .listen(env.PORT, () => {
     console.log(`Server is running on http://localhost:${env.PORT}`);
