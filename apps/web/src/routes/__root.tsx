@@ -1,5 +1,8 @@
+import { TanStackDevtools } from "@tanstack/react-devtools";
+import { FormDevtoolsPanel } from "@tanstack/react-form-devtools";
+import { ReactQueryDevtoolsPanel } from "@tanstack/react-query-devtools";
 import { HeadContent, Outlet, createRootRouteWithContext } from "@tanstack/react-router";
-import { TanStackRouterDevtools } from "@tanstack/react-router-devtools";
+import { TanStackRouterDevtoolsPanel } from "@tanstack/react-router-devtools";
 
 import { APIClientProvider } from "@modular-vsa/api-bridge/provider";
 import { Toaster } from "@modular-vsa/ui/sonner";
@@ -37,9 +40,23 @@ function RootComponent() {
           <Outlet />
         </TooltipProvider>
         <Toaster />
+        <TanStackDevtools
+          plugins={[
+            {
+              name: "TanStack Query",
+              render: <ReactQueryDevtoolsPanel />,
+            },
+            {
+              name: "TanStack Router",
+              render: <TanStackRouterDevtoolsPanel />,
+            },
+            {
+              name: "TanStack Form",
+              render: <FormDevtoolsPanel />,
+            },
+          ]}
+        />
       </APIClientProvider>
-
-      <TanStackRouterDevtools position="bottom-left" />
     </>
   );
 }

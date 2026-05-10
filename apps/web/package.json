@@ -31,8 +31,11 @@
   },
   "devDependencies": {
     "@modular-vsa/config": "workspace:*",
-    "@tanstack/react-router-devtools": "1.166.13",
-    "@tanstack/router-plugin": "1.167.28",
+    "@tanstack/devtools-vite": "catalog:",
+    "@tanstack/react-devtools": "catalog:",
+    "@tanstack/react-form-devtools": "catalog:",
+    "@tanstack/react-query-devtools": "catalog:",
+    "@tanstack/react-router-devtools": "catalog:",
     "@types/node": "25.6.0",
     "@types/react": "catalog:",
     "@types/react-dom": "catalog:",

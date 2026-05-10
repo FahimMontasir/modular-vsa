@@ -1,5 +1,5 @@
 import tailwindcss from "@tailwindcss/vite";
-import { tanstackRouter } from "@tanstack/router-plugin/vite";
+import { devtools } from "@tanstack/devtools-vite";
 import react from "@vitejs/plugin-react";
 import { defineConfig } from "vite";
 import { VitePWA } from "vite-plugin-pwa";
@@ -13,10 +13,7 @@ export default defineConfig({
   },
   plugins: [
     tailwindcss(),
-    tanstackRouter({
-      target: "react",
-      autoCodeSplitting: true,
-    }),
+    devtools(),
     react(),
     VitePWA({
       registerType: "autoUpdate",

@@ -13,7 +13,6 @@
     "check": "oxlint && oxfmt --write && tsc --noEmit"
   },
   "dependencies": {
-    "@better-auth/drizzle-adapter": "catalog:",
     "@better-auth/expo": "catalog:",
     "@modular-vsa/db": "workspace:*",
     "@modular-vsa/env": "workspace:*",
