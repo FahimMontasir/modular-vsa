@@ -12,13 +12,17 @@
     "ms-azuretools.vscode-docker",
     "github.vscode-github-actions",
     "formulahendry.auto-rename-tag",
-    "davidanson.vscode-markdownlint",
     "ms-vscode.vscode-typescript-next",
     "streetsidesoftware.code-spell-checker",
     "pkief.material-icon-theme",
     "omlet.omlet-vscode-extension",
     "google.geminicodeassist",
-    "google.gemini-cli-vscode-ide-companion"
+    "google.gemini-cli-vscode-ide-companion",
+    "rajithadisanayaka.react-codebridge",
+    "hediet.vscode-drawio",
+    "usernamehw.errorlens",
+    "ms-ossdata.vscode-pgsql",
+    "redis.redis-for-vscode"
   ],
   "unwantedRecommendations": ["esbenp.prettier-vscode", "dbaeumer.vscode-eslint"]
 }
