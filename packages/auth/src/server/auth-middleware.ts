@@ -1,6 +1,6 @@
 import { Elysia } from "elysia";
 
-import { getAuthInstance } from "..";
+import { getAuthInstance } from ".";
 
 /**
  * Auth middleware

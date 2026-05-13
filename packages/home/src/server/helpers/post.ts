@@ -1,4 +1,4 @@
-import { ApiError } from "@modular-vsa/utils/server/apiError";
+import { ApiError } from "@modular-vsa/shared/server/apiError";
 
 import type { GetPostsQuery, PostBody, UpdatePostBody } from "../types";
 

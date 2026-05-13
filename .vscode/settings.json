@@ -15,9 +15,7 @@
     ["cva\\(([^)]*)\\)", "[\"'`]([^\"'`]*).*?[\"'`]"],
     ["cn\\(([^)]*)\\)", "(?:'|\"|`)([^']*)(?:'|\"|`)"]
   ],
-  "tailwindCSS.experimental.configFile": "packages/ui/src/styles.css",
-  "js/ts.tsdk.promptToUseWorkspaceVersion": true,
-  "js/ts.tsdk.path": "node_modules/typescript/lib",
+  "tailwindCSS.experimental.configFile": "packages/_ui/src/styles/globals.css",
   "files.associations": {
     "*.css": "tailwindcss"
   },

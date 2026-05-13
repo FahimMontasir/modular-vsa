@@ -1,6 +1,6 @@
 import { describe, expect, test } from "bun:test";
 
-import { ApiError } from "@modular-vsa/utils/server/apiError";
+import { ApiError } from "@modular-vsa/shared/server/apiError";
 
 import {
   normalizeCreatePostValues,

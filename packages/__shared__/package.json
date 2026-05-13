@@ -1,5 +1,5 @@
 {
-  "name": "@modular-vsa/utils",
+  "name": "@modular-vsa/shared",
   "type": "module",
   "exports": {
     "./*": {
@@ -13,9 +13,15 @@
   },
   "dependencies": {
     "@modular-vsa/auth": "workspace:*",
-    "@modular-vsa/env": "workspace:*"
+    "@modular-vsa/env": "workspace:*",
+    "@modular-vsa/ui": "workspace:*",
+    "@tanstack/react-query": "catalog:",
+    "elysia": "catalog:"
   },
   "devDependencies": {
     "@modular-vsa/config": "workspace:*"
+  },
+  "peerDependencies": {
+    "react": "catalog:"
   }
 }

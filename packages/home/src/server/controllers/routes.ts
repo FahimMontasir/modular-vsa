@@ -1,4 +1,4 @@
-import { secureAPI } from "@modular-vsa/utils/server/secure-api";
+import { secureAPI } from "@modular-vsa/shared/server/secure-api";
 
 import { ENDPOINTS_PATH } from "../helpers/path";
 import { PostCreateRoutes } from "./create";
@@ -18,3 +18,5 @@ export const HomeRoutes = secureAPI({
   .use(PostReadRoutes)
   .use(PostUpdateRoutes)
   .use(PostDeleteRoutes);
+
+export type APIHomeType = typeof HomeRoutes;

@@ -1,7 +1,12 @@
 import { Button } from "@modular-vsa/ui/button";
 import { toast } from "@modular-vsa/ui/sonner";
 
+import { useGetAllPostsQuery } from "../api/query";
+
 export function HomePage() {
+  const { data } = useGetAllPostsQuery();
+  console.log(data);
+
   return (
     <div className="container mx-auto max-w-3xl px-4 py-2">
       <div className="grid gap-6">

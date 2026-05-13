@@ -20,8 +20,9 @@
   "dependencies": {
     "@modular-vsa/db": "workspace:*",
     "@modular-vsa/env": "workspace:*",
+    "@modular-vsa/shared": "workspace:*",
     "@modular-vsa/ui": "workspace:*",
-    "@modular-vsa/utils": "workspace:*"
+    "@tanstack/react-query": "catalog:"
   },
   "devDependencies": {
     "@modular-vsa/config": "workspace:*"

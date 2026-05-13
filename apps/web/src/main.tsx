@@ -3,14 +3,22 @@ import ReactDOM from "react-dom/client";
 
 import "@modular-vsa/ui/globals.css";
 
+import { queryClient } from "@modular-vsa/shared/web/query-client";
+
 import { routeTree } from "./routeTree.gen";
 
 const router = createRouter({
   routeTree,
   defaultPreload: "intent",
   scrollRestoration: true,
-  // defaultPendingComponent: () => <Loader />,
-  context: {},
+  scrollRestorationBehavior: "smooth",
+  context: { queryClient },
+  // defaultPendingComponent: GlobalLoading,
+  // defaultErrorComponent: GlobalError,
+  // Wrap: AnalyticsProvider,
+  // defaultOnCatch() {
+  //   console.error(error, errorInfo);
+  // },
 });
 
 declare module "@tanstack/react-router" {

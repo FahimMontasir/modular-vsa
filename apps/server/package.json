@@ -3,7 +3,6 @@
   "type": "module",
   "main": "src/index.ts",
   "exports": {
-    "./types": "./src/utils/types.ts",
     "./doc": "./src/README.md"
   },
   "scripts": {
@@ -24,8 +23,7 @@
     "@modular-vsa/env": "workspace:*",
     "@modular-vsa/home": "workspace:*",
     "@modular-vsa/jobs": "workspace:*",
-    "@modular-vsa/security": "workspace:*",
-    "@modular-vsa/utils": "workspace:*",
+    "@modular-vsa/shared": "workspace:*",
     "@sinclair/typebox": "catalog:",
     "better-auth": "catalog:",
     "dotenv": "catalog:",

@@ -1,5 +1,5 @@
 import { HomeRoutes } from "@modular-vsa/home/server/controllers/routes";
-import { secureAPI } from "@modular-vsa/utils/server/secure-api";
+import { secureAPI } from "@modular-vsa/shared/server/secure-api";
 
 /**
  * This is the main entry point for the API version 1 routes. It is exported as APIV1 and can be

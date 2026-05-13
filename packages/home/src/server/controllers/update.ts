@@ -1,6 +1,6 @@
 import { StatusMap } from "elysia";
 
-import { secureAPI } from "@modular-vsa/utils/server/secure-api";
+import { secureAPI } from "@modular-vsa/shared/server/secure-api";
 
 import { ENDPOINTS_PATH } from "../helpers/path";
 import { updatePost } from "../services/update-post";

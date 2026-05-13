@@ -4,9 +4,10 @@ import { ReactQueryDevtoolsPanel } from "@tanstack/react-query-devtools";
 import { HeadContent, Outlet, createRootRouteWithContext } from "@tanstack/react-router";
 import { TanStackRouterDevtoolsPanel } from "@tanstack/react-router-devtools";
 
-import { APIClientProvider } from "@modular-vsa/api-bridge/provider";
 import { Toaster } from "@modular-vsa/ui/sonner";
 import { TooltipProvider } from "@modular-vsa/ui/tooltip";
+
+import { QueryClientProvider } from "../providers/query-provider";
 
 export interface RouterAppContext {}
 
@@ -35,7 +36,7 @@ function RootComponent() {
   return (
     <>
       <HeadContent />
-      <APIClientProvider>
+      <QueryClientProvider>
         <TooltipProvider>
           <Outlet />
         </TooltipProvider>
@@ -56,7 +57,7 @@ function RootComponent() {
             },
           ]}
         />
-      </APIClientProvider>
+      </QueryClientProvider>
     </>
   );
 }

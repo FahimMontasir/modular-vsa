@@ -2,7 +2,7 @@ import { eq } from "drizzle-orm";
 
 import { db } from "@modular-vsa/db";
 import { post } from "@modular-vsa/db/schema/home";
-import { ApiError } from "@modular-vsa/utils/server/apiError";
+import { ApiError } from "@modular-vsa/shared/server/apiError";
 
 export async function deletePost(postId: number) {
   const rows = await db.delete(post).where(eq(post.id, postId)).returning({ id: post.id });

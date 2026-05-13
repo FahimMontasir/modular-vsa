@@ -3,7 +3,7 @@ import { serverTiming } from "@elysia/server-timing";
 import { cors } from "@elysiajs/cors";
 import { Elysia } from "elysia";
 
-import { authHandler } from "@modular-vsa/auth";
+import { authHandler } from "@modular-vsa/auth/server/index";
 import { env } from "@modular-vsa/env/server";
 import { startAllWorkers } from "@modular-vsa/jobs";
 

@@ -5,5 +5,10 @@ export default defineConfig({
   format: "esm",
   outDir: "./dist",
   clean: true,
-  noExternal: [/@modular-vsa\/.*/],
+  deps: {
+    // Replaces 'external'
+    neverBundle: ["bun", /^bun:/],
+    // Replaces 'noExternal'
+    alwaysBundle: [/@modular-vsa\/.*/],
+  },
 });

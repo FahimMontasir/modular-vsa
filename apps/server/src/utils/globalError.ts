@@ -1,7 +1,7 @@
 import Elysia, { status } from "elysia";
 
 import { env } from "@modular-vsa/env/server";
-import { ApiError } from "@modular-vsa/utils/server/apiError";
+import { ApiError } from "@modular-vsa/shared/server/apiError";
 
 export const GlobalErrorHandler = new Elysia()
   /** Register custom UserError type */

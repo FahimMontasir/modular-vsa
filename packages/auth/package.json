@@ -2,12 +2,10 @@
   "name": "@modular-vsa/auth",
   "type": "module",
   "exports": {
-    ".": {
-      "default": "./src/index.ts"
-    },
     "./*": {
       "default": "./src/*.ts"
-    }
+    },
+    "./doc": "./README.md"
   },
   "scripts": {
     "check": "oxlint && oxfmt --write && tsc --noEmit"
@@ -22,5 +20,8 @@
   },
   "devDependencies": {
     "@modular-vsa/config": "workspace:*"
+  },
+  "peerDependencies": {
+    "react": "catalog:"
   }
 }

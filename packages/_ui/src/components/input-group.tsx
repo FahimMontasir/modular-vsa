@@ -1,11 +1,10 @@
 import { cva, type VariantProps } from "class-variance-authority";
 import * as React from "react";
 
-import { Button } from "@modular-vsa/ui/components/button";
-import { Input } from "@modular-vsa/ui/components/input";
-import { Textarea } from "@modular-vsa/ui/components/textarea";
-
 import { cn } from "../lib/utils";
+import { Button } from "./button";
+import { Input } from "./input";
+import { Textarea } from "./textarea";
 
 function InputGroup({ className, ...props }: React.ComponentProps<"div">) {
   return (
