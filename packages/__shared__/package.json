@@ -9,7 +9,7 @@
   },
   "scripts": {
     "check": "oxlint && oxfmt --write && tsc --noEmit",
-    "test:unit": "bun test __tests__/unit"
+    "test:unit": "bun test __tests__"
   },
   "dependencies": {
     "@modular-vsa/auth": "workspace:*",

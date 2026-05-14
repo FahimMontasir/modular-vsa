@@ -1,6 +1,6 @@
 import { describe, expect, test } from "bun:test";
 
-import { ApiError } from "../../../src/server/apiError";
+import { ApiError } from "../../src/server/apiError";
 
 describe("ApiError", () => {
   test("creates instance with statusCode and message", () => {

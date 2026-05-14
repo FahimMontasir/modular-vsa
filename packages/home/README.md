@@ -225,7 +225,7 @@ Comments already have database schema support and validation/type foundations. F
 This package has its own checks:
 
 - `bun run check` → lint, format, and type-check this package
-- `bun run test:unit` → run unit tests under `__tests__/unit`
+- `bun run test:unit` → run unit tests under `__tests__/`
 
 ## Notes for AI agents
 

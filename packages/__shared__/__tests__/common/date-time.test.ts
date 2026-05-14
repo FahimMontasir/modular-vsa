@@ -1,6 +1,6 @@
 import { describe, expect, test } from "bun:test";
 
-import { getCurrentDateTime } from "../../../src/common/date-time";
+import { getCurrentDateTime } from "../../src/common/date-time";
 
 describe("date-time utilities", () => {
   test("getCurrentDateTime returns ISO string format", () => {
