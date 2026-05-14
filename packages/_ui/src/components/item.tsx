@@ -9,6 +9,7 @@ import { Separator } from "./separator";
 function ItemGroup({ className, ...props }: React.ComponentProps<"div">) {
   return (
     <div
+      // oxlint-disable-next-line jsx-a11y/prefer-tag-over-role
       role="list"
       data-slot="item-group"
       className={cn(

@@ -33,7 +33,7 @@
   "devDependencies": {
     "@modular-vsa/config": "workspace:*",
     "@types/bun": "catalog:",
-    "tsdown": "^0.21.10",
+    "tsdown": "^0.22.0",
     "typescript": "catalog:"
   }
 }

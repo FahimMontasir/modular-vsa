@@ -116,6 +116,7 @@ function Carousel({
       <div
         onKeyDownCapture={handleKeyDown}
         className={cn("relative", className)}
+        // oxlint-disable-next-line jsx-a11y/prefer-tag-over-role
         role="region"
         aria-roledescription="carousel"
         data-slot="carousel"
@@ -145,6 +146,7 @@ function CarouselItem({ className, ...props }: React.ComponentProps<"div">) {
 
   return (
     <div
+      // oxlint-disable-next-line jsx-a11y/prefer-tag-over-role
       role="group"
       aria-roledescription="slide"
       data-slot="carousel-item"
