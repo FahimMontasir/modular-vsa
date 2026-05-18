@@ -5,7 +5,7 @@
   "main": "expo-router/entry",
   "scripts": {
     "start": "expo start",
-    "dev": "expo start --clear",
+    "dev:native": "expo start --clear",
     "android": "expo run:android",
     "ios": "expo run:ios",
     "prebuild": "expo prebuild",
@@ -18,7 +18,7 @@
     "@gorhom/bottom-sheet": "^5.2.14",
     "@modular-vsa/env": "workspace:*",
     "@react-navigation/drawer": "^7.10.0",
-    "@react-navigation/elements": "^2.9.17",
+    "@react-navigation/elements": "^2.9.18",
     "@tanstack/react-form": "catalog:",
     "better-auth": "catalog:",
     "dotenv": "catalog:",
@@ -47,7 +47,7 @@
     "tailwind-merge": "^3.6.0",
     "tailwind-variants": "^3.2.2",
     "tailwindcss": "^4.3.0",
-    "uniwind": "^1.6.4",
+    "uniwind": "^1.6.5",
     "zod": "catalog:"
   },
   "devDependencies": {
