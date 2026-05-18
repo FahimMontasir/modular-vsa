@@ -1,3 +1,5 @@
+// oxlint-disable jsx-a11y/prefer-tag-over-role
+// oxlint-disable jsx-a11y/no-noninteractive-element-interactions
 import { cva, type VariantProps } from "class-variance-authority";
 import * as React from "react";
 
@@ -47,7 +49,6 @@ function InputGroupAddon({
 }: React.ComponentProps<"div"> & VariantProps<typeof inputGroupAddonVariants>) {
   return (
     <div
-      // oxlint-disable-next-line jsx-a11y/prefer-tag-over-role
       role="group"
       data-slot="input-group-addon"
       data-align={align}

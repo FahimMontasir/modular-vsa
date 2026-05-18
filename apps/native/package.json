@@ -17,7 +17,7 @@
     "@expo/vector-icons": "^15.0.3",
     "@gorhom/bottom-sheet": "^5.2.14",
     "@modular-vsa/env": "workspace:*",
-    "@react-navigation/drawer": "^7.10.0",
+    "@react-navigation/drawer": "^7.10.2",
     "@react-navigation/elements": "^2.9.18",
     "@tanstack/react-form": "catalog:",
     "better-auth": "catalog:",
@@ -52,7 +52,7 @@
   },
   "devDependencies": {
     "@modular-vsa/config": "workspace:*",
-    "@types/node": "^25.7.0",
+    "@types/node": "^25.8.0",
     "@types/react": "^19.2.14",
     "typescript": "catalog:"
   }
