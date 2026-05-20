@@ -2,6 +2,7 @@ import { queryOptions, useSuspenseQuery } from "@tanstack/react-query";
 
 // import { t } from "@lingui/core/macro";
 import { createApiClient } from "@modular-vsa/shared/web/api-client";
+import { toast } from "@modular-vsa/ui/sonner";
 
 import type { APIHomeType } from "../../server/controllers/routes";
 
@@ -16,9 +17,10 @@ const apiClient = createApiClient<APIHomeType>();
 async function getAllPosts() {
   const { data, error } = await apiClient.home.get();
 
-  if (error) throw error;
-
-  if (!data) throw new Error("No posts found");
+  if (error) {
+    toast.error("Failed to fetch posts");
+    throw error;
+  }
 
   return data;
 }

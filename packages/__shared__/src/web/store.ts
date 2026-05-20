@@ -3,12 +3,12 @@ import { createStore, useSelector } from "@tanstack/react-store";
 const STORAGE_KEY = "global_app_state";
 
 // Define everything your app will ever need in one state type
-export interface GlobalState {
+export type GlobalState = {
   theme: "dark" | "light" | "system";
   // You can easily add more global keys here later:
   // user: { name: string } | null;
   // sidebarOpen: boolean;
-}
+};
 const defaultState: GlobalState = {
   theme: "system",
 };

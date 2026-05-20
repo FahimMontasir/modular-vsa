@@ -1,4 +1,4 @@
-import { secureAPI } from "@modular-vsa/shared/server/secure-api";
+import { secureAPI } from "@modular-vsa/auth/server/secure-api";
 
 import { ENDPOINTS_PATH } from "../helpers/path";
 import { PostCreateRoutes } from "./create";

@@ -18,6 +18,7 @@
     "test:unit": "bun test __tests__"
   },
   "dependencies": {
+    "@modular-vsa/auth": "workspace:*",
     "@modular-vsa/db": "workspace:*",
     "@modular-vsa/env": "workspace:*",
     "@modular-vsa/shared": "workspace:*",

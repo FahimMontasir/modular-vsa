@@ -165,7 +165,7 @@
       "dependencies": {
         "@modular-vsa/env": "workspace:*",
         "@tanstack/react-query": "catalog:",
-        "@tanstack/react-store": "^0.11.0",
+        "@tanstack/react-store": "0.11.0",
         "elysia": "catalog:",
       },
       "devDependencies": {
@@ -243,6 +243,7 @@
         "@modular-vsa/env": "workspace:*",
         "better-auth": "catalog:",
         "dotenv": "catalog:",
+        "elysia": "catalog:",
         "zod": "catalog:",
       },
       "devDependencies": {
@@ -255,6 +256,7 @@
     "packages/home": {
       "name": "@modular-vsa/home",
       "dependencies": {
+        "@modular-vsa/auth": "workspace:*",
         "@modular-vsa/db": "workspace:*",
         "@modular-vsa/env": "workspace:*",
         "@modular-vsa/shared": "workspace:*",
