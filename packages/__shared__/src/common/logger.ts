@@ -1,7 +1,7 @@
 const isServer = typeof Bun !== "undefined";
 
 let isProduction = false;
-let logServerToken = "";
+// let logServerToken = "";
 let LOG_DIR = "";
 
 // Completely isolate all server-only modules and paths
@@ -10,7 +10,7 @@ if (isServer) {
   const { env } = await import("@modular-vsa/env/server");
 
   isProduction = env.NODE_ENV === "production";
-  logServerToken = env.LOG_SERVER_TOKEN;
+  // logServerToken = env.LOG_SERVER_TOKEN;
   LOG_DIR = resolve(import.meta.dir, "../../../../logs");
 }
 
@@ -110,19 +110,19 @@ class Logger {
     }
   }
 
-  private _toRemoteServer(payload: any) {
-    fetch("https://your-remote-server.com", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: `Bearer ${logServerToken}`,
-      },
-      body: JSON.stringify(payload, (_, v) =>
-        v instanceof Error ? { message: v.message, stack: v.stack } : v
-      ),
-    }).catch((err) => {
-      console.error("Remote logging failed:", err.message);
-    });
+  private _toRemoteServer(_payload: any) {
+    // fetch("https://your-remote-server.com", {
+    //   method: "POST",
+    //   headers: {
+    //     "Content-Type": "application/json",
+    //     Authorization: `Bearer ${logServerToken}`,
+    //   },
+    //   body: JSON.stringify(_payload, (_, v) =>
+    //     v instanceof Error ? { message: v.message, stack: v.stack } : v
+    //   ),
+    // }).catch((err) => {
+    //   console.error("Remote logging failed:", err.message);
+    // });
   }
 
   info(msg: string, meta?: Record<string, any>) {
