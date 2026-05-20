@@ -29,7 +29,8 @@
       "@tanstack/react-devtools": "0.10.5",
       "@tanstack/react-form-devtools": "0.2.27",
       "@tanstack/react-query-devtools": "5.100.10",
-      "@tanstack/react-router-devtools": "1.167.0"
+      "@tanstack/react-router-devtools": "1.167.0",
+      "@types/node": "25.8.0"
     }
   },
   "type": "module",

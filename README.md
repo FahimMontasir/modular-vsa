@@ -91,9 +91,9 @@ modular-vsa/
 ├── packages/
 │   ├── __config__/   # Shared TypeScript configuration
 │   ├── __env__/      # Runtime environment schemas
-│   ├── _auth/        # Authentication wrapper (better‑auth)
+│   ├── auth/        # Authentication wrapper (better‑auth)
 │   ├── _db/          # Drizzle ORM schema & connection factory
-│   ├── _utils/       # Shared utility functions
+│   ├── __shared__/       # Shared utility functions
 │   ├── _ui/          # Shared shadcn/ui components and styles
 │   ├── home/         # Feature package for the Home domain (posts, comments)
 │   └── security/     # Security‑related services (placeholder)
@@ -124,7 +124,7 @@ These configurations help ensure consistent development environment, automated c
 - `bun run build`: Build all applications
 - `bun run dev:web`: Start only the web application
 - `bun run dev:server`: Start only the server
-- `bun run check-types`: Check TypeScript types across all apps
+- `bun run check`: Check TypeScript types and format lint across all apps
 - `bun run dev:native`: Start the React Native/Expo development server
 - `bun run db:push`: Push schema changes to database
 - `bun run db:generate`: Generate database client/types
