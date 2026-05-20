@@ -13,7 +13,7 @@ export const GlobalErrorHandler = new Elysia()
     switch (ctx.code) {
       case "ApiError": {
         if (env.NODE_ENV === "development") {
-          console.error("[API ERROR] ", ctx.error);
+          console.error("[API ERROR]", ctx.error);
         }
 
         // Send to monitoring service if flagged
@@ -27,7 +27,7 @@ export const GlobalErrorHandler = new Elysia()
       case "VALIDATION": {
         if (env.NODE_ENV === "development") {
           console.error(
-            "[VALIDATION ERROR] ",
+            "[VALIDATION ERROR]",
             ctx.error.all.find((e) => e.summary)
           );
         }
@@ -37,7 +37,11 @@ export const GlobalErrorHandler = new Elysia()
 
       case "NOT_FOUND": {
         if (env.NODE_ENV === "development") {
-          console.error("[NOT_FOUND ERROR] ", ctx.error);
+          console.error(`[NOT_FOUND ERROR]`, {
+            code: ctx.code,
+            path: ctx.path,
+            error: ctx.error,
+          });
         }
         return status("Not Found", `${ctx.request.method}: Route Not Found (${ctx.path})`);
       }
@@ -45,7 +49,7 @@ export const GlobalErrorHandler = new Elysia()
       default: {
         // Handle other unhandled errors
         // if (env.NODE_ENV === "development") {
-        console.error("[GLOBAL ERROR] ", {
+        console.error("[GLOBAL ERROR]", {
           code: ctx.code,
           path: ctx.path,
           error: ctx.error,

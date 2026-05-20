@@ -1,5 +1,3 @@
-import { openapi } from "@elysia/openapi";
-import { serverTiming } from "@elysia/server-timing";
 import { cors } from "@elysiajs/cors";
 import { Elysia } from "elysia";
 
@@ -9,24 +7,21 @@ import { startAllWorkers } from "@modular-vsa/jobs";
 
 import { CORS_CONFIG } from "./utils/cors";
 import { GlobalErrorHandler } from "./utils/globalError";
+import { serverMonitoring } from "./utils/monitoring";
 import { APIV1 } from "./v1-routes";
 
 export const app = new Elysia()
+  .use(serverMonitoring)
   .use(GlobalErrorHandler)
-  .use(serverTiming())
-  .use(
-    openapi({
-      path: "/api-docs",
-      // references: fromTypes(),
-    })
-  )
   .use(cors(CORS_CONFIG))
   .all("/api/auth/*", async (context) => authHandler(context))
   .use(APIV1)
   .listen(env.PORT, () => {
     startAllWorkers().catch((err: unknown) => {
-      console.error("Background workers failed to start:", err);
+      console.error("[Jobs] Background workers failed to start:", err);
       process.exit(1);
     });
-    console.log(`Server is running on http://localhost:${env.PORT}`);
+    console.log(
+      `\n\x1b[36m🚀 Server:\x1b[0m http://localhost:${env.PORT}\n\x1b[36m📚 Docs:\x1b[0m http://localhost:${env.PORT}/api-docs\n\x1b[35m💡 Tips:\x1b[0m u/d scroll • t/b jump • c copy (not cmd+c)\n`
+    );
   });
