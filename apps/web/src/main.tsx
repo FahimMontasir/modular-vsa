@@ -17,7 +17,7 @@ const router = createRouter({
   // defaultErrorComponent: GlobalError,
   // Wrap: AnalyticsProvider,
   // defaultOnCatch() {
-  //   console.error(error, errorInfo);
+  //   logger.error(error, errorInfo);
   // },
 });
 

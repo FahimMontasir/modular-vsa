@@ -18,7 +18,7 @@ export const sendWelcomeEmailJob = defineJob({
   queue: "notification",
   // The handler function that processes the job
   handler: async function sendWelcomeEmail(data: { userId: string }, ctx) {
-    console.log(`Sending email to ${data.userId}...`);
+    logger.log(`Sending email to ${data.userId}...`);
     // ...implementation...
     return { success: true };
   },

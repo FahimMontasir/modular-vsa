@@ -1,6 +1,7 @@
 import Elysia, { status } from "elysia";
 
 import { env } from "@modular-vsa/env/server";
+import { logger } from "@modular-vsa/shared/common/logger";
 import { ApiError } from "@modular-vsa/shared/server/apiError";
 
 export const GlobalErrorHandler = new Elysia()
@@ -13,7 +14,7 @@ export const GlobalErrorHandler = new Elysia()
     switch (ctx.code) {
       case "ApiError": {
         if (env.NODE_ENV === "development") {
-          console.error("[API ERROR]", ctx.error);
+          logger.error("API ERROR", ctx.error);
         }
 
         // Send to monitoring service if flagged
@@ -26,8 +27,8 @@ export const GlobalErrorHandler = new Elysia()
 
       case "VALIDATION": {
         if (env.NODE_ENV === "development") {
-          console.error(
-            "[VALIDATION ERROR]",
+          logger.error(
+            "VALIDATION ERROR",
             ctx.error.all.find((e) => e.summary)
           );
         }
@@ -37,7 +38,7 @@ export const GlobalErrorHandler = new Elysia()
 
       case "NOT_FOUND": {
         if (env.NODE_ENV === "development") {
-          console.error(`[NOT_FOUND ERROR]`, {
+          logger.error(`NOT FOUND ERROR`, {
             code: ctx.code,
             path: ctx.path,
             error: ctx.error,
@@ -49,7 +50,7 @@ export const GlobalErrorHandler = new Elysia()
       default: {
         // Handle other unhandled errors
         // if (env.NODE_ENV === "development") {
-        console.error("[GLOBAL ERROR]", {
+        logger.error("GLOBAL ERROR", {
           code: ctx.code,
           path: ctx.path,
           error: ctx.error,

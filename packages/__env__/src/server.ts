@@ -16,6 +16,7 @@ export const env = createEnv({
     REDIS_HOST: z.string().default("localhost"),
     REDIS_PORT: z.string(),
     REDIS_PASSWORD: z.string(),
+    LOG_SERVER_TOKEN: z.string(),
   },
   runtimeEnv: process.env,
   emptyStringAsUndefined: true,

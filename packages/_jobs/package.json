@@ -16,6 +16,7 @@
     "@better-auth/expo": "catalog:",
     "@modular-vsa/db": "workspace:*",
     "@modular-vsa/env": "workspace:*",
+    "@modular-vsa/shared": "workspace:*",
     "better-auth": "catalog:",
     "bullmq": "5.76.10",
     "dotenv": "catalog:",

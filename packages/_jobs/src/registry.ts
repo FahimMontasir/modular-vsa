@@ -1,3 +1,5 @@
+import { logger } from "@modular-vsa/shared/common/logger";
+
 import type { AnyJobDefinition } from "./core/job";
 import type { QueueName } from "./core/job";
 import type { WorkerOverrides } from "./core/worker";
@@ -31,10 +33,10 @@ export const SCHEDULES: readonly ScheduleEntry[] = [
 export function registerCronSchedules() {
   for (const entry of SCHEDULES) {
     Bun.cron(entry.cron, () => {
-      entry.run().catch((error: unknown) => {
-        console.error(`[jobs] cron "${entry.description}" failed:`, error);
+      entry.run().catch((error) => {
+        logger.error(`Jobs cron "${entry.description}" failed:`, error);
       });
     });
   }
-  console.info(`[jobs] Registered ${SCHEDULES.length} cron schedules via Bun.cron`);
+  logger.info(`Jobs Registered ${SCHEDULES.length} cron schedules via Bun.cron`);
 }

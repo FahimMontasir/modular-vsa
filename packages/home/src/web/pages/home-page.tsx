@@ -1,3 +1,4 @@
+import { logger } from "@modular-vsa/shared/common/logger";
 import { Button } from "@modular-vsa/ui/button";
 import { toast } from "@modular-vsa/ui/sonner";
 import { ThemeToggle } from "@modular-vsa/ui/theme";
@@ -6,7 +7,7 @@ import { useGetAllPostsQuery } from "../api/query";
 
 export function HomePage() {
   const { data } = useGetAllPostsQuery();
-  console.log(data);
+  logger.info("HomePage data", data);
 
   return (
     <div className="container mx-auto max-w-3xl px-4 py-2">

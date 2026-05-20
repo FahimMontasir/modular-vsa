@@ -1,5 +1,7 @@
 import { QueryCache, QueryClient } from "@tanstack/react-query";
 
+import { logger } from "../common/logger";
+
 /**
  * The pre-configured query client instance
  *
@@ -23,7 +25,7 @@ export const queryClient = new QueryClient({
   },
   queryCache: new QueryCache({
     onError(error) {
-      console.error("[queryclient] error ->", error);
+      logger.error("[queryclient] error ->", error);
     },
   }),
 });

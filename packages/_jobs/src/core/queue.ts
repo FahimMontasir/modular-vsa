@@ -1,5 +1,7 @@
 import { type Job, type JobsOptions, Queue } from "bullmq";
 
+import { logger } from "@modular-vsa/shared/common/logger";
+
 import type { JobDefinition, QueueName } from "./job";
 import { BULL_REDIS_PREFIX, DEFAULT_JOB_OPTIONS, REDIS_CONNECTION } from "./redis";
 
@@ -17,7 +19,7 @@ export function getQueue(queueName: QueueName): Queue {
   });
 
   queue.on("error", (error) => {
-    console.error(`[jobs] queue "${queueName}" error:`, error);
+    logger.error(`[jobs] queue "${queueName}" error:`, error);
   });
 
   queues.set(queueName, queue);

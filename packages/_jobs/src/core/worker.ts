@@ -1,5 +1,7 @@
 import { type Job, Worker, type WorkerOptions } from "bullmq";
 
+import { logger } from "@modular-vsa/shared/common/logger";
+
 import type { AnyJobDefinition, QueueName } from "./job";
 import { BULL_REDIS_PREFIX, DEFAULT_WORKER_OPTIONS, REDIS_CONNECTION } from "./redis";
 
@@ -51,10 +53,10 @@ export function startWorkers(
     );
 
     worker.on("failed", (job, error) => {
-      console.error(`[jobs] ${queueName}/${job?.name ?? "?"}#${job?.id ?? "?"} failed:`, error);
+      logger.error(`[jobs] ${queueName}/${job?.name ?? "?"}#${job?.id ?? "?"} failed:`, error);
     });
     worker.on("error", (error) => {
-      console.error(`[jobs] worker "${queueName}" error:`, error);
+      logger.error(`[jobs] worker "${queueName}" error:`, error);
     });
 
     workers.set(queueName, worker);
