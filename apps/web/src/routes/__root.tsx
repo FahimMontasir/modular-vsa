@@ -5,6 +5,7 @@ import { HeadContent, Outlet, createRootRouteWithContext } from "@tanstack/react
 import { TanStackRouterDevtoolsPanel } from "@tanstack/react-router-devtools";
 
 import { Toaster } from "@modular-vsa/ui/sonner";
+import { ThemeProvider } from "@modular-vsa/ui/theme";
 import { TooltipProvider } from "@modular-vsa/ui/tooltip";
 
 import { QueryClientProvider } from "../providers/query-provider";
@@ -37,10 +38,12 @@ function RootComponent() {
     <>
       <HeadContent />
       <QueryClientProvider>
-        <TooltipProvider>
-          <Outlet />
-        </TooltipProvider>
-        <Toaster />
+        <ThemeProvider>
+          <TooltipProvider>
+            <Outlet />
+          </TooltipProvider>
+          <Toaster />
+        </ThemeProvider>
         <TanStackDevtools
           plugins={[
             {

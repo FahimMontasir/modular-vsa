@@ -1,5 +1,6 @@
 import { Button } from "@modular-vsa/ui/button";
 import { toast } from "@modular-vsa/ui/sonner";
+import { ThemeToggle } from "@modular-vsa/ui/theme";
 
 import { useGetAllPostsQuery } from "../api/query";
 
@@ -13,6 +14,7 @@ export function HomePage() {
         <section className="rounded-lg border p-4">
           <h2 className="mb-2 font-medium">API Status</h2>
           <Button onClick={() => toast("hello")}>Check</Button>
+          <ThemeToggle />
         </section>
       </div>
     </div>

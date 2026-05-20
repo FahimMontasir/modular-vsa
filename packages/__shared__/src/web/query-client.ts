@@ -1,6 +1,6 @@
 import { MutationCache, QueryCache, QueryClient, type QueryKey } from "@tanstack/react-query";
 
-import { toast } from "@modular-vsa/ui/sonner";
+import { toast } from "../../../_ui/src/components/sonner";
 
 /**
  * The pre-configured query client instance

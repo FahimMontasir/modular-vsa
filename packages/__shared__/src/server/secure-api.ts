@@ -1,6 +1,6 @@
 import { Elysia, type ElysiaConfig } from "elysia";
 
-import { AuthMiddleware } from "@modular-vsa/auth/server/auth-middleware";
+import { AuthMiddleware } from "../../../auth/src/server/auth-middleware";
 
 /**
  * Base Elysia instance with common middleware This provides type propagation and security to all

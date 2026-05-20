@@ -12,10 +12,9 @@
     "test:unit": "bun test __tests__"
   },
   "dependencies": {
-    "@modular-vsa/auth": "workspace:*",
     "@modular-vsa/env": "workspace:*",
-    "@modular-vsa/ui": "workspace:*",
     "@tanstack/react-query": "catalog:",
+    "@tanstack/react-store": "^0.11.0",
     "elysia": "catalog:"
   },
   "devDependencies": {
