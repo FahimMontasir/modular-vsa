@@ -1,3 +1,5 @@
+// oxlint-disable no-console -- This logger is designed to be simple and flexible, allowing for easy logging in both server and client environments. It supports different log levels (info, warn, error) and can log to the console, local files (in production), and a remote server (if configured). The logger also formats timestamps in the Asia/Dhaka timezone for consistency across environments.
+
 const isServer = typeof Bun !== "undefined";
 
 let isProduction = false;

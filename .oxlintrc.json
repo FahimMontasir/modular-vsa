@@ -58,7 +58,8 @@
     "typescript/prefer-enum-initializers": "error",
     "typescript/prefer-namespace-keyword": "error",
     "unicorn/no-array-for-each": "error",
-    "unicorn/prefer-number-properties": "error"
+    "unicorn/prefer-number-properties": "error",
+    "no-console": "error"
   },
   "overrides": [
     {
