@@ -1,0 +1,27 @@
+{
+  "name": "@modular-vsa/i18n",
+  "version": "0.0.0",
+  "private": true,
+  "type": "module",
+  "exports": {
+    "./i18n": "./src/i18n.ts",
+    "./languages": "./src/languages.ts",
+    "./utils": "./src/utils.ts",
+    "./config": "./lingui.config.ts"
+  },
+  "scripts": {
+    "intl:extract": "lingui extract",
+    "intl:compile": "lingui compile",
+    "check": "oxlint && oxfmt --write && tsc --noEmit"
+  },
+  "dependencies": {
+    "@lingui/core": "catalog:"
+  },
+  "devDependencies": {
+    "@lingui/cli": "catalog:",
+    "@lingui/conf": "catalog:",
+    "@lingui/format-po": "catalog:",
+    "@modular-vsa/config": "workspace:*",
+    "typescript": "catalog:"
+  }
+}

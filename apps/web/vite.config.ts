@@ -1,6 +1,8 @@
+import { lingui, linguiTransformerBabelPreset } from "@lingui/vite-plugin";
+import babel from "@rolldown/plugin-babel";
 import tailwindcss from "@tailwindcss/vite";
 import { devtools } from "@tanstack/devtools-vite";
-import react from "@vitejs/plugin-react";
+import react, { reactCompilerPreset } from "@vitejs/plugin-react";
 import { defineConfig } from "vite";
 import { VitePWA } from "vite-plugin-pwa";
 
@@ -15,6 +17,11 @@ export default defineConfig({
     tailwindcss(),
     devtools(),
     react(),
+    lingui(),
+    babel({
+      plugins: ["@lingui/babel-plugin-lingui-macro"],
+      presets: [linguiTransformerBabelPreset(), reactCompilerPreset()],
+    }),
     VitePWA({
       registerType: "autoUpdate",
       manifest: {

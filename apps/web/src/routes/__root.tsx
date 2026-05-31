@@ -3,6 +3,8 @@ import { FormDevtoolsPanel } from "@tanstack/react-form-devtools";
 import { ReactQueryDevtoolsPanel } from "@tanstack/react-query-devtools";
 import { HeadContent, Outlet, createRootRouteWithContext } from "@tanstack/react-router";
 import { TanStackRouterDevtoolsPanel } from "@tanstack/react-router-devtools";
+import { i18n } from "@lingui/core";
+import { I18nProvider } from "@lingui/react";
 
 import { Toaster } from "@modular-vsa/ui/sonner";
 import { ThemeProvider } from "@modular-vsa/ui/theme";
@@ -10,10 +12,15 @@ import { TooltipProvider } from "@modular-vsa/ui/tooltip";
 
 import { QueryClientProvider } from "../providers/query-provider";
 
-export interface RouterAppContext {}
+export interface RouterAppContext {
+  __i18nPromise: Promise<void>;
+}
 
 export const Route = createRootRouteWithContext<RouterAppContext>()({
   component: RootComponent,
+  beforeLoad: async ({ context }) => {
+    await context.__i18nPromise;
+  },
   head: () => ({
     meta: [
       {
@@ -38,12 +45,14 @@ function RootComponent() {
     <>
       <HeadContent />
       <QueryClientProvider>
-        <ThemeProvider>
-          <TooltipProvider>
-            <Outlet />
-          </TooltipProvider>
-          <Toaster />
-        </ThemeProvider>
+        <I18nProvider i18n={i18n}>
+          <ThemeProvider>
+            <TooltipProvider>
+              <Outlet />
+            </TooltipProvider>
+            <Toaster />
+          </ThemeProvider>
+        </I18nProvider>
         <TanStackDevtools
           plugins={[
             {

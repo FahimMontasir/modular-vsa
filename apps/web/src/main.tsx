@@ -4,15 +4,18 @@ import ReactDOM from "react-dom/client";
 import "@modular-vsa/ui/globals.css";
 
 import { queryClient } from "@modular-vsa/shared/web/query-client";
+import { initializeI18n } from "@modular-vsa/i18n/i18n";
 
 import { routeTree } from "./routeTree.gen";
+
+const __i18nPromise = initializeI18n();
 
 const router = createRouter({
   routeTree,
   defaultPreload: "intent",
   scrollRestoration: true,
   scrollRestorationBehavior: "smooth",
-  context: { queryClient },
+  context: { queryClient, __i18nPromise },
   // defaultPendingComponent: GlobalLoading,
   // defaultErrorComponent: GlobalError,
   // Wrap: AnalyticsProvider,
