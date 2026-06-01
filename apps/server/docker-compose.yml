@@ -32,6 +32,33 @@ services:
       - "${REDIS_PORT}:6379"
     restart: unless-stopped
 
+  garage:
+    image: dxflrs/garage:v2.0.0
+    container_name: modular-vsa-garage
+    volumes:
+      - ./garage.toml:/etc/garage.toml
+      - garage-storage:/var/lib/garage
+    restart: unless-stopped
+    ports:
+      - "3900:3900"
+      - "3901:3901"
+      - "3902:3902"
+      - "3903:3903"
+
+  garage-webui:
+    image: khairul169/garage-webui:1.1.0
+    container_name: modular-vsa-garage-webui
+    restart: unless-stopped
+    volumes:
+      - ./garage.toml:/etc/garage.toml:ro
+    ports:
+      - "3909:3909"
+    environment:
+      AUTH_USER_PASS: admin:$$2b$$10$$NsmoVr48k1F9HSgVVKJa7eQIfl1qo72b.Fdt0qNEHzMw0yVPZk2nC
+      API_BASE_URL: http://garage:3903
+      S3_ENDPOINT_URL: http://garage:3900
+
 volumes:
   modular-vsa_postgres_data:
   redis_data:
+  garage-storage:

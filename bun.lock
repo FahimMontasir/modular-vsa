@@ -234,6 +234,24 @@
         "@modular-vsa/config": "workspace:*",
       },
     },
+    "packages/_storage": {
+      "name": "@modular-vsa/storage",
+      "version": "0.0.0",
+      "dependencies": {
+        "@modular-vsa/auth": "workspace:*",
+        "@modular-vsa/env": "workspace:*",
+        "@modular-vsa/shared": "workspace:*",
+        "@modular-vsa/ui": "workspace:*",
+        "elysia": "catalog:",
+      },
+      "devDependencies": {
+        "@modular-vsa/config": "workspace:*",
+      },
+      "peerDependencies": {
+        "@tanstack/react-query": "catalog:",
+        "react": "catalog:",
+      },
+    },
     "packages/_ui": {
       "name": "@modular-vsa/ui",
       "version": "0.0.0",
@@ -294,6 +312,7 @@
         "@modular-vsa/env": "workspace:*",
         "@modular-vsa/i18n": "workspace:*",
         "@modular-vsa/shared": "workspace:*",
+        "@modular-vsa/storage": "workspace:*",
         "@modular-vsa/ui": "workspace:*",
         "@tanstack/react-query": "catalog:",
       },
@@ -903,6 +922,8 @@
     "@modular-vsa/server": ["@modular-vsa/server@workspace:apps/server"],
 
     "@modular-vsa/shared": ["@modular-vsa/shared@workspace:packages/__shared__"],
+
+    "@modular-vsa/storage": ["@modular-vsa/storage@workspace:packages/_storage"],
 
     "@modular-vsa/ui": ["@modular-vsa/ui@workspace:packages/_ui"],
 

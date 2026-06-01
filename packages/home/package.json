@@ -26,6 +26,7 @@
     "@modular-vsa/env": "workspace:*",
     "@modular-vsa/i18n": "workspace:*",
     "@modular-vsa/shared": "workspace:*",
+    "@modular-vsa/storage": "workspace:*",
     "@modular-vsa/ui": "workspace:*",
     "@tanstack/react-query": "catalog:"
   },

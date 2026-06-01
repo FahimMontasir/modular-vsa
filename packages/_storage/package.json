@@ -1,0 +1,31 @@
+{
+  "name": "@modular-vsa/storage",
+  "version": "0.0.0",
+  "private": true,
+  "type": "module",
+  "exports": {
+    ".": {
+      "default": "./src/index.ts"
+    },
+    "./*": {
+      "default": "./src/*.ts"
+    }
+  },
+  "scripts": {
+    "check": "oxlint && oxfmt --write && tsc --noEmit"
+  },
+  "dependencies": {
+    "@modular-vsa/auth": "workspace:*",
+    "@modular-vsa/env": "workspace:*",
+    "@modular-vsa/shared": "workspace:*",
+    "@modular-vsa/ui": "workspace:*",
+    "elysia": "catalog:"
+  },
+  "devDependencies": {
+    "@modular-vsa/config": "workspace:*"
+  },
+  "peerDependencies": {
+    "@tanstack/react-query": "catalog:",
+    "react": "catalog:"
+  }
+}

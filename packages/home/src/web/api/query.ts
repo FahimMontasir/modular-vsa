@@ -2,6 +2,7 @@ import { queryOptions, useSuspenseQuery } from "@tanstack/react-query";
 
 // import { t } from "@lingui/core/macro";
 import { createApiClient } from "@modular-vsa/shared/web/api-client";
+import { useUploadFileMutation } from "@modular-vsa/storage/web/hooks";
 import { toast } from "@modular-vsa/ui/sonner";
 
 import type { APIHomeType } from "../../server/controllers/routes";
@@ -36,4 +37,13 @@ function getAllPostsQueryOptions() {
 
 export function useGetAllPostsQuery() {
   return useSuspenseQuery(getAllPostsQueryOptions());
+}
+
+export function useUploadMutation() {
+  return useUploadFileMutation(async (file) => {
+    const { data, error } = await apiClient.home.upload.post({ file });
+
+    if (error) throw error;
+    return data!;
+  });
 }
