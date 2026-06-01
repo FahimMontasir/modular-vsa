@@ -63,7 +63,8 @@
     "dkr:down": "turbo -F server dkr:down",
     "update:deps": "bun update --interactive --recursive",
     "add:ui": "cd packages/_ui && bunx --bun shadcn@latest add",
-    "clean": "find . -name 'node_modules' -type d -prune -exec rm -rf '{}' + && find . -name 'dist' -type d -prune -exec rm -rf '{}' + && find . -name '.turbo' -type d -prune -exec rm -rf '{}' + && find . -name '*.tsbuildinfo' -type f -delete"
+    "clean": "find . -name 'node_modules' -type d -prune -exec rm -rf '{}' + && find . -name 'dist' -type d -prune -exec rm -rf '{}' + && find . -name '.turbo' -type d -prune -exec rm -rf '{}' + && find . -name '*.tsbuildinfo' -type f -delete",
+    "doctor": "npx react-doctor@latest"
   },
   "dependencies": {
     "@elysiajs/eden": "1.4.9",
@@ -83,6 +84,7 @@
     "@types/react-dom": "catalog:",
     "oxfmt": "^0.49.0",
     "oxlint": "^1.65.0",
+    "react-doctor": "^0.2.14",
     "tailwindcss": "catalog:",
     "turbo": "^2.9.14",
     "typescript": "catalog:",

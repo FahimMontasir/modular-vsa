@@ -29,3 +29,5 @@ export const queryClient = new QueryClient({
     },
   }),
 });
+
+export type AppQueryClient = typeof queryClient;

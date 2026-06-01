@@ -1,34 +1,14 @@
-import { RouterProvider, createRouter } from "@tanstack/react-router";
+import { RouterProvider } from "@tanstack/react-router";
 import ReactDOM from "react-dom/client";
 
 import "@modular-vsa/ui/globals.css";
 
-import { queryClient } from "@modular-vsa/shared/web/query-client";
-import { initializeI18n } from "@modular-vsa/i18n/i18n";
+import { restoreQueryCache } from "./providers/query-provider";
+import { createRouter } from "./router";
 
-import { routeTree } from "./routeTree.gen";
+const router = createRouter();
 
-const __i18nPromise = initializeI18n();
-
-const router = createRouter({
-  routeTree,
-  defaultPreload: "intent",
-  scrollRestoration: true,
-  scrollRestorationBehavior: "smooth",
-  context: { queryClient, __i18nPromise },
-  // defaultPendingComponent: GlobalLoading,
-  // defaultErrorComponent: GlobalError,
-  // Wrap: AnalyticsProvider,
-  // defaultOnCatch() {
-  //   logger.error(error, errorInfo);
-  // },
-});
-
-declare module "@tanstack/react-router" {
-  interface Register {
-    router: typeof router;
-  }
-}
+restoreQueryCache();
 
 const rootElement = document.getElementById("app");
 
