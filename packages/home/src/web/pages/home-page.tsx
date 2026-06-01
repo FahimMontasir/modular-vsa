@@ -1,8 +1,8 @@
 import { Trans } from "@lingui/react/macro";
 
-import { setAppLanguage } from "@modular-vsa/i18n/i18n";
 import { logger } from "@modular-vsa/shared/common/logger";
 import { Button } from "@modular-vsa/ui/button";
+import { LanguageToggle } from "@modular-vsa/ui/language";
 import { toast } from "@modular-vsa/ui/sonner";
 import { ThemeToggle } from "@modular-vsa/ui/theme";
 
@@ -23,9 +23,7 @@ export function HomePage() {
             <Trans>Check</Trans>
           </Button>
           <ThemeToggle />
-          <Button onClick={() => setAppLanguage("bn")}>
-            <Trans>Language change</Trans>
-          </Button>
+          <LanguageToggle />
         </section>
       </div>
     </div>
