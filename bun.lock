@@ -287,9 +287,11 @@
       "name": "@modular-vsa/home",
       "version": "0.0.0",
       "dependencies": {
+        "@lingui/react": "catalog:",
         "@modular-vsa/auth": "workspace:*",
         "@modular-vsa/db": "workspace:*",
         "@modular-vsa/env": "workspace:*",
+        "@modular-vsa/i18n": "workspace:*",
         "@modular-vsa/shared": "workspace:*",
         "@modular-vsa/ui": "workspace:*",
         "@tanstack/react-query": "catalog:",
