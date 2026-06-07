@@ -1,0 +1,25 @@
+{
+  "name": "@modular-vsa/firebase",
+  "version": "0.0.0",
+  "private": true,
+  "type": "module",
+  "exports": {
+    "./doc": {
+      "default": "./README.md"
+    },
+    "./*": {
+      "default": "./src/*.ts"
+    }
+  },
+  "scripts": {
+    "check": "oxlint && oxfmt --write && tsc --noEmit"
+  },
+  "dependencies": {
+    "@modular-vsa/env": "workspace:*",
+    "firebase": "12.14.0",
+    "firebase-admin": "^13.10.0"
+  },
+  "devDependencies": {
+    "@modular-vsa/config": "workspace:*"
+  }
+}

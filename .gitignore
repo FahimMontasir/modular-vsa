@@ -50,3 +50,6 @@ coverage
 .cache
 tmp
 temp
+
+# Firebase service account key
+packages/_firebase/service-key.json
