@@ -115,7 +115,7 @@ Each row maps a file to what it does and where it typically fits in the UI.
 | `src/components/kbd.tsx`             | Keyboard shortcut badge.                                 | Tooltip hints, menus.                   |
 | `src/components/label.tsx`           | Accessible label text.                                   | Forms, toggles, inputs.                 |
 | `src/components/menubar.tsx`         | App‑style menu bar.                                      | Desktop‑style navigation.               |
-| `src/components/native-select.tsx`   | Native select element with styling.                      | Mobile‑friendly selects.                |
+| `src/components/native-select.tsx`   | Native select element with styling.                      | Form selects, option pickers.           |
 | `src/components/navigation-menu.tsx` | Multi‑level navigation menu.                             | Header nav, mega menus.                 |
 | `src/components/pagination.tsx`      | Page navigation controls.                                | Tables, search results.                 |
 | `src/components/popover.tsx`         | Floating non‑modal panel.                                | Filters, quick edits.                   |

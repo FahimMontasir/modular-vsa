@@ -29,7 +29,6 @@ packages/home/
 │   │   ├── helpers/             # Normalization and small utilities, including path helpers
 │   │   ├── validators/          # Elysia / TypeBox schemas
 │   │   └── types.ts             # Static types inferred from schemas
-│   ├── native/                  # Native-specific extension point
 │   └── web/                     # Web-specific extension point
 │       ├── components/            # UI components (currently empty)
 │       └── pages/                 # Page components (e.g., home-page.tsx)
@@ -49,16 +48,11 @@ This is the main implemented area of the package.
 - `validators/` builds schemas from the Drizzle database models.
 - `types.ts` derives TypeScript types from the validation layer.
 
-### `src/native` and `src/web`
+### `src/web`
 
-These folders exist as platform‑specific extension points.
-
-- **src/web/** – contains UI pieces for the home feature:
+This folder exists as the UI extension point for the home feature:
   - `components/` – reusable React components.
   - `pages/` – route‑level page components.
-- **src/native/** – currently empty but reserved for native‑platform implementations.
-
-If you add platform behavior later, keep the logic isolated to the matching folder instead of leaking platform checks into the shared server code.
 
 ## Schema → validation → types
 
@@ -235,7 +229,7 @@ If you are updating code in this package:
 - keep route handlers minimal
 - do not invent new validation shapes when `HomeSchema` already covers the case
 - avoid editing unrelated files when the task is documentation-only
-- treat `src/native` and `src/web` as intentional extension points, not as part of the server implementation unless the task explicitly says so
+- treat `src/web` as an intentional extension point, not as part of the server implementation unless the task explicitly says so
 
 ## Maintenance
 

@@ -1,4 +1,3 @@
-import { expo } from "@better-auth/expo";
 import { betterAuth, type BetterAuthOptions } from "better-auth";
 import { drizzleAdapter } from "better-auth/adapters/drizzle";
 import { redis } from "bun";
@@ -20,10 +19,6 @@ function createAuthConfig(appName: string): BetterAuthOptions {
     }),
     trustedOrigins: [
       env.CORS_ORIGIN,
-      "modular-vsa://",
-      ...(env.NODE_ENV === "development"
-        ? ["exp://", "exp://**", "exp://192.168.*.*:*/**", "http://localhost:8081"]
-        : []),
     ],
     emailAndPassword: {
       enabled: true,
@@ -38,8 +33,6 @@ function createAuthConfig(appName: string): BetterAuthOptions {
         httpOnly: true,
       },
     },
-    plugins: [expo()],
-
     secondaryStorage: {
       get: async (key) => await redis.get(key),
 

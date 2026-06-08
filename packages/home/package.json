@@ -11,8 +11,7 @@
       "default": "./src/*.ts"
     },
     "./pages/*": {
-      "default": "./src/web/pages/*.tsx",
-      "native": "./src/native/pages/*.tsx"
+      "default": "./src/web/pages/*.tsx"
     }
   },
   "scripts": {

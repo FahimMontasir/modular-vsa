@@ -6,8 +6,6 @@ This is a modern TypeScript stack that combines React, TanStack Router, Elysia, 
 
 - **TypeScript** - For type safety and improved developer experience
 - **TanStack Router** - File-based routing with full type safety
-- **React Native** - Build mobile apps using React
-- **Expo** - Tools for React Native development
 - **TailwindCSS** - Utility-first CSS for rapid UI development
 - **Shared UI package** - shadcn/ui primitives live in `packages/_ui`
 - **Elysia** - Type-safe, high-performance framework
@@ -47,7 +45,6 @@ bun run dev
 ```
 
 Open [http://localhost:5173](http://localhost:5173) in your browser to see the web application.
-Use the Expo Go app to run the mobile application.
 The API is running at [http://localhost:3000](http://localhost:3000).
 
 ## UI Customization
@@ -85,7 +82,6 @@ If you want to add app‑specific blocks instead of shared primitives, run the s
 ```text
 modular-vsa/
 ├── apps/
-│   ├── native/   # Expo React Native app
 │   ├── server/   # Elysia backend API
 │   └── web/      # Vite React SPA
 ├── packages/
@@ -125,7 +121,6 @@ These configurations help ensure consistent development environment, automated c
 - `bun run dev:web`: Start only the web application
 - `bun run dev:server`: Start only the server
 - `bun run check`: Check TypeScript types and format lint across all apps
-- `bun run dev:native`: Start the React Native/Expo development server
 - `bun run db:push`: Push schema changes to database
 - `bun run db:generate`: Generate database client/types
 - `bun run db:migrate`: Run database migrations

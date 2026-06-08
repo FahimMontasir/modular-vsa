@@ -7,8 +7,7 @@
     "./*": {
       "default": "./src/components/*.tsx",
       "hooks": "./src/hooks/*.ts",
-      "utils": "./src/lib/utils/*.ts",
-      "native": "./src/components/native/*.tsx"
+      "utils": "./src/lib/utils/*.ts"
     },
     "./globals.css": "./src/styles/globals.css"
   },
