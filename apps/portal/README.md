@@ -1,18 +1,11 @@
-# Web App
+# Portal (web)
 
 The web front‑end for the **modular‑vsa** monorepo, built with Vite, React and TanStack Router.
-
-## Development
-
-```bash
-bun install
-bun run dev:web   # Starts Vite dev server on http://localhost:5173
-```
 
 ## Project Layout
 
 ```text
-apps/web/
+apps/portal/
 ├── src/
 │   ├── main.tsx          # Entry point
 │   ├── routeTree.gen.ts  # Generated route tree for TanStack Router

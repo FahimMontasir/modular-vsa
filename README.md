@@ -100,16 +100,16 @@ modular-vsa/
 
 ### .github
 
-- **actions/** – Custom GitHub Actions used in CI.  
-  - `bun` – Action that sets up Bun runtime for all workflows.  
-- **hooks/** – Server-side Git hooks managed by `pre-commit`.  
-  - `pre-commit` – Runs linting, formatting, and type checks before each commit.  
-- **workflows/** – CI pipelines.  
+- **actions/** – Custom GitHub Actions used in CI.
+  - `bun` – Action that sets up Bun runtime for all workflows.
+- **hooks/** – Server-side Git hooks managed by `pre-commit`.
+  - `pre-commit` – Runs linting, formatting, and type checks before each commit.
+- **workflows/** – CI pipelines.
   - `tests.yml` – Runs unit, integration, and end‑to‑end tests on push/PR.
 
 ### .vscode
 
-- `settings.json` – Workspace settings (e.g., TypeScript validation, ESLint integration, Bun terminal).  
+- `settings.json` – Workspace settings (e.g., TypeScript validation, ESLint integration, Bun terminal).
 - `extensions.json` – Recommended extensions for contributors (`esbenp.prettier-vscode`, `bradlc.vscode-tailwindcss`, `Biomejs.biome`, etc.).
 
 These configurations help ensure consistent development environment, automated checks, and reproducible CI runs across the monorepo.
@@ -118,8 +118,6 @@ These configurations help ensure consistent development environment, automated c
 
 - `bun run dev`: Start all applications in development mode
 - `bun run build`: Build all applications
-- `bun run dev:web`: Start only the web application
-- `bun run dev:server`: Start only the server
 - `bun run check`: Check TypeScript types and format lint across all apps
 - `bun run db:push`: Push schema changes to database
 - `bun run db:generate`: Generate database client/types
