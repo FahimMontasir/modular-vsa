@@ -17,9 +17,7 @@ function createAuthConfig(appName: string): BetterAuthOptions {
       provider: "pg",
       schema: schema,
     }),
-    trustedOrigins: [
-      env.CORS_ORIGIN,
-    ],
+    trustedOrigins: [env.CORS_ORIGIN],
     emailAndPassword: {
       enabled: true,
     },

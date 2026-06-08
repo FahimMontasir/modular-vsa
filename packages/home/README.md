@@ -51,8 +51,9 @@ This is the main implemented area of the package.
 ### `src/web`
 
 This folder exists as the UI extension point for the home feature:
-  - `components/` – reusable React components.
-  - `pages/` – route‑level page components.
+
+- `components/` – reusable React components.
+- `pages/` – route‑level page components.
 
 ## Schema → validation → types
 
