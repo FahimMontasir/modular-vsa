@@ -1,4 +1,4 @@
 #!/bin/sh
 
-# Run comprehensive monorepo validation: lint, format, and typecheck for all packages
-bun check && bun test:unit
+# Run comprehensive monorepo validation and Bun unit tests.
+bun run check && bun run test:unit

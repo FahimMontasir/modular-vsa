@@ -66,7 +66,7 @@ export default function Example() {
 Run the shadcn CLI from the package root:
 
 ```bash
-bunx shadcn@latest add <component> -c .
+bunx --bun shadcn@latest add <component> -c .
 ```
 
 Or use the package script:

@@ -217,10 +217,10 @@ Comments already have database schema support and validation/type foundations. F
 
 ## Validation and scripts
 
-This package has its own checks:
+Run workspace checks from the repository root and package tests from either location:
 
-- `bun run check` → lint, format, and type-check this package
-- `bun run test:unit` → run unit tests under `__tests__/`
+- `bun run check` at the repository root → format, lint, and type-check the workspace with Vite+
+- `bun run test:unit` → run unit tests under `__tests__` with `bun:test`
 
 ## Notes for AI agents
 

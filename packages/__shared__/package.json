@@ -10,7 +10,6 @@
     "./doc": "./src/README.md"
   },
   "scripts": {
-    "check": "oxlint && oxfmt --write && tsc --noEmit",
     "test:unit": "bun test __tests__"
   },
   "dependencies": {

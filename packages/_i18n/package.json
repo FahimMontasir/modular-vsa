@@ -11,8 +11,7 @@
   },
   "scripts": {
     "intl:extract": "lingui extract",
-    "intl:compile": "lingui compile",
-    "check": "oxlint && oxfmt --write && tsc --noEmit"
+    "intl:compile": "lingui compile"
   },
   "dependencies": {
     "@lingui/core": "catalog:"

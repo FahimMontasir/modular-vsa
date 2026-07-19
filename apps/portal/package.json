@@ -4,10 +4,10 @@
   "private": true,
   "type": "module",
   "scripts": {
-    "dev": "vite dev",
-    "build": "vite build",
-    "serve": "vite preview",
-    "start": "vite",
+    "dev": "vp dev",
+    "build": "vp build",
+    "serve": "vp preview",
+    "start": "vp dev",
     "generate-pwa-assets": "pwa-assets-generator"
   },
   "dependencies": {
@@ -55,6 +55,7 @@
     "postcss": "8.5.14",
     "tailwindcss": "catalog:",
     "typescript": "catalog:",
-    "vite": "catalog:"
+    "vite": "catalog:",
+    "vite-plus": "catalog:"
   }
 }

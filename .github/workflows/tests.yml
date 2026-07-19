@@ -18,8 +18,20 @@ jobs:
         with:
           fetch-depth: 2
 
-      - name: 🏗 Setup Bun
-        uses: ./.github/actions/bun
+      - name: 🏗 Setup Vite+ and Bun
+        uses: voidzero-dev/setup-vp@v1
+        with:
+          node-version: "24.18.0"
+          cache: true
 
-      - name: 🧪 Run Tests
-        run: bun test:unit
+      - name: 📦 Install Dependencies
+        run: bun install --frozen-lockfile --ignore-scripts
+
+      - name: 🔎 Check Workspace
+        run: bun run check
+
+      - name: 🧪 Run Unit Tests
+        run: bun run test:unit
+
+      - name: 📦 Build Workspace
+        run: bun run build

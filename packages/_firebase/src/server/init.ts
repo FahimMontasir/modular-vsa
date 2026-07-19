@@ -8,7 +8,8 @@ try {
   // Dynamic import so the module loads even when service-key.json is absent
   // (e.g. CI, fresh clone). Expected to be present or FIREBASE_PRIVATE_KEY
   // env var should be set in production.
-  const mod = await import("../../service-key.json", { with: { type: "json" } });
+  const serviceAccountPath = "../../service-key.json";
+  const mod = await import(serviceAccountPath, { with: { type: "json" } });
   serviceAccount = mod.default ?? mod;
 } catch {
   serviceAccount = undefined;

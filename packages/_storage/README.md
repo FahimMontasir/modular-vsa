@@ -7,6 +7,7 @@ S3-compatible object storage using [Bun's native S3 API](https://bun.sh/docs/run
 ### 1. Start Garage
 
 ```bash
+# Run from the repository root.
 bun run dkr:start
 ```
 

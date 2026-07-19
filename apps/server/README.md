@@ -45,10 +45,13 @@ These utilities are tightly coupled to this server app's implementation details 
 ## Development
 
 ```bash
-# Install dependencies
+# From the repository root, install dependencies
 bun install
 
-# Run development server
+# Start only the server package
+cd apps/server && bun run dev
+
+# Or start the complete workspace from the repository root
 bun run dev
 
 # View API documentation

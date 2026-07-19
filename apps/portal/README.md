@@ -1,6 +1,6 @@
 # Portal (web)
 
-The web front‑end for the **modular‑vsa** monorepo, built with Vite, React and TanStack Router.
+The web front-end for the **modular-vsa** monorepo, built with Vite+, React, and TanStack Router.
 
 ## Project Layout
 
@@ -27,7 +27,7 @@ import { Button } from "@modular-vsa/ui/components/button";
 ## Build
 
 ```bash
-bun run build:web   # Produces a static site in `dist/`
+bun run build # Produces a static site in `dist/`
 ```
 
 ## Documentation

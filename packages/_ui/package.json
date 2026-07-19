@@ -12,8 +12,7 @@
     "./globals.css": "./src/styles/globals.css"
   },
   "scripts": {
-    "check": "oxlint && oxfmt --write && tsc --noEmit",
-    "add:ui": "bunx shadcn add"
+    "add:ui": "bunx --bun shadcn add"
   },
   "dependencies": {
     "@base-ui/react": "^1.4.1",

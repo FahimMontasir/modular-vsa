@@ -11,9 +11,6 @@
       "default": "./src/def/*.ts"
     }
   },
-  "scripts": {
-    "check": "oxlint && oxfmt --write && tsc --noEmit"
-  },
   "dependencies": {
     "@modular-vsa/db": "workspace:*",
     "@modular-vsa/env": "workspace:*",

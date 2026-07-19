@@ -11,9 +11,6 @@
       "default": "./src/*.ts"
     }
   },
-  "scripts": {
-    "check": "oxlint && oxfmt --write && tsc --noEmit"
-  },
   "dependencies": {
     "@modular-vsa/env": "workspace:*",
     "firebase": "12.14.0",
