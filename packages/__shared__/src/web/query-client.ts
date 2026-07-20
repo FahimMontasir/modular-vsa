@@ -2,6 +2,8 @@ import { QueryCache, QueryClient } from "@tanstack/react-query";
 
 import { logger } from "../common/logger";
 
+export const QUERY_CACHE_MAX_AGE_MS = 24 * 60 * 60 * 1000;
+
 /**
  * The pre-configured query client instance
  *
@@ -18,7 +20,7 @@ export const queryClient = new QueryClient({
   defaultOptions: {
     queries: {
       retry: 2,
-      gcTime: 30 * 1000,
+      gcTime: QUERY_CACHE_MAX_AGE_MS,
       staleTime: 60 * 1000,
       refetchOnWindowFocus: false,
     },

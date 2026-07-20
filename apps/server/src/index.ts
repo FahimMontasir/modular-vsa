@@ -23,6 +23,6 @@ export const app = new Elysia()
       process.exit(1);
     });
     logger.info(
-      `\n\x1b[36m🚀 Server:\x1b[0m http://localhost:${env.PORT}\n\x1b[36m📚 Docs:\x1b[0m http://localhost:${env.PORT}/api-docs\n\x1b[35m💡 Tips:\x1b[0m u/d scroll • t/b jump • c copy (not cmd+c)\n`
+      `\n\x1b[36m🚀 Server:\x1b[0m http://localhost:${env.PORT}\n\x1b[36m📚 Docs:\x1b[0m http://localhost:${env.PORT}/api-docs`
     );
   });

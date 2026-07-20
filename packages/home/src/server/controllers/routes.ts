@@ -2,10 +2,10 @@ import { secureAPI } from "@modular-vsa/auth/server/secure-api";
 import { StorageRoutes } from "@modular-vsa/storage/server/routes";
 
 import { ENDPOINTS_PATH } from "../helpers/path";
-import { PostCreateRoutes } from "./create";
-import { PostDeleteRoutes } from "./delete";
-import { PostReadRoutes } from "./read";
-import { PostUpdateRoutes } from "./update";
+import { CreateRoutes } from "./create";
+import { DeleteRoutes } from "./delete";
+import { ReadRoutes } from "./read";
+import { UpdateRoutes } from "./update";
 
 export const HomeRoutes = secureAPI({
   name: "Home",
@@ -15,10 +15,10 @@ export const HomeRoutes = secureAPI({
     summary: "Home routes",
   },
 })
-  .use(PostCreateRoutes)
-  .use(PostReadRoutes)
-  .use(PostUpdateRoutes)
-  .use(PostDeleteRoutes)
+  .use(CreateRoutes)
+  .use(ReadRoutes)
+  .use(UpdateRoutes)
+  .use(DeleteRoutes)
   .use(StorageRoutes);
 
 export type APIHomeType = typeof HomeRoutes;

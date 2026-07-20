@@ -6,7 +6,7 @@ import { ENDPOINTS_PATH } from "../helpers/path";
 import { updatePost } from "../services/update-post";
 import { HomeSchema } from "../validators";
 
-export const PostUpdateRoutes = secureAPI().patch(
+export const UpdateRoutes = secureAPI().patch(
   ENDPOINTS_PATH.byId,
   async ({ params, body }) => {
     return await updatePost(params.id, body);

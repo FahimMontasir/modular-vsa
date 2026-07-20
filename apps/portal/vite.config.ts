@@ -15,7 +15,7 @@ export default defineConfig({
     tsconfigPaths: true,
   },
   plugins: lazyPlugins(() => [
-    tanstackRouter({ autoCodeSplitting: true, quoteStyle: "double" }),
+    tanstackRouter({ target: "react", autoCodeSplitting: true, quoteStyle: "double" }),
     tailwindcss(),
     devtools(),
     react(),

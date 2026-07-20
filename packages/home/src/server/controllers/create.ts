@@ -6,7 +6,7 @@ import { ENDPOINTS_PATH } from "../helpers/path";
 import { createPost } from "../services/create-post";
 import { HomeSchema } from "../validators";
 
-export const PostCreateRoutes = secureAPI().post(
+export const CreateRoutes = secureAPI().post(
   ENDPOINTS_PATH.root,
   async ({ body }) => {
     return await createPost(body);

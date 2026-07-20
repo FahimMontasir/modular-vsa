@@ -7,7 +7,7 @@ import { readPost } from "../services/read-post";
 import { readPosts } from "../services/read-posts";
 import { HomeSchema } from "../validators";
 
-export const PostReadRoutes = secureAPI()
+export const ReadRoutes = secureAPI()
   .get(
     ENDPOINTS_PATH.root,
     async ({ query }) => {

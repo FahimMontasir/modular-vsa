@@ -6,7 +6,7 @@ import { ENDPOINTS_PATH } from "../helpers/path";
 import { deletePost } from "../services/delete-post";
 import { HomeSchema } from "../validators";
 
-export const PostDeleteRoutes = secureAPI().delete(
+export const DeleteRoutes = secureAPI().delete(
   ENDPOINTS_PATH.byId,
   async ({ params }) => {
     return await deletePost(params.id);

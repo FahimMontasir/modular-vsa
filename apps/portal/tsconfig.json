@@ -1,9 +1,5 @@
 {
   "extends": "@modular-vsa/config/tsconfig.base.json",
-  "compilerOptions": {
-    "preserveSymlinks": true,
-    "allowImportingTsExtensions": true,
-    "types": ["bun", "vite/client", "./src/router-type.d.ts"]
-  },
-  "include": ["**/*.ts", "**/*.tsx", "**/*.d.ts"]
+  "include": ["**/*.ts", "**/*.tsx", "**/*.d.ts"],
+  "exclude": ["node_modules", "dist", "dev-dist"]
 }

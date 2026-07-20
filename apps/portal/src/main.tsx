@@ -3,12 +3,8 @@ import ReactDOM from "react-dom/client";
 
 import "@modular-vsa/ui/globals.css";
 
-import { restoreQueryCache } from "./providers/query-provider";
-import { createRouter } from "./router";
-
-const router = createRouter();
-
-restoreQueryCache();
+import { QueryClientProvider } from "./providers/query-provider";
+import { router } from "./router";
 
 const rootElement = document.getElementById("app");
 
@@ -18,5 +14,9 @@ if (!rootElement) {
 
 if (!rootElement.innerHTML) {
   const root = ReactDOM.createRoot(rootElement);
-  root.render(<RouterProvider router={router} />);
+  root.render(
+    <QueryClientProvider>
+      <RouterProvider router={router} />
+    </QueryClientProvider>
+  );
 }
