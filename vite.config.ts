@@ -15,6 +15,7 @@ export default defineConfig({
     bracketSameLine: false,
     bracketSpacing: true,
     ignorePatterns: [
+      "**/.agents/**",
       "**/dist/**",
       "**/dev-dist/**",
       "**/routeTree.gen.ts",
@@ -59,6 +60,7 @@ export default defineConfig({
       correctness: "error",
     },
     ignorePatterns: [
+      "**/.agents/**",
       "**/dist/**",
       "**/dev-dist/**",
       "**/routeTree.gen.ts",

@@ -1,4 +1,4 @@
 {
   "extends": "@modular-vsa/config/tsconfig.base.json",
-  "exclude": ["**/node_modules/**", "**/dist/**", "**/build/**", "**/dev-dist/**"]
+  "exclude": ["**/.agents/**", "**/node_modules/**", "**/dist/**", "**/build/**", "**/dev-dist/**"]
 }
