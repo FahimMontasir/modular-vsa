@@ -10,6 +10,7 @@ import {
 import { useCallback, useEffect, useState, type FormEvent } from "react";
 
 import { PASSWORD_MAX_LENGTH, PASSWORD_MIN_LENGTH } from "@modular-vsa/env/auth-policy";
+import { PageContainer } from "@modular-vsa/shared/web/components/page-container";
 import { SectionHeader } from "@modular-vsa/shared/web/components/section-header";
 import {
   AlertDialog,
@@ -141,7 +142,7 @@ export function AccessUsersPage() {
   const selectedUser = users.find((user) => user.id === selectedId);
 
   return (
-    <div className="mx-auto flex w-full max-w-7xl flex-col gap-6">
+    <PageContainer>
       <SectionHeader
         kind="access-control"
         eyebrow={t`Administration`}
@@ -231,7 +232,7 @@ export function AccessUsersPage() {
           runAction={runAction}
         />
       )}
-    </div>
+    </PageContainer>
   );
 }
 

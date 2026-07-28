@@ -2,6 +2,7 @@ import { useLingui } from "@lingui/react/macro";
 import { RefreshCwIcon } from "lucide-react";
 import { useCallback, useEffect, useState } from "react";
 
+import { PageContainer } from "@modular-vsa/shared/web/components/page-container";
 import { SectionHeader } from "@modular-vsa/shared/web/components/section-header";
 import {
   AlertDialog,
@@ -78,7 +79,7 @@ export function AccessSessionsPage() {
   const selectedUser = users.find((user) => user.id === selectedId);
 
   return (
-    <div className="mx-auto flex w-full max-w-7xl flex-col gap-6">
+    <PageContainer>
       <SectionHeader
         kind="access-control"
         eyebrow={t`Administration`}
@@ -193,6 +194,6 @@ export function AccessSessionsPage() {
           )}
         </CardContent>
       </Card>
-    </div>
+    </PageContainer>
   );
 }

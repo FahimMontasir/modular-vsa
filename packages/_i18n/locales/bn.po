@@ -473,7 +473,7 @@ msgid "Impersonation could not be started"
 msgstr "ছদ্মবেশ সেশন শুরু করা যায়নি"
 
 # Reviewed local translation
-#: ../__shared__/src/web/components/application-shell.tsx:243
+#: ../__shared__/src/web/components/application-shell.tsx:246
 msgid "Impersonation session"
 msgstr "ছদ্মবেশ সেশন"
 
@@ -587,7 +587,7 @@ msgid "OAuth linking becomes available here when a provider is configured on the
 msgstr "সার্ভারে প্রদানকারী কনফিগার করা হলে এখানে OAuth সংযোগ চালু হবে।"
 
 # Reviewed local translation
-#: ../__shared__/src/web/components/application-shell.tsx:207
+#: ../__shared__/src/web/components/application-shell.tsx:205
 msgid "Open account menu"
 msgstr "অ্যাকাউন্ট মেনু খুলুন"
 
@@ -653,7 +653,7 @@ msgid "Posts endpoint"
 msgstr "পোস্ট এন্ডপয়েন্ট"
 
 # Reviewed local translation
-#: ../__shared__/src/web/components/application-shell.tsx:251
+#: ../__shared__/src/web/components/application-shell.tsx:254
 msgid "Primary navigation"
 msgstr "প্রধান নেভিগেশন"
 
@@ -925,7 +925,7 @@ msgid "Sign in to the control plane"
 msgstr "কন্ট্রোল প্লেনে সাইন ইন করুন"
 
 # Reviewed local translation
-#: ../__shared__/src/web/components/application-shell.tsx:233
+#: ../__shared__/src/web/components/application-shell.tsx:236
 #: ../auth/src/web/pages/account-sessions-page.tsx:174
 msgid "Sign out"
 msgstr "সাইন আউট"
@@ -937,7 +937,7 @@ msgid "Signed in as {0}"
 msgstr "{0} হিসেবে সাইন ইন করা হয়েছে"
 
 # Reviewed local translation
-#: ../__shared__/src/web/components/application-shell.tsx:226
+#: ../__shared__/src/web/components/application-shell.tsx:224
 msgid "Stop impersonating"
 msgstr "ছদ্মবেশ বন্ধ করুন"
 
@@ -952,12 +952,12 @@ msgid "Storage endpoint"
 msgstr "স্টোরেজ এন্ডপয়েন্ট"
 
 # Reviewed local translation
-#: ../__shared__/src/web/components/language-switcher.tsx:17
+#: ../__shared__/src/web/components/language-switcher.tsx:18
 msgid "Switch to Bengali"
 msgstr "বাংলায় পরিবর্তন করুন"
 
 # Reviewed local translation
-#: ../__shared__/src/web/components/language-switcher.tsx:17
+#: ../__shared__/src/web/components/language-switcher.tsx:18
 msgid "Switch to English"
 msgstr "ইংরেজিতে পরিবর্তন করুন"
 
@@ -1021,6 +1021,11 @@ msgstr "এটি “{0}” স্থায়ীভাবে মুছে দ�
 #: ../home/src/web/pages/home-page.tsx:132
 msgid "Title"
 msgstr "শিরোনাম"
+
+# Reviewed local translation
+#: ../__shared__/src/web/components/application-shell.tsx:230
+msgid "Toggle theme"
+msgstr "থিম পরিবর্তন করুন"
 
 # Reviewed local translation
 #: ../auth/src/web/pages/access-users-page.tsx:451
@@ -1164,7 +1169,7 @@ msgstr "স্বাগতম, {0}।"
 
 # Reviewed local translation
 #. placeholder {0}: user.name
-#: ../__shared__/src/web/components/application-shell.tsx:244
+#: ../__shared__/src/web/components/application-shell.tsx:247
 msgid "You are viewing the portal as {0}. Use the account menu to return to your administrator session."
 msgstr "আপনি {0} হিসেবে পোর্টালটি দেখছেন। প্রশাসক সেশনে ফিরতে অ্যাকাউন্ট মেনু ব্যবহার করুন।"
 

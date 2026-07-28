@@ -389,7 +389,7 @@ msgstr "Impersonate administrators"
 msgid "Impersonation could not be started"
 msgstr "Impersonation could not be started"
 
-#: ../__shared__/src/web/components/application-shell.tsx:243
+#: ../__shared__/src/web/components/application-shell.tsx:246
 msgid "Impersonation session"
 msgstr "Impersonation session"
 
@@ -481,7 +481,7 @@ msgstr "not set"
 msgid "OAuth linking becomes available here when a provider is configured on the server."
 msgstr "OAuth linking becomes available here when a provider is configured on the server."
 
-#: ../__shared__/src/web/components/application-shell.tsx:207
+#: ../__shared__/src/web/components/application-shell.tsx:205
 msgid "Open account menu"
 msgstr "Open account menu"
 
@@ -535,7 +535,7 @@ msgstr "Posts"
 msgid "Posts endpoint"
 msgstr "Posts endpoint"
 
-#: ../__shared__/src/web/components/application-shell.tsx:251
+#: ../__shared__/src/web/components/application-shell.tsx:254
 msgid "Primary navigation"
 msgstr "Primary navigation"
 
@@ -757,7 +757,7 @@ msgstr "Sign in"
 msgid "Sign in to the control plane"
 msgstr "Sign in to the control plane"
 
-#: ../__shared__/src/web/components/application-shell.tsx:233
+#: ../__shared__/src/web/components/application-shell.tsx:236
 #: ../auth/src/web/pages/account-sessions-page.tsx:174
 msgid "Sign out"
 msgstr "Sign out"
@@ -767,7 +767,7 @@ msgstr "Sign out"
 msgid "Signed in as {0}"
 msgstr "Signed in as {0}"
 
-#: ../__shared__/src/web/components/application-shell.tsx:226
+#: ../__shared__/src/web/components/application-shell.tsx:224
 msgid "Stop impersonating"
 msgstr "Stop impersonating"
 
@@ -779,11 +779,11 @@ msgstr "Storage"
 msgid "Storage endpoint"
 msgstr "Storage endpoint"
 
-#: ../__shared__/src/web/components/language-switcher.tsx:17
+#: ../__shared__/src/web/components/language-switcher.tsx:18
 msgid "Switch to Bengali"
 msgstr "Switch to Bengali"
 
-#: ../__shared__/src/web/components/language-switcher.tsx:17
+#: ../__shared__/src/web/components/language-switcher.tsx:18
 msgid "Switch to English"
 msgstr "Switch to English"
 
@@ -835,6 +835,10 @@ msgstr "This permanently removes “{0}”."
 #: ../home/src/web/pages/home-page.tsx:132
 msgid "Title"
 msgstr "Title"
+
+#: ../__shared__/src/web/components/application-shell.tsx:230
+msgid "Toggle theme"
+msgstr "Toggle theme"
 
 #: ../auth/src/web/pages/access-users-page.tsx:451
 msgid "Unban"
@@ -951,7 +955,7 @@ msgid "Welcome, {0}."
 msgstr "Welcome, {0}."
 
 #. placeholder {0}: user.name
-#: ../__shared__/src/web/components/application-shell.tsx:244
+#: ../__shared__/src/web/components/application-shell.tsx:247
 msgid "You are viewing the portal as {0}. Use the account menu to return to your administrator session."
 msgstr "You are viewing the portal as {0}. Use the account menu to return to your administrator session."
 

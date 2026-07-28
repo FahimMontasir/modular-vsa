@@ -3,7 +3,6 @@ import type { CatalogFormatter } from "@lingui/conf";
 import { formatter } from "@lingui/format-po";
 
 import { getTranslation } from "./src/helpers";
-import { getLocalTranslation } from "./src/local-translations";
 
 const defaultFormatter = formatter();
 
@@ -17,17 +16,6 @@ const format = {
     const newCatalog = catalog;
 
     for (const [key, { translation, message }] of Object.entries(catalog)) {
-      const localTranslation =
-        message && ctx.locale ? getLocalTranslation(message, ctx.locale) : undefined;
-
-      if (localTranslation) {
-        // @ts-expect-error - Lingui catalog typings allow assignment
-        newCatalog[key].translation = localTranslation;
-        // @ts-expect-error - Lingui catalog typings allow assignment
-        newCatalog[key].extra = { translatorComments: ["Reviewed local translation"] };
-        continue;
-      }
-
       if (translation) {
         if (existingCatalog?.[key]) {
           // @ts-expect-error - preserving extra metadata from existing catalog

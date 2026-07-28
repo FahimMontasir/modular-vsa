@@ -3,6 +3,7 @@ import { KeyRoundIcon, MailIcon, Trash2Icon } from "lucide-react";
 import { useState, type FormEvent } from "react";
 
 import { PASSWORD_MAX_LENGTH, PASSWORD_MIN_LENGTH } from "@modular-vsa/env/auth-policy";
+import { PageContainer } from "@modular-vsa/shared/web/components/page-container";
 import { SectionHeader } from "@modular-vsa/shared/web/components/section-header";
 import { Alert, AlertDescription, AlertTitle } from "@modular-vsa/ui/alert";
 import {
@@ -84,7 +85,7 @@ export function AccountSecurityPage() {
   }
 
   return (
-    <div className="mx-auto flex w-full max-w-5xl flex-col gap-6">
+    <PageContainer>
       <SectionHeader
         kind="account"
         eyebrow={t`Account`}
@@ -176,7 +177,7 @@ export function AccountSecurityPage() {
         </AlertDescription>
       </Alert>
       <DeleteAccountCard pending={pending === "delete"} onDelete={deleteAccount} />
-    </div>
+    </PageContainer>
   );
 }
 

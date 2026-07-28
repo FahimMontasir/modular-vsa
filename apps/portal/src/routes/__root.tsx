@@ -12,15 +12,11 @@ import { TooltipProvider } from "@modular-vsa/ui/tooltip";
 
 export interface RouterAppContext {
   queryClient: QueryClient;
-  __i18nPromise: Promise<void>;
   auth: AuthContextValue;
 }
 
 export const Route = createRootRouteWithContext<RouterAppContext>()({
   component: RootComponent,
-  beforeLoad: async ({ context }) => {
-    await context.__i18nPromise;
-  },
   head: () => ({
     meta: [
       {

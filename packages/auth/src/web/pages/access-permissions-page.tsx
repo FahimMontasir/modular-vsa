@@ -1,6 +1,7 @@
 import { useLingui } from "@lingui/react/macro";
 import { useState } from "react";
 
+import { PageContainer } from "@modular-vsa/shared/web/components/page-container";
 import { SectionHeader } from "@modular-vsa/shared/web/components/section-header";
 import { Badge } from "@modular-vsa/ui/badge";
 import { Button } from "@modular-vsa/ui/button";
@@ -61,7 +62,7 @@ export function AccessPermissionsPage() {
   const localAllowed = authClient.admin.checkRolePermission({ role, permissions });
 
   return (
-    <div className="mx-auto flex w-full max-w-7xl flex-col gap-6">
+    <PageContainer>
       <SectionHeader
         kind="access-control"
         eyebrow={t`Administration`}
@@ -184,6 +185,6 @@ export function AccessPermissionsPage() {
           </CardContent>
         </Card>
       </div>
-    </div>
+    </PageContainer>
   );
 }

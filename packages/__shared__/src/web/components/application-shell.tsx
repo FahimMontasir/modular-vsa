@@ -171,9 +171,12 @@ export function ApplicationShell({
       <SidebarInset className="pb-20 md:pb-0">
         <header className="sticky top-0 z-10 flex h-14 shrink-0 items-center justify-between border-b bg-background/95 px-4 backdrop-blur">
           <div className="flex min-w-0 items-center gap-2">
+            <Link to="/" className="truncate font-heading font-semibold md:hidden">
+              Modular VSA
+            </Link>
             <SidebarTrigger className="-ml-1 hidden md:inline-flex" />
             <Separator orientation="vertical" className="hidden h-4 md:block" />
-            <Breadcrumb className="min-w-0">
+            <Breadcrumb className="hidden min-w-0 md:block">
               <BreadcrumbList className="flex-nowrap">
                 <BreadcrumbItem className="hidden sm:block">
                   <span>{t`Portal`}</span>
@@ -200,8 +203,6 @@ export function ApplicationShell({
             </Breadcrumb>
           </div>
           <div className="flex items-center gap-2">
-            <LanguageSwitcher />
-            <ThemeToggle />
             <DropdownMenu>
               <DropdownMenuTrigger
                 render={<Button variant="ghost" size="icon" aria-label={t`Open account menu`} />}
@@ -227,6 +228,11 @@ export function ApplicationShell({
                     </DropdownMenuItem>
                   </DropdownMenuGroup>
                 ) : null}
+                <DropdownMenuGroup>
+                  <LanguageSwitcher menu />
+                  <ThemeToggle menu label={t`Toggle theme`} />
+                </DropdownMenuGroup>
+                <DropdownMenuSeparator />
                 <DropdownMenuGroup>
                   <DropdownMenuItem onClick={() => void onSignOut()}>
                     <LogOutIcon />

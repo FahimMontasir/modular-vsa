@@ -2,6 +2,7 @@ import { useLingui } from "@lingui/react/macro";
 import { LinkIcon, RefreshCwIcon, UnlinkIcon } from "lucide-react";
 import { useCallback, useEffect, useState } from "react";
 
+import { PageContainer } from "@modular-vsa/shared/web/components/page-container";
 import { SectionHeader } from "@modular-vsa/shared/web/components/section-header";
 import {
   AlertDialog,
@@ -52,7 +53,7 @@ export function AccountConnectionsPage() {
   }, [loadAccounts]);
 
   return (
-    <div className="mx-auto flex w-full max-w-5xl flex-col gap-6">
+    <PageContainer>
       <SectionHeader
         kind="account"
         eyebrow={t`Account`}
@@ -146,6 +147,6 @@ export function AccountConnectionsPage() {
           )}
         </CardContent>
       </Card>
-    </div>
+    </PageContainer>
   );
 }

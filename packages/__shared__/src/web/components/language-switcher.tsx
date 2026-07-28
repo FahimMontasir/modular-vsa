@@ -4,9 +4,10 @@ import { useState } from "react";
 import { setAppLanguage } from "@modular-vsa/i18n/i18n";
 import { AppLanguage } from "@modular-vsa/i18n/languages";
 import { Button } from "@modular-vsa/ui/button";
+import { DropdownMenuItem } from "@modular-vsa/ui/dropdown-menu";
 import { Spinner } from "@modular-vsa/ui/spinner";
 
-export function LanguageSwitcher() {
+export function LanguageSwitcher({ menu = false }: { menu?: boolean }) {
   const { i18n, t } = useLingui();
   const [pending, setPending] = useState(false);
   const currentLocale = i18n.locale;
@@ -26,6 +27,23 @@ export function LanguageSwitcher() {
     }
   }
 
+  const content = pending ? (
+    <Spinner />
+  ) : (
+    <span className="text-base leading-none" aria-hidden="true">
+      {targetFlag}
+    </span>
+  );
+
+  if (menu) {
+    return (
+      <DropdownMenuItem disabled={pending} onClick={() => void changeLanguage(targetLocale)}>
+        {content}
+        {accessibleLabel}
+      </DropdownMenuItem>
+    );
+  }
+
   return (
     <Button
       variant="ghost"
@@ -35,13 +53,7 @@ export function LanguageSwitcher() {
       disabled={pending}
       onClick={() => void changeLanguage(targetLocale)}
     >
-      {pending ? (
-        <Spinner />
-      ) : (
-        <span className="text-base leading-none" aria-hidden="true">
-          {targetFlag}
-        </span>
-      )}
+      {content}
     </Button>
   );
 }

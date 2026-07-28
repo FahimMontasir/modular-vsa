@@ -41,8 +41,13 @@ test("portal shell exposes breadcrumbs and responsive navigation", async ({ page
   await signIn(page);
   const mobile = testInfo.project.name.includes("Mobile");
   const breadcrumbs = page.getByRole("navigation", { name: "breadcrumb" });
-  await expect(breadcrumbs.getByText("Home", { exact: true })).toBeVisible();
-  if (!mobile) await expect(breadcrumbs.getByText("Portal", { exact: true })).toBeVisible();
+  if (mobile) {
+    await expect(breadcrumbs).toBeHidden();
+    await expect(page.locator("header").getByRole("link", { name: "Modular VSA" })).toBeVisible();
+  } else {
+    await expect(breadcrumbs.getByText("Home", { exact: true })).toBeVisible();
+    await expect(breadcrumbs.getByText("Portal", { exact: true })).toBeVisible();
+  }
 
   const bottomNavigation = page.locator("nav").filter({ hasText: "Access Control" });
   if (mobile) {
@@ -53,13 +58,13 @@ test("portal shell exposes breadcrumbs and responsive navigation", async ({ page
     await page.getByRole("link", { name: "Account" }).first().click();
   }
 
-  await expect(page.getByText("Account", { exact: true }).first()).toBeVisible();
   await expect(page.getByRole("heading", { name: "Your identity" })).toBeVisible();
 });
 
 test("language switch translates the shared shell and persists the locale", async ({ page }) => {
   await signIn(page);
-  await page.getByLabel("Switch to Bengali").click();
+  await page.getByLabel("Open account menu").click();
+  await page.getByRole("menuitem", { name: "Switch to Bengali" }).click();
 
   await expect(page.locator("html")).toHaveAttribute("lang", "bn");
   await expect(page.getByRole("link", { name: "হোম", exact: true }).first()).toBeVisible();
@@ -67,7 +72,8 @@ test("language switch translates the shared shell and persists the locale", asyn
 
   await page.reload();
   await expect(page.locator("html")).toHaveAttribute("lang", "bn");
-  await page.getByLabel("ইংরেজিতে পরিবর্তন করুন").click();
+  await page.getByLabel("অ্যাকাউন্ট মেনু খুলুন").click();
+  await page.getByRole("menuitem", { name: "ইংরেজিতে পরিবর্তন করুন" }).click();
   await expect(page.locator("html")).toHaveAttribute("lang", "en");
 });
 

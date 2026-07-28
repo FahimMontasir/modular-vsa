@@ -2,6 +2,7 @@ import { Moon, Sun } from "lucide-react";
 import * as React from "react";
 
 import { globalStore, useSelector, type GlobalState } from "../lib/theme-store";
+import { DropdownMenuItem } from "./dropdown-menu";
 
 type Theme = GlobalState["theme"];
 type Coords = { x: number; y: number };
@@ -48,12 +49,31 @@ export function useTheme() {
 }
 
 /** UI Toggle Button */
-export function ThemeToggle() {
-  return (
-    <button type="button" onClick={({ clientX: x, clientY: y }) => toggleTheme({ x, y })}>
+export function ThemeToggle({ label, menu = false }: { label: string; menu?: boolean }) {
+  function handleToggle({ clientX: x, clientY: y }: React.MouseEvent) {
+    toggleTheme({ x, y });
+  }
+
+  const icons = (
+    <>
       <Sun className="block animate-in duration-300 fade-in zoom-in dark:hidden" />
       <Moon className="hidden animate-in duration-300 fade-in zoom-in dark:block" />
-      <span className="sr-only">Toggle theme</span>
+    </>
+  );
+
+  if (menu) {
+    return (
+      <DropdownMenuItem onClick={handleToggle}>
+        {icons}
+        {label}
+      </DropdownMenuItem>
+    );
+  }
+
+  return (
+    <button type="button" aria-label={label} title={label} onClick={handleToggle}>
+      {icons}
+      <span className="sr-only">{label}</span>
     </button>
   );
 }

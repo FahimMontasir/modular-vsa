@@ -6,6 +6,7 @@ import ReactDOM from "react-dom/client";
 import "@modular-vsa/ui/globals.css";
 
 import { AuthProvider, useAuth } from "@modular-vsa/auth/web/provider";
+import { initializeI18n } from "@modular-vsa/i18n/i18n";
 
 import { QueryClientProvider } from "./providers/query-provider";
 import { router } from "./router";
@@ -20,6 +21,8 @@ const rootElement = document.getElementById("app");
 if (!rootElement) {
   throw new Error("Root element not found");
 }
+
+await initializeI18n();
 
 if (!rootElement.innerHTML) {
   const root = ReactDOM.createRoot(rootElement);
