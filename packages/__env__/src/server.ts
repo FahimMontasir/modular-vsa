@@ -26,6 +26,6 @@ export const env = createEnv({
     FIREBASE_CLIENT_EMAIL: z.string().optional(),
     FIREBASE_PRIVATE_KEY: z.string().optional(),
   },
-  runtimeEnv: process.env,
+  runtimeEnv: Bun.env,
   emptyStringAsUndefined: true,
 });
