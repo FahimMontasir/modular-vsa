@@ -8,10 +8,12 @@
     "./web": "./src/web.ts",
     "./doc": "./src/README.md"
   },
+  "scripts": {
+    "test:unit": "bun test"
+  },
   "dependencies": {
-    "@t3-oss/env-core": "0.13.1",
-    "dotenv": "catalog:",
-    "zod": "catalog:"
+    "@sinclair/typebox": "catalog:",
+    "elysia": "catalog:"
   },
   "devDependencies": {
     "@modular-vsa/config": "workspace:*"

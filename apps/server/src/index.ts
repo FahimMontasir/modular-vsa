@@ -22,7 +22,21 @@ export const app = new Elysia()
       logger.error("[Jobs] Background workers failed to start:", err);
       process.exit(1);
     });
+    const storageDashboard =
+      env.GARAGE_WEBUI_HOST && env.GARAGE_WEBUI_PORT
+        ? `http://${env.GARAGE_WEBUI_HOST}:${env.GARAGE_WEBUI_PORT}`
+        : "not configured";
+    const storageLogin =
+      env.GARAGE_WEBUI_USERNAME && env.GARAGE_WEBUI_PASSWORD
+        ? `${env.GARAGE_WEBUI_USERNAME} / ${env.GARAGE_WEBUI_PASSWORD}`
+        : "not configured";
+
     logger.info(
-      `\n\x1b[36m🚀 Server:\x1b[0m http://localhost:${env.PORT}\n\x1b[36m📚 Docs:\x1b[0m http://localhost:${env.PORT}/api-docs`
+      `\n\x1b[36m🚀 Server:\x1b[0m http://localhost:${env.PORT}` +
+        `\n\x1b[36m📚 API docs:\x1b[0m http://localhost:${env.PORT}/api-docs` +
+        `\n\x1b[36m🔐 Auth docs:\x1b[0m http://localhost:${env.PORT}/api/auth/reference` +
+        `\n\x1b[36m🗄️ Drizzle Studio:\x1b[0m ${env.DRIZZLE_STUDIO_URL ?? "not configured"}` +
+        `\n\x1b[36m📦 Storage dashboard:\x1b[0m ${storageDashboard}` +
+        `\n\x1b[36m🔑 Storage login:\x1b[0m ${storageLogin}`
     );
   });

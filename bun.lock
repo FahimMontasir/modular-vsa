@@ -9,11 +9,9 @@
         "@modular-vsa/env": "workspace:*",
         "@sinclair/typebox": "catalog:",
         "@tanstack/react-query": "catalog:",
-        "dotenv": "catalog:",
         "drizzle-orm": "catalog:",
         "drizzle-typebox": "catalog:",
         "elysia": "catalog:",
-        "zod": "catalog:",
       },
       "devDependencies": {
         "@modular-vsa/config": "workspace:*",
@@ -47,12 +45,10 @@
         "@tanstack/react-query-persist-client": "5.100.10",
         "@tanstack/react-router": "1.170.4",
         "better-auth": "catalog:",
-        "dotenv": "catalog:",
         "lucide-react": "1.16.0",
         "react": "catalog:",
         "react-dom": "catalog:",
         "vite-plugin-pwa": "1.3.0",
-        "zod": "catalog:",
       },
       "devDependencies": {
         "@babel/core": "catalog:",
@@ -94,9 +90,7 @@
         "@modular-vsa/shared": "workspace:*",
         "@sinclair/typebox": "catalog:",
         "better-auth": "catalog:",
-        "dotenv": "catalog:",
         "elysia": "catalog:",
-        "zod": "catalog:",
       },
       "devDependencies": {
         "@modular-vsa/config": "workspace:*",
@@ -114,9 +108,8 @@
       "name": "@modular-vsa/env",
       "version": "0.0.0",
       "dependencies": {
-        "@t3-oss/env-core": "0.13.1",
-        "dotenv": "catalog:",
-        "zod": "catalog:",
+        "@sinclair/typebox": "catalog:",
+        "elysia": "catalog:",
       },
       "devDependencies": {
         "@modular-vsa/config": "workspace:*",
@@ -143,10 +136,8 @@
       "version": "0.0.0",
       "dependencies": {
         "@modular-vsa/env": "workspace:*",
-        "dotenv": "catalog:",
         "drizzle-orm": "catalog:",
         "pg": "^8.17.1",
-        "zod": "catalog:",
       },
       "devDependencies": {
         "@modular-vsa/config": "workspace:*",
@@ -189,8 +180,6 @@
         "@modular-vsa/shared": "workspace:*",
         "better-auth": "catalog:",
         "bullmq": "5.76.10",
-        "dotenv": "catalog:",
-        "zod": "catalog:",
       },
       "devDependencies": {
         "@modular-vsa/config": "workspace:*",
@@ -252,9 +241,7 @@
         "@modular-vsa/db": "workspace:*",
         "@modular-vsa/env": "workspace:*",
         "better-auth": "catalog:",
-        "dotenv": "catalog:",
         "elysia": "catalog:",
-        "zod": "catalog:",
       },
       "devDependencies": {
         "@modular-vsa/config": "workspace:*",
@@ -313,7 +300,6 @@
     "@types/react-dom": "19.2.3",
     "babel-plugin-react-compiler": "1.0.0",
     "better-auth": "1.6.11",
-    "dotenv": "17.4.2",
     "drizzle-orm": "0.45.2",
     "drizzle-typebox": "0.3.3",
     "elysia": "1.4.28",
@@ -323,14 +309,9 @@
     "typescript": "6",
     "vite": "npm:@voidzero-dev/vite-plus-core@0.2.4",
     "vite-plus": "0.2.4",
-    "zod": "4.4.3",
   },
   "packages": {
     "@apideck/better-ajv-errors": ["@apideck/better-ajv-errors@0.3.7", "", { "dependencies": { "jsonpointer": "^5.0.1", "leven": "^3.1.0" }, "peerDependencies": { "ajv": ">=8" } }, "sha512-TajUJwGWbDwkCx/CZi7tRE8PVB7simCvKJfHUsSdvps+aTM/PDPP4gkLmKnc+x3CE//y9i/nj74GqdL/hwk7Iw=="],
-
-    "@ark/schema": ["@ark/schema@0.56.0", "", { "dependencies": { "@ark/util": "0.56.0" } }, "sha512-ECg3hox/6Z/nLajxXqNhgPtNdHWC9zNsDyskwO28WinoFEnWow4IsERNz9AnXRhTZJnYIlAJ4uGn3nlLk65vZA=="],
-
-    "@ark/util": ["@ark/util@0.56.0", "", {}, "sha512-BghfRC8b9pNs3vBoDJhcta0/c1J1rsoS1+HgVUreMFPdhz/CRAKReAu57YEllNaSy98rWAdY1gE+gFup7OXpgA=="],
 
     "@babel/code-frame": ["@babel/code-frame@7.29.7", "", { "dependencies": { "@babel/helper-validator-identifier": "^7.29.7", "js-tokens": "^4.0.0", "picocolors": "^1.1.1" } }, "sha512-Aup7aUOfpbAUg2ROOJN6Iw5f9DMBlzu0mIkm/malLQFN/YQgO48wCj0Kxa3sEHJvPVFg7siR+qRInwXd2qhQKw=="],
 
@@ -1288,8 +1269,6 @@
 
     "@standard-schema/utils": ["@standard-schema/utils@0.3.0", "", {}, "sha512-e7Mew686owMaPJVNNLs55PUvgz371nKgwsc4vxE49zsODpJEnxgxRo2y/OKrqueavXgZNMDVj3DdHFlaSAeU8g=="],
 
-    "@t3-oss/env-core": ["@t3-oss/env-core@0.13.1", "", { "peerDependencies": { "arktype": "^2.1.0", "typescript": ">=5.0.0", "valibot": "^1.0.0-beta.7 || ^1.0.0", "zod": "^3.24.0 || ^4.0.0-beta.0" }, "optionalPeers": ["typescript", "valibot", "zod"] }, "sha512-baBMEdLA6SDGnEujoxi4S9dLZSRW5t2VVoPmEVQqYyazzZVBT5WXunhahHu8W4a2KfatoJXmUGSA9KM0yTdiwg=="],
-
     "@tailwindcss/node": ["@tailwindcss/node@4.3.0", "", { "dependencies": { "@jridgewell/remapping": "^2.3.5", "enhanced-resolve": "^5.21.0", "jiti": "^2.6.1", "lightningcss": "1.32.0", "magic-string": "^0.30.21", "source-map-js": "^1.2.1", "tailwindcss": "4.3.0" } }, "sha512-aFb4gUhFOgdh9AXo4IzBEOzBkkAxm9VigwDJnMIYv3lcfXCJVesNfbEaBl4BNgVRyid92AmdviqwBUBRKSeY3g=="],
 
     "@tailwindcss/oxide": ["@tailwindcss/oxide@4.3.0", "", { "optionalDependencies": { "@tailwindcss/oxide-android-arm64": "4.3.0", "@tailwindcss/oxide-darwin-arm64": "4.3.0", "@tailwindcss/oxide-darwin-x64": "4.3.0", "@tailwindcss/oxide-freebsd-x64": "4.3.0", "@tailwindcss/oxide-linux-arm-gnueabihf": "4.3.0", "@tailwindcss/oxide-linux-arm64-gnu": "4.3.0", "@tailwindcss/oxide-linux-arm64-musl": "4.3.0", "@tailwindcss/oxide-linux-x64-gnu": "4.3.0", "@tailwindcss/oxide-linux-x64-musl": "4.3.0", "@tailwindcss/oxide-wasm32-wasi": "4.3.0", "@tailwindcss/oxide-win32-arm64-msvc": "4.3.0", "@tailwindcss/oxide-win32-x64-msvc": "4.3.0" } }, "sha512-F7HZGBeN9I0/AuuJS5PwcD8xayx5ri5GhjYUDBEVYUkexyA/giwbDNjRVrxSezE3T250OU2K/wp/ltWx3UOefg=="],
@@ -1545,10 +1524,6 @@
     "aria-hidden": ["aria-hidden@1.2.6", "", { "dependencies": { "tslib": "^2.0.0" } }, "sha512-ik3ZgC9dY/lYVVM++OISsaYDeg1tb0VtP5uL3ouh1koGOaUMDPpbFIei4JkFimWUFPn90sbMNMXQAIVOlnYKJA=="],
 
     "aria-query": ["aria-query@5.3.0", "", { "dependencies": { "dequal": "^2.0.3" } }, "sha512-b0P0sZPKtyu8HkeRAfCq0IfURZK+SuwMjY1UXGBU27wpAiTwQAIlq56IbIO+ytk/JjS1fMR14ee5WBBfKi5J6A=="],
-
-    "arkregex": ["arkregex@0.0.5", "", { "dependencies": { "@ark/util": "0.56.0" } }, "sha512-ncYjBdLlh5/QnVsAA8De16Tc9EqmYM7y/WU9j+236KcyYNUXogpz3sC4ATIZYzzLxwI+0sEOaQLEmLmRleaEXw=="],
-
-    "arktype": ["arktype@2.2.0", "", { "dependencies": { "@ark/schema": "0.56.0", "@ark/util": "0.56.0", "arkregex": "0.0.5" } }, "sha512-t54MZ7ti5BhOEvzEkgKnWvqj+UbDfWig+DHr5I34xatymPusKLS0lQpNJd8M6DzmIto2QGszHfNKoFIT8tMCZQ=="],
 
     "array-buffer-byte-length": ["array-buffer-byte-length@1.0.2", "", { "dependencies": { "call-bound": "^1.0.3", "is-array-buffer": "^3.0.5" } }, "sha512-LHE+8BuR7RYGDKvnrmcuSq3tDcKv9OFEXQt/HpbZhY7V6h0zlUXutnAD82GiFx9rdieCMjkvtcsPqBwgUl1Iiw=="],
 

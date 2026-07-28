@@ -7,8 +7,7 @@ replication_factor = 1
 compression_level = 2
 
 rpc_bind_addr = "[::]:3901"
-rpc_public_addr = "localhost:3901"
-rpc_secret = "c15bc4c559e356e738efcf9ed4e7c4a5f5b383be24274d74a0f390359f21ecb6"
+rpc_public_addr = "garage:3901"
 
 [s3_api]
 s3_region = "garage"
@@ -22,6 +21,4 @@ index = "index.html"
 
 [admin]
 api_bind_addr = "[::]:3903"
-admin_token = "IPp4QQR7oWkyd+WtLb22U2WDnJF1KwxA/eHC/EF5YiY="
 metrics_require_token = true
-metrics_token = "bEpGYmpLVqEIhCW8DpID8krNVfvA7UiORlZG0zj6mcY="

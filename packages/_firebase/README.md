@@ -10,7 +10,10 @@ environments.
 
 ### Environment variables
 
-Add the following to your `.env` (web / Vite):
+The tracked `apps/portal/.env.local` contains the public Firebase web configuration. These identifiers
+are safe to expose in a browser, but Firebase Security Rules must still protect project data.
+
+For a different project, provide the following Vite values:
 
 ```env
 VITE_FIREBASE_API_KEY=...
@@ -23,8 +26,10 @@ VITE_FIREBASE_MEASUREMENT_ID=G-XXXXXXXXXX     # optional
 VITE_FIREBASE_VAPID_KEY=...                    # optional, for FCM
 ```
 
-For server environments, either place a `service-key.json` in this package root,
-or set these env vars:
+For local server development, place the Admin SDK JSON at
+`packages/_firebase/service-key.json`. The file is intentionally Git-ignored and should be readable
+only by the local user. For production, use these environment values or Google Application Default
+Credentials:
 
 ```env
 FIREBASE_PROJECT_ID=...
@@ -32,8 +37,8 @@ FIREBASE_CLIENT_EMAIL=...
 FIREBASE_PRIVATE_KEY="-----BEGIN PRIVATE KEY-----\n..."
 ```
 
-> **Note:** `service-key.json` is gitignored. In production use env vars or
-> mount the key file at deploy time.
+> **Important:** an Admin SDK service account contains a private key. Never commit it, paste it into
+> a public issue, or confuse it with the public Firebase web configuration.
 
 ---
 

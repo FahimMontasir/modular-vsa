@@ -28,12 +28,13 @@
 .wrangler
 .alchemy
 
-# Environment & local files
+# Environment: only deterministic local development values are tracked
 .env*
-!.env.example
+!.env.local
 .DS_Store
 *.pem
 *.local
+!.env.local
 
 # Logs
 npm-debug.log*

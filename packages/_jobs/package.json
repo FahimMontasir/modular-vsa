@@ -16,9 +16,7 @@
     "@modular-vsa/env": "workspace:*",
     "@modular-vsa/shared": "workspace:*",
     "better-auth": "catalog:",
-    "bullmq": "5.76.10",
-    "dotenv": "catalog:",
-    "zod": "catalog:"
+    "bullmq": "5.76.10"
   },
   "devDependencies": {
     "@modular-vsa/config": "workspace:*"

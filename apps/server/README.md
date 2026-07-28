@@ -45,19 +45,35 @@ These utilities are tightly coupled to this server app's implementation details 
 ## Development
 
 ```bash
-# From the repository root, install dependencies
+# From the repository root
 bun install
-
-# Start only the server package
-cd apps/server && bun run dev
-
-# Or start the complete workspace from the repository root
 bun run dev
-
-# View API documentation
-# Open http://localhost:3000/api-docs
 ```
+
+The root command waits for Docker, pushes the local Drizzle schema, and then starts the server,
+portal, and Drizzle Studio. The development endpoints are:
+
+| Service                   | URL                                                     |
+| ------------------------- | ------------------------------------------------------- |
+| API                       | http://localhost:3000                                   |
+| Application API docs      | http://localhost:3000/api-docs                          |
+| Better Auth API reference | http://localhost:3000/api/auth/reference                |
+| Better Auth OpenAPI JSON  | http://localhost:3000/api/auth/open-api/generate-schema |
+| Drizzle Studio            | https://local.drizzle.studio                            |
+| Garage S3 API             | http://localhost:3900                                   |
+| Garage dashboard          | http://localhost:3909                                   |
+
+The Garage dashboard uses `admin` / `admin` for local development.
+
+Exposed host ports, Garage secrets, the dashboard login, and Drizzle Studio host/port are configured
+in the tracked `.env.local`. Image tags and internal service endpoints stay in Compose. There are no
+implicit Compose or server-schema defaults. Startup output uses the shared logger, which suppresses
+console output in production.
+
+Use `bun run dkr:stop` to stop infrastructure or `bun run dkr:down` to remove its containers and
+network. Neither command deletes named volumes.
 
 ## Environment
 
-Configuration is managed via `@modular-vsa/env/server`. See `.env` file or package documentation for required variables.
+Configuration is managed via `@modular-vsa/env/server`. `apps/server/.env.local` contains tracked,
+local-only values; use ignored local files or deployment secrets for real credentials.

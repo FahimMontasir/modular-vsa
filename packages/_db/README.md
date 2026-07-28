@@ -34,12 +34,22 @@ import { user } from "@modular-vsa/db/schema/auth";
 const users = await db.select().from(user);
 ```
 
-## Migrations
+## Development
 
 ```bash
-# Push migrations to database
+# Start the complete stack; this pushes the local schema and opens Studio.
+bun dev
+
+# Push the development schema manually
 bun run db:push
 
-# Open Drizzle Studio to inspect data
+# Open Drizzle Studio (its local gateway listens on port 4983)
 bun run db:studio
 ```
+
+The CLI prints the Studio URL configured by `DRIZZLE_STUDIO_URL`. The gateway bind address comes
+from `DRIZZLE_STUDIO_HOST` and `DRIZZLE_STUDIO_PORT`; all three values live in
+`apps/server/.env.local`.
+
+Drizzle scripts load `apps/server/.env.local` explicitly. Production continues to use generated
+migrations.

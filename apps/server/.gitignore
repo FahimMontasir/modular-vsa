@@ -28,10 +28,9 @@ node_modules/
 /.pnp
 .pnp.*
 
-# env
+# env: only deterministic local development values are tracked
 .env*
-.env.production
-!.env.example
+!.env.local
 .dev.vars
 
 # logs

@@ -1,123 +1,58 @@
-# @modular-vsa/storage
+# `@modular-vsa/storage`
 
-S3-compatible object storage using [Bun's native S3 API](https://bun.sh/docs/runtime/s3). Uses Garage (via Docker) in development — works with any S3 provider (AWS S3, Cloudflare R2, MinIO, etc.) in production.
+S3-compatible object storage built on Bun's native `S3Client`. Production can use AWS S3,
+Cloudflare R2, or another compatible provider; local development uses Garage.
 
-## Setup
+## Local development
 
-### 1. Start Garage
-
-```bash
-# Run from the repository root.
-bun run dkr:start
-```
-
-This starts Garage (port 3900) and the Garage WebUI (port 3909).
-
-### 2. Garage WebUI
-
-The Web UI is available at **http://localhost:3909**.
-
-**Login:** `admin` / `admin`
-
-The login endpoint is `POST /api/auth/login` with JSON body `{"username":"admin","password":"admin"}`. Uses session cookies for authenticated API calls.
-
-Use it to browse buckets, view objects, and manage keys.
-
-### 3. Configure access keys
-
-Garage starts with an admin token. Create a key and bucket:
+Run this once from the repository root:
 
 ```bash
-# Set admin token
-export GARAGE_ADMIN_TOKEN=IPp4QQR7oWkyd+WtLb22U2WDnJF1KwxA/eHC/EF5YiY=
-
-# Create access key
-garage key create dev-key
-
-# Create bucket
-garage bucket create modular-vsa
-
-# Allow key to access bucket
-garage bucket allow modular-vsa --key <key-id> --read --write --owner
+bun dev
 ```
 
-Copy the `AccessKeyId` and `SecretAccessKey` into your `.env`:
+Garage 2.3 starts as a persistent single-node service and automatically creates the access key and
+`modular-vsa` bucket from `apps/server/.env.local`. No layout, key, or bucket commands are required.
 
-```
-S3_ACCESS_KEY_ID=<access-key-id>
-S3_SECRET_ACCESS_KEY=<secret-access-key>
-S3_BUCKET=modular-vsa
-S3_ENDPOINT=http://localhost:3900
-S3_REGION=garage
-```
+| Service          | URL / credentials     |
+| ---------------- | --------------------- |
+| S3 endpoint      | http://localhost:3900 |
+| Garage dashboard | http://localhost:3909 |
+| Dashboard login  | `admin` / `admin`     |
+
+Use `bun run dkr:stop` to stop infrastructure. `bun run dkr:down` removes containers and the
+network but preserves named volumes.
 
 ## Usage
 
 ```ts
 import {
-  s3,
-  uploadFile,
   deleteFile,
   getSignedUrl,
-  readFileText,
   listFiles,
+  readFileText,
+  uploadFile,
 } from "@modular-vsa/storage";
 
-// Upload a file
 await uploadFile("path/to/file.txt", "Hello World");
-
-// Read a file
 const text = await readFileText("path/to/file.txt");
-
-// Get a presigned URL (e.g. for direct browser uploads)
 const url = getSignedUrl("path/to/file.txt", { expiresIn: 3600 });
-
-// List objects
 const objects = await listFiles({ prefix: "path/to/" });
-
-// Check if file exists
-const exists = await s3.exists("path/to/file.txt");
-
-// Delete a file
 await deleteFile("path/to/file.txt");
 ```
 
-## Server-side upload route
+The server route plugin is available from `@modular-vsa/storage/server/routes`. It exposes the
+multipart `POST /upload` route when mounted inside an Elysia route group.
 
-The `@modular-vsa/storage` package exports a composable Elysia route plugin at `@modular-vsa/storage/server/routes`:
+## Environment
 
-```ts
-import { StorageRoutes } from "@modular-vsa/storage/server/routes";
+| Variable               | Local value                          |
+| ---------------------- | ------------------------------------ |
+| `S3_ACCESS_KEY_ID`     | Garage-compatible development key    |
+| `S3_SECRET_ACCESS_KEY` | Garage-compatible development secret |
+| `S3_BUCKET`            | `modular-vsa`                        |
+| `S3_ENDPOINT`          | `http://localhost:3900`              |
+| `S3_REGION`            | `garage`                             |
 
-// Mount in your Elysia app
-app.use(StorageRoutes);
-```
-
-The route `POST /upload` accepts `multipart/form-data` with a `file` field and returns `{ key, url }`.
-
-## API
-
-| Function                          | Description                          |
-| --------------------------------- | ------------------------------------ |
-| `createS3Client()`                | Create a new S3 client from env vars |
-| `s3`                              | Default singleton S3 client          |
-| `uploadFile(key, data, options?)` | Upload a file                        |
-| `readFile(key)`                   | Get an `S3File` reference (lazy)     |
-| `readFileText(key)`               | Read file as string                  |
-| `readFileJson(key)`               | Read file as JSON                    |
-| `deleteFile(key)`                 | Delete a file                        |
-| `fileExists(key)`                 | Check if file exists                 |
-| `getSignedUrl(key, options?)`     | Generate a presigned URL             |
-| `getFileStat(key)`                | Get file metadata (size, etag, etc.) |
-| `listFiles(options?)`             | List objects in the bucket           |
-
-## Environment Variables
-
-| Variable               | Default                 | Description            |
-| ---------------------- | ----------------------- | ---------------------- |
-| `S3_ACCESS_KEY_ID`     | `garage-access`         | S3 access key          |
-| `S3_SECRET_ACCESS_KEY` | `garage-secret`         | S3 secret key          |
-| `S3_BUCKET`            | `modular-vsa`           | Bucket name            |
-| `S3_ENDPOINT`          | `http://localhost:3900` | S3 endpoint URL        |
-| `S3_REGION`            | `garage`                | S3 region              |
-| `GARAGE_ADMIN_TOKEN`   | `admin`                 | Garage admin API token |
+All storage credentials in the tracked `.env.local` are local-only. Use deployment secrets for any
+shared or production S3 provider.

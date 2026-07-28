@@ -10,11 +10,11 @@
   "scripts": {
     "build": "vp pack",
     "compile": "bun build --compile --minify --sourcemap --bytecode ./src/index.ts --outfile server",
-    "dev": "bun run --hot src/index.ts",
+    "dev": "bun --env-file=.env.local run --hot src/index.ts",
     "start": "bun run dist/index.mjs",
-    "dkr:start": "docker compose up -d",
-    "dkr:stop": "docker compose stop",
-    "dkr:down": "docker compose down"
+    "dkr:start": "docker compose --env-file .env.local up -d --wait",
+    "dkr:stop": "docker compose --env-file .env.local stop",
+    "dkr:down": "docker compose --env-file .env.local down"
   },
   "dependencies": {
     "@elysia/openapi": "^1.4.15",
@@ -28,9 +28,7 @@
     "@modular-vsa/shared": "workspace:*",
     "@sinclair/typebox": "catalog:",
     "better-auth": "catalog:",
-    "dotenv": "catalog:",
-    "elysia": "catalog:",
-    "zod": "catalog:"
+    "elysia": "catalog:"
   },
   "devDependencies": {
     "@modular-vsa/config": "workspace:*",

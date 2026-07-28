@@ -1,5 +1,6 @@
 import { betterAuth, type BetterAuthOptions } from "better-auth";
 import { drizzleAdapter } from "better-auth/adapters/drizzle";
+import { openAPI } from "better-auth/plugins";
 import { redis } from "bun";
 import type { Context } from "elysia";
 
@@ -10,6 +11,8 @@ import { env } from "@modular-vsa/env/server";
 export const AUTH_ACCEPT_METHODS = ["POST", "GET"];
 
 function createAuthConfig(appName: string): BetterAuthOptions {
+  const isProduction = env.NODE_ENV === "production";
+
   return {
     telemetry: { enabled: false },
     appName,
@@ -21,13 +24,14 @@ function createAuthConfig(appName: string): BetterAuthOptions {
     emailAndPassword: {
       enabled: true,
     },
+    plugins: [openAPI()],
     secret: env.BETTER_AUTH_SECRET,
     baseURL: env.BETTER_AUTH_URL,
     advanced: {
       cookiePrefix: appName,
       defaultCookieAttributes: {
-        sameSite: "none",
-        secure: true,
+        sameSite: isProduction ? "none" : "lax",
+        secure: isProduction,
         httpOnly: true,
       },
     },

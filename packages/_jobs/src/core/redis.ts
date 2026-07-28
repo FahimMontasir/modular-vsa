@@ -5,7 +5,7 @@ import { env } from "@modular-vsa/env/server";
 /** Redis connection shared by every queue and worker. */
 export const REDIS_CONNECTION = {
   host: env.REDIS_HOST,
-  port: Number(env.REDIS_PORT),
+  port: env.REDIS_PORT,
   password: env.REDIS_PASSWORD,
   tls: env.REDIS_HOST !== "localhost" ? { rejectUnauthorized: false } : undefined,
 } satisfies ConnectionOptions;

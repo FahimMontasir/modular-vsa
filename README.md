@@ -18,38 +18,49 @@ This is a Bun-first TypeScript monorepo that combines React, TanStack Router, El
 
 ## Getting Started
 
-Install the Vite+ CLI and Bun 1.3.13, then install workspace dependencies with Bun:
+Install Docker Desktop, the Vite+ CLI, and Bun 1.3.13, then run:
 
 ```bash
 vp --version
 bun install
+bun dev
 ```
 
 Vite+ uses the Node.js version in `.node-version` internally. Application code, package scripts,
 the server, and unit tests continue to run through Bun. Node/npm are otherwise reserved for the
 separate Playwright package under `tests/`.
 
-## Database Setup
+`bun dev` starts and health-checks PostgreSQL, Redis, Garage, and the Garage dashboard; pushes the
+local Drizzle schema; then runs the portal, API, and Drizzle Studio concurrently. Docker containers
+remain available after the foreground development processes stop, which keeps restarts fast.
 
-This project uses PostgreSQL with Drizzle ORM.
+| Development service       | URL                                      |
+| ------------------------- | ---------------------------------------- |
+| Portal                    | http://localhost:3001                    |
+| API                       | http://localhost:3000                    |
+| Application API docs      | http://localhost:3000/api-docs           |
+| Better Auth API reference | http://localhost:3000/api/auth/reference |
+| Drizzle Studio            | https://local.drizzle.studio             |
+| Garage S3 API             | http://localhost:3900                    |
+| Garage storage dashboard  | http://localhost:3909                    |
 
-1. Make sure you have a PostgreSQL database set up.
-2. Update your `apps/server/.env` file with your PostgreSQL connection details.
+The Garage dashboard login is `admin` / `admin`. Use `bun run dkr:stop` to stop infrastructure or
+`bun run dkr:down` to remove its containers and network; named data volumes are preserved.
 
-3. Apply the schema to your database:
+Host ports, Garage secrets, the WebUI login, and Drizzle Studio host/port are declared explicitly in
+`apps/server/.env.local`. Container images and internal service endpoints remain in Compose. The
+development server prints the Studio URL and storage dashboard credentials at startup. The shared
+logger suppresses console output when `NODE_ENV=production`.
 
-```bash
-bun run db:push
-```
+## Local environment and Firebase
 
-Then, run the development server:
+Only application `.env.local` files are tracked because they contain deterministic
+local-development values. Ordinary `.env`, staging/production env files, PEM files, and Firebase
+Admin credentials remain ignored. Never put real shared or production secrets in a tracked env file.
 
-```bash
-bun run dev
-```
-
-Open [http://localhost:3001](http://localhost:3001) in your browser to see the web application.
-The API is running at [http://localhost:3000](http://localhost:3000).
+The Firebase browser configuration is public and lives in `apps/portal/.env.local`. Firebase Admin uses
+the ignored `packages/_firebase/service-key.json` locally, with production falling back to explicit
+environment credentials or Google Application Default Credentials.
 
 ## UI Customization
 
@@ -116,7 +127,7 @@ These configurations help ensure consistent development environment, automated c
 
 ## Available Scripts
 
-- `bun run dev`: Start all applications in development mode
+- `bun run dev`: Start Docker, push the local schema, and run all apps plus Drizzle Studio
 - `bun run build`: Build all applications through cached Vite+ workspace tasks
 - `bun run check`: Check formatting, lint rules, and TypeScript types through Vite+
 - `bun run check -- --fix`: Apply supported formatter and linter fixes
@@ -125,6 +136,8 @@ These configurations help ensure consistent development environment, automated c
 - `bun run db:generate`: Generate database client/types
 - `bun run db:migrate`: Run database migrations
 - `bun run db:studio`: Open database studio UI
+- `bun run dkr:stop`: Stop local infrastructure without removing containers or volumes
+- `bun run dkr:down`: Remove local infrastructure containers and network while preserving volumes
 - `bun run add:ui -- <component>`: Add shared UI primitives with Bun
 - `cd apps/portal && bun run generate-pwa-assets`: Generate PWA assets
 
