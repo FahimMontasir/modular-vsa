@@ -1,5 +1,6 @@
 import { StatusMap } from "elysia";
 
+import { applicationActions } from "@modular-vsa/auth/access-control";
 import { secureAPI } from "@modular-vsa/auth/server/secure-api";
 
 import { ENDPOINTS_PATH } from "../helpers/path";
@@ -12,7 +13,7 @@ export const CreateRoutes = secureAPI().post(
     return await createPost(body);
   },
   {
-    authenticate: true,
+    authorize: { post: [applicationActions.post.create] },
     body: HomeSchema.CreatePost,
     response: {
       [StatusMap.Created]: HomeSchema.Post,

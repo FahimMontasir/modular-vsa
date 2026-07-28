@@ -9,50 +9,361 @@
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
 import { Route as rootRouteImport } from "./routes/__root"
-import { Route as IndexRouteImport } from "./routes/index"
+import { Route as LoginRouteImport } from "./routes/login"
+import { Route as AuthenticatedRouteImport } from "./routes/_authenticated"
+import { Route as AuthenticatedIndexRouteImport } from "./routes/_authenticated/index"
+import { Route as AuthenticatedAccountRouteImport } from "./routes/_authenticated/account"
+import { Route as AuthenticatedAccessControlRouteImport } from "./routes/_authenticated/access-control"
+import { Route as AuthenticatedAccountIndexRouteImport } from "./routes/_authenticated/account/index"
+import { Route as AuthenticatedAccessControlIndexRouteImport } from "./routes/_authenticated/access-control/index"
+import { Route as AuthenticatedAccountSessionsRouteImport } from "./routes/_authenticated/account/sessions"
+import { Route as AuthenticatedAccountSecurityRouteImport } from "./routes/_authenticated/account/security"
+import { Route as AuthenticatedAccountProfileRouteImport } from "./routes/_authenticated/account/profile"
+import { Route as AuthenticatedAccountConnectionsRouteImport } from "./routes/_authenticated/account/connections"
+import { Route as AuthenticatedAccessControlUsersRouteImport } from "./routes/_authenticated/access-control/users"
+import { Route as AuthenticatedAccessControlSessionsRouteImport } from "./routes/_authenticated/access-control/sessions"
+import { Route as AuthenticatedAccessControlPermissionsRouteImport } from "./routes/_authenticated/access-control/permissions"
 
-const IndexRoute = IndexRouteImport.update({
-  id: "/",
-  path: "/",
+const LoginRoute = LoginRouteImport.update({
+  id: "/login",
+  path: "/login",
   getParentRoute: () => rootRouteImport,
 } as any)
+const AuthenticatedRoute = AuthenticatedRouteImport.update({
+  id: "/_authenticated",
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AuthenticatedIndexRoute = AuthenticatedIndexRouteImport.update({
+  id: "/",
+  path: "/",
+  getParentRoute: () => AuthenticatedRoute,
+} as any)
+const AuthenticatedAccountRoute = AuthenticatedAccountRouteImport.update({
+  id: "/account",
+  path: "/account",
+  getParentRoute: () => AuthenticatedRoute,
+} as any)
+const AuthenticatedAccessControlRoute =
+  AuthenticatedAccessControlRouteImport.update({
+    id: "/access-control",
+    path: "/access-control",
+    getParentRoute: () => AuthenticatedRoute,
+  } as any)
+const AuthenticatedAccountIndexRoute =
+  AuthenticatedAccountIndexRouteImport.update({
+    id: "/",
+    path: "/",
+    getParentRoute: () => AuthenticatedAccountRoute,
+  } as any)
+const AuthenticatedAccessControlIndexRoute =
+  AuthenticatedAccessControlIndexRouteImport.update({
+    id: "/",
+    path: "/",
+    getParentRoute: () => AuthenticatedAccessControlRoute,
+  } as any)
+const AuthenticatedAccountSessionsRoute =
+  AuthenticatedAccountSessionsRouteImport.update({
+    id: "/sessions",
+    path: "/sessions",
+    getParentRoute: () => AuthenticatedAccountRoute,
+  } as any)
+const AuthenticatedAccountSecurityRoute =
+  AuthenticatedAccountSecurityRouteImport.update({
+    id: "/security",
+    path: "/security",
+    getParentRoute: () => AuthenticatedAccountRoute,
+  } as any)
+const AuthenticatedAccountProfileRoute =
+  AuthenticatedAccountProfileRouteImport.update({
+    id: "/profile",
+    path: "/profile",
+    getParentRoute: () => AuthenticatedAccountRoute,
+  } as any)
+const AuthenticatedAccountConnectionsRoute =
+  AuthenticatedAccountConnectionsRouteImport.update({
+    id: "/connections",
+    path: "/connections",
+    getParentRoute: () => AuthenticatedAccountRoute,
+  } as any)
+const AuthenticatedAccessControlUsersRoute =
+  AuthenticatedAccessControlUsersRouteImport.update({
+    id: "/users",
+    path: "/users",
+    getParentRoute: () => AuthenticatedAccessControlRoute,
+  } as any)
+const AuthenticatedAccessControlSessionsRoute =
+  AuthenticatedAccessControlSessionsRouteImport.update({
+    id: "/sessions",
+    path: "/sessions",
+    getParentRoute: () => AuthenticatedAccessControlRoute,
+  } as any)
+const AuthenticatedAccessControlPermissionsRoute =
+  AuthenticatedAccessControlPermissionsRouteImport.update({
+    id: "/permissions",
+    path: "/permissions",
+    getParentRoute: () => AuthenticatedAccessControlRoute,
+  } as any)
 
 export interface FileRoutesByFullPath {
-  "/": typeof IndexRoute
+  "/": typeof AuthenticatedIndexRoute
+  "/login": typeof LoginRoute
+  "/access-control": typeof AuthenticatedAccessControlRouteWithChildren
+  "/account": typeof AuthenticatedAccountRouteWithChildren
+  "/access-control/permissions": typeof AuthenticatedAccessControlPermissionsRoute
+  "/access-control/sessions": typeof AuthenticatedAccessControlSessionsRoute
+  "/access-control/users": typeof AuthenticatedAccessControlUsersRoute
+  "/account/connections": typeof AuthenticatedAccountConnectionsRoute
+  "/account/profile": typeof AuthenticatedAccountProfileRoute
+  "/account/security": typeof AuthenticatedAccountSecurityRoute
+  "/account/sessions": typeof AuthenticatedAccountSessionsRoute
+  "/access-control/": typeof AuthenticatedAccessControlIndexRoute
+  "/account/": typeof AuthenticatedAccountIndexRoute
 }
 export interface FileRoutesByTo {
-  "/": typeof IndexRoute
+  "/login": typeof LoginRoute
+  "/": typeof AuthenticatedIndexRoute
+  "/access-control/permissions": typeof AuthenticatedAccessControlPermissionsRoute
+  "/access-control/sessions": typeof AuthenticatedAccessControlSessionsRoute
+  "/access-control/users": typeof AuthenticatedAccessControlUsersRoute
+  "/account/connections": typeof AuthenticatedAccountConnectionsRoute
+  "/account/profile": typeof AuthenticatedAccountProfileRoute
+  "/account/security": typeof AuthenticatedAccountSecurityRoute
+  "/account/sessions": typeof AuthenticatedAccountSessionsRoute
+  "/access-control": typeof AuthenticatedAccessControlIndexRoute
+  "/account": typeof AuthenticatedAccountIndexRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
-  "/": typeof IndexRoute
+  "/_authenticated": typeof AuthenticatedRouteWithChildren
+  "/login": typeof LoginRoute
+  "/_authenticated/access-control": typeof AuthenticatedAccessControlRouteWithChildren
+  "/_authenticated/account": typeof AuthenticatedAccountRouteWithChildren
+  "/_authenticated/": typeof AuthenticatedIndexRoute
+  "/_authenticated/access-control/permissions": typeof AuthenticatedAccessControlPermissionsRoute
+  "/_authenticated/access-control/sessions": typeof AuthenticatedAccessControlSessionsRoute
+  "/_authenticated/access-control/users": typeof AuthenticatedAccessControlUsersRoute
+  "/_authenticated/account/connections": typeof AuthenticatedAccountConnectionsRoute
+  "/_authenticated/account/profile": typeof AuthenticatedAccountProfileRoute
+  "/_authenticated/account/security": typeof AuthenticatedAccountSecurityRoute
+  "/_authenticated/account/sessions": typeof AuthenticatedAccountSessionsRoute
+  "/_authenticated/access-control/": typeof AuthenticatedAccessControlIndexRoute
+  "/_authenticated/account/": typeof AuthenticatedAccountIndexRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: "/"
+  fullPaths:
+    | "/"
+    | "/login"
+    | "/access-control"
+    | "/account"
+    | "/access-control/permissions"
+    | "/access-control/sessions"
+    | "/access-control/users"
+    | "/account/connections"
+    | "/account/profile"
+    | "/account/security"
+    | "/account/sessions"
+    | "/access-control/"
+    | "/account/"
   fileRoutesByTo: FileRoutesByTo
-  to: "/"
-  id: "__root__" | "/"
+  to:
+    | "/login"
+    | "/"
+    | "/access-control/permissions"
+    | "/access-control/sessions"
+    | "/access-control/users"
+    | "/account/connections"
+    | "/account/profile"
+    | "/account/security"
+    | "/account/sessions"
+    | "/access-control"
+    | "/account"
+  id:
+    | "__root__"
+    | "/_authenticated"
+    | "/login"
+    | "/_authenticated/access-control"
+    | "/_authenticated/account"
+    | "/_authenticated/"
+    | "/_authenticated/access-control/permissions"
+    | "/_authenticated/access-control/sessions"
+    | "/_authenticated/access-control/users"
+    | "/_authenticated/account/connections"
+    | "/_authenticated/account/profile"
+    | "/_authenticated/account/security"
+    | "/_authenticated/account/sessions"
+    | "/_authenticated/access-control/"
+    | "/_authenticated/account/"
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
-  IndexRoute: typeof IndexRoute
+  AuthenticatedRoute: typeof AuthenticatedRouteWithChildren
+  LoginRoute: typeof LoginRoute
 }
 
 declare module "@tanstack/react-router" {
   interface FileRoutesByPath {
-    "/": {
-      id: "/"
+    "/login": {
+      id: "/login"
+      path: "/login"
+      fullPath: "/login"
+      preLoaderRoute: typeof LoginRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    "/_authenticated": {
+      id: "/_authenticated"
+      path: ""
+      fullPath: "/"
+      preLoaderRoute: typeof AuthenticatedRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    "/_authenticated/": {
+      id: "/_authenticated/"
       path: "/"
       fullPath: "/"
-      preLoaderRoute: typeof IndexRouteImport
-      parentRoute: typeof rootRouteImport
+      preLoaderRoute: typeof AuthenticatedIndexRouteImport
+      parentRoute: typeof AuthenticatedRoute
+    }
+    "/_authenticated/account": {
+      id: "/_authenticated/account"
+      path: "/account"
+      fullPath: "/account"
+      preLoaderRoute: typeof AuthenticatedAccountRouteImport
+      parentRoute: typeof AuthenticatedRoute
+    }
+    "/_authenticated/access-control": {
+      id: "/_authenticated/access-control"
+      path: "/access-control"
+      fullPath: "/access-control"
+      preLoaderRoute: typeof AuthenticatedAccessControlRouteImport
+      parentRoute: typeof AuthenticatedRoute
+    }
+    "/_authenticated/account/": {
+      id: "/_authenticated/account/"
+      path: "/"
+      fullPath: "/account/"
+      preLoaderRoute: typeof AuthenticatedAccountIndexRouteImport
+      parentRoute: typeof AuthenticatedAccountRoute
+    }
+    "/_authenticated/access-control/": {
+      id: "/_authenticated/access-control/"
+      path: "/"
+      fullPath: "/access-control/"
+      preLoaderRoute: typeof AuthenticatedAccessControlIndexRouteImport
+      parentRoute: typeof AuthenticatedAccessControlRoute
+    }
+    "/_authenticated/account/sessions": {
+      id: "/_authenticated/account/sessions"
+      path: "/sessions"
+      fullPath: "/account/sessions"
+      preLoaderRoute: typeof AuthenticatedAccountSessionsRouteImport
+      parentRoute: typeof AuthenticatedAccountRoute
+    }
+    "/_authenticated/account/security": {
+      id: "/_authenticated/account/security"
+      path: "/security"
+      fullPath: "/account/security"
+      preLoaderRoute: typeof AuthenticatedAccountSecurityRouteImport
+      parentRoute: typeof AuthenticatedAccountRoute
+    }
+    "/_authenticated/account/profile": {
+      id: "/_authenticated/account/profile"
+      path: "/profile"
+      fullPath: "/account/profile"
+      preLoaderRoute: typeof AuthenticatedAccountProfileRouteImport
+      parentRoute: typeof AuthenticatedAccountRoute
+    }
+    "/_authenticated/account/connections": {
+      id: "/_authenticated/account/connections"
+      path: "/connections"
+      fullPath: "/account/connections"
+      preLoaderRoute: typeof AuthenticatedAccountConnectionsRouteImport
+      parentRoute: typeof AuthenticatedAccountRoute
+    }
+    "/_authenticated/access-control/users": {
+      id: "/_authenticated/access-control/users"
+      path: "/users"
+      fullPath: "/access-control/users"
+      preLoaderRoute: typeof AuthenticatedAccessControlUsersRouteImport
+      parentRoute: typeof AuthenticatedAccessControlRoute
+    }
+    "/_authenticated/access-control/sessions": {
+      id: "/_authenticated/access-control/sessions"
+      path: "/sessions"
+      fullPath: "/access-control/sessions"
+      preLoaderRoute: typeof AuthenticatedAccessControlSessionsRouteImport
+      parentRoute: typeof AuthenticatedAccessControlRoute
+    }
+    "/_authenticated/access-control/permissions": {
+      id: "/_authenticated/access-control/permissions"
+      path: "/permissions"
+      fullPath: "/access-control/permissions"
+      preLoaderRoute: typeof AuthenticatedAccessControlPermissionsRouteImport
+      parentRoute: typeof AuthenticatedAccessControlRoute
     }
   }
 }
 
+interface AuthenticatedAccessControlRouteChildren {
+  AuthenticatedAccessControlPermissionsRoute: typeof AuthenticatedAccessControlPermissionsRoute
+  AuthenticatedAccessControlSessionsRoute: typeof AuthenticatedAccessControlSessionsRoute
+  AuthenticatedAccessControlUsersRoute: typeof AuthenticatedAccessControlUsersRoute
+  AuthenticatedAccessControlIndexRoute: typeof AuthenticatedAccessControlIndexRoute
+}
+
+const AuthenticatedAccessControlRouteChildren: AuthenticatedAccessControlRouteChildren =
+  {
+    AuthenticatedAccessControlPermissionsRoute:
+      AuthenticatedAccessControlPermissionsRoute,
+    AuthenticatedAccessControlSessionsRoute:
+      AuthenticatedAccessControlSessionsRoute,
+    AuthenticatedAccessControlUsersRoute: AuthenticatedAccessControlUsersRoute,
+    AuthenticatedAccessControlIndexRoute: AuthenticatedAccessControlIndexRoute,
+  }
+
+const AuthenticatedAccessControlRouteWithChildren =
+  AuthenticatedAccessControlRoute._addFileChildren(
+    AuthenticatedAccessControlRouteChildren,
+  )
+
+interface AuthenticatedAccountRouteChildren {
+  AuthenticatedAccountConnectionsRoute: typeof AuthenticatedAccountConnectionsRoute
+  AuthenticatedAccountProfileRoute: typeof AuthenticatedAccountProfileRoute
+  AuthenticatedAccountSecurityRoute: typeof AuthenticatedAccountSecurityRoute
+  AuthenticatedAccountSessionsRoute: typeof AuthenticatedAccountSessionsRoute
+  AuthenticatedAccountIndexRoute: typeof AuthenticatedAccountIndexRoute
+}
+
+const AuthenticatedAccountRouteChildren: AuthenticatedAccountRouteChildren = {
+  AuthenticatedAccountConnectionsRoute: AuthenticatedAccountConnectionsRoute,
+  AuthenticatedAccountProfileRoute: AuthenticatedAccountProfileRoute,
+  AuthenticatedAccountSecurityRoute: AuthenticatedAccountSecurityRoute,
+  AuthenticatedAccountSessionsRoute: AuthenticatedAccountSessionsRoute,
+  AuthenticatedAccountIndexRoute: AuthenticatedAccountIndexRoute,
+}
+
+const AuthenticatedAccountRouteWithChildren =
+  AuthenticatedAccountRoute._addFileChildren(AuthenticatedAccountRouteChildren)
+
+interface AuthenticatedRouteChildren {
+  AuthenticatedAccessControlRoute: typeof AuthenticatedAccessControlRouteWithChildren
+  AuthenticatedAccountRoute: typeof AuthenticatedAccountRouteWithChildren
+  AuthenticatedIndexRoute: typeof AuthenticatedIndexRoute
+}
+
+const AuthenticatedRouteChildren: AuthenticatedRouteChildren = {
+  AuthenticatedAccessControlRoute: AuthenticatedAccessControlRouteWithChildren,
+  AuthenticatedAccountRoute: AuthenticatedAccountRouteWithChildren,
+  AuthenticatedIndexRoute: AuthenticatedIndexRoute,
+}
+
+const AuthenticatedRouteWithChildren = AuthenticatedRoute._addFileChildren(
+  AuthenticatedRouteChildren,
+)
+
 const rootRouteChildren: RootRouteChildren = {
-  IndexRoute: IndexRoute,
+  AuthenticatedRoute: AuthenticatedRouteWithChildren,
+  LoginRoute: LoginRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)

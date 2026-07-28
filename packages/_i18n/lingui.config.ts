@@ -3,13 +3,11 @@ import type { CatalogFormatter } from "@lingui/conf";
 import { formatter } from "@lingui/format-po";
 
 import { getTranslation } from "./src/helpers";
+import { getLocalTranslation } from "./src/local-translations";
 
 const defaultFormatter = formatter();
 
 const langs = { en: "en", bn: "bn" };
-
-/** Regular expression to match unsupported placeholders in translation texts */
-const unsupportedRegex = /\{[a-zA-Z]+\}|<[0-9]+>/g;
 
 /** Lingui formatter that automatically translates messages. */
 const format = {
@@ -19,7 +17,18 @@ const format = {
     const newCatalog = catalog;
 
     for (const [key, { translation, message }] of Object.entries(catalog)) {
-      if (translation || message?.match(unsupportedRegex)) {
+      const localTranslation =
+        message && ctx.locale ? getLocalTranslation(message, ctx.locale) : undefined;
+
+      if (localTranslation) {
+        // @ts-expect-error - Lingui catalog typings allow assignment
+        newCatalog[key].translation = localTranslation;
+        // @ts-expect-error - Lingui catalog typings allow assignment
+        newCatalog[key].extra = { translatorComments: ["Reviewed local translation"] };
+        continue;
+      }
+
+      if (translation) {
         if (existingCatalog?.[key]) {
           // @ts-expect-error - preserving extra metadata from existing catalog
           newCatalog[key].extra = existingCatalog[key].extra;
@@ -30,14 +39,16 @@ const format = {
       if (!message || !ctx.locale) continue;
 
       // @ts-expect-error - Lingui catalog typings allow assignment
-      newCatalog[key].translation = await getTranslation(
-        message,
-        langs[ctx.locale as keyof typeof langs]
-      );
+      newCatalog[key].translation =
+        ctx.locale === "en"
+          ? message
+          : await getTranslation(message, langs[ctx.locale as keyof typeof langs]);
 
       // @ts-expect-error - Lingui catalog typings allow assignment
       newCatalog[key].extra = {
-        translatorComments: ["Translated by Google Translate"],
+        translatorComments: [
+          ctx.locale === "en" ? "Source language" : "Translated by Google Translate",
+        ],
       };
     }
 
@@ -60,7 +71,7 @@ export default defineConfig({
   catalogs: [
     {
       path: "./locales/{locale}",
-      include: ["../../apps/web/src", "../../packages"],
+      include: ["../../apps/portal/src", "../../packages"],
     },
   ],
 });

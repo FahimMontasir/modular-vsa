@@ -1,5 +1,7 @@
 import { t } from "elysia";
 
+import { PASSWORD_MAX_LENGTH, PASSWORD_MIN_LENGTH } from "./auth-policy";
+
 function nonEmptyString() {
   return t.String({ minLength: 1 });
 }
@@ -15,6 +17,13 @@ export const ServerEnvSchema = t.Object({
   DATABASE_URL: nonEmptyString(),
   BETTER_AUTH_SECRET: t.String({ minLength: 32 }),
   BETTER_AUTH_URL: url(),
+  BOOTSTRAP_ADMIN_NAME: nonEmptyString(),
+  BOOTSTRAP_ADMIN_EMAIL: t.String({ format: "email" }),
+  BOOTSTRAP_ADMIN_USERNAME: t.String({ minLength: 3, maxLength: 30 }),
+  BOOTSTRAP_ADMIN_PASSWORD: t.String({
+    minLength: PASSWORD_MIN_LENGTH,
+    maxLength: PASSWORD_MAX_LENGTH,
+  }),
   CORS_ORIGIN: url(),
   NODE_ENV: t.Union([t.Literal("development"), t.Literal("production"), t.Literal("test")]),
   BULLMQ_PREFIX: nonEmptyString(),

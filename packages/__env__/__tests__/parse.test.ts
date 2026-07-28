@@ -12,6 +12,10 @@ const validServerEnv = {
   DATABASE_URL: "postgresql://postgres:postgres@localhost:5432/modular_vsa",
   BETTER_AUTH_SECRET: "local-development-secret-at-least-32-characters",
   BETTER_AUTH_URL: "http://localhost:3000",
+  BOOTSTRAP_ADMIN_NAME: "Local Administrator",
+  BOOTSTRAP_ADMIN_EMAIL: "admin@modular-vsa.local",
+  BOOTSTRAP_ADMIN_USERNAME: "admin",
+  BOOTSTRAP_ADMIN_PASSWORD: "local-admin-password-123",
   CORS_ORIGIN: "http://localhost:3001",
   BULLMQ_PREFIX: "modular-vsa",
   REDIS_HOST: "localhost",
@@ -49,6 +53,15 @@ describe("parseEnv", () => {
     expect(parsed.NODE_ENV).toBe("development");
   });
 
+  test("accepts the six-character password minimum", () => {
+    const parsed = parseEnv(ServerEnvSchema, {
+      ...validServerEnv,
+      BOOTSTRAP_ADMIN_PASSWORD: "123456",
+    });
+
+    expect(parsed.BOOTSTRAP_ADMIN_PASSWORD).toBe("123456");
+  });
+
   test("treats empty optional values as missing", () => {
     const parsed = parseEnv(WebEnvSchema, {
       ...validWebEnv,
@@ -63,6 +76,9 @@ describe("parseEnv", () => {
   test("rejects missing required values", () => {
     expect(() => parseEnv(ServerEnvSchema, { ...validServerEnv, DATABASE_URL: "" })).toThrow();
     expect(() => parseEnv(ServerEnvSchema, { ...validServerEnv, PORT: "" })).toThrow();
+    expect(() =>
+      parseEnv(ServerEnvSchema, { ...validServerEnv, BOOTSTRAP_ADMIN_PASSWORD: "short" })
+    ).toThrow();
   });
 
   test("rejects malformed URLs and numeric values", () => {

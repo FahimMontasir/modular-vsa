@@ -1,7 +1,7 @@
 import { Moon, Sun } from "lucide-react";
 import * as React from "react";
 
-import { globalStore, useSelector, type GlobalState } from "@modular-vsa/shared/web/store"; // Import the single store
+import { globalStore, useSelector, type GlobalState } from "../lib/theme-store";
 
 type Theme = GlobalState["theme"];
 type Coords = { x: number; y: number };

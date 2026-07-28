@@ -1,6 +1,8 @@
 import { Elysia } from "elysia";
 
 import { getAuthInstance } from ".";
+import type { AccessControlPermissions } from "../access-control";
+import { resolveAuthorization } from "./authorization-core";
 
 /**
  * Auth middleware
@@ -16,29 +18,31 @@ import { getAuthInstance } from ".";
  *     ({ user, session }) => {
  *       return user;
  *     },
- *     { authenticate: true }
+ *     { authorize: true }
  *   );
  *   ```;
  */
 export const AuthMiddleware = new Elysia({
   name: "Auth Middleware",
 }).macro({
-  // INFO: can pass role or array of roles as a parameter to the middleware
-  authenticate: {
-    // INFO: resolve is a hook that is called after the validation is processed
-    async resolve({ request }) {
-      const authSession = await getAuthInstance(request).api.getSession({
-        headers: request.headers,
+  authorize: (permissions: true | AccessControlPermissions) => ({
+    async resolve({ request }: { request: Request }) {
+      const auth = getAuthInstance(request);
+      const authSession = await resolveAuthorization({
+        permissions,
+        getSession: () => auth.api.getSession({ headers: request.headers }),
+        userHasPermission: async (userId, requestedPermissions) => {
+          const result = await auth.api.userHasPermission({
+            body: { userId, permissions: requestedPermissions },
+          });
+          return result.success;
+        },
       });
-
-      if (!authSession) {
-        throw new Error("Unauthorized");
-      }
 
       return {
         user: authSession.user,
         session: authSession.session,
       };
     },
-  },
+  }),
 });

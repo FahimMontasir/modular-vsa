@@ -4,6 +4,9 @@
   "private": true,
   "type": "module",
   "exports": {
+    "./web/components/*": {
+      "default": "./src/web/components/*.tsx"
+    },
     "./*": {
       "default": "./src/*.ts"
     },
@@ -13,10 +16,16 @@
     "test:unit": "bun test __tests__"
   },
   "dependencies": {
+    "@lingui/core": "catalog:",
+    "@lingui/react": "catalog:",
     "@modular-vsa/env": "workspace:*",
+    "@modular-vsa/i18n": "workspace:*",
+    "@modular-vsa/ui": "workspace:*",
     "@tanstack/react-query": "catalog:",
+    "@tanstack/react-router": "1.170.4",
     "@tanstack/react-store": "0.11.0",
-    "elysia": "catalog:"
+    "elysia": "catalog:",
+    "lucide-react": "1.16.0"
   },
   "devDependencies": {
     "@modular-vsa/config": "workspace:*"

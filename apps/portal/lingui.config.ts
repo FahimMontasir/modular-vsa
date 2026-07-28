@@ -5,7 +5,12 @@ export default {
   catalogs: [
     {
       path: "../../packages/_i18n/locales/{locale}",
-      include: ["./src"],
+      include: [
+        "./src",
+        "../../packages/__shared__/src/web",
+        "../../packages/auth/src/web",
+        "../../packages/home/src/web",
+      ],
     },
   ],
 };

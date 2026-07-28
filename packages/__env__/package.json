@@ -4,6 +4,7 @@
   "private": true,
   "type": "module",
   "exports": {
+    "./auth-policy": "./src/auth-policy.ts",
     "./server": "./src/server.ts",
     "./web": "./src/web.ts",
     "./doc": "./src/README.md"

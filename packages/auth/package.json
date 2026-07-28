@@ -7,13 +7,29 @@
     "./*": {
       "default": "./src/*.ts"
     },
+    "./pages/*": {
+      "default": "./src/web/pages/*.tsx"
+    },
+    "./web/provider": {
+      "default": "./src/web/provider.tsx"
+    },
     "./doc": "./README.md"
   },
+  "scripts": {
+    "test:unit": "bun --env-file=../../apps/server/.env.local test __tests__"
+  },
   "dependencies": {
+    "@lingui/core": "catalog:",
+    "@lingui/react": "catalog:",
     "@modular-vsa/db": "workspace:*",
     "@modular-vsa/env": "workspace:*",
+    "@modular-vsa/shared": "workspace:*",
+    "@modular-vsa/ui": "workspace:*",
+    "@tanstack/react-router": "1.170.4",
     "better-auth": "catalog:",
-    "elysia": "catalog:"
+    "drizzle-orm": "catalog:",
+    "elysia": "catalog:",
+    "lucide-react": "1.16.0"
   },
   "devDependencies": {
     "@modular-vsa/config": "workspace:*"

@@ -1,6 +1,7 @@
 import { cors } from "@elysiajs/cors";
 import { Elysia } from "elysia";
 
+import { ensureBootstrapAdmin } from "@modular-vsa/auth/server/bootstrap-admin";
 import { authHandler } from "@modular-vsa/auth/server/index";
 import { env } from "@modular-vsa/env/server";
 import { startAllWorkers } from "@modular-vsa/jobs";
@@ -11,11 +12,13 @@ import { GlobalErrorHandler } from "./utils/globalError";
 import { serverMonitoring } from "./utils/monitoring";
 import { APIV1 } from "./v1-routes";
 
+await ensureBootstrapAdmin();
+
 export const app = new Elysia()
   .use(serverMonitoring)
   .use(GlobalErrorHandler)
   .use(cors(CORS_CONFIG))
-  .all("/api/auth/*", async (context) => authHandler(context))
+  .all("/api/auth/*", ({ request }) => authHandler(request), { parse: "none" })
   .use(APIV1)
   .listen(env.PORT, () => {
     startAllWorkers().catch((err) => {

@@ -1,5 +1,6 @@
 import { StatusMap } from "elysia";
 
+import { applicationActions } from "@modular-vsa/auth/access-control";
 import { secureAPI } from "@modular-vsa/auth/server/secure-api";
 
 import { ENDPOINTS_PATH } from "../helpers/path";
@@ -12,7 +13,7 @@ export const DeleteRoutes = secureAPI().delete(
     return await deletePost(params.id);
   },
   {
-    authenticate: true,
+    authorize: { post: [applicationActions.post.delete] },
     params: HomeSchema.PostId,
     response: {
       [StatusMap.OK]: HomeSchema.DeletePostResponse,

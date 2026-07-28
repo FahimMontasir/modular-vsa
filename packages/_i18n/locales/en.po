@@ -11,6 +11,970 @@ msgstr ""
 "Language-Team: \n"
 "Plural-Forms: \n"
 
+#. placeholder {0}: sessions.length
+#: ../auth/src/web/pages/account-sessions-page.tsx:64
+msgid "{0} active"
+msgstr "{0} active"
+
+#. placeholder {0}: accounts.length
+#: ../auth/src/web/pages/account-connections-page.tsx:61
+msgid "{0} connected"
+msgstr "{0} connected"
+
+#. placeholder {0}: posts.length
+#: ../home/src/web/pages/home-page.tsx:112
+msgid "{0} records"
+msgstr "{0} records"
+
+#. placeholder {0}: selectedUser.name
+#: ../auth/src/web/pages/access-sessions-page.tsx:175
+msgid "{0} will be signed out on every device."
+msgstr "{0} will be signed out on every device."
+
+#: ../__shared__/src/web/components/section-header.tsx:57
+msgid "{title} sections"
+msgstr "{title} sections"
+
+#: ../auth/src/web/pages/access-users-page.tsx:160
+msgid "{total} identities"
+msgstr "{total} identities"
+
+#: ../__shared__/src/web/components/application-shell.tsx:80
+#: ../__shared__/src/web/components/application-shell.tsx:84
+#: ../auth/src/web/pages/access-permissions-page.tsx:68
+#: ../auth/src/web/pages/access-sessions-page.tsx:85
+#: ../auth/src/web/pages/access-users-page.tsx:148
+msgid "Access Control"
+msgstr "Access Control"
+
+#: ../__shared__/src/web/components/application-shell.tsx:81
+#: ../__shared__/src/web/components/application-shell.tsx:86
+#: ../auth/src/web/pages/account-connections-page.tsx:58
+#: ../auth/src/web/pages/account-profile-page.tsx:59
+#: ../auth/src/web/pages/account-security-page.tsx:90
+#: ../auth/src/web/pages/account-sessions-page.tsx:61
+msgid "Account"
+msgstr "Account"
+
+#: ../auth/src/web/pages/account-security-page.tsx:81
+msgid "Account could not be deleted"
+msgstr "Account could not be deleted"
+
+#: ../auth/src/web/pages/account-connections-page.tsx:123
+msgid "Account unlinked"
+msgstr "Account unlinked"
+
+#: ../auth/src/web/pages/login-page.tsx:106
+msgid "Accounts are provisioned by an administrator. Public registration is disabled."
+msgstr "Accounts are provisioned by an administrator. Public registration is disabled."
+
+#: ../auth/src/web/pages/access-permissions-page.tsx:151
+msgid "Action"
+msgstr "Action"
+
+#: ../auth/src/web/pages/account-sessions-page.tsx:70
+msgid "Active sessions"
+msgstr "Active sessions"
+
+#: ../home/src/web/pages/home-page.tsx:117
+msgid "Admin only"
+msgstr "Admin only"
+
+#: ../auth/src/web/pages/access-permissions-page.tsx:67
+#: ../auth/src/web/pages/access-sessions-page.tsx:84
+#: ../auth/src/web/pages/access-users-page.tsx:147
+msgid "Administration"
+msgstr "Administration"
+
+#: ../__shared__/src/web/components/application-shell.tsx:77
+#: ../auth/src/web/pages/access-permissions-page.tsx:30
+#: ../auth/src/web/pages/access-users-page.tsx:204
+#: ../auth/src/web/pages/access-users-page.tsx:293
+#: ../auth/src/web/pages/access-users-page.tsx:346
+#: ../auth/src/web/pages/access-users-page.tsx:378
+#: ../auth/src/web/pages/account-profile-page.tsx:62
+#: ../home/src/web/pages/home-page.tsx:57
+msgid "Administrator"
+msgstr "Administrator"
+
+#: ../auth/src/web/pages/access-users-page.tsx:150
+msgid "Administrator mode"
+msgstr "Administrator mode"
+
+#: ../home/src/web/pages/home-page.tsx:244
+msgid "Administrators can create the first post above."
+msgstr "Administrators can create the first post above."
+
+#: ../auth/src/web/pages/account-security-page.tsx:228
+msgid "All account data and sessions will be removed immediately."
+msgstr "All account data and sessions will be removed immediately."
+
+#: ../auth/src/web/pages/access-sessions-page.tsx:185
+msgid "All user sessions revoked"
+msgstr "All user sessions revoked"
+
+#: ../auth/src/web/pages/access-permissions-page.tsx:167
+msgid "Allowed"
+msgstr "Allowed"
+
+#: ../auth/src/web/pages/access-permissions-page.tsx:77
+msgid "Allowed actions use a filled badge; denied actions use an outline."
+msgstr "Allowed actions use a filled badge; denied actions use an outline."
+
+#: ../home/src/web/pages/home-page.tsx:103
+msgid "Authentication"
+msgstr "Authentication"
+
+#: ../home/src/web/pages/home-page.tsx:106
+msgid "Authorization"
+msgstr "Authorization"
+
+#: ../auth/src/web/pages/access-permissions-page.tsx:43
+#: ../auth/src/web/pages/access-users-page.tsx:451
+msgid "Ban"
+msgstr "Ban"
+
+#: ../auth/src/web/pages/access-users-page.tsx:204
+msgid "Banned"
+msgstr "Banned"
+
+#: ../auth/src/web/pages/access-sessions-page.tsx:179
+#: ../auth/src/web/pages/access-users-page.tsx:469
+#: ../auth/src/web/pages/account-connections-page.tsx:115
+#: ../auth/src/web/pages/account-security-page.tsx:232
+#: ../auth/src/web/pages/account-sessions-page.tsx:158
+#: ../home/src/web/pages/home-page.tsx:223
+msgid "Cancel"
+msgstr "Cancel"
+
+#: ../auth/src/web/pages/account-security-page.tsx:92
+msgid "Change credentials and control destructive account operations."
+msgstr "Change credentials and control destructive account operations."
+
+#: ../auth/src/web/pages/account-security-page.tsx:163
+msgid "Change email"
+msgstr "Change email"
+
+#: ../__shared__/src/web/components/language-switcher.tsx:37
+#~ msgid "Change language"
+#~ msgstr "Change language"
+
+#: ../auth/src/web/pages/account-security-page.tsx:132
+msgid "Change password"
+msgstr "Change password"
+
+#: ../auth/src/web/pages/access-users-page.tsx:219
+msgid "Change the search or create a managed user."
+msgstr "Change the search or create a managed user."
+
+#: ../auth/src/web/pages/account-security-page.tsx:102
+msgid "Changing it revokes every other active session."
+msgstr "Changing it revokes every other active session."
+
 #: ../home/src/web/pages/home-page.tsx:20
-msgid "Check"
-msgstr "Check"
+#~ msgid "Check"
+#~ msgstr "Check"
+
+#: ../auth/src/web/pages/account-profile-page.tsx:100
+msgid "Check availability"
+msgstr "Check availability"
+
+#: ../auth/src/web/pages/access-permissions-page.tsx:181
+msgid "Check on server"
+msgstr "Check on server"
+
+#: ../auth/src/web/pages/access-permissions-page.tsx:118
+msgid "Compare synchronous role policy with the authenticated server check."
+msgstr "Compare synchronous role policy with the authenticated server check."
+
+#: ../auth/src/web/pages/account-connections-page.tsx:67
+msgid "Connected accounts"
+msgstr "Connected accounts"
+
+#: ../auth/src/web/pages/account-connections-page.tsx:44
+msgid "Connected accounts could not be loaded"
+msgstr "Connected accounts could not be loaded"
+
+#: ../__shared__/src/web/components/application-shell.tsx:96
+#: ../__shared__/src/web/components/section-header.tsx:43
+#: ../auth/src/web/pages/account-connections-page.tsx:59
+msgid "Connections"
+msgstr "Connections"
+
+#: ../home/src/web/pages/home-page.tsx:136
+msgid "Content"
+msgstr "Content"
+
+#: ../__shared__/src/web/components/application-shell.tsx:120
+msgid "Control plane"
+msgstr "Control plane"
+
+#: ../home/src/web/pages/home-page.tsx:91
+msgid "Control plane overview"
+msgstr "Control plane overview"
+
+#: ../auth/src/web/pages/access-permissions-page.tsx:36
+msgid "Create"
+msgstr "Create"
+
+#: ../auth/src/web/pages/access-users-page.tsx:248
+msgid "Create a managed user"
+msgstr "Create a managed user"
+
+#: ../home/src/web/pages/home-page.tsx:125
+#: ../home/src/web/pages/home-page.tsx:145
+msgid "Create post"
+msgstr "Create post"
+
+#: ../auth/src/web/pages/access-users-page.tsx:301
+msgid "Create user"
+msgstr "Create user"
+
+#: ../auth/src/web/pages/access-users-page.tsx:353
+msgid "Created"
+msgstr "Created"
+
+#: ../auth/src/web/pages/account-sessions-page.tsx:103
+msgid "Current"
+msgstr "Current"
+
+#. placeholder {0}: auth.session?.user.email
+#: ../auth/src/web/pages/account-security-page.tsx:145
+msgid "Current address: {0}"
+msgstr "Current address: {0}"
+
+#: ../auth/src/web/pages/account-security-page.tsx:108
+#: ../auth/src/web/pages/account-security-page.tsx:202
+msgid "Current password"
+msgstr "Current password"
+
+#: ../auth/src/web/pages/account-security-page.tsx:173
+msgid "Danger zone"
+msgstr "Danger zone"
+
+#: ../auth/src/web/pages/access-permissions-page.tsx:40
+#: ../home/src/web/pages/home-page.tsx:213
+msgid "Delete"
+msgstr "Delete"
+
+#: ../auth/src/web/pages/account-security-page.tsx:195
+msgid "Delete account"
+msgstr "Delete account"
+
+#: ../auth/src/web/pages/account-security-page.tsx:222
+msgid "Delete my account"
+msgstr "Delete my account"
+
+#: ../auth/src/web/pages/account-security-page.tsx:234
+msgid "Delete permanently"
+msgstr "Delete permanently"
+
+#: ../home/src/web/pages/home-page.tsx:228
+msgid "Delete post"
+msgstr "Delete post"
+
+#: ../home/src/web/pages/home-page.tsx:217
+msgid "Delete this post?"
+msgstr "Delete this post?"
+
+#: ../auth/src/web/pages/account-security-page.tsx:226
+msgid "Delete your account permanently?"
+msgstr "Delete your account permanently?"
+
+#: ../auth/src/web/pages/access-permissions-page.tsx:167
+msgid "Denied"
+msgstr "Denied"
+
+#: ../__shared__/src/web/components/application-shell.tsx:77
+#: ../auth/src/web/pages/access-permissions-page.tsx:31
+#: ../auth/src/web/pages/access-users-page.tsx:204
+#: ../auth/src/web/pages/access-users-page.tsx:293
+#: ../auth/src/web/pages/access-users-page.tsx:346
+#: ../auth/src/web/pages/access-users-page.tsx:378
+#: ../auth/src/web/pages/account-profile-page.tsx:62
+#: ../home/src/web/pages/home-page.tsx:57
+msgid "Director"
+msgstr "Director"
+
+#: ../auth/src/web/pages/access-users-page.tsx:150
+msgid "Director · read only"
+msgstr "Director · read only"
+
+#: ../auth/src/web/pages/access-sessions-page.tsx:95
+msgid "Directors can inspect sessions; administrators can revoke them."
+msgstr "Directors can inspect sessions; administrators can revoke them."
+
+#: ../home/src/web/pages/home-page.tsx:196
+msgid "Draft"
+msgstr "Draft"
+
+#: ../auth/src/web/pages/access-users-page.tsx:270
+#: ../auth/src/web/pages/login-page.tsx:62
+#: ../auth/src/web/pages/login-page.tsx:69
+msgid "Email"
+msgstr "Email"
+
+#: ../auth/src/web/pages/account-security-page.tsx:143
+msgid "Email address"
+msgstr "Email address"
+
+#: ../auth/src/web/pages/account-security-page.tsx:68
+msgid "Email address could not be changed"
+msgstr "Email address could not be changed"
+
+#: ../auth/src/web/pages/account-security-page.tsx:66
+msgid "Email address updated"
+msgstr "Email address updated"
+
+#: ../auth/src/web/pages/account-security-page.tsx:93
+msgid "Email unverified"
+msgstr "Email unverified"
+
+#: ../auth/src/web/pages/account-security-page.tsx:93
+msgid "Email verified"
+msgstr "Email verified"
+
+#: ../__shared__/src/web/components/language-switcher.tsx:46
+#~ msgid "English"
+#~ msgstr "English"
+
+#: ../auth/src/web/pages/account-sessions-page.tsx:154
+msgid "Every browser, including this one, will need to sign in again."
+msgstr "Every browser, including this one, will need to sign in again."
+
+#: ../home/src/web/pages/home-page.tsx:126
+msgid "Exercise the permission-protected POST endpoint."
+msgstr "Exercise the permission-protected POST endpoint."
+
+#: ../home/src/web/pages/home-page.tsx:157
+msgid "Exercise the storage:upload permission and endpoint."
+msgstr "Exercise the storage:upload permission and endpoint."
+
+#: ../auth/src/web/pages/access-sessions-page.tsx:139
+#: ../auth/src/web/pages/account-sessions-page.tsx:106
+msgid "expires"
+msgstr "expires"
+
+#: ../auth/src/web/pages/account-connections-page.tsx:96
+msgid "External"
+msgstr "External"
+
+#: ../home/src/web/pages/home-page.tsx:155
+msgid "File upload"
+msgstr "File upload"
+
+#: ../home/src/web/pages/home-page.tsx:107
+msgid "Full access"
+msgstr "Full access"
+
+#: ../__shared__/src/web/components/application-shell.tsx:79
+#: ../__shared__/src/web/components/application-shell.tsx:87
+msgid "Home"
+msgstr "Home"
+
+#: ../auth/src/web/pages/access-sessions-page.tsx:115
+msgid "Identity"
+msgstr "Identity"
+
+#: ../auth/src/web/pages/access-permissions-page.tsx:44
+#: ../auth/src/web/pages/access-users-page.tsx:454
+msgid "Impersonate"
+msgstr "Impersonate"
+
+#: ../auth/src/web/pages/access-permissions-page.tsx:45
+msgid "Impersonate administrators"
+msgstr "Impersonate administrators"
+
+#: ../auth/src/web/pages/access-users-page.tsx:330
+msgid "Impersonation could not be started"
+msgstr "Impersonation could not be started"
+
+#: ../__shared__/src/web/components/application-shell.tsx:243
+msgid "Impersonation session"
+msgstr "Impersonation session"
+
+#: ../auth/src/web/pages/access-sessions-page.tsx:86
+msgid "Inspect active sessions by identity and revoke compromised access."
+msgstr "Inspect active sessions by identity and revoke compromised access."
+
+#: ../auth/src/web/pages/account-connections-page.tsx:60
+msgid "Inspect credential and external accounts linked to your identity."
+msgstr "Inspect credential and external accounts linked to your identity."
+
+#: ../__shared__/src/web/components/language-switcher.tsx:44
+#~ msgid "Language"
+#~ msgstr "Language"
+
+#: ../auth/src/web/pages/access-permissions-page.tsx:37
+msgid "List"
+msgstr "List"
+
+#: ../home/src/web/pages/home-page.tsx:188
+msgid "Live data from the protected GET /api/v1/home endpoint."
+msgstr "Live data from the protected GET /api/v1/home endpoint."
+
+#: ../auth/src/web/provider.tsx:40
+msgid "Loading session"
+msgstr "Loading session"
+
+#: ../auth/src/web/pages/access-permissions-page.tsx:165
+msgid "Local policy"
+msgstr "Local policy"
+
+#: ../auth/src/web/pages/account-profile-page.tsx:61
+msgid "Manage profile details and sign-in identifiers for this account."
+msgstr "Manage profile details and sign-in identifiers for this account."
+
+#: ../home/src/web/pages/home-page.tsx:209
+msgid "Move to draft"
+msgstr "Move to draft"
+
+#: ../auth/src/web/pages/access-users-page.tsx:266
+#: ../auth/src/web/pages/access-users-page.tsx:361
+#: ../auth/src/web/pages/account-profile-page.tsx:76
+msgid "Name"
+msgstr "Name"
+
+#: ../auth/src/web/pages/account-security-page.tsx:151
+msgid "New email"
+msgstr "New email"
+
+#: ../auth/src/web/pages/access-users-page.tsx:384
+#: ../auth/src/web/pages/account-security-page.tsx:118
+msgid "New password"
+msgstr "New password"
+
+#: ../auth/src/web/pages/account-sessions-page.tsx:130
+msgid "No active browser sessions were returned."
+msgstr "No active browser sessions were returned."
+
+#: ../auth/src/web/pages/access-sessions-page.tsx:161
+msgid "No active sessions"
+msgstr "No active sessions"
+
+#: ../auth/src/web/pages/account-connections-page.tsx:140
+msgid "No connected accounts"
+msgstr "No connected accounts"
+
+#: ../auth/src/web/pages/account-connections-page.tsx:142
+msgid "No credential or external provider accounts were returned."
+msgstr "No credential or external provider accounts were returned."
+
+#: ../home/src/web/pages/home-page.tsx:243
+msgid "No posts yet"
+msgstr "No posts yet"
+
+#: ../auth/src/web/pages/account-sessions-page.tsx:129
+msgid "No sessions found"
+msgstr "No sessions found"
+
+#: ../auth/src/web/pages/access-users-page.tsx:218
+msgid "No users found"
+msgstr "No users found"
+
+#: ../auth/src/web/pages/access-users-page.tsx:208
+#: ../auth/src/web/pages/access-users-page.tsx:350
+msgid "not set"
+msgstr "not set"
+
+#: ../auth/src/web/pages/account-connections-page.tsx:69
+msgid "OAuth linking becomes available here when a provider is configured on the server."
+msgstr "OAuth linking becomes available here when a provider is configured on the server."
+
+#: ../__shared__/src/web/components/application-shell.tsx:207
+msgid "Open account menu"
+msgstr "Open account menu"
+
+#: ../home/src/web/pages/home-page.tsx:93
+msgid "operator"
+msgstr "operator"
+
+#: ../auth/src/web/pages/account-sessions-page.tsx:141
+msgid "Other sessions revoked"
+msgstr "Other sessions revoked"
+
+#: ../auth/src/web/pages/access-users-page.tsx:278
+#: ../auth/src/web/pages/account-connections-page.tsx:96
+#: ../auth/src/web/pages/account-security-page.tsx:100
+#: ../auth/src/web/pages/login-page.tsx:82
+msgid "Password"
+msgstr "Password"
+
+#: ../auth/src/web/pages/account-security-page.tsx:48
+msgid "Password changed and other sessions revoked"
+msgstr "Password changed and other sessions revoked"
+
+#: ../auth/src/web/pages/account-security-page.tsx:50
+msgid "Password could not be changed"
+msgstr "Password could not be changed"
+
+#: ../auth/src/web/pages/access-users-page.tsx:425
+msgid "Password updated"
+msgstr "Password updated"
+
+#: ../auth/src/web/pages/access-permissions-page.tsx:116
+msgid "Permission check"
+msgstr "Permission check"
+
+#: ../__shared__/src/web/components/application-shell.tsx:93
+#: ../__shared__/src/web/components/section-header.tsx:37
+msgid "Permissions"
+msgstr "Permissions"
+
+#: ../__shared__/src/web/components/application-shell.tsx:128
+#: ../__shared__/src/web/components/application-shell.tsx:179
+msgid "Portal"
+msgstr "Portal"
+
+#: ../auth/src/web/pages/access-permissions-page.tsx:34
+#: ../home/src/web/pages/home-page.tsx:187
+msgid "Posts"
+msgstr "Posts"
+
+#: ../home/src/web/pages/home-page.tsx:111
+msgid "Posts endpoint"
+msgstr "Posts endpoint"
+
+#: ../__shared__/src/web/components/application-shell.tsx:251
+msgid "Primary navigation"
+msgstr "Primary navigation"
+
+#: ../__shared__/src/web/components/application-shell.tsx:94
+#: ../__shared__/src/web/components/section-header.tsx:40
+#: ../auth/src/web/pages/account-profile-page.tsx:68
+msgid "Profile"
+msgstr "Profile"
+
+#: ../auth/src/web/pages/account-profile-page.tsx:36
+msgid "Profile could not be updated"
+msgstr "Profile could not be updated"
+
+#: ../auth/src/web/pages/account-profile-page.tsx:34
+msgid "Profile updated"
+msgstr "Profile updated"
+
+#: ../auth/src/web/pages/access-users-page.tsx:149
+msgid "Provision identities, inspect access, and apply the shared Better Auth role policy."
+msgstr "Provision identities, inspect access, and apply the shared Better Auth role policy."
+
+#: ../auth/src/web/pages/access-users-page.tsx:250
+msgid "Public registration is disabled; administrators provision accounts here."
+msgstr "Public registration is disabled; administrators provision accounts here."
+
+#: ../home/src/web/pages/home-page.tsx:209
+msgid "Publish"
+msgstr "Publish"
+
+#: ../home/src/web/pages/home-page.tsx:141
+msgid "Publish immediately"
+msgstr "Publish immediately"
+
+#: ../home/src/web/pages/home-page.tsx:196
+msgid "Published"
+msgstr "Published"
+
+#: ../auth/src/web/pages/access-permissions-page.tsx:47
+msgid "Read"
+msgstr "Read"
+
+#: ../auth/src/web/pages/access-sessions-page.tsx:87
+#: ../home/src/web/pages/home-page.tsx:107
+msgid "Read only"
+msgstr "Read only"
+
+#: ../auth/src/web/pages/access-sessions-page.tsx:109
+#: ../auth/src/web/pages/account-connections-page.tsx:83
+#: ../auth/src/web/pages/account-sessions-page.tsx:86
+msgid "Refresh"
+msgstr "Refresh"
+
+#: ../auth/src/web/pages/access-users-page.tsx:185
+msgid "Refresh users"
+msgstr "Refresh users"
+
+#. placeholder {0}: user.name
+#: ../auth/src/web/pages/access-users-page.tsx:463
+msgid "Remove {0}?"
+msgstr "Remove {0}?"
+
+#: ../auth/src/web/pages/access-users-page.tsx:479
+msgid "Remove permanently"
+msgstr "Remove permanently"
+
+#: ../auth/src/web/pages/access-users-page.tsx:459
+msgid "Remove user"
+msgstr "Remove user"
+
+#: ../auth/src/web/pages/access-permissions-page.tsx:137
+msgid "Resource"
+msgstr "Resource"
+
+#: ../auth/src/web/pages/access-users-page.tsx:440
+msgid "Restricted by administrator"
+msgstr "Restricted by administrator"
+
+#: ../auth/src/web/pages/account-sessions-page.tsx:63
+msgid "Review and revoke browser sessions associated with your account."
+msgstr "Review and revoke browser sessions associated with your account."
+
+#: ../auth/src/web/pages/access-permissions-page.tsx:69
+msgid "Review the single policy shared by Better Auth, its client, and protected API routes."
+msgstr "Review the single policy shared by Better Auth, its client, and protected API routes."
+
+#: ../auth/src/web/pages/access-permissions-page.tsx:46
+#: ../auth/src/web/pages/access-sessions-page.tsx:153
+#: ../auth/src/web/pages/account-sessions-page.tsx:120
+msgid "Revoke"
+msgstr "Revoke"
+
+#: ../auth/src/web/pages/access-sessions-page.tsx:188
+#: ../auth/src/web/pages/account-sessions-page.tsx:167
+msgid "Revoke all"
+msgstr "Revoke all"
+
+#: ../auth/src/web/pages/account-sessions-page.tsx:148
+msgid "Revoke all and sign out"
+msgstr "Revoke all and sign out"
+
+#: ../auth/src/web/pages/access-sessions-page.tsx:173
+msgid "Revoke all sessions?"
+msgstr "Revoke all sessions?"
+
+#: ../auth/src/web/pages/access-sessions-page.tsx:169
+msgid "Revoke all user sessions"
+msgstr "Revoke all user sessions"
+
+#: ../auth/src/web/pages/access-sessions-page.tsx:87
+msgid "Revoke enabled"
+msgstr "Revoke enabled"
+
+#: ../auth/src/web/pages/account-sessions-page.tsx:152
+msgid "Revoke every session?"
+msgstr "Revoke every session?"
+
+#: ../auth/src/web/pages/account-sessions-page.tsx:144
+msgid "Revoke other sessions"
+msgstr "Revoke other sessions"
+
+#: ../auth/src/web/pages/access-permissions-page.tsx:123
+#: ../auth/src/web/pages/access-users-page.tsx:289
+#: ../auth/src/web/pages/access-users-page.tsx:345
+#: ../auth/src/web/pages/access-users-page.tsx:369
+msgid "Role"
+msgstr "Role"
+
+#: ../auth/src/web/pages/access-permissions-page.tsx:75
+msgid "Role permission matrix"
+msgstr "Role permission matrix"
+
+#: ../auth/src/web/pages/access-users-page.tsx:412
+msgid "Role updated"
+msgstr "Role updated"
+
+#: ../auth/src/web/pages/access-users-page.tsx:405
+msgid "Save name"
+msgstr "Save name"
+
+#: ../auth/src/web/pages/account-profile-page.tsx:108
+msgid "Save profile"
+msgstr "Save profile"
+
+#: ../auth/src/web/pages/access-users-page.tsx:173
+msgid "Search names"
+msgstr "Search names"
+
+#: ../auth/src/web/pages/access-users-page.tsx:165
+msgid "Search users"
+msgstr "Search users"
+
+#: ../__shared__/src/web/components/application-shell.tsx:95
+#: ../__shared__/src/web/components/section-header.tsx:41
+#: ../auth/src/web/pages/account-security-page.tsx:91
+msgid "Security"
+msgstr "Security"
+
+#: ../home/src/web/pages/home-page.tsx:164
+msgid "Select file to upload"
+msgstr "Select file to upload"
+
+#: ../auth/src/web/pages/access-users-page.tsx:337
+msgid "Selected identity"
+msgstr "Selected identity"
+
+#: ../home/src/web/pages/home-page.tsx:170
+msgid "Selected upload preview"
+msgstr "Selected upload preview"
+
+#: ../auth/src/web/pages/account-security-page.tsx:175
+msgid "Self-service deletion permanently removes your identity, credentials, and sessions."
+msgstr "Self-service deletion permanently removes your identity, credentials, and sessions."
+
+#: ../auth/src/web/pages/access-permissions-page.tsx:176
+msgid "Server allowed this permission"
+msgstr "Server allowed this permission"
+
+#: ../auth/src/web/pages/access-permissions-page.tsx:177
+msgid "Server denied this permission"
+msgstr "Server denied this permission"
+
+#: ../home/src/web/pages/home-page.tsx:103
+msgid "Session active"
+msgstr "Session active"
+
+#: ../auth/src/web/pages/access-sessions-page.tsx:150
+#: ../auth/src/web/pages/account-sessions-page.tsx:117
+msgid "Session revoked"
+msgstr "Session revoked"
+
+#: ../__shared__/src/web/components/application-shell.tsx:92
+#: ../__shared__/src/web/components/section-header.tsx:36
+#: ../__shared__/src/web/components/section-header.tsx:42
+#: ../auth/src/web/pages/access-permissions-page.tsx:33
+#: ../auth/src/web/pages/account-sessions-page.tsx:62
+msgid "Sessions"
+msgstr "Sessions"
+
+#: ../auth/src/web/pages/access-sessions-page.tsx:68
+#: ../auth/src/web/pages/account-sessions-page.tsx:41
+msgid "Sessions could not be loaded"
+msgstr "Sessions could not be loaded"
+
+#: ../auth/src/web/pages/access-permissions-page.tsx:42
+#: ../auth/src/web/pages/access-users-page.tsx:429
+msgid "Set password"
+msgstr "Set password"
+
+#: ../auth/src/web/pages/access-permissions-page.tsx:41
+#: ../auth/src/web/pages/access-users-page.tsx:416
+msgid "Set role"
+msgstr "Set role"
+
+#: ../auth/src/web/pages/login-page.tsx:96
+msgid "Sign in"
+msgstr "Sign in"
+
+#: ../auth/src/web/pages/login-page.tsx:56
+msgid "Sign in to the control plane"
+msgstr "Sign in to the control plane"
+
+#: ../__shared__/src/web/components/application-shell.tsx:233
+#: ../auth/src/web/pages/account-sessions-page.tsx:174
+msgid "Sign out"
+msgstr "Sign out"
+
+#. placeholder {0}: labelFor(currentRole)
+#: ../auth/src/web/pages/access-permissions-page.tsx:70
+msgid "Signed in as {0}"
+msgstr "Signed in as {0}"
+
+#: ../__shared__/src/web/components/application-shell.tsx:226
+msgid "Stop impersonating"
+msgstr "Stop impersonating"
+
+#: ../auth/src/web/pages/access-permissions-page.tsx:35
+msgid "Storage"
+msgstr "Storage"
+
+#: ../home/src/web/pages/home-page.tsx:116
+msgid "Storage endpoint"
+msgstr "Storage endpoint"
+
+#: ../__shared__/src/web/components/language-switcher.tsx:17
+msgid "Switch to Bengali"
+msgstr "Switch to Bengali"
+
+#: ../__shared__/src/web/components/language-switcher.tsx:17
+msgid "Switch to English"
+msgstr "Switch to English"
+
+#: ../auth/src/web/pages/access-users-page.tsx:116
+msgid "The administrator action could not be completed"
+msgstr "The administrator action could not be completed"
+
+#: ../auth/src/web/pages/login-page.tsx:38
+msgid "The credentials did not match an active account."
+msgstr "The credentials did not match an active account."
+
+#: ../auth/src/web/pages/account-sessions-page.tsx:72
+msgid "The current browser is marked and cannot be revoked individually."
+msgstr "The current browser is marked and cannot be revoked individually."
+
+#: ../home/src/web/pages/home-page.tsx:96
+msgid "The portal is connected to Better Auth, the Elysia API, PostgreSQL, Redis, and S3-compatible storage. Your role determines which controls are available."
+msgstr "The portal is connected to Better Auth, the Elysia API, PostgreSQL, Redis, and S3-compatible storage. Your role determines which controls are available."
+
+#: ../auth/src/web/pages/access-users-page.tsx:104
+msgid "The selected identity could not be loaded"
+msgstr "The selected identity could not be loaded"
+
+#: ../auth/src/web/pages/access-users-page.tsx:82
+msgid "The user directory could not be loaded"
+msgstr "The user directory could not be loaded"
+
+#: ../auth/src/web/pages/account-security-page.tsx:197
+msgid "This action cannot be undone. Enter your current password to continue."
+msgstr "This action cannot be undone. Enter your current password to continue."
+
+#: ../auth/src/web/pages/access-sessions-page.tsx:162
+msgid "This identity has no active browser sessions."
+msgstr "This identity has no active browser sessions."
+
+#: ../auth/src/web/pages/account-profile-page.tsx:44
+msgid "This is your current username."
+msgstr "This is your current username."
+
+#: ../auth/src/web/pages/access-users-page.tsx:465
+msgid "This permanently deletes the user, accounts, and sessions. It cannot be undone."
+msgstr "This permanently deletes the user, accounts, and sessions. It cannot be undone."
+
+#. placeholder {0}: post.title
+#: ../home/src/web/pages/home-page.tsx:219
+msgid "This permanently removes “{0}”."
+msgstr "This permanently removes “{0}”."
+
+#: ../home/src/web/pages/home-page.tsx:132
+msgid "Title"
+msgstr "Title"
+
+#: ../auth/src/web/pages/access-users-page.tsx:451
+msgid "Unban"
+msgstr "Unban"
+
+#: ../auth/src/web/pages/access-sessions-page.tsx:136
+#: ../auth/src/web/pages/account-sessions-page.tsx:101
+msgid "Unknown device"
+msgstr "Unknown device"
+
+#: ../auth/src/web/pages/access-sessions-page.tsx:139
+#: ../auth/src/web/pages/account-sessions-page.tsx:106
+msgid "Unknown IP"
+msgstr "Unknown IP"
+
+#: ../auth/src/web/pages/account-connections-page.tsx:105
+msgid "Unlink"
+msgstr "Unlink"
+
+#. placeholder {0}: account.providerId
+#: ../auth/src/web/pages/account-connections-page.tsx:109
+msgid "Unlink {0}?"
+msgstr "Unlink {0}?"
+
+#: ../auth/src/web/pages/account-connections-page.tsx:126
+msgid "Unlink account"
+msgstr "Unlink account"
+
+#: ../auth/src/web/pages/access-permissions-page.tsx:39
+msgid "Update"
+msgstr "Update"
+
+#: ../auth/src/web/pages/access-permissions-page.tsx:48
+msgid "Upload"
+msgstr "Upload"
+
+#: ../home/src/web/pages/home-page.tsx:117
+msgid "Upload enabled"
+msgstr "Upload enabled"
+
+#: ../home/src/web/pages/home-page.tsx:175
+msgid "Upload file"
+msgstr "Upload file"
+
+#: ../auth/src/web/pages/access-users-page.tsx:442
+msgid "User banned"
+msgstr "User banned"
+
+#: ../auth/src/web/pages/access-users-page.tsx:136
+msgid "User created"
+msgstr "User created"
+
+#: ../auth/src/web/pages/access-users-page.tsx:159
+msgid "User directory"
+msgstr "User directory"
+
+#: ../auth/src/web/pages/access-users-page.tsx:475
+msgid "User removed"
+msgstr "User removed"
+
+#: ../auth/src/web/pages/access-sessions-page.tsx:93
+msgid "User sessions"
+msgstr "User sessions"
+
+#: ../auth/src/web/pages/access-users-page.tsx:442
+msgid "User unbanned"
+msgstr "User unbanned"
+
+#: ../auth/src/web/pages/access-users-page.tsx:401
+msgid "User updated"
+msgstr "User updated"
+
+#: ../auth/src/web/pages/access-users-page.tsx:274
+#: ../auth/src/web/pages/access-users-page.tsx:349
+#: ../auth/src/web/pages/account-profile-page.tsx:80
+#: ../auth/src/web/pages/login-page.tsx:61
+#: ../auth/src/web/pages/login-page.tsx:69
+msgid "Username"
+msgstr "Username"
+
+#: ../auth/src/web/pages/account-profile-page.tsx:51
+msgid "Username availability could not be checked."
+msgstr "Username availability could not be checked."
+
+#: ../auth/src/web/pages/account-profile-page.tsx:49
+msgid "Username is available."
+msgstr "Username is available."
+
+#: ../auth/src/web/pages/account-profile-page.tsx:49
+msgid "Username is taken."
+msgstr "Username is taken."
+
+#: ../__shared__/src/web/components/application-shell.tsx:91
+#: ../__shared__/src/web/components/section-header.tsx:35
+#: ../auth/src/web/pages/access-permissions-page.tsx:32
+msgid "Users"
+msgstr "Users"
+
+#: ../auth/src/web/pages/access-sessions-page.tsx:51
+msgid "Users could not be loaded"
+msgstr "Users could not be loaded"
+
+#: ../auth/src/web/pages/access-permissions-page.tsx:38
+msgid "View"
+msgstr "View"
+
+#: ../auth/src/web/pages/login-page.tsx:55
+msgid "Welcome back"
+msgstr "Welcome back"
+
+#. placeholder {0}: sessionQuery.data?.user.name ?? t`operator`
+#: ../home/src/web/pages/home-page.tsx:93
+msgid "Welcome, {0}."
+msgstr "Welcome, {0}."
+
+#. placeholder {0}: user.name
+#: ../__shared__/src/web/components/application-shell.tsx:244
+msgid "You are viewing the portal as {0}. Use the account menu to return to your administrator session."
+msgstr "You are viewing the portal as {0}. Use the account menu to return to your administrator session."
+
+#: ../auth/src/web/pages/account-connections-page.tsx:111
+msgid "You will no longer be able to sign in through this provider."
+msgstr "You will no longer be able to sign in through this provider."
+
+#: ../auth/src/web/pages/login-page.tsx:76
+msgid "you@example.com"
+msgstr "you@example.com"
+
+#: ../auth/src/web/pages/account-profile-page.tsx:60
+msgid "Your identity"
+msgstr "Your identity"
+
+#: ../auth/src/web/pages/account-profile-page.tsx:70
+msgid "Your public name and normalized sign-in username."
+msgstr "Your public name and normalized sign-in username."
+
+#: ../auth/src/web/pages/login-page.tsx:76
+msgid "your.username"
+msgstr "your.username"
+
+#: ../__shared__/src/web/components/language-switcher.tsx:50
+#~ msgid "বাংলা"
+#~ msgstr "বাংলা"

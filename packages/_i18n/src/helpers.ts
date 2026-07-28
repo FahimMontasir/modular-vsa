@@ -6,9 +6,21 @@
  * @returns A Promise that resolves to the translated text.
  */
 export async function getTranslation(text: string, lang: string): Promise<string> {
-  return fetch(
-    `https://translate.google.com/translate_a/single?client=gtx&sl=auto&tl=${lang}&dt=t&q=${text}`
-  )
+  const placeholders: string[] = [];
+  const maskedText = text.replace(/\{[^}]+\}|<\/?[0-9]+>/g, (placeholder) => {
+    const token = `ZXQPH${placeholders.length}QXZ`;
+    placeholders.push(placeholder);
+    return token;
+  });
+  const search = new URLSearchParams({
+    client: "gtx",
+    sl: "auto",
+    tl: lang,
+    dt: "t",
+    q: maskedText,
+  });
+
+  return fetch(`https://translate.google.com/translate_a/single?${search}`)
     .then((res) => res.json())
     .then((data) => {
       const translated =
@@ -16,7 +28,13 @@ export async function getTranslation(text: string, lang: string): Promise<string
           ? data[0][0][0]
           : "";
 
-      return typeof translated === "string" ? translated : "";
+      if (typeof translated !== "string") return "";
+
+      return placeholders.reduce(
+        (result, placeholder, index) =>
+          result.replace(new RegExp(`ZXQPH\\s*${index}\\s*QXZ`, "gi"), placeholder),
+        translated
+      );
     })
     .catch(() => "");
 }

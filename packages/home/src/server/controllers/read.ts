@@ -1,5 +1,6 @@
 import { StatusMap } from "elysia";
 
+import { applicationActions } from "@modular-vsa/auth/access-control";
 import { secureAPI } from "@modular-vsa/auth/server/secure-api";
 
 import { ENDPOINTS_PATH } from "../helpers/path";
@@ -14,7 +15,7 @@ export const ReadRoutes = secureAPI()
       return await readPosts(query);
     },
     {
-      // authenticate: true,
+      authorize: { post: [applicationActions.post.read] },
       query: HomeSchema.GetPostsQuery,
       response: {
         [StatusMap.OK]: HomeSchema.PostsList,
@@ -31,7 +32,7 @@ export const ReadRoutes = secureAPI()
       return await readPost(params.id);
     },
     {
-      authenticate: true,
+      authorize: { post: [applicationActions.post.read] },
       params: HomeSchema.PostId,
       response: {
         [StatusMap.OK]: HomeSchema.Post,

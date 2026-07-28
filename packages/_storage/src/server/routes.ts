@@ -1,5 +1,6 @@
 import { StatusMap } from "elysia";
 
+import { applicationActions } from "@modular-vsa/auth/access-control";
 import { secureAPI } from "@modular-vsa/auth/server/secure-api";
 
 import { uploadToS3 } from "./upload";
@@ -11,7 +12,7 @@ export const StorageRoutes = secureAPI().post(
     return await uploadToS3(body.file, body.key);
   },
   {
-    // authenticate: true,
+    authorize: { storage: [applicationActions.storage.upload] },
     body: StorageSchema.UploadBody,
     response: {
       [StatusMap.Created]: StorageSchema.UploadResponse,

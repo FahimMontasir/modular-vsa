@@ -11,7 +11,1189 @@ msgstr ""
 "Language-Team: \n"
 "Plural-Forms: \n"
 
+# Reviewed local translation
+#. placeholder {0}: sessions.length
+#: ../auth/src/web/pages/account-sessions-page.tsx:64
+msgid "{0} active"
+msgstr "{0}টি সক্রিয়"
+
+# Reviewed local translation
+#. placeholder {0}: accounts.length
+#: ../auth/src/web/pages/account-connections-page.tsx:61
+msgid "{0} connected"
+msgstr "{0}টি সংযুক্ত"
+
+# Reviewed local translation
+#. placeholder {0}: posts.length
+#: ../home/src/web/pages/home-page.tsx:112
+msgid "{0} records"
+msgstr "{0}টি রেকর্ড"
+
+# Reviewed local translation
+#. placeholder {0}: selectedUser.name
+#: ../auth/src/web/pages/access-sessions-page.tsx:175
+msgid "{0} will be signed out on every device."
+msgstr "প্রতিটি ডিভাইস থেকে {0}-কে সাইন আউট করা হবে।"
+
+# Reviewed local translation
+#: ../__shared__/src/web/components/section-header.tsx:57
+msgid "{title} sections"
+msgstr "{title} বিভাগসমূহ"
+
+# Reviewed local translation
+#: ../auth/src/web/pages/access-users-page.tsx:160
+msgid "{total} identities"
+msgstr "{total}টি পরিচয়"
+
+# Reviewed local translation
+#: ../__shared__/src/web/components/application-shell.tsx:80
+#: ../__shared__/src/web/components/application-shell.tsx:84
+#: ../auth/src/web/pages/access-permissions-page.tsx:68
+#: ../auth/src/web/pages/access-sessions-page.tsx:85
+#: ../auth/src/web/pages/access-users-page.tsx:148
+msgid "Access Control"
+msgstr "অ্যাক্সেস নিয়ন্ত্রণ"
+
+# Reviewed local translation
+#: ../__shared__/src/web/components/application-shell.tsx:81
+#: ../__shared__/src/web/components/application-shell.tsx:86
+#: ../auth/src/web/pages/account-connections-page.tsx:58
+#: ../auth/src/web/pages/account-profile-page.tsx:59
+#: ../auth/src/web/pages/account-security-page.tsx:90
+#: ../auth/src/web/pages/account-sessions-page.tsx:61
+msgid "Account"
+msgstr "অ্যাকাউন্ট"
+
+# Reviewed local translation
+#: ../auth/src/web/pages/account-security-page.tsx:81
+msgid "Account could not be deleted"
+msgstr "অ্যাকাউন্ট মুছে ফেলা যায়নি"
+
+# Reviewed local translation
+#: ../auth/src/web/pages/account-connections-page.tsx:123
+msgid "Account unlinked"
+msgstr "অ্যাকাউন্টের সংযোগ বিচ্ছিন্ন হয়েছে"
+
+# Reviewed local translation
+#: ../auth/src/web/pages/login-page.tsx:106
+msgid "Accounts are provisioned by an administrator. Public registration is disabled."
+msgstr "অ্যাকাউন্ট প্রশাসক তৈরি করেন। সর্বসাধারণের নিবন্ধন বন্ধ।"
+
+# Reviewed local translation
+#: ../auth/src/web/pages/access-permissions-page.tsx:151
+msgid "Action"
+msgstr "কাজ"
+
+# Reviewed local translation
+#: ../auth/src/web/pages/account-sessions-page.tsx:70
+msgid "Active sessions"
+msgstr "সক্রিয় সেশন"
+
+# Reviewed local translation
+#: ../home/src/web/pages/home-page.tsx:117
+msgid "Admin only"
+msgstr "শুধু প্রশাসক"
+
+# Reviewed local translation
+#: ../auth/src/web/pages/access-permissions-page.tsx:67
+#: ../auth/src/web/pages/access-sessions-page.tsx:84
+#: ../auth/src/web/pages/access-users-page.tsx:147
+msgid "Administration"
+msgstr "প্রশাসন"
+
+# Reviewed local translation
+#: ../__shared__/src/web/components/application-shell.tsx:77
+#: ../auth/src/web/pages/access-permissions-page.tsx:30
+#: ../auth/src/web/pages/access-users-page.tsx:204
+#: ../auth/src/web/pages/access-users-page.tsx:293
+#: ../auth/src/web/pages/access-users-page.tsx:346
+#: ../auth/src/web/pages/access-users-page.tsx:378
+#: ../auth/src/web/pages/account-profile-page.tsx:62
+#: ../home/src/web/pages/home-page.tsx:57
+msgid "Administrator"
+msgstr "প্রশাসক"
+
+# Reviewed local translation
+#: ../auth/src/web/pages/access-users-page.tsx:150
+msgid "Administrator mode"
+msgstr "প্রশাসক মোড"
+
+# Reviewed local translation
+#: ../home/src/web/pages/home-page.tsx:244
+msgid "Administrators can create the first post above."
+msgstr "প্রশাসকেরা উপরে প্রথম পোস্ট তৈরি করতে পারেন।"
+
+# Reviewed local translation
+#: ../auth/src/web/pages/account-security-page.tsx:228
+msgid "All account data and sessions will be removed immediately."
+msgstr "অ্যাকাউন্টের সব তথ্য ও সেশন অবিলম্বে মুছে যাবে।"
+
+# Reviewed local translation
+#: ../auth/src/web/pages/access-sessions-page.tsx:185
+msgid "All user sessions revoked"
+msgstr "ব্যবহারকারীর সব সেশন বাতিল হয়েছে"
+
+# Reviewed local translation
+#: ../auth/src/web/pages/access-permissions-page.tsx:167
+msgid "Allowed"
+msgstr "অনুমোদিত"
+
+# Reviewed local translation
+#: ../auth/src/web/pages/access-permissions-page.tsx:77
+msgid "Allowed actions use a filled badge; denied actions use an outline."
+msgstr "অনুমোদিত কাজে পূর্ণ ব্যাজ এবং অননুমোদিত কাজে আউটলাইন দেখানো হয়।"
+
+# Reviewed local translation
+#: ../home/src/web/pages/home-page.tsx:103
+msgid "Authentication"
+msgstr "প্রমাণীকরণ"
+
+# Reviewed local translation
+#: ../home/src/web/pages/home-page.tsx:106
+msgid "Authorization"
+msgstr "অনুমোদন"
+
+# Reviewed local translation
+#: ../auth/src/web/pages/access-permissions-page.tsx:43
+#: ../auth/src/web/pages/access-users-page.tsx:451
+msgid "Ban"
+msgstr "নিষিদ্ধ করুন"
+
+# Reviewed local translation
+#: ../auth/src/web/pages/access-users-page.tsx:204
+msgid "Banned"
+msgstr "নিষিদ্ধ"
+
+# Reviewed local translation
+#: ../auth/src/web/pages/access-sessions-page.tsx:179
+#: ../auth/src/web/pages/access-users-page.tsx:469
+#: ../auth/src/web/pages/account-connections-page.tsx:115
+#: ../auth/src/web/pages/account-security-page.tsx:232
+#: ../auth/src/web/pages/account-sessions-page.tsx:158
+#: ../home/src/web/pages/home-page.tsx:223
+msgid "Cancel"
+msgstr "বাতিল"
+
+# Reviewed local translation
+#: ../auth/src/web/pages/account-security-page.tsx:92
+msgid "Change credentials and control destructive account operations."
+msgstr "পরিচয়পত্র পরিবর্তন এবং ধ্বংসাত্মক অ্যাকাউন্ট কাজ নিয়ন্ত্রণ করুন।"
+
+# Reviewed local translation
+#: ../auth/src/web/pages/account-security-page.tsx:163
+msgid "Change email"
+msgstr "ইমেইল পরিবর্তন করুন"
+
+# Reviewed local translation
+#: ../__shared__/src/web/components/language-switcher.tsx:37
+#~ msgid "Change language"
+#~ msgstr "ভাষা পরিবর্তন করুন"
+
+# Reviewed local translation
+#: ../auth/src/web/pages/account-security-page.tsx:132
+msgid "Change password"
+msgstr "পাসওয়ার্ড পরিবর্তন করুন"
+
+# Reviewed local translation
+#: ../auth/src/web/pages/access-users-page.tsx:219
+msgid "Change the search or create a managed user."
+msgstr "অনুসন্ধান বদলান অথবা একটি পরিচালিত ব্যবহারকারী তৈরি করুন।"
+
+# Reviewed local translation
+#: ../auth/src/web/pages/account-security-page.tsx:102
+msgid "Changing it revokes every other active session."
+msgstr "এটি পরিবর্তন করলে অন্য সব সক্রিয় সেশন বাতিল হবে।"
+
 # Translated by Google Translate
 #: ../home/src/web/pages/home-page.tsx:20
-msgid "Check"
-msgstr "চেক করুন"
+#~ msgid "Check"
+#~ msgstr "চেক করুন"
+
+# Reviewed local translation
+#: ../auth/src/web/pages/account-profile-page.tsx:100
+msgid "Check availability"
+msgstr "উপলভ্যতা যাচাই করুন"
+
+# Reviewed local translation
+#: ../auth/src/web/pages/access-permissions-page.tsx:181
+msgid "Check on server"
+msgstr "সার্ভারে যাচাই করুন"
+
+# Reviewed local translation
+#: ../auth/src/web/pages/access-permissions-page.tsx:118
+msgid "Compare synchronous role policy with the authenticated server check."
+msgstr "সমকালীন ভূমিকা নীতির সঙ্গে প্রমাণীকৃত সার্ভার যাচাই তুলনা করুন।"
+
+# Reviewed local translation
+#: ../auth/src/web/pages/account-connections-page.tsx:67
+msgid "Connected accounts"
+msgstr "সংযুক্ত অ্যাকাউন্ট"
+
+# Reviewed local translation
+#: ../auth/src/web/pages/account-connections-page.tsx:44
+msgid "Connected accounts could not be loaded"
+msgstr "সংযুক্ত অ্যাকাউন্ট লোড করা যায়নি"
+
+# Reviewed local translation
+#: ../__shared__/src/web/components/application-shell.tsx:96
+#: ../__shared__/src/web/components/section-header.tsx:43
+#: ../auth/src/web/pages/account-connections-page.tsx:59
+msgid "Connections"
+msgstr "সংযোগ"
+
+# Reviewed local translation
+#: ../home/src/web/pages/home-page.tsx:136
+msgid "Content"
+msgstr "বিষয়বস্তু"
+
+# Reviewed local translation
+#: ../__shared__/src/web/components/application-shell.tsx:120
+msgid "Control plane"
+msgstr "কন্ট্রোল প্লেন"
+
+# Reviewed local translation
+#: ../home/src/web/pages/home-page.tsx:91
+msgid "Control plane overview"
+msgstr "কন্ট্রোল প্লেনের সারসংক্ষেপ"
+
+# Reviewed local translation
+#: ../auth/src/web/pages/access-permissions-page.tsx:36
+msgid "Create"
+msgstr "তৈরি করুন"
+
+# Reviewed local translation
+#: ../auth/src/web/pages/access-users-page.tsx:248
+msgid "Create a managed user"
+msgstr "পরিচালিত ব্যবহারকারী তৈরি করুন"
+
+# Reviewed local translation
+#: ../home/src/web/pages/home-page.tsx:125
+#: ../home/src/web/pages/home-page.tsx:145
+msgid "Create post"
+msgstr "পোস্ট তৈরি করুন"
+
+# Reviewed local translation
+#: ../auth/src/web/pages/access-users-page.tsx:301
+msgid "Create user"
+msgstr "ব্যবহারকারী তৈরি করুন"
+
+# Reviewed local translation
+#: ../auth/src/web/pages/access-users-page.tsx:353
+msgid "Created"
+msgstr "তৈরির সময়"
+
+# Reviewed local translation
+#: ../auth/src/web/pages/account-sessions-page.tsx:103
+msgid "Current"
+msgstr "বর্তমান"
+
+# Reviewed local translation
+#. placeholder {0}: auth.session?.user.email
+#: ../auth/src/web/pages/account-security-page.tsx:145
+msgid "Current address: {0}"
+msgstr "বর্তমান ঠিকানা: {0}"
+
+# Reviewed local translation
+#: ../auth/src/web/pages/account-security-page.tsx:108
+#: ../auth/src/web/pages/account-security-page.tsx:202
+msgid "Current password"
+msgstr "বর্তমান পাসওয়ার্ড"
+
+# Reviewed local translation
+#: ../auth/src/web/pages/account-security-page.tsx:173
+msgid "Danger zone"
+msgstr "ঝুঁকিপূর্ণ অংশ"
+
+# Reviewed local translation
+#: ../auth/src/web/pages/access-permissions-page.tsx:40
+#: ../home/src/web/pages/home-page.tsx:213
+msgid "Delete"
+msgstr "মুছুন"
+
+# Reviewed local translation
+#: ../auth/src/web/pages/account-security-page.tsx:195
+msgid "Delete account"
+msgstr "অ্যাকাউন্ট মুছুন"
+
+# Reviewed local translation
+#: ../auth/src/web/pages/account-security-page.tsx:222
+msgid "Delete my account"
+msgstr "আমার অ্যাকাউন্ট মুছুন"
+
+# Reviewed local translation
+#: ../auth/src/web/pages/account-security-page.tsx:234
+msgid "Delete permanently"
+msgstr "স্থায়ীভাবে মুছুন"
+
+# Reviewed local translation
+#: ../home/src/web/pages/home-page.tsx:228
+msgid "Delete post"
+msgstr "পোস্ট মুছুন"
+
+# Reviewed local translation
+#: ../home/src/web/pages/home-page.tsx:217
+msgid "Delete this post?"
+msgstr "এই পোস্টটি মুছবেন?"
+
+# Reviewed local translation
+#: ../auth/src/web/pages/account-security-page.tsx:226
+msgid "Delete your account permanently?"
+msgstr "আপনার অ্যাকাউন্ট স্থায়ীভাবে মুছবেন?"
+
+# Reviewed local translation
+#: ../auth/src/web/pages/access-permissions-page.tsx:167
+msgid "Denied"
+msgstr "অননুমোদিত"
+
+# Reviewed local translation
+#: ../__shared__/src/web/components/application-shell.tsx:77
+#: ../auth/src/web/pages/access-permissions-page.tsx:31
+#: ../auth/src/web/pages/access-users-page.tsx:204
+#: ../auth/src/web/pages/access-users-page.tsx:293
+#: ../auth/src/web/pages/access-users-page.tsx:346
+#: ../auth/src/web/pages/access-users-page.tsx:378
+#: ../auth/src/web/pages/account-profile-page.tsx:62
+#: ../home/src/web/pages/home-page.tsx:57
+msgid "Director"
+msgstr "পরিচালক"
+
+# Reviewed local translation
+#: ../auth/src/web/pages/access-users-page.tsx:150
+msgid "Director · read only"
+msgstr "পরিচালক · শুধু দেখা"
+
+# Reviewed local translation
+#: ../auth/src/web/pages/access-sessions-page.tsx:95
+msgid "Directors can inspect sessions; administrators can revoke them."
+msgstr "পরিচালকেরা সেশন দেখতে পারেন; প্রশাসকেরা সেগুলো বাতিল করতে পারেন।"
+
+# Reviewed local translation
+#: ../home/src/web/pages/home-page.tsx:196
+msgid "Draft"
+msgstr "খসড়া"
+
+# Reviewed local translation
+#: ../auth/src/web/pages/access-users-page.tsx:270
+#: ../auth/src/web/pages/login-page.tsx:62
+#: ../auth/src/web/pages/login-page.tsx:69
+msgid "Email"
+msgstr "ইমেইল"
+
+# Reviewed local translation
+#: ../auth/src/web/pages/account-security-page.tsx:143
+msgid "Email address"
+msgstr "ইমেইল ঠিকানা"
+
+# Reviewed local translation
+#: ../auth/src/web/pages/account-security-page.tsx:68
+msgid "Email address could not be changed"
+msgstr "ইমেইল ঠিকানা পরিবর্তন করা যায়নি"
+
+# Reviewed local translation
+#: ../auth/src/web/pages/account-security-page.tsx:66
+msgid "Email address updated"
+msgstr "ইমেইল ঠিকানা হালনাগাদ হয়েছে"
+
+# Reviewed local translation
+#: ../auth/src/web/pages/account-security-page.tsx:93
+msgid "Email unverified"
+msgstr "ইমেইল যাচাই করা হয়নি"
+
+# Reviewed local translation
+#: ../auth/src/web/pages/account-security-page.tsx:93
+msgid "Email verified"
+msgstr "ইমেইল যাচাইকৃত"
+
+# Reviewed local translation
+#: ../__shared__/src/web/components/language-switcher.tsx:46
+#~ msgid "English"
+#~ msgstr "ইংরেজি"
+
+# Reviewed local translation
+#: ../auth/src/web/pages/account-sessions-page.tsx:154
+msgid "Every browser, including this one, will need to sign in again."
+msgstr "এই ব্রাউজারসহ প্রতিটি ব্রাউজারে আবার সাইন ইন করতে হবে।"
+
+# Reviewed local translation
+#: ../home/src/web/pages/home-page.tsx:126
+msgid "Exercise the permission-protected POST endpoint."
+msgstr "অনুমতি-সুরক্ষিত POST এন্ডপয়েন্ট ব্যবহার করুন।"
+
+# Reviewed local translation
+#: ../home/src/web/pages/home-page.tsx:157
+msgid "Exercise the storage:upload permission and endpoint."
+msgstr "storage:upload অনুমতি ও এন্ডপয়েন্ট ব্যবহার করুন।"
+
+# Reviewed local translation
+#: ../auth/src/web/pages/access-sessions-page.tsx:139
+#: ../auth/src/web/pages/account-sessions-page.tsx:106
+msgid "expires"
+msgstr "মেয়াদ শেষ"
+
+# Reviewed local translation
+#: ../auth/src/web/pages/account-connections-page.tsx:96
+msgid "External"
+msgstr "বাহ্যিক"
+
+# Reviewed local translation
+#: ../home/src/web/pages/home-page.tsx:155
+msgid "File upload"
+msgstr "ফাইল আপলোড"
+
+# Reviewed local translation
+#: ../home/src/web/pages/home-page.tsx:107
+msgid "Full access"
+msgstr "সম্পূর্ণ অ্যাক্সেস"
+
+# Reviewed local translation
+#: ../__shared__/src/web/components/application-shell.tsx:79
+#: ../__shared__/src/web/components/application-shell.tsx:87
+msgid "Home"
+msgstr "হোম"
+
+# Reviewed local translation
+#: ../auth/src/web/pages/access-sessions-page.tsx:115
+msgid "Identity"
+msgstr "পরিচয়"
+
+# Reviewed local translation
+#: ../auth/src/web/pages/access-permissions-page.tsx:44
+#: ../auth/src/web/pages/access-users-page.tsx:454
+msgid "Impersonate"
+msgstr "ছদ্মবেশ নিন"
+
+# Reviewed local translation
+#: ../auth/src/web/pages/access-permissions-page.tsx:45
+msgid "Impersonate administrators"
+msgstr "প্রশাসকের ছদ্মবেশ নিন"
+
+# Reviewed local translation
+#: ../auth/src/web/pages/access-users-page.tsx:330
+msgid "Impersonation could not be started"
+msgstr "ছদ্মবেশ সেশন শুরু করা যায়নি"
+
+# Reviewed local translation
+#: ../__shared__/src/web/components/application-shell.tsx:243
+msgid "Impersonation session"
+msgstr "ছদ্মবেশ সেশন"
+
+# Reviewed local translation
+#: ../auth/src/web/pages/access-sessions-page.tsx:86
+msgid "Inspect active sessions by identity and revoke compromised access."
+msgstr "পরিচয় অনুযায়ী সক্রিয় সেশন দেখুন এবং ঝুঁকিপূর্ণ অ্যাক্সেস বাতিল করুন।"
+
+# Reviewed local translation
+#: ../auth/src/web/pages/account-connections-page.tsx:60
+msgid "Inspect credential and external accounts linked to your identity."
+msgstr "আপনার পরিচয়ের সঙ্গে যুক্ত পরিচয়পত্র ও বাহ্যিক অ্যাকাউন্ট দেখুন।"
+
+# Reviewed local translation
+#: ../__shared__/src/web/components/language-switcher.tsx:44
+#~ msgid "Language"
+#~ msgstr "ভাষা"
+
+# Reviewed local translation
+#: ../auth/src/web/pages/access-permissions-page.tsx:37
+msgid "List"
+msgstr "তালিকা"
+
+# Reviewed local translation
+#: ../home/src/web/pages/home-page.tsx:188
+msgid "Live data from the protected GET /api/v1/home endpoint."
+msgstr "সুরক্ষিত GET /api/v1/home এন্ডপয়েন্টের লাইভ তথ্য।"
+
+# Reviewed local translation
+#: ../auth/src/web/provider.tsx:40
+msgid "Loading session"
+msgstr "সেশন লোড হচ্ছে"
+
+# Reviewed local translation
+#: ../auth/src/web/pages/access-permissions-page.tsx:165
+msgid "Local policy"
+msgstr "স্থানীয় নীতি"
+
+# Reviewed local translation
+#: ../auth/src/web/pages/account-profile-page.tsx:61
+msgid "Manage profile details and sign-in identifiers for this account."
+msgstr "এই অ্যাকাউন্টের প্রোফাইল তথ্য ও সাইন-ইন পরিচয় পরিচালনা করুন।"
+
+# Reviewed local translation
+#: ../home/src/web/pages/home-page.tsx:209
+msgid "Move to draft"
+msgstr "খসড়ায় নিন"
+
+# Reviewed local translation
+#: ../auth/src/web/pages/access-users-page.tsx:266
+#: ../auth/src/web/pages/access-users-page.tsx:361
+#: ../auth/src/web/pages/account-profile-page.tsx:76
+msgid "Name"
+msgstr "নাম"
+
+# Reviewed local translation
+#: ../auth/src/web/pages/account-security-page.tsx:151
+msgid "New email"
+msgstr "নতুন ইমেইল"
+
+# Reviewed local translation
+#: ../auth/src/web/pages/access-users-page.tsx:384
+#: ../auth/src/web/pages/account-security-page.tsx:118
+msgid "New password"
+msgstr "নতুন পাসওয়ার্ড"
+
+# Reviewed local translation
+#: ../auth/src/web/pages/account-sessions-page.tsx:130
+msgid "No active browser sessions were returned."
+msgstr "কোনো সক্রিয় ব্রাউজার সেশন পাওয়া যায়নি।"
+
+# Reviewed local translation
+#: ../auth/src/web/pages/access-sessions-page.tsx:161
+msgid "No active sessions"
+msgstr "কোনো সক্রিয় সেশন নেই"
+
+# Reviewed local translation
+#: ../auth/src/web/pages/account-connections-page.tsx:140
+msgid "No connected accounts"
+msgstr "কোনো সংযুক্ত অ্যাকাউন্ট নেই"
+
+# Reviewed local translation
+#: ../auth/src/web/pages/account-connections-page.tsx:142
+msgid "No credential or external provider accounts were returned."
+msgstr "কোনো পরিচয়পত্র বা বাহ্যিক প্রদানকারীর অ্যাকাউন্ট পাওয়া যায়নি।"
+
+# Reviewed local translation
+#: ../home/src/web/pages/home-page.tsx:243
+msgid "No posts yet"
+msgstr "এখনও কোনো পোস্ট নেই"
+
+# Reviewed local translation
+#: ../auth/src/web/pages/account-sessions-page.tsx:129
+msgid "No sessions found"
+msgstr "কোনো সেশন পাওয়া যায়নি"
+
+# Reviewed local translation
+#: ../auth/src/web/pages/access-users-page.tsx:218
+msgid "No users found"
+msgstr "কোনো ব্যবহারকারী পাওয়া যায়নি"
+
+# Reviewed local translation
+#: ../auth/src/web/pages/access-users-page.tsx:208
+#: ../auth/src/web/pages/access-users-page.tsx:350
+msgid "not set"
+msgstr "সেট করা নেই"
+
+# Reviewed local translation
+#: ../auth/src/web/pages/account-connections-page.tsx:69
+msgid "OAuth linking becomes available here when a provider is configured on the server."
+msgstr "সার্ভারে প্রদানকারী কনফিগার করা হলে এখানে OAuth সংযোগ চালু হবে।"
+
+# Reviewed local translation
+#: ../__shared__/src/web/components/application-shell.tsx:207
+msgid "Open account menu"
+msgstr "অ্যাকাউন্ট মেনু খুলুন"
+
+# Reviewed local translation
+#: ../home/src/web/pages/home-page.tsx:93
+msgid "operator"
+msgstr "অপারেটর"
+
+# Reviewed local translation
+#: ../auth/src/web/pages/account-sessions-page.tsx:141
+msgid "Other sessions revoked"
+msgstr "অন্যান্য সেশন বাতিল হয়েছে"
+
+# Reviewed local translation
+#: ../auth/src/web/pages/access-users-page.tsx:278
+#: ../auth/src/web/pages/account-connections-page.tsx:96
+#: ../auth/src/web/pages/account-security-page.tsx:100
+#: ../auth/src/web/pages/login-page.tsx:82
+msgid "Password"
+msgstr "পাসওয়ার্ড"
+
+# Reviewed local translation
+#: ../auth/src/web/pages/account-security-page.tsx:48
+msgid "Password changed and other sessions revoked"
+msgstr "পাসওয়ার্ড বদলেছে এবং অন্যান্য সেশন বাতিল হয়েছে"
+
+# Reviewed local translation
+#: ../auth/src/web/pages/account-security-page.tsx:50
+msgid "Password could not be changed"
+msgstr "পাসওয়ার্ড পরিবর্তন করা যায়নি"
+
+# Reviewed local translation
+#: ../auth/src/web/pages/access-users-page.tsx:425
+msgid "Password updated"
+msgstr "পাসওয়ার্ড হালনাগাদ হয়েছে"
+
+# Reviewed local translation
+#: ../auth/src/web/pages/access-permissions-page.tsx:116
+msgid "Permission check"
+msgstr "অনুমতি যাচাই"
+
+# Reviewed local translation
+#: ../__shared__/src/web/components/application-shell.tsx:93
+#: ../__shared__/src/web/components/section-header.tsx:37
+msgid "Permissions"
+msgstr "অনুমতি"
+
+# Reviewed local translation
+#: ../__shared__/src/web/components/application-shell.tsx:128
+#: ../__shared__/src/web/components/application-shell.tsx:179
+msgid "Portal"
+msgstr "পোর্টাল"
+
+# Reviewed local translation
+#: ../auth/src/web/pages/access-permissions-page.tsx:34
+#: ../home/src/web/pages/home-page.tsx:187
+msgid "Posts"
+msgstr "পোস্ট"
+
+# Reviewed local translation
+#: ../home/src/web/pages/home-page.tsx:111
+msgid "Posts endpoint"
+msgstr "পোস্ট এন্ডপয়েন্ট"
+
+# Reviewed local translation
+#: ../__shared__/src/web/components/application-shell.tsx:251
+msgid "Primary navigation"
+msgstr "প্রধান নেভিগেশন"
+
+# Reviewed local translation
+#: ../__shared__/src/web/components/application-shell.tsx:94
+#: ../__shared__/src/web/components/section-header.tsx:40
+#: ../auth/src/web/pages/account-profile-page.tsx:68
+msgid "Profile"
+msgstr "প্রোফাইল"
+
+# Reviewed local translation
+#: ../auth/src/web/pages/account-profile-page.tsx:36
+msgid "Profile could not be updated"
+msgstr "প্রোফাইল হালনাগাদ করা যায়নি"
+
+# Reviewed local translation
+#: ../auth/src/web/pages/account-profile-page.tsx:34
+msgid "Profile updated"
+msgstr "প্রোফাইল হালনাগাদ হয়েছে"
+
+# Reviewed local translation
+#: ../auth/src/web/pages/access-users-page.tsx:149
+msgid "Provision identities, inspect access, and apply the shared Better Auth role policy."
+msgstr "পরিচয় তৈরি, অ্যাক্সেস পর্যালোচনা এবং অভিন্ন Better Auth ভূমিকা নীতি প্রয়োগ করুন।"
+
+# Reviewed local translation
+#: ../auth/src/web/pages/access-users-page.tsx:250
+msgid "Public registration is disabled; administrators provision accounts here."
+msgstr "সর্বসাধারণের নিবন্ধন বন্ধ; প্রশাসকেরা এখানে অ্যাকাউন্ট তৈরি করেন।"
+
+# Reviewed local translation
+#: ../home/src/web/pages/home-page.tsx:209
+msgid "Publish"
+msgstr "প্রকাশ করুন"
+
+# Reviewed local translation
+#: ../home/src/web/pages/home-page.tsx:141
+msgid "Publish immediately"
+msgstr "এখনই প্রকাশ করুন"
+
+# Reviewed local translation
+#: ../home/src/web/pages/home-page.tsx:196
+msgid "Published"
+msgstr "প্রকাশিত"
+
+# Reviewed local translation
+#: ../auth/src/web/pages/access-permissions-page.tsx:47
+msgid "Read"
+msgstr "দেখুন"
+
+# Reviewed local translation
+#: ../auth/src/web/pages/access-sessions-page.tsx:87
+#: ../home/src/web/pages/home-page.tsx:107
+msgid "Read only"
+msgstr "শুধু দেখা"
+
+# Reviewed local translation
+#: ../auth/src/web/pages/access-sessions-page.tsx:109
+#: ../auth/src/web/pages/account-connections-page.tsx:83
+#: ../auth/src/web/pages/account-sessions-page.tsx:86
+msgid "Refresh"
+msgstr "রিফ্রেশ"
+
+# Reviewed local translation
+#: ../auth/src/web/pages/access-users-page.tsx:185
+msgid "Refresh users"
+msgstr "ব্যবহারকারী রিফ্রেশ করুন"
+
+# Reviewed local translation
+#. placeholder {0}: user.name
+#: ../auth/src/web/pages/access-users-page.tsx:463
+msgid "Remove {0}?"
+msgstr "{0}-কে সরাবেন?"
+
+# Reviewed local translation
+#: ../auth/src/web/pages/access-users-page.tsx:479
+msgid "Remove permanently"
+msgstr "স্থায়ীভাবে সরান"
+
+# Reviewed local translation
+#: ../auth/src/web/pages/access-users-page.tsx:459
+msgid "Remove user"
+msgstr "ব্যবহারকারী সরান"
+
+# Reviewed local translation
+#: ../auth/src/web/pages/access-permissions-page.tsx:137
+msgid "Resource"
+msgstr "রিসোর্স"
+
+# Reviewed local translation
+#: ../auth/src/web/pages/access-users-page.tsx:440
+msgid "Restricted by administrator"
+msgstr "প্রশাসক কর্তৃক সীমাবদ্ধ"
+
+# Reviewed local translation
+#: ../auth/src/web/pages/account-sessions-page.tsx:63
+msgid "Review and revoke browser sessions associated with your account."
+msgstr "আপনার অ্যাকাউন্টের ব্রাউজার সেশন পর্যালোচনা ও বাতিল করুন।"
+
+# Reviewed local translation
+#: ../auth/src/web/pages/access-permissions-page.tsx:69
+msgid "Review the single policy shared by Better Auth, its client, and protected API routes."
+msgstr "Better Auth, এর ক্লায়েন্ট ও সুরক্ষিত API রুটে ব্যবহৃত অভিন্ন নীতি পর্যালোচনা করুন।"
+
+# Reviewed local translation
+#: ../auth/src/web/pages/access-permissions-page.tsx:46
+#: ../auth/src/web/pages/access-sessions-page.tsx:153
+#: ../auth/src/web/pages/account-sessions-page.tsx:120
+msgid "Revoke"
+msgstr "বাতিল করুন"
+
+# Reviewed local translation
+#: ../auth/src/web/pages/access-sessions-page.tsx:188
+#: ../auth/src/web/pages/account-sessions-page.tsx:167
+msgid "Revoke all"
+msgstr "সব বাতিল করুন"
+
+# Reviewed local translation
+#: ../auth/src/web/pages/account-sessions-page.tsx:148
+msgid "Revoke all and sign out"
+msgstr "সব বাতিল করে সাইন আউট করুন"
+
+# Reviewed local translation
+#: ../auth/src/web/pages/access-sessions-page.tsx:173
+msgid "Revoke all sessions?"
+msgstr "সব সেশন বাতিল করবেন?"
+
+# Reviewed local translation
+#: ../auth/src/web/pages/access-sessions-page.tsx:169
+msgid "Revoke all user sessions"
+msgstr "ব্যবহারকারীর সব সেশন বাতিল করুন"
+
+# Reviewed local translation
+#: ../auth/src/web/pages/access-sessions-page.tsx:87
+msgid "Revoke enabled"
+msgstr "বাতিল করার অনুমতি আছে"
+
+# Reviewed local translation
+#: ../auth/src/web/pages/account-sessions-page.tsx:152
+msgid "Revoke every session?"
+msgstr "প্রতিটি সেশন বাতিল করবেন?"
+
+# Reviewed local translation
+#: ../auth/src/web/pages/account-sessions-page.tsx:144
+msgid "Revoke other sessions"
+msgstr "অন্যান্য সেশন বাতিল করুন"
+
+# Reviewed local translation
+#: ../auth/src/web/pages/access-permissions-page.tsx:123
+#: ../auth/src/web/pages/access-users-page.tsx:289
+#: ../auth/src/web/pages/access-users-page.tsx:345
+#: ../auth/src/web/pages/access-users-page.tsx:369
+msgid "Role"
+msgstr "ভূমিকা"
+
+# Reviewed local translation
+#: ../auth/src/web/pages/access-permissions-page.tsx:75
+msgid "Role permission matrix"
+msgstr "ভূমিকা ও অনুমতির ছক"
+
+# Reviewed local translation
+#: ../auth/src/web/pages/access-users-page.tsx:412
+msgid "Role updated"
+msgstr "ভূমিকা হালনাগাদ হয়েছে"
+
+# Reviewed local translation
+#: ../auth/src/web/pages/access-users-page.tsx:405
+msgid "Save name"
+msgstr "নাম সংরক্ষণ করুন"
+
+# Reviewed local translation
+#: ../auth/src/web/pages/account-profile-page.tsx:108
+msgid "Save profile"
+msgstr "প্রোফাইল সংরক্ষণ করুন"
+
+# Reviewed local translation
+#: ../auth/src/web/pages/access-users-page.tsx:173
+msgid "Search names"
+msgstr "নাম খুঁজুন"
+
+# Reviewed local translation
+#: ../auth/src/web/pages/access-users-page.tsx:165
+msgid "Search users"
+msgstr "ব্যবহারকারী খুঁজুন"
+
+# Reviewed local translation
+#: ../__shared__/src/web/components/application-shell.tsx:95
+#: ../__shared__/src/web/components/section-header.tsx:41
+#: ../auth/src/web/pages/account-security-page.tsx:91
+msgid "Security"
+msgstr "নিরাপত্তা"
+
+# Reviewed local translation
+#: ../home/src/web/pages/home-page.tsx:164
+msgid "Select file to upload"
+msgstr "আপলোডের জন্য ফাইল বেছে নিন"
+
+# Reviewed local translation
+#: ../auth/src/web/pages/access-users-page.tsx:337
+msgid "Selected identity"
+msgstr "নির্বাচিত পরিচয়"
+
+# Reviewed local translation
+#: ../home/src/web/pages/home-page.tsx:170
+msgid "Selected upload preview"
+msgstr "নির্বাচিত আপলোডের প্রিভিউ"
+
+# Reviewed local translation
+#: ../auth/src/web/pages/account-security-page.tsx:175
+msgid "Self-service deletion permanently removes your identity, credentials, and sessions."
+msgstr "নিজে মুছে ফেললে আপনার পরিচয়, পরিচয়পত্র ও সেশন স্থায়ীভাবে সরিয়ে দেওয়া হবে।"
+
+# Reviewed local translation
+#: ../auth/src/web/pages/access-permissions-page.tsx:176
+msgid "Server allowed this permission"
+msgstr "সার্ভার এই অনুমতি দিয়েছে"
+
+# Reviewed local translation
+#: ../auth/src/web/pages/access-permissions-page.tsx:177
+msgid "Server denied this permission"
+msgstr "সার্ভার এই অনুমতি দেয়নি"
+
+# Reviewed local translation
+#: ../home/src/web/pages/home-page.tsx:103
+msgid "Session active"
+msgstr "সেশন সক্রিয়"
+
+# Reviewed local translation
+#: ../auth/src/web/pages/access-sessions-page.tsx:150
+#: ../auth/src/web/pages/account-sessions-page.tsx:117
+msgid "Session revoked"
+msgstr "সেশন বাতিল হয়েছে"
+
+# Reviewed local translation
+#: ../__shared__/src/web/components/application-shell.tsx:92
+#: ../__shared__/src/web/components/section-header.tsx:36
+#: ../__shared__/src/web/components/section-header.tsx:42
+#: ../auth/src/web/pages/access-permissions-page.tsx:33
+#: ../auth/src/web/pages/account-sessions-page.tsx:62
+msgid "Sessions"
+msgstr "সেশন"
+
+# Reviewed local translation
+#: ../auth/src/web/pages/access-sessions-page.tsx:68
+#: ../auth/src/web/pages/account-sessions-page.tsx:41
+msgid "Sessions could not be loaded"
+msgstr "সেশন লোড করা যায়নি"
+
+# Reviewed local translation
+#: ../auth/src/web/pages/access-permissions-page.tsx:42
+#: ../auth/src/web/pages/access-users-page.tsx:429
+msgid "Set password"
+msgstr "পাসওয়ার্ড সেট করুন"
+
+# Reviewed local translation
+#: ../auth/src/web/pages/access-permissions-page.tsx:41
+#: ../auth/src/web/pages/access-users-page.tsx:416
+msgid "Set role"
+msgstr "ভূমিকা সেট করুন"
+
+# Reviewed local translation
+#: ../auth/src/web/pages/login-page.tsx:96
+msgid "Sign in"
+msgstr "সাইন ইন"
+
+# Reviewed local translation
+#: ../auth/src/web/pages/login-page.tsx:56
+msgid "Sign in to the control plane"
+msgstr "কন্ট্রোল প্লেনে সাইন ইন করুন"
+
+# Reviewed local translation
+#: ../__shared__/src/web/components/application-shell.tsx:233
+#: ../auth/src/web/pages/account-sessions-page.tsx:174
+msgid "Sign out"
+msgstr "সাইন আউট"
+
+# Reviewed local translation
+#. placeholder {0}: labelFor(currentRole)
+#: ../auth/src/web/pages/access-permissions-page.tsx:70
+msgid "Signed in as {0}"
+msgstr "{0} হিসেবে সাইন ইন করা হয়েছে"
+
+# Reviewed local translation
+#: ../__shared__/src/web/components/application-shell.tsx:226
+msgid "Stop impersonating"
+msgstr "ছদ্মবেশ বন্ধ করুন"
+
+# Reviewed local translation
+#: ../auth/src/web/pages/access-permissions-page.tsx:35
+msgid "Storage"
+msgstr "স্টোরেজ"
+
+# Reviewed local translation
+#: ../home/src/web/pages/home-page.tsx:116
+msgid "Storage endpoint"
+msgstr "স্টোরেজ এন্ডপয়েন্ট"
+
+# Reviewed local translation
+#: ../__shared__/src/web/components/language-switcher.tsx:17
+msgid "Switch to Bengali"
+msgstr "বাংলায় পরিবর্তন করুন"
+
+# Reviewed local translation
+#: ../__shared__/src/web/components/language-switcher.tsx:17
+msgid "Switch to English"
+msgstr "ইংরেজিতে পরিবর্তন করুন"
+
+# Reviewed local translation
+#: ../auth/src/web/pages/access-users-page.tsx:116
+msgid "The administrator action could not be completed"
+msgstr "প্রশাসনিক কাজটি সম্পন্ন করা যায়নি"
+
+# Reviewed local translation
+#: ../auth/src/web/pages/login-page.tsx:38
+msgid "The credentials did not match an active account."
+msgstr "পরিচয়পত্র কোনো সক্রিয় অ্যাকাউন্টের সঙ্গে মেলেনি।"
+
+# Reviewed local translation
+#: ../auth/src/web/pages/account-sessions-page.tsx:72
+msgid "The current browser is marked and cannot be revoked individually."
+msgstr "বর্তমান ব্রাউজারটি চিহ্নিত এবং আলাদাভাবে বাতিল করা যাবে না।"
+
+# Reviewed local translation
+#: ../home/src/web/pages/home-page.tsx:96
+msgid "The portal is connected to Better Auth, the Elysia API, PostgreSQL, Redis, and S3-compatible storage. Your role determines which controls are available."
+msgstr "পোর্টালটি Better Auth, Elysia API, PostgreSQL, Redis এবং S3-সামঞ্জস্যপূর্ণ স্টোরেজের সঙ্গে সংযুক্ত। আপনার ভূমিকা অনুযায়ী নিয়ন্ত্রণগুলো পাওয়া যাবে।"
+
+# Reviewed local translation
+#: ../auth/src/web/pages/access-users-page.tsx:104
+msgid "The selected identity could not be loaded"
+msgstr "নির্বাচিত পরিচয় লোড করা যায়নি"
+
+# Reviewed local translation
+#: ../auth/src/web/pages/access-users-page.tsx:82
+msgid "The user directory could not be loaded"
+msgstr "ব্যবহারকারী ডিরেক্টরি লোড করা যায়নি"
+
+# Reviewed local translation
+#: ../auth/src/web/pages/account-security-page.tsx:197
+msgid "This action cannot be undone. Enter your current password to continue."
+msgstr "এই কাজটি ফিরিয়ে আনা যাবে না। চালিয়ে যেতে বর্তমান পাসওয়ার্ড দিন।"
+
+# Reviewed local translation
+#: ../auth/src/web/pages/access-sessions-page.tsx:162
+msgid "This identity has no active browser sessions."
+msgstr "এই পরিচয়ের কোনো সক্রিয় ব্রাউজার সেশন নেই।"
+
+# Reviewed local translation
+#: ../auth/src/web/pages/account-profile-page.tsx:44
+msgid "This is your current username."
+msgstr "এটি আপনার বর্তমান ব্যবহারকারীর নাম।"
+
+# Reviewed local translation
+#: ../auth/src/web/pages/access-users-page.tsx:465
+msgid "This permanently deletes the user, accounts, and sessions. It cannot be undone."
+msgstr "এটি ব্যবহারকারী, অ্যাকাউন্ট ও সেশন স্থায়ীভাবে মুছে দেবে। কাজটি ফিরিয়ে আনা যাবে না।"
+
+# Reviewed local translation
+#. placeholder {0}: post.title
+#: ../home/src/web/pages/home-page.tsx:219
+msgid "This permanently removes “{0}”."
+msgstr "এটি “{0}” স্থায়ীভাবে মুছে দেবে।"
+
+# Reviewed local translation
+#: ../home/src/web/pages/home-page.tsx:132
+msgid "Title"
+msgstr "শিরোনাম"
+
+# Reviewed local translation
+#: ../auth/src/web/pages/access-users-page.tsx:451
+msgid "Unban"
+msgstr "নিষেধাজ্ঞা তুলে নিন"
+
+# Reviewed local translation
+#: ../auth/src/web/pages/access-sessions-page.tsx:136
+#: ../auth/src/web/pages/account-sessions-page.tsx:101
+msgid "Unknown device"
+msgstr "অজানা ডিভাইস"
+
+# Reviewed local translation
+#: ../auth/src/web/pages/access-sessions-page.tsx:139
+#: ../auth/src/web/pages/account-sessions-page.tsx:106
+msgid "Unknown IP"
+msgstr "অজানা IP"
+
+# Reviewed local translation
+#: ../auth/src/web/pages/account-connections-page.tsx:105
+msgid "Unlink"
+msgstr "সংযোগ বিচ্ছিন্ন করুন"
+
+# Reviewed local translation
+#. placeholder {0}: account.providerId
+#: ../auth/src/web/pages/account-connections-page.tsx:109
+msgid "Unlink {0}?"
+msgstr "{0}-এর সংযোগ বিচ্ছিন্ন করবেন?"
+
+# Reviewed local translation
+#: ../auth/src/web/pages/account-connections-page.tsx:126
+msgid "Unlink account"
+msgstr "অ্যাকাউন্টের সংযোগ বিচ্ছিন্ন করুন"
+
+# Reviewed local translation
+#: ../auth/src/web/pages/access-permissions-page.tsx:39
+msgid "Update"
+msgstr "হালনাগাদ করুন"
+
+# Reviewed local translation
+#: ../auth/src/web/pages/access-permissions-page.tsx:48
+msgid "Upload"
+msgstr "আপলোড"
+
+# Reviewed local translation
+#: ../home/src/web/pages/home-page.tsx:117
+msgid "Upload enabled"
+msgstr "আপলোড চালু"
+
+# Reviewed local translation
+#: ../home/src/web/pages/home-page.tsx:175
+msgid "Upload file"
+msgstr "ফাইল আপলোড করুন"
+
+# Reviewed local translation
+#: ../auth/src/web/pages/access-users-page.tsx:442
+msgid "User banned"
+msgstr "ব্যবহারকারী নিষিদ্ধ হয়েছে"
+
+# Reviewed local translation
+#: ../auth/src/web/pages/access-users-page.tsx:136
+msgid "User created"
+msgstr "ব্যবহারকারী তৈরি হয়েছে"
+
+# Reviewed local translation
+#: ../auth/src/web/pages/access-users-page.tsx:159
+msgid "User directory"
+msgstr "ব্যবহারকারী ডিরেক্টরি"
+
+# Reviewed local translation
+#: ../auth/src/web/pages/access-users-page.tsx:475
+msgid "User removed"
+msgstr "ব্যবহারকারী সরানো হয়েছে"
+
+# Reviewed local translation
+#: ../auth/src/web/pages/access-sessions-page.tsx:93
+msgid "User sessions"
+msgstr "ব্যবহারকারী সেশন"
+
+# Reviewed local translation
+#: ../auth/src/web/pages/access-users-page.tsx:442
+msgid "User unbanned"
+msgstr "ব্যবহারকারীর নিষেধাজ্ঞা উঠেছে"
+
+# Reviewed local translation
+#: ../auth/src/web/pages/access-users-page.tsx:401
+msgid "User updated"
+msgstr "ব্যবহারকারী হালনাগাদ হয়েছে"
+
+# Reviewed local translation
+#: ../auth/src/web/pages/access-users-page.tsx:274
+#: ../auth/src/web/pages/access-users-page.tsx:349
+#: ../auth/src/web/pages/account-profile-page.tsx:80
+#: ../auth/src/web/pages/login-page.tsx:61
+#: ../auth/src/web/pages/login-page.tsx:69
+msgid "Username"
+msgstr "ব্যবহারকারীর নাম"
+
+# Reviewed local translation
+#: ../auth/src/web/pages/account-profile-page.tsx:51
+msgid "Username availability could not be checked."
+msgstr "ব্যবহারকারীর নামের উপলভ্যতা যাচাই করা যায়নি।"
+
+# Reviewed local translation
+#: ../auth/src/web/pages/account-profile-page.tsx:49
+msgid "Username is available."
+msgstr "ব্যবহারকারীর নামটি উপলভ্য।"
+
+# Reviewed local translation
+#: ../auth/src/web/pages/account-profile-page.tsx:49
+msgid "Username is taken."
+msgstr "ব্যবহারকারীর নামটি ইতিমধ্যে ব্যবহৃত।"
+
+# Reviewed local translation
+#: ../__shared__/src/web/components/application-shell.tsx:91
+#: ../__shared__/src/web/components/section-header.tsx:35
+#: ../auth/src/web/pages/access-permissions-page.tsx:32
+msgid "Users"
+msgstr "ব্যবহারকারী"
+
+# Reviewed local translation
+#: ../auth/src/web/pages/access-sessions-page.tsx:51
+msgid "Users could not be loaded"
+msgstr "ব্যবহারকারী লোড করা যায়নি"
+
+# Reviewed local translation
+#: ../auth/src/web/pages/access-permissions-page.tsx:38
+msgid "View"
+msgstr "দেখুন"
+
+# Reviewed local translation
+#: ../auth/src/web/pages/login-page.tsx:55
+msgid "Welcome back"
+msgstr "স্বাগতম"
+
+# Reviewed local translation
+#. placeholder {0}: sessionQuery.data?.user.name ?? t`operator`
+#: ../home/src/web/pages/home-page.tsx:93
+msgid "Welcome, {0}."
+msgstr "স্বাগতম, {0}।"
+
+# Reviewed local translation
+#. placeholder {0}: user.name
+#: ../__shared__/src/web/components/application-shell.tsx:244
+msgid "You are viewing the portal as {0}. Use the account menu to return to your administrator session."
+msgstr "আপনি {0} হিসেবে পোর্টালটি দেখছেন। প্রশাসক সেশনে ফিরতে অ্যাকাউন্ট মেনু ব্যবহার করুন।"
+
+# Reviewed local translation
+#: ../auth/src/web/pages/account-connections-page.tsx:111
+msgid "You will no longer be able to sign in through this provider."
+msgstr "এই প্রদানকারীর মাধ্যমে আর সাইন ইন করতে পারবেন না।"
+
+# Reviewed local translation
+#: ../auth/src/web/pages/login-page.tsx:76
+msgid "you@example.com"
+msgstr "you@example.com"
+
+# Reviewed local translation
+#: ../auth/src/web/pages/account-profile-page.tsx:60
+msgid "Your identity"
+msgstr "আপনার পরিচয়"
+
+# Reviewed local translation
+#: ../auth/src/web/pages/account-profile-page.tsx:70
+msgid "Your public name and normalized sign-in username."
+msgstr "আপনার প্রকাশ্য নাম ও স্বাভাবিকীকৃত সাইন-ইন ব্যবহারকারীর নাম।"
+
+# Reviewed local translation
+#: ../auth/src/web/pages/login-page.tsx:76
+msgid "your.username"
+msgstr "your.username"
+
+# Reviewed local translation
+#: ../__shared__/src/web/components/language-switcher.tsx:50
+#~ msgid "বাংলা"
+#~ msgstr "বাংলা"

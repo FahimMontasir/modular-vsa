@@ -34,6 +34,10 @@ separate Playwright package under `tests/`.
 local Drizzle schema; then runs the portal, API, and Drizzle Studio concurrently. Docker containers
 remain available after the foreground development processes stop, which keeps restarts fast.
 
+The API verifies an administrator from the four `BOOTSTRAP_ADMIN_*` variables before it starts
+listening. The tracked local values are development-only. Production must provide secrets and run
+`bun run db:migrate` before server startup; schema push remains a local-development convenience.
+
 | Development service       | URL                                      |
 | ------------------------- | ---------------------------------------- |
 | Portal                    | http://localhost:3001                    |

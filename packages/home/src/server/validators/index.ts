@@ -5,7 +5,14 @@ import { post, comment } from "@modular-vsa/db/schema/home";
 
 /** Base schemas derived from database table */
 export const PostInsertSchema = createInsertSchema(post);
-export const PostSelectSchema = createSelectSchema(post);
+export const PostSelectSchema = t.Object({
+  id: t.Number(),
+  title: t.String(),
+  content: t.String(),
+  published: t.Boolean(),
+  createdAt: t.Date(),
+  updatedAt: t.Date(),
+});
 export const CommentInsertSchema = createInsertSchema(comment);
 export const CommentSelectSchema = createSelectSchema(comment);
 

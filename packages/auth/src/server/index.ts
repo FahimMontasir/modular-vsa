@@ -1,16 +1,20 @@
 import { betterAuth, type BetterAuthOptions } from "better-auth";
 import { drizzleAdapter } from "better-auth/adapters/drizzle";
 import { openAPI } from "better-auth/plugins";
+import { admin as adminPlugin } from "better-auth/plugins/admin";
+import { username } from "better-auth/plugins/username";
 import { redis } from "bun";
-import type { Context } from "elysia";
 
 import { db } from "@modular-vsa/db";
 import * as schema from "@modular-vsa/db/schema/auth";
+import { PASSWORD_MAX_LENGTH, PASSWORD_MIN_LENGTH } from "@modular-vsa/env/auth-policy";
 import { env } from "@modular-vsa/env/server";
+
+import { ac, roles } from "../access-control";
 
 export const AUTH_ACCEPT_METHODS = ["POST", "GET"];
 
-function createAuthConfig(appName: string): BetterAuthOptions {
+function createAuthConfig(appName: string) {
   const isProduction = env.NODE_ENV === "production";
 
   return {
@@ -23,8 +27,24 @@ function createAuthConfig(appName: string): BetterAuthOptions {
     trustedOrigins: [env.CORS_ORIGIN],
     emailAndPassword: {
       enabled: true,
+      disableSignUp: true,
+      minPasswordLength: PASSWORD_MIN_LENGTH,
+      maxPasswordLength: PASSWORD_MAX_LENGTH,
     },
-    plugins: [openAPI()],
+    user: {
+      changeEmail: {
+        enabled: true,
+        updateEmailWithoutVerification: true,
+      },
+      deleteUser: {
+        enabled: true,
+      },
+    },
+    plugins: [
+      adminPlugin({ ac, roles, defaultRole: "director" }),
+      username({ minUsernameLength: 3, maxUsernameLength: 30 }),
+      openAPI(),
+    ],
     secret: env.BETTER_AUTH_SECRET,
     baseURL: env.BETTER_AUTH_URL,
     advanced: {
@@ -47,7 +67,11 @@ function createAuthConfig(appName: string): BetterAuthOptions {
         await redis.del(key);
       },
     },
-  };
+    rateLimit: {
+      enabled: true,
+      storage: "secondary-storage",
+    },
+  } satisfies BetterAuthOptions;
 }
 
 /**
@@ -84,10 +108,10 @@ export function getAuthInstance(request: Request) {
  *
  * This is the handler for the auth routes
  */
-export async function authHandler(ctx: Context) {
-  if (AUTH_ACCEPT_METHODS.includes(ctx.request.method)) {
-    return getAuthInstance(ctx.request).handler(ctx.request);
+export async function authHandler(request: Request) {
+  if (AUTH_ACCEPT_METHODS.includes(request.method)) {
+    return getAuthInstance(request).handler(request);
   }
 
-  return ctx.status(405);
+  return new Response(null, { status: 405 });
 }
