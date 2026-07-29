@@ -36,8 +36,8 @@ import {
 import { Field, FieldGroup, FieldLabel } from "@modular-vsa/ui/field";
 import { Input } from "@modular-vsa/ui/input";
 import { NativeSelect, NativeSelectOption } from "@modular-vsa/ui/native-select";
-import { toast } from "@modular-vsa/ui/sonner";
 import { Spinner } from "@modular-vsa/ui/spinner";
+import { toast } from "@modular-vsa/ui/toast";
 
 import { roleNames, type RoleName } from "../../access-control";
 import { authClient } from "../client";

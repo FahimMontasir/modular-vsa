@@ -10,7 +10,7 @@ import {
 } from "lucide-react";
 
 import { Badge } from "@modular-vsa/ui/badge";
-import { buttonVariants } from "@modular-vsa/ui/button";
+import { buttonVariants } from "@modular-vsa/ui/button-variants";
 import { cn } from "@modular-vsa/ui/lib/utils";
 import { ScrollArea } from "@modular-vsa/ui/scroll-area";
 

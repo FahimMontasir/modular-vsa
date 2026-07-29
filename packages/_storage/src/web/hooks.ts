@@ -1,6 +1,6 @@
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 
-import { toast } from "@modular-vsa/ui/sonner";
+import { toast } from "@modular-vsa/ui/toast";
 
 export function useUploadFileMutation(
   uploadFn: (file: File) => Promise<{ key: string; url: string }>

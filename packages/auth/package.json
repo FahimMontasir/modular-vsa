@@ -26,7 +26,6 @@
     "@modular-vsa/firebase": "workspace:*",
     "@modular-vsa/shared": "workspace:*",
     "@modular-vsa/ui": "workspace:*",
-    "@tanstack/react-router": "1.170.4",
     "better-auth": "catalog:",
     "drizzle-orm": "catalog:",
     "elysia": "catalog:",

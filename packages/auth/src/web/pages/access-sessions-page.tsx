@@ -20,8 +20,8 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@modu
 import { Empty, EmptyDescription, EmptyHeader, EmptyTitle } from "@modular-vsa/ui/empty";
 import { Field, FieldLabel } from "@modular-vsa/ui/field";
 import { NativeSelect, NativeSelectOption } from "@modular-vsa/ui/native-select";
-import { toast } from "@modular-vsa/ui/sonner";
 import { Spinner } from "@modular-vsa/ui/spinner";
+import { toast } from "@modular-vsa/ui/toast";
 
 import { authClient } from "../client";
 import { useAuth } from "../provider";

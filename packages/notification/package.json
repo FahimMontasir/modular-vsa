@@ -31,7 +31,6 @@
     "@modular-vsa/ui": "workspace:*",
     "@tanstack/react-query": "catalog:",
     "drizzle-orm": "catalog:",
-    "drizzle-typebox": "catalog:",
     "elysia": "catalog:",
     "lucide-react": "1.16.0"
   },

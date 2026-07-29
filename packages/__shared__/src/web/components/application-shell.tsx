@@ -20,7 +20,8 @@ import {
   BreadcrumbPage,
   BreadcrumbSeparator,
 } from "@modular-vsa/ui/breadcrumb";
-import { Button, buttonVariants } from "@modular-vsa/ui/button";
+import { Button } from "@modular-vsa/ui/button";
+import { buttonVariants } from "@modular-vsa/ui/button-variants";
 import {
   DropdownMenu,
   DropdownMenuContent,

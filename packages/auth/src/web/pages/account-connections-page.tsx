@@ -25,8 +25,8 @@ import {
   EmptyMedia,
   EmptyTitle,
 } from "@modular-vsa/ui/empty";
-import { toast } from "@modular-vsa/ui/sonner";
 import { Spinner } from "@modular-vsa/ui/spinner";
+import { toast } from "@modular-vsa/ui/toast";
 
 import { authClient } from "../client";
 

@@ -2,7 +2,7 @@ import { queryOptions, useMutation, useQuery, useQueryClient } from "@tanstack/r
 
 import { trackEvent } from "@modular-vsa/firebase/web/telemetry";
 import { createApiClient } from "@modular-vsa/shared/web/api-client";
-import { toast } from "@modular-vsa/ui/sonner";
+import { toast } from "@modular-vsa/ui/toast";
 
 import type { APINotificationType } from "../../server/controllers/routes";
 import type { listMessages } from "../../server/services/notification";

@@ -14,7 +14,6 @@
   "dependencies": {
     "@modular-vsa/auth": "workspace:*",
     "@modular-vsa/env": "workspace:*",
-    "@modular-vsa/shared": "workspace:*",
     "@modular-vsa/ui": "workspace:*",
     "elysia": "catalog:"
   },

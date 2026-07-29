@@ -20,8 +20,8 @@ import { Button } from "@modular-vsa/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@modular-vsa/ui/card";
 import { Empty, EmptyDescription, EmptyHeader, EmptyTitle } from "@modular-vsa/ui/empty";
 import { Separator } from "@modular-vsa/ui/separator";
-import { toast } from "@modular-vsa/ui/sonner";
 import { Spinner } from "@modular-vsa/ui/spinner";
+import { toast } from "@modular-vsa/ui/toast";
 
 import { authClient } from "../client";
 import { useAuth } from "../provider";

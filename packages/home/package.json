@@ -25,7 +25,6 @@
     "@modular-vsa/db": "workspace:*",
     "@modular-vsa/env": "workspace:*",
     "@modular-vsa/firebase": "workspace:*",
-    "@modular-vsa/i18n": "workspace:*",
     "@modular-vsa/notification": "workspace:*",
     "@modular-vsa/shared": "workspace:*",
     "@modular-vsa/storage": "workspace:*",

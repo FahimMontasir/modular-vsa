@@ -7,6 +7,12 @@ import { DropdownMenuItem } from "./dropdown-menu";
 type Theme = GlobalState["theme"];
 type Coords = { x: number; y: number };
 const MEDIA = "(prefers-color-scheme: light)";
+const THEME_ICONS = (
+  <>
+    <Sun className="block animate-in duration-300 fade-in zoom-in dark:hidden" />
+    <Moon className="hidden animate-in duration-300 fade-in zoom-in dark:block" />
+  </>
+);
 
 // Helper to mutate DOM classes
 function applyTheme(theme: "light" | "dark") {
@@ -43,6 +49,10 @@ function toggleTheme(coords?: Coords) {
   setTheme(currentColorScheme === "dark" ? "light" : "dark", coords);
 }
 
+function handleThemeToggle({ clientX: x, clientY: y }: React.MouseEvent) {
+  toggleTheme({ x, y });
+}
+
 /** Hook to get the theme safely */
 export function useTheme() {
   return useSelector(globalStore, (state) => state.theme);
@@ -50,29 +60,18 @@ export function useTheme() {
 
 /** UI Toggle Button */
 export function ThemeToggle({ label, menu = false }: { label: string; menu?: boolean }) {
-  function handleToggle({ clientX: x, clientY: y }: React.MouseEvent) {
-    toggleTheme({ x, y });
-  }
-
-  const icons = (
-    <>
-      <Sun className="block animate-in duration-300 fade-in zoom-in dark:hidden" />
-      <Moon className="hidden animate-in duration-300 fade-in zoom-in dark:block" />
-    </>
-  );
-
   if (menu) {
     return (
-      <DropdownMenuItem onClick={handleToggle}>
-        {icons}
+      <DropdownMenuItem onClick={handleThemeToggle}>
+        {THEME_ICONS}
         {label}
       </DropdownMenuItem>
     );
   }
 
   return (
-    <button type="button" aria-label={label} title={label} onClick={handleToggle}>
-      {icons}
+    <button type="button" aria-label={label} title={label} onClick={handleThemeToggle}>
+      {THEME_ICONS}
       <span className="sr-only">{label}</span>
     </button>
   );
@@ -97,5 +96,5 @@ export function ThemeProvider({ children }: React.PropsWithChildren) {
     }
   }, []);
 
-  return children;
+  return <>{children}</>;
 }

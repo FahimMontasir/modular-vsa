@@ -4,7 +4,7 @@ import { trackEvent } from "@modular-vsa/firebase/web/telemetry";
 // import { t } from "@lingui/core/macro";
 import { createApiClient } from "@modular-vsa/shared/web/api-client";
 import { useUploadFileMutation } from "@modular-vsa/storage/web/hooks";
-import { toast } from "@modular-vsa/ui/sonner";
+import { toast } from "@modular-vsa/ui/toast";
 
 import type { APIHomeType } from "../../server/controllers/routes";
 

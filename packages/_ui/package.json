@@ -4,7 +4,9 @@
   "private": true,
   "type": "module",
   "exports": {
+    "./button-variants": "./src/lib/button-variants.ts",
     "./lib/utils": "./src/lib/utils.ts",
+    "./toast": "./src/lib/toast.ts",
     "./*": {
       "default": "./src/components/*.tsx",
       "hooks": "./src/hooks/*.ts",

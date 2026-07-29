@@ -85,11 +85,13 @@ export function MessengerModal({
 }) {
   const { t } = useLingui();
   const conversationsQuery = useConversationsQuery(open);
-  const [selectedId, setSelectedId] = useState<string | undefined>(initialConversationId);
+  const [selectedConversationId, setSelectedConversationId] = useState<string>();
   const [showConversationList, setShowConversationList] = useState(false);
   const [search, setSearch] = useState("");
   const [showUsers, setShowUsers] = useState(false);
   const usersQuery = useUsersQuery(search, open && showUsers);
+  const selectedId =
+    selectedConversationId ?? initialConversationId ?? conversationsQuery.data?.[0]?.id;
   const messagesQuery = useMessagesQuery(selectedId);
   const createDirect = useCreateDirectMutation();
   const sendMessage = useSendMessageMutation();
@@ -97,10 +99,6 @@ export function MessengerModal({
   const deleteMessage = useDeleteMessageMutation();
   const createAnnouncement = useCreateAnnouncementMutation();
   const selected = conversationsQuery.data?.find(({ id }) => id === selectedId);
-
-  useEffect(() => {
-    if (!selectedId && conversationsQuery.data?.[0]) setSelectedId(conversationsQuery.data[0].id);
-  }, [conversationsQuery.data, selectedId]);
 
   const latestMessageId = messagesQuery.data?.at(-1)?.id;
   useEffect(() => {
@@ -112,7 +110,7 @@ export function MessengerModal({
 
   async function startDirect(userId: string) {
     const row = await createDirect.mutateAsync(userId);
-    setSelectedId(row.id);
+    setSelectedConversationId(row.id);
     setShowConversationList(false);
     setShowUsers(false);
   }
@@ -155,96 +153,22 @@ export function MessengerModal({
           <DialogDescription>{t`Direct messages, platform notifications, and announcements.`}</DialogDescription>
         </DialogHeader>
         <div className="grid min-h-0 grid-cols-1 md:grid-cols-[20rem_1fr]">
-          <aside
-            className={`${selectedId && !showConversationList ? "hidden" : "flex"} min-h-0 flex-col border-r md:flex`}
-          >
-            <div className="flex h-14 items-center justify-between border-b px-4">
-              <div>
-                <p className="font-heading font-semibold">{t`Messenger`}</p>
-                <p className="text-xs text-muted-foreground">{t`Stored securely in your inbox`}</p>
-              </div>
-              <Button
-                size="icon-sm"
-                variant="outline"
-                aria-label={t`Start a conversation`}
-                onClick={() => setShowUsers((value) => !value)}
-              >
-                <PlusIcon />
-              </Button>
-            </div>
-            {showUsers ? (
-              <div className="flex min-h-0 flex-1 flex-col gap-2 p-3">
-                <div className="relative">
-                  <SearchIcon className="absolute top-2.5 left-2.5 size-4 text-muted-foreground" />
-                  <Input
-                    value={search}
-                    onChange={(event) => setSearch(event.target.value)}
-                    className="pl-8"
-                    placeholder={t`Search people`}
-                  />
-                </div>
-                <div className="flex min-h-0 flex-col gap-1 overflow-y-auto">
-                  {selectedUserTargets.map((person) => (
-                    <Button
-                      key={person.id}
-                      variant="ghost"
-                      className="h-auto justify-start"
-                      onClick={() => void startDirect(person.id)}
-                    >
-                      <Avatar className="size-8">
-                        <AvatarImage src={person.image ?? undefined} alt={person.name} />
-                        <AvatarFallback>{initials(person.name)}</AvatarFallback>
-                      </Avatar>
-                      <span className="truncate">{person.name}</span>
-                    </Button>
-                  ))}
-                </div>
-              </div>
-            ) : (
-              <div className="min-h-0 flex-1 overflow-y-auto p-2">
-                {conversationsQuery.isLoading ? (
-                  <ConversationSkeleton />
-                ) : (
-                  conversationsQuery.data?.map((item) => (
-                    <button
-                      key={item.id}
-                      type="button"
-                      onClick={() => {
-                        setSelectedId(item.id);
-                        setShowConversationList(false);
-                      }}
-                      className="flex w-full items-center gap-3 rounded-lg p-3 text-left hover:bg-muted data-[active=true]:bg-muted"
-                      data-active={item.id === selectedId}
-                    >
-                      <Avatar className="size-10">
-                        <AvatarImage src={item.image ?? undefined} alt={item.title} />
-                        <AvatarFallback>
-                          {item.kind === "announcement" ? (
-                            <MegaphoneIcon />
-                          ) : item.kind === "platform" ? (
-                            <BellRingIcon />
-                          ) : (
-                            initials(item.title)
-                          )}
-                        </AvatarFallback>
-                      </Avatar>
-                      <span className="min-w-0 flex-1">
-                        <span className="flex items-center justify-between gap-2">
-                          <span className="truncate font-medium">{item.title}</span>
-                          {item.unreadCount ? (
-                            <Badge>{item.unreadCount > 99 ? "99+" : item.unreadCount}</Badge>
-                          ) : null}
-                        </span>
-                        <span className="block truncate text-xs text-muted-foreground">
-                          {item.lastMessage ?? t`No messages yet`}
-                        </span>
-                      </span>
-                    </button>
-                  ))
-                )}
-              </div>
-            )}
-          </aside>
+          <ConversationSidebar
+            conversations={conversationsQuery.data}
+            conversationsLoading={conversationsQuery.isLoading}
+            onSearchChange={setSearch}
+            onSelect={(conversationId) => {
+              setSelectedConversationId(conversationId);
+              setShowConversationList(false);
+            }}
+            onStartDirect={startDirect}
+            onToggleUsers={() => setShowUsers((value) => !value)}
+            search={search}
+            selectedId={selectedId}
+            showConversationList={showConversationList}
+            showUsers={showUsers}
+            users={selectedUserTargets}
+          />
           <section
             className={`${selectedId && !showConversationList ? "flex" : "hidden"} min-h-0 flex-col md:flex`}
           >
@@ -391,6 +315,127 @@ function formValue(data: FormData, name: string) {
   return typeof value === "string" ? value : "";
 }
 
+type Conversation = NonNullable<ReturnType<typeof useConversationsQuery>["data"]>[number];
+type UserTarget = NonNullable<ReturnType<typeof useUsersQuery>["data"]>[number];
+
+function ConversationSidebar({
+  conversations,
+  conversationsLoading,
+  onSearchChange,
+  onSelect,
+  onStartDirect,
+  onToggleUsers,
+  search,
+  selectedId,
+  showConversationList,
+  showUsers,
+  users,
+}: {
+  conversations: Conversation[] | undefined;
+  conversationsLoading: boolean;
+  onSearchChange: (value: string) => void;
+  onSelect: (conversationId: string) => void;
+  onStartDirect: (userId: string) => Promise<void>;
+  onToggleUsers: () => void;
+  search: string;
+  selectedId: string | undefined;
+  showConversationList: boolean;
+  showUsers: boolean;
+  users: UserTarget[];
+}) {
+  const { t } = useLingui();
+
+  return (
+    <aside
+      className={`${selectedId && !showConversationList ? "hidden" : "flex"} min-h-0 flex-col border-r md:flex`}
+    >
+      <div className="flex h-14 items-center justify-between border-b px-4">
+        <div>
+          <p className="font-heading font-semibold">{t`Messenger`}</p>
+          <p className="text-xs text-muted-foreground">{t`Stored securely in your inbox`}</p>
+        </div>
+        <Button
+          size="icon-sm"
+          variant="outline"
+          aria-label={t`Start a conversation`}
+          onClick={onToggleUsers}
+        >
+          <PlusIcon />
+        </Button>
+      </div>
+      {showUsers ? (
+        <div className="flex min-h-0 flex-1 flex-col gap-2 p-3">
+          <div className="relative">
+            <SearchIcon className="absolute top-2.5 left-2.5 size-4 text-muted-foreground" />
+            <Input
+              value={search}
+              onChange={(event) => onSearchChange(event.target.value)}
+              className="pl-8"
+              placeholder={t`Search people`}
+            />
+          </div>
+          <div className="flex min-h-0 flex-col gap-1 overflow-y-auto">
+            {users.map((person) => (
+              <Button
+                key={person.id}
+                variant="ghost"
+                className="h-auto justify-start"
+                onClick={() => void onStartDirect(person.id)}
+              >
+                <Avatar className="size-8">
+                  <AvatarImage src={person.image ?? undefined} alt={person.name} />
+                  <AvatarFallback>{initials(person.name)}</AvatarFallback>
+                </Avatar>
+                <span className="truncate">{person.name}</span>
+              </Button>
+            ))}
+          </div>
+        </div>
+      ) : (
+        <div className="min-h-0 flex-1 overflow-y-auto p-2">
+          {conversationsLoading ? (
+            <ConversationSkeleton />
+          ) : (
+            conversations?.map((item) => (
+              <button
+                key={item.id}
+                type="button"
+                onClick={() => onSelect(item.id)}
+                className="flex w-full items-center gap-3 rounded-lg p-3 text-left hover:bg-muted data-[active=true]:bg-muted"
+                data-active={item.id === selectedId}
+              >
+                <Avatar className="size-10">
+                  <AvatarImage src={item.image ?? undefined} alt={item.title} />
+                  <AvatarFallback>
+                    {item.kind === "announcement" ? (
+                      <MegaphoneIcon />
+                    ) : item.kind === "platform" ? (
+                      <BellRingIcon />
+                    ) : (
+                      initials(item.title)
+                    )}
+                  </AvatarFallback>
+                </Avatar>
+                <span className="min-w-0 flex-1">
+                  <span className="flex items-center justify-between gap-2">
+                    <span className="truncate font-medium">{item.title}</span>
+                    {item.unreadCount ? (
+                      <Badge>{item.unreadCount > 99 ? "99+" : item.unreadCount}</Badge>
+                    ) : null}
+                  </span>
+                  <span className="block truncate text-xs text-muted-foreground">
+                    {item.lastMessage ?? t`No messages yet`}
+                  </span>
+                </span>
+              </button>
+            ))
+          )}
+        </div>
+      )}
+    </aside>
+  );
+}
+
 function ConversationSkeleton() {
   return (
     <div className="flex flex-col gap-3 p-3">
@@ -429,6 +474,7 @@ function AnnouncementComposer({
           <select
             id="announcement-target-kind"
             name="targetKind"
+            aria-label={t`Audience`}
             className="h-9 rounded-lg border bg-background px-3 text-sm"
           >
             <option value="all">{t`Everyone`}</option>

@@ -9,8 +9,8 @@ import { Button } from "@modular-vsa/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@modular-vsa/ui/card";
 import { Field, FieldDescription, FieldGroup, FieldLabel } from "@modular-vsa/ui/field";
 import { Input } from "@modular-vsa/ui/input";
-import { toast } from "@modular-vsa/ui/sonner";
 import { Spinner } from "@modular-vsa/ui/spinner";
+import { toast } from "@modular-vsa/ui/toast";
 
 import { authClient } from "../client";
 import { useAuth } from "../provider";
