@@ -11,7 +11,6 @@
     "generate-pwa-assets": "pwa-assets-generator"
   },
   "dependencies": {
-    "@hookform/resolvers": "5.2.2",
     "@lingui/core": "catalog:",
     "@lingui/react": "catalog:",
     "@modular-vsa/auth": "workspace:*",

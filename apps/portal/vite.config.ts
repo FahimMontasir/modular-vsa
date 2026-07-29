@@ -43,6 +43,6 @@ export default defineConfig({
   build: {
     rolldownOptions: { output: { comments: false } },
     emptyOutDir: true,
-    sourcemap: "hidden",
+    sourcemap: false,
   },
 });

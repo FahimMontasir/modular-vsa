@@ -7,7 +7,7 @@ import {
   Trash2Icon,
   UsersIcon,
 } from "lucide-react";
-import { useCallback, useEffect, useState, type FormEvent } from "react";
+import { useCallback, useEffect, useRef, useState, type FormEvent } from "react";
 
 import { PASSWORD_MAX_LENGTH, PASSWORD_MIN_LENGTH } from "@modular-vsa/env/auth-policy";
 import { PageContainer } from "@modular-vsa/shared/web/components/page-container";
@@ -319,7 +319,7 @@ function ManagedUserCard({
   runAction: (action: () => Promise<unknown>, message: string) => Promise<void>;
 }) {
   const { i18n, t } = useLingui();
-  const [name, setName] = useState(user.name);
+  const nameInputRef = useRef<HTMLInputElement>(null);
   const [password, setPassword] = useState("");
   const [role, setRole] = useState<RoleName>((user.role as RoleName) ?? "director");
 
@@ -361,9 +361,10 @@ function ManagedUserCard({
               <Field>
                 <FieldLabel htmlFor="managed-name">{t`Name`}</FieldLabel>
                 <Input
+                  key={user.name}
+                  ref={nameInputRef}
                   id="managed-name"
-                  value={name}
-                  onChange={(event) => setName(event.target.value)}
+                  defaultValue={user.name}
                 />
               </Field>
               <Field>
@@ -398,7 +399,11 @@ function ManagedUserCard({
                 variant="outline"
                 onClick={() =>
                   runAction(
-                    () => authClient.admin.updateUser({ userId: user.id, data: { name } }),
+                    () =>
+                      authClient.admin.updateUser({
+                        userId: user.id,
+                        data: { name: nameInputRef.current?.value ?? user.name },
+                      }),
                     t`User updated`
                   )
                 }
