@@ -64,7 +64,7 @@
     "update:deps": "bun update --interactive --recursive",
     "add:ui": "cd packages/_ui && bunx --bun shadcn@latest add",
     "clean": "find . -name 'node_modules' -type d -prune -exec rm -rf '{}' + && find . -name 'dist' -type d -prune -exec rm -rf '{}' + && find . -name '*.tsbuildinfo' -type f -delete",
-    "doctor": "bunx --bun react-doctor@latest"
+    "doctor": "bun scripts/react-doctor.ts"
   },
   "dependencies": {
     "@elysiajs/eden": "catalog:",

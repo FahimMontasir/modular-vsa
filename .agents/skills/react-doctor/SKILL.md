@@ -1,12 +1,27 @@
 ---
 name: react-doctor
-description: Use when finishing a feature, fixing a bug, before committing React code, or when the user types `/doctor`, asks to scan, triage, or clean up React diagnostics. Covers lint, accessibility, bundle size, architecture. Includes a regression check and a full local-triage workflow that fetches the canonical playbook.
-version: "1.2.0"
+description: Use when finishing a feature, fixing a bug, before committing React code, or when the user types `/doctor`, asks to scan, triage, or clean up React diagnostics. Covers lint, accessibility, bundle size, architecture, repository-local reports, and post-fix report cleanup.
 ---
 
 # React Doctor
 
 Scans React codebases for security, performance, correctness, and architecture issues. Outputs a 0–100 health score.
+
+## Repository reports
+
+Run `bun run doctor --verbose --yes` to scan every workspace package. It writes:
+
+- `react-doctor/diagnostics.json`
+- `react-doctor/deslop--*.txt`
+- `react-doctor/react-doctor--*.txt`
+
+Before fixing findings, read `diagnostics.json` completely and read every relevant per-rule text report. Treat diagnostics with the same `fixGroupId` as one root cause.
+
+After the requested fixes and project validations pass:
+
+1. Rerun `bun run doctor --verbose --yes` and confirm the requested diagnostics are gone.
+2. Confirm every file directly inside `react-doctor/` matches `diagnostics.json`, `deslop--*.txt`, or `react-doctor--*.txt`.
+3. Delete every file directly inside `react-doctor/`. Leave the folder itself in place when it exists, and never delete reports before final verification.
 
 ## After making React code changes:
 
