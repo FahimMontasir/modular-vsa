@@ -4,6 +4,10 @@ import type { AnyJobDefinition } from "./core/job";
 import type { QueueName } from "./core/job";
 import type { WorkerOverrides } from "./core/worker";
 import { NOTIFICATION_JOBS } from "./def/notification";
+import {
+  reconcileAnnouncements,
+  reconcileNotificationDeliveries,
+} from "./def/notification/firebase";
 import { schedulerSendSMS } from "./def/notification/sms";
 
 /** Registry of all job definitions. */
@@ -26,6 +30,11 @@ export const SCHEDULES: readonly ScheduleEntry[] = [
     cron: "@daily",
     description: "Daily send sms",
     run: schedulerSendSMS,
+  },
+  {
+    cron: "*/1 * * * *",
+    description: "Reconcile Firebase notification outbox",
+    run: async () => Promise.all([reconcileNotificationDeliveries(), reconcileAnnouncements()]),
   },
 ] as const;
 

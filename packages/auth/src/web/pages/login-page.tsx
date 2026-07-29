@@ -2,6 +2,7 @@ import { useLingui } from "@lingui/react/macro";
 import { KeyRoundIcon } from "lucide-react";
 import { useState, type FormEvent } from "react";
 
+import { trackEvent } from "@modular-vsa/firebase/web/telemetry";
 import { Button } from "@modular-vsa/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@modular-vsa/ui/card";
 import { Field, FieldError, FieldGroup, FieldLabel } from "@modular-vsa/ui/field";
@@ -32,9 +33,11 @@ export function LoginPage({ redirectTo }: { redirectTo: string }) {
       if (method === "username")
         await authClient.signIn.username({ username: identifier, password });
       else await authClient.signIn.email({ email: identifier, password });
+      await trackEvent("auth_action", { action: "sign_in", method, outcome: "success" });
       await auth.refresh();
       window.location.assign(redirectTo);
     } catch {
+      void trackEvent("auth_action", { action: "sign_in", method, outcome: "failed" });
       setError(t`The credentials did not match an active account.`);
     } finally {
       setPending(false);

@@ -1,3 +1,4 @@
+import { setLogLevel } from "firebase/app";
 import {
   initializePerformance,
   trace as _trace,
@@ -18,6 +19,9 @@ let performance: FirebasePerformance | null = null;
  */
 export function getPerformance(settings?: PerformanceSettings): FirebasePerformance {
   if (!performance) {
+    // Firelog transport retries are expected when its collection endpoint is unavailable (for
+    // example, behind a content blocker). Keep collection active without emitting SDK info noise.
+    setLogLevel("warn");
     performance = initializePerformance(getApp(), settings);
   }
   return performance;

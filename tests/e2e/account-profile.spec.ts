@@ -3,18 +3,12 @@ import { expect, test } from "@playwright/test";
 import {
   authenticateAsUser,
   createManagedUser,
-  isMobileProject,
   removeManagedUser,
 } from "./utils/auth";
 
-test("profile page updates a disposable identity", async ({ page, request }, testInfo) => {
+test("profile page updates a disposable identity", async ({ page, request }) => {
   await page.goto("/account/profile");
   await expect(page.getByRole("heading", { name: "Your identity" })).toBeVisible();
-
-  if (isMobileProject(testInfo.project.name)) {
-    await expect(page.getByRole("button", { name: "Save profile" })).toBeVisible();
-    return;
-  }
 
   const user = await createManagedUser(request, "Profile");
   try {

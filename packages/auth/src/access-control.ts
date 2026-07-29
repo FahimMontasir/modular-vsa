@@ -11,12 +11,19 @@ export const applicationActions = {
   storage: {
     upload: "upload",
   },
+  notification: {
+    read: "read",
+    send: "send",
+    delete: "delete",
+    announce: "announce",
+  },
 } as const;
 
 export const accessControlStatement = {
   ...defaultStatements,
   post: Object.values(applicationActions.post),
   storage: Object.values(applicationActions.storage),
+  notification: Object.values(applicationActions.notification),
 } as const;
 
 export const ac = createAccessControl(accessControlStatement);
@@ -25,12 +32,18 @@ export const admin = ac.newRole({
   ...adminAc.statements,
   post: [...accessControlStatement.post],
   storage: [...accessControlStatement.storage],
+  notification: [...accessControlStatement.notification],
 });
 
 export const director = ac.newRole({
   user: ["list", "get"],
   session: ["list"],
   post: [applicationActions.post.read],
+  notification: [
+    applicationActions.notification.read,
+    applicationActions.notification.send,
+    applicationActions.notification.delete,
+  ],
 });
 
 export const roles = { admin, director } as const;

@@ -4,18 +4,12 @@ import { seedExternalAccount } from "./utils/bun-fixtures";
 import {
   authenticateAsUser,
   createManagedUser,
-  isMobileProject,
   removeManagedUser,
 } from "./utils/auth";
 
-test("connections page inspects and unlinks an external account", async ({ page, request }, testInfo) => {
+test("connections page inspects and unlinks an external account", async ({ page, request }) => {
   await page.goto("/account/connections");
   await expect(page.getByRole("heading", { name: "Connections" })).toBeVisible();
-
-  if (isMobileProject(testInfo.project.name)) {
-    await expect(page.getByText("Connected accounts", { exact: true })).toBeVisible();
-    return;
-  }
 
   const user = await createManagedUser(request, "Connections");
   const providerId = `playwright-${crypto.randomUUID().slice(0, 8)}`;

@@ -1,9 +1,17 @@
 import { useLingui } from "@lingui/react/macro";
 import { Link, Outlet, useLocation } from "@tanstack/react-router";
-import { HomeIcon, KeyRoundIcon, LogOutIcon, ShieldCheckIcon, UserRoundIcon } from "lucide-react";
+import {
+  HomeIcon,
+  KeyRoundIcon,
+  LogOutIcon,
+  MessageCircleIcon,
+  ShieldCheckIcon,
+  UserRoundIcon,
+} from "lucide-react";
 
 import { Alert, AlertDescription, AlertTitle } from "@modular-vsa/ui/alert";
 import { Avatar, AvatarFallback, AvatarImage } from "@modular-vsa/ui/avatar";
+import { Badge } from "@modular-vsa/ui/badge";
 import {
   Breadcrumb,
   BreadcrumbItem,
@@ -66,11 +74,15 @@ export function ApplicationShell({
   isImpersonating,
   onSignOut,
   onStopImpersonating,
+  unreadCount = 0,
+  onOpenMessenger,
 }: {
   user: ShellUser;
   isImpersonating: boolean;
   onSignOut: () => Promise<void>;
   onStopImpersonating: () => Promise<void>;
+  unreadCount?: number;
+  onOpenMessenger?: () => void;
 }) {
   const { t } = useLingui();
   const location = useLocation();
@@ -205,12 +217,24 @@ export function ApplicationShell({
           <div className="flex items-center gap-2">
             <DropdownMenu>
               <DropdownMenuTrigger
-                render={<Button variant="ghost" size="icon" aria-label={t`Open account menu`} />}
+                render={
+                  <Button
+                    variant="ghost"
+                    size="icon"
+                    className="relative"
+                    aria-label={t`Open account menu`}
+                  />
+                }
               >
                 <Avatar className="size-8">
                   <AvatarImage src={user.image ?? undefined} alt={user.name} />
                   <AvatarFallback>{initials(user.name)}</AvatarFallback>
                 </Avatar>
+                {unreadCount > 0 ? (
+                  <Badge className="absolute -top-1 -right-1 min-w-5 px-1 text-[10px]">
+                    {unreadCount > 99 ? "99+" : unreadCount}
+                  </Badge>
+                ) : null}
               </DropdownMenuTrigger>
               <DropdownMenuContent align="end" className="min-w-56">
                 <DropdownMenuGroup>
@@ -229,6 +253,15 @@ export function ApplicationShell({
                   </DropdownMenuGroup>
                 ) : null}
                 <DropdownMenuGroup>
+                  {onOpenMessenger ? (
+                    <DropdownMenuItem onClick={onOpenMessenger}>
+                      <MessageCircleIcon />
+                      {t`Messenger`}
+                      {unreadCount > 0 ? (
+                        <Badge className="ml-auto">{unreadCount > 99 ? "99+" : unreadCount}</Badge>
+                      ) : null}
+                    </DropdownMenuItem>
+                  ) : null}
                   <LanguageSwitcher menu />
                   <ThemeToggle menu label={t`Toggle theme`} />
                 </DropdownMenuGroup>

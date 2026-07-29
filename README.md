@@ -15,6 +15,7 @@ This is a Bun-first TypeScript monorepo that combines React, TanStack Router, El
 - **PostgreSQL** - Database engine
 - **Authentication** - Better-Auth
 - **PWA** - Progressive Web App support
+- **Durable Messenger** - PostgreSQL-backed DMs, platform threads, announcements, and Firebase-only realtime notification delivery
 
 ## Getting Started
 
@@ -41,9 +42,9 @@ listening. The tracked local values are development-only. Production must provid
 | Development service       | URL                                      |
 | ------------------------- | ---------------------------------------- |
 | Portal                    | http://localhost:3001                    |
-| API                       | http://localhost:3000                    |
-| Application API docs      | http://localhost:3000/api-docs           |
-| Better Auth API reference | http://localhost:3000/api/auth/reference |
+| API                       | http://localhost:3100                    |
+| Application API docs      | http://localhost:3100/api-docs           |
+| Better Auth API reference | http://localhost:3100/api/auth/reference |
 | Drizzle Studio            | https://local.drizzle.studio             |
 | Garage S3 API             | http://localhost:3900                    |
 | Garage storage dashboard  | http://localhost:3909                    |
@@ -65,6 +66,12 @@ Admin credentials remain ignored. Never put real shared or production secrets in
 The Firebase browser configuration is public and lives in `apps/portal/.env.local`. Firebase Admin uses
 the ignored `packages/_firebase/service-key.json` locally, with production falling back to explicit
 environment credentials or Google Application Default Credentials.
+
+Notification messages and delivery attempts are persisted before FCM is called. Run generated
+Drizzle migrations in production, keep the BullMQ worker and cron scheduler running, and configure the
+portal VAPID key/service worker. FCM acceptance is not a device delivery or read receipt. See
+`packages/notification/README.md` for the schema, API, outbox lifecycle, event/trace catalog, permission
+states, targeting behavior, and troubleshooting.
 
 ## UI Customization
 
@@ -127,6 +134,7 @@ modular-vsa/
 │   ├── __shared__/       # Shared utility functions
 │   ├── _ui/          # Shared shadcn/ui components and styles
 │   └── home/         # Feature package for the Home domain (posts, comments)
+│   └── notification/ # Durable inbox, Messenger UI, announcement APIs, and FCM outbox
 └── ...
 ```
 

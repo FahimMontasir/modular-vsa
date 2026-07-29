@@ -4,7 +4,8 @@ import { resolve } from "node:path";
 import { createAuthSession } from "./bun-fixtures";
 
 export const portalURL = process.env.CORS_ORIGIN ?? "http://localhost:3001";
-export const serverURL = new URL(process.env.BETTER_AUTH_URL ?? "http://localhost:3000").origin;
+export const serverURL = new URL(process.env.BETTER_AUTH_URL ?? "http://localhost:3100").origin;
+export const authStatePath = resolve(import.meta.dirname, "../../.auth/admin-desktop.json");
 
 export const bootstrapAdmin = {
   name: process.env.BOOTSTRAP_ADMIN_NAME ?? "Administrator",
@@ -25,23 +26,14 @@ function authHeaders() {
   return { origin: portalURL };
 }
 
-export function authStateFor(projectName: string) {
-  const device = projectName.toLowerCase().includes("mobile") ? "mobile" : "desktop";
-  return resolve(import.meta.dirname, `../../.auth/admin-${device}.json`);
-}
-
-export function isMobileProject(projectName: string) {
-  return projectName.toLowerCase().includes("mobile");
-}
-
 export async function waitForAuthServer(request: APIRequestContext) {
   await expect
     .poll(async () => (await request.get(`${serverURL}/api/auth/ok`)).status())
     .toBe(200);
 }
 
-export async function authenticateAsUser(page: Page, user: TestUser, destination = "/") {
-  const cookieHeader = await createAuthSession(user.username, user.password);
+export async function installAuthSession(page: Page, username: string, password: string) {
+  const cookieHeader = await createAuthSession(username, password);
   await page.context().clearCookies();
   await page.context().addCookies(
     cookieHeader.split("; ").map((cookie) => {
@@ -53,6 +45,10 @@ export async function authenticateAsUser(page: Page, user: TestUser, destination
       };
     })
   );
+}
+
+export async function authenticateAsUser(page: Page, user: TestUser, destination = "/") {
+  await installAuthSession(page, user.username, user.password);
   await page.goto(destination);
   await expect(page).toHaveURL(new RegExp(`${destination.replaceAll("/", "\\/")}$`));
 }

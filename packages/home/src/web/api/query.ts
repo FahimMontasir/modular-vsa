@@ -1,5 +1,6 @@
 import { queryOptions, useMutation, useQueryClient, useSuspenseQuery } from "@tanstack/react-query";
 
+import { measure, trackEvent } from "@modular-vsa/firebase/web/telemetry";
 // import { t } from "@lingui/core/macro";
 import { createApiClient } from "@modular-vsa/shared/web/api-client";
 import { useUploadFileMutation } from "@modular-vsa/storage/web/hooks";
@@ -16,7 +17,7 @@ const homeKeys = {
 const apiClient = createApiClient<APIHomeType>();
 
 async function getAllPosts() {
-  const { data, error } = await apiClient.home.get();
+  const { data, error } = await measure("home_load", () => apiClient.home.get());
 
   if (error) {
     toast.error("Failed to fetch posts");
@@ -57,10 +58,12 @@ export function useCreatePostMutation() {
       return data;
     },
     async onSuccess() {
+      await trackEvent("home_action", { action: "create", outcome: "success" });
       await queryClient.invalidateQueries({ queryKey: homeKeys.root });
       toast.success("Post created");
     },
     onError() {
+      void trackEvent("home_action", { action: "create", outcome: "failed" });
       toast.error("Post could not be created");
     },
   });
@@ -77,10 +80,12 @@ export function useUpdatePostMutation() {
       return data;
     },
     async onSuccess() {
+      await trackEvent("home_action", { action: "update", outcome: "success" });
       await queryClient.invalidateQueries({ queryKey: homeKeys.root });
       toast.success("Post updated");
     },
     onError() {
+      void trackEvent("home_action", { action: "update", outcome: "failed" });
       toast.error("Post could not be updated");
     },
   });
@@ -95,10 +100,12 @@ export function useDeletePostMutation() {
       return data;
     },
     async onSuccess() {
+      await trackEvent("home_action", { action: "delete", outcome: "success" });
       await queryClient.invalidateQueries({ queryKey: homeKeys.root });
       toast.success("Post deleted");
     },
     onError() {
+      void trackEvent("home_action", { action: "delete", outcome: "failed" });
       toast.error("Post could not be deleted");
     },
   });

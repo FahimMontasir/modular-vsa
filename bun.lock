@@ -34,8 +34,10 @@
         "@lingui/react": "catalog:",
         "@modular-vsa/auth": "workspace:*",
         "@modular-vsa/env": "workspace:*",
+        "@modular-vsa/firebase": "workspace:*",
         "@modular-vsa/home": "workspace:*",
         "@modular-vsa/i18n": "workspace:*",
+        "@modular-vsa/notification": "workspace:*",
         "@modular-vsa/shared": "workspace:*",
         "@modular-vsa/ui": "workspace:*",
         "@tailwindcss/vite": "4.3.0",
@@ -73,6 +75,7 @@
         "typescript": "catalog:",
         "vite": "catalog:",
         "vite-plus": "catalog:",
+        "workbox-precaching": "^7.3.0",
       },
     },
     "apps/server": {
@@ -87,6 +90,7 @@
         "@modular-vsa/env": "workspace:*",
         "@modular-vsa/home": "workspace:*",
         "@modular-vsa/jobs": "workspace:*",
+        "@modular-vsa/notification": "workspace:*",
         "@modular-vsa/shared": "workspace:*",
         "@sinclair/typebox": "catalog:",
         "better-auth": "catalog:",
@@ -183,9 +187,11 @@
       "dependencies": {
         "@modular-vsa/db": "workspace:*",
         "@modular-vsa/env": "workspace:*",
+        "@modular-vsa/firebase": "workspace:*",
         "@modular-vsa/shared": "workspace:*",
         "better-auth": "catalog:",
         "bullmq": "5.76.10",
+        "drizzle-orm": "catalog:",
       },
       "devDependencies": {
         "@modular-vsa/config": "workspace:*",
@@ -247,6 +253,7 @@
         "@lingui/react": "catalog:",
         "@modular-vsa/db": "workspace:*",
         "@modular-vsa/env": "workspace:*",
+        "@modular-vsa/firebase": "workspace:*",
         "@modular-vsa/shared": "workspace:*",
         "@modular-vsa/ui": "workspace:*",
         "@tanstack/react-router": "1.170.4",
@@ -271,11 +278,38 @@
         "@modular-vsa/auth": "workspace:*",
         "@modular-vsa/db": "workspace:*",
         "@modular-vsa/env": "workspace:*",
+        "@modular-vsa/firebase": "workspace:*",
         "@modular-vsa/i18n": "workspace:*",
+        "@modular-vsa/notification": "workspace:*",
         "@modular-vsa/shared": "workspace:*",
         "@modular-vsa/storage": "workspace:*",
         "@modular-vsa/ui": "workspace:*",
         "@tanstack/react-query": "catalog:",
+        "lucide-react": "1.16.0",
+      },
+      "devDependencies": {
+        "@elysiajs/eden": "catalog:",
+        "@modular-vsa/config": "workspace:*",
+      },
+      "peerDependencies": {
+        "react": "catalog:",
+      },
+    },
+    "packages/notification": {
+      "name": "@modular-vsa/notification",
+      "version": "0.0.0",
+      "dependencies": {
+        "@lingui/react": "catalog:",
+        "@modular-vsa/auth": "workspace:*",
+        "@modular-vsa/db": "workspace:*",
+        "@modular-vsa/firebase": "workspace:*",
+        "@modular-vsa/jobs": "workspace:*",
+        "@modular-vsa/shared": "workspace:*",
+        "@modular-vsa/ui": "workspace:*",
+        "@tanstack/react-query": "catalog:",
+        "drizzle-orm": "catalog:",
+        "drizzle-typebox": "catalog:",
+        "elysia": "catalog:",
         "lucide-react": "1.16.0",
       },
       "devDependencies": {
@@ -873,6 +907,8 @@
     "@modular-vsa/i18n": ["@modular-vsa/i18n@workspace:packages/_i18n"],
 
     "@modular-vsa/jobs": ["@modular-vsa/jobs@workspace:packages/_jobs"],
+
+    "@modular-vsa/notification": ["@modular-vsa/notification@workspace:packages/notification"],
 
     "@modular-vsa/portal": ["@modular-vsa/portal@workspace:apps/portal"],
 

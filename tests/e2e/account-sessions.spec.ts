@@ -4,21 +4,12 @@ import {
   authenticateAsUser,
   createManagedUser,
   createRemoteSession,
-  isMobileProject,
   removeManagedUser,
 } from "./utils/auth";
 
-test("account sessions page revokes browser sessions and signs out", async ({
-  page,
-  request,
-}, testInfo) => {
+test("account sessions page revokes browser sessions and signs out", async ({ page, request }) => {
   await page.goto("/account/sessions");
   await expect(page.getByRole("heading", { name: "Sessions" })).toBeVisible();
-
-  if (isMobileProject(testInfo.project.name)) {
-    await expect(page.getByText("Active sessions", { exact: true })).toBeVisible();
-    return;
-  }
 
   const user = await createManagedUser(request, "Sessions");
 

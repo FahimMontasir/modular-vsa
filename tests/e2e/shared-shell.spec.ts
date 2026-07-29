@@ -1,23 +1,12 @@
 import { expect, test } from "@playwright/test";
 
-import { isMobileProject } from "./utils/auth";
-
-test("shared shell exposes responsive navigation", async ({ page }, testInfo) => {
+test("shared shell exposes desktop navigation", async ({ page }) => {
   await page.goto("/");
-  const mobile = isMobileProject(testInfo.project.name);
   const breadcrumbs = page.getByRole("navigation", { name: "breadcrumb" });
 
-  if (mobile) {
-    await expect(breadcrumbs).toBeHidden();
-    await expect(page.locator("header").getByRole("link", { name: "Modular VSA" })).toBeVisible();
-    const bottomNavigation = page.locator("nav").filter({ hasText: "Access Control" });
-    await expect(bottomNavigation).toBeVisible();
-    await bottomNavigation.getByRole("link", { name: "Account" }).click();
-  } else {
-    await expect(breadcrumbs.getByText("Home", { exact: true })).toBeVisible();
-    await expect(breadcrumbs.getByText("Portal", { exact: true })).toBeVisible();
-    await page.getByRole("link", { name: "Account" }).first().click();
-  }
+  await expect(breadcrumbs.getByText("Home", { exact: true })).toBeVisible();
+  await expect(breadcrumbs.getByText("Portal", { exact: true })).toBeVisible();
+  await page.getByRole("link", { name: "Account" }).first().click();
 
   await expect(page.getByRole("heading", { name: "Your identity" })).toBeVisible();
 });

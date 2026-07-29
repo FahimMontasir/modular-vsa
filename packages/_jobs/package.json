@@ -11,12 +11,17 @@
       "default": "./src/def/*.ts"
     }
   },
+  "scripts": {
+    "test:unit": "bun test __tests__/unit"
+  },
   "dependencies": {
     "@modular-vsa/db": "workspace:*",
     "@modular-vsa/env": "workspace:*",
+    "@modular-vsa/firebase": "workspace:*",
     "@modular-vsa/shared": "workspace:*",
     "better-auth": "catalog:",
-    "bullmq": "5.76.10"
+    "bullmq": "5.76.10",
+    "drizzle-orm": "catalog:"
   },
   "devDependencies": {
     "@modular-vsa/config": "workspace:*"

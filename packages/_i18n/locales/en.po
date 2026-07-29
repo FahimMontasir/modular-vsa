@@ -12,22 +12,22 @@ msgstr ""
 "Plural-Forms: \n"
 
 #. placeholder {0}: sessions.length
-#: ../auth/src/web/pages/account-sessions-page.tsx:64
+#: ../auth/src/web/pages/account-sessions-page.tsx:65
 msgid "{0} active"
 msgstr "{0} active"
 
 #. placeholder {0}: accounts.length
-#: ../auth/src/web/pages/account-connections-page.tsx:61
+#: ../auth/src/web/pages/account-connections-page.tsx:62
 msgid "{0} connected"
 msgstr "{0} connected"
 
 #. placeholder {0}: posts.length
-#: ../home/src/web/pages/home-page.tsx:112
+#: ../home/src/web/pages/home-page.tsx:115
 msgid "{0} records"
 msgstr "{0} records"
 
 #. placeholder {0}: selectedUser.name
-#: ../auth/src/web/pages/access-sessions-page.tsx:175
+#: ../auth/src/web/pages/access-sessions-page.tsx:176
 msgid "{0} will be signed out on every device."
 msgstr "{0} will be signed out on every device."
 
@@ -35,32 +35,36 @@ msgstr "{0} will be signed out on every device."
 msgid "{title} sections"
 msgstr "{title} sections"
 
-#: ../auth/src/web/pages/access-users-page.tsx:160
+#: ../auth/src/web/pages/access-users-page.tsx:161
 msgid "{total} identities"
 msgstr "{total} identities"
 
-#: ../__shared__/src/web/components/application-shell.tsx:80
-#: ../__shared__/src/web/components/application-shell.tsx:84
-#: ../auth/src/web/pages/access-permissions-page.tsx:68
-#: ../auth/src/web/pages/access-sessions-page.tsx:85
-#: ../auth/src/web/pages/access-users-page.tsx:148
+#: ../notification/src/web/components/messenger-modal.tsx:456
+msgid "/account/security"
+msgstr "/account/security"
+
+#: ../__shared__/src/web/components/application-shell.tsx:92
+#: ../__shared__/src/web/components/application-shell.tsx:96
+#: ../auth/src/web/pages/access-permissions-page.tsx:69
+#: ../auth/src/web/pages/access-sessions-page.tsx:86
+#: ../auth/src/web/pages/access-users-page.tsx:149
 msgid "Access Control"
 msgstr "Access Control"
 
-#: ../__shared__/src/web/components/application-shell.tsx:81
-#: ../__shared__/src/web/components/application-shell.tsx:86
-#: ../auth/src/web/pages/account-connections-page.tsx:58
-#: ../auth/src/web/pages/account-profile-page.tsx:59
-#: ../auth/src/web/pages/account-security-page.tsx:90
-#: ../auth/src/web/pages/account-sessions-page.tsx:61
+#: ../__shared__/src/web/components/application-shell.tsx:93
+#: ../__shared__/src/web/components/application-shell.tsx:98
+#: ../auth/src/web/pages/account-connections-page.tsx:59
+#: ../auth/src/web/pages/account-profile-page.tsx:60
+#: ../auth/src/web/pages/account-security-page.tsx:91
+#: ../auth/src/web/pages/account-sessions-page.tsx:62
 msgid "Account"
 msgstr "Account"
 
-#: ../auth/src/web/pages/account-security-page.tsx:81
+#: ../auth/src/web/pages/account-security-page.tsx:82
 msgid "Account could not be deleted"
 msgstr "Account could not be deleted"
 
-#: ../auth/src/web/pages/account-connections-page.tsx:123
+#: ../auth/src/web/pages/account-connections-page.tsx:124
 msgid "Account unlinked"
 msgstr "Account unlinked"
 
@@ -68,90 +72,102 @@ msgstr "Account unlinked"
 msgid "Accounts are provisioned by an administrator. Public registration is disabled."
 msgstr "Accounts are provisioned by an administrator. Public registration is disabled."
 
-#: ../auth/src/web/pages/access-permissions-page.tsx:151
+#: ../auth/src/web/pages/access-permissions-page.tsx:152
 msgid "Action"
 msgstr "Action"
 
-#: ../auth/src/web/pages/account-sessions-page.tsx:70
+#: ../auth/src/web/pages/account-sessions-page.tsx:71
 msgid "Active sessions"
 msgstr "Active sessions"
 
-#: ../home/src/web/pages/home-page.tsx:117
+#: ../home/src/web/pages/home-page.tsx:120
 msgid "Admin only"
 msgstr "Admin only"
 
-#: ../auth/src/web/pages/access-permissions-page.tsx:67
-#: ../auth/src/web/pages/access-sessions-page.tsx:84
-#: ../auth/src/web/pages/access-users-page.tsx:147
+#: ../auth/src/web/pages/access-permissions-page.tsx:68
+#: ../auth/src/web/pages/access-sessions-page.tsx:85
+#: ../auth/src/web/pages/access-users-page.tsx:148
 msgid "Administration"
 msgstr "Administration"
 
-#: ../__shared__/src/web/components/application-shell.tsx:77
-#: ../auth/src/web/pages/access-permissions-page.tsx:30
-#: ../auth/src/web/pages/access-users-page.tsx:204
-#: ../auth/src/web/pages/access-users-page.tsx:293
-#: ../auth/src/web/pages/access-users-page.tsx:346
-#: ../auth/src/web/pages/access-users-page.tsx:378
-#: ../auth/src/web/pages/account-profile-page.tsx:62
-#: ../home/src/web/pages/home-page.tsx:57
+#: ../__shared__/src/web/components/application-shell.tsx:89
+#: ../auth/src/web/pages/access-permissions-page.tsx:31
+#: ../auth/src/web/pages/access-users-page.tsx:205
+#: ../auth/src/web/pages/access-users-page.tsx:294
+#: ../auth/src/web/pages/access-users-page.tsx:347
+#: ../auth/src/web/pages/access-users-page.tsx:379
+#: ../auth/src/web/pages/account-profile-page.tsx:63
+#: ../home/src/web/pages/home-page.tsx:59
 msgid "Administrator"
 msgstr "Administrator"
 
-#: ../auth/src/web/pages/access-users-page.tsx:150
+#: ../auth/src/web/pages/access-users-page.tsx:151
 msgid "Administrator mode"
 msgstr "Administrator mode"
 
-#: ../home/src/web/pages/home-page.tsx:244
+#: ../home/src/web/pages/home-page.tsx:247
 msgid "Administrators can create the first post above."
 msgstr "Administrators can create the first post above."
 
-#: ../auth/src/web/pages/account-security-page.tsx:228
+#: ../auth/src/web/pages/account-security-page.tsx:229
 msgid "All account data and sessions will be removed immediately."
 msgstr "All account data and sessions will be removed immediately."
 
-#: ../auth/src/web/pages/access-sessions-page.tsx:185
+#: ../auth/src/web/pages/access-sessions-page.tsx:186
 msgid "All user sessions revoked"
 msgstr "All user sessions revoked"
 
-#: ../auth/src/web/pages/access-permissions-page.tsx:167
+#: ../auth/src/web/pages/access-permissions-page.tsx:168
 msgid "Allowed"
 msgstr "Allowed"
 
-#: ../auth/src/web/pages/access-permissions-page.tsx:77
+#: ../auth/src/web/pages/access-permissions-page.tsx:78
 msgid "Allowed actions use a filled badge; denied actions use an outline."
 msgstr "Allowed actions use a filled badge; denied actions use an outline."
 
-#: ../home/src/web/pages/home-page.tsx:103
+#: ../notification/src/web/components/messenger-modal.tsx:431
+msgid "Announcement"
+msgstr "Announcement"
+
+#: ../notification/src/web/components/messenger-modal.tsx:419
+msgid "Audience"
+msgstr "Audience"
+
+#: ../home/src/web/pages/home-page.tsx:106
 msgid "Authentication"
 msgstr "Authentication"
 
-#: ../home/src/web/pages/home-page.tsx:106
+#: ../home/src/web/pages/home-page.tsx:109
 msgid "Authorization"
 msgstr "Authorization"
 
-#: ../auth/src/web/pages/access-permissions-page.tsx:43
-#: ../auth/src/web/pages/access-users-page.tsx:451
+#: ../notification/src/web/components/messenger-modal.tsx:249
+msgid "Back to conversations"
+msgstr "Back to conversations"
+
+#: ../auth/src/web/pages/access-permissions-page.tsx:44
+#: ../auth/src/web/pages/access-users-page.tsx:452
 msgid "Ban"
 msgstr "Ban"
 
-#: ../auth/src/web/pages/access-users-page.tsx:204
+#: ../auth/src/web/pages/access-users-page.tsx:205
 msgid "Banned"
 msgstr "Banned"
 
-#: ../auth/src/web/pages/access-sessions-page.tsx:179
-#: ../auth/src/web/pages/access-users-page.tsx:469
-#: ../auth/src/web/pages/account-connections-page.tsx:115
-#: ../auth/src/web/pages/account-security-page.tsx:232
-#: ../auth/src/web/pages/account-sessions-page.tsx:158
-#: ../home/src/web/pages/home-page.tsx:223
+#: ../auth/src/web/pages/access-sessions-page.tsx:180
+#: ../auth/src/web/pages/access-users-page.tsx:470
+#: ../auth/src/web/pages/account-connections-page.tsx:116
+#: ../auth/src/web/pages/account-security-page.tsx:233
+#: ../auth/src/web/pages/account-sessions-page.tsx:159
+#: ../home/src/web/pages/home-page.tsx:226
 msgid "Cancel"
 msgstr "Cancel"
 
-#: ../auth/src/web/pages/account-security-page.tsx:92
+#: ../auth/src/web/pages/account-security-page.tsx:93
 msgid "Change credentials and control destructive account operations."
 msgstr "Change credentials and control destructive account operations."
 
-#: ../auth/src/web/pages/account-security-page.tsx:163
+#: ../auth/src/web/pages/account-security-page.tsx:164
 msgid "Change email"
 msgstr "Change email"
 
@@ -159,15 +175,15 @@ msgstr "Change email"
 #~ msgid "Change language"
 #~ msgstr "Change language"
 
-#: ../auth/src/web/pages/account-security-page.tsx:132
+#: ../auth/src/web/pages/account-security-page.tsx:133
 msgid "Change password"
 msgstr "Change password"
 
-#: ../auth/src/web/pages/access-users-page.tsx:219
+#: ../auth/src/web/pages/access-users-page.tsx:220
 msgid "Change the search or create a managed user."
 msgstr "Change the search or create a managed user."
 
-#: ../auth/src/web/pages/account-security-page.tsx:102
+#: ../auth/src/web/pages/account-security-page.tsx:103
 msgid "Changing it revokes every other active session."
 msgstr "Changing it revokes every other active session."
 
@@ -175,241 +191,277 @@ msgstr "Changing it revokes every other active session."
 #~ msgid "Check"
 #~ msgstr "Check"
 
-#: ../auth/src/web/pages/account-profile-page.tsx:100
+#: ../auth/src/web/pages/account-profile-page.tsx:101
 msgid "Check availability"
 msgstr "Check availability"
 
-#: ../auth/src/web/pages/access-permissions-page.tsx:181
+#: ../auth/src/web/pages/access-permissions-page.tsx:182
 msgid "Check on server"
 msgstr "Check on server"
 
-#: ../auth/src/web/pages/access-permissions-page.tsx:118
+#: ../auth/src/web/pages/access-permissions-page.tsx:119
 msgid "Compare synchronous role policy with the authenticated server check."
 msgstr "Compare synchronous role policy with the authenticated server check."
 
-#: ../auth/src/web/pages/account-connections-page.tsx:67
+#: ../auth/src/web/pages/account-connections-page.tsx:68
 msgid "Connected accounts"
 msgstr "Connected accounts"
 
-#: ../auth/src/web/pages/account-connections-page.tsx:44
+#: ../auth/src/web/pages/account-connections-page.tsx:45
 msgid "Connected accounts could not be loaded"
 msgstr "Connected accounts could not be loaded"
 
-#: ../__shared__/src/web/components/application-shell.tsx:96
+#: ../__shared__/src/web/components/application-shell.tsx:108
 #: ../__shared__/src/web/components/section-header.tsx:43
-#: ../auth/src/web/pages/account-connections-page.tsx:59
+#: ../auth/src/web/pages/account-connections-page.tsx:60
 msgid "Connections"
 msgstr "Connections"
 
-#: ../home/src/web/pages/home-page.tsx:136
+#: ../home/src/web/pages/home-page.tsx:139
 msgid "Content"
 msgstr "Content"
 
-#: ../__shared__/src/web/components/application-shell.tsx:120
+#: ../__shared__/src/web/components/application-shell.tsx:132
 msgid "Control plane"
 msgstr "Control plane"
 
-#: ../home/src/web/pages/home-page.tsx:91
+#: ../home/src/web/pages/home-page.tsx:94
 msgid "Control plane overview"
 msgstr "Control plane overview"
 
-#: ../auth/src/web/pages/access-permissions-page.tsx:36
+#: ../auth/src/web/pages/access-permissions-page.tsx:37
 msgid "Create"
 msgstr "Create"
 
-#: ../auth/src/web/pages/access-users-page.tsx:248
+#: ../auth/src/web/pages/access-users-page.tsx:249
 msgid "Create a managed user"
 msgstr "Create a managed user"
 
-#: ../home/src/web/pages/home-page.tsx:125
-#: ../home/src/web/pages/home-page.tsx:145
+#: ../home/src/web/pages/home-page.tsx:128
+#: ../home/src/web/pages/home-page.tsx:148
 msgid "Create post"
 msgstr "Create post"
 
-#: ../auth/src/web/pages/access-users-page.tsx:301
+#: ../auth/src/web/pages/access-users-page.tsx:302
 msgid "Create user"
 msgstr "Create user"
 
-#: ../auth/src/web/pages/access-users-page.tsx:353
+#: ../auth/src/web/pages/access-users-page.tsx:354
 msgid "Created"
 msgstr "Created"
 
-#: ../auth/src/web/pages/account-sessions-page.tsx:103
+#: ../auth/src/web/pages/account-sessions-page.tsx:104
 msgid "Current"
 msgstr "Current"
 
 #. placeholder {0}: auth.session?.user.email
-#: ../auth/src/web/pages/account-security-page.tsx:145
+#: ../auth/src/web/pages/account-security-page.tsx:146
 msgid "Current address: {0}"
 msgstr "Current address: {0}"
 
-#: ../auth/src/web/pages/account-security-page.tsx:108
-#: ../auth/src/web/pages/account-security-page.tsx:202
+#: ../auth/src/web/pages/account-security-page.tsx:109
+#: ../auth/src/web/pages/account-security-page.tsx:203
 msgid "Current password"
 msgstr "Current password"
 
-#: ../auth/src/web/pages/account-security-page.tsx:173
+#: ../auth/src/web/pages/account-security-page.tsx:174
 msgid "Danger zone"
 msgstr "Danger zone"
 
-#: ../auth/src/web/pages/access-permissions-page.tsx:40
-#: ../home/src/web/pages/home-page.tsx:213
+#: ../auth/src/web/pages/access-permissions-page.tsx:41
+#: ../home/src/web/pages/home-page.tsx:216
 msgid "Delete"
 msgstr "Delete"
 
-#: ../auth/src/web/pages/account-security-page.tsx:195
+#: ../auth/src/web/pages/account-security-page.tsx:196
 msgid "Delete account"
 msgstr "Delete account"
 
-#: ../auth/src/web/pages/account-security-page.tsx:222
+#: ../notification/src/web/components/messenger-modal.tsx:307
+msgid "Delete message"
+msgstr "Delete message"
+
+#: ../auth/src/web/pages/account-security-page.tsx:223
 msgid "Delete my account"
 msgstr "Delete my account"
 
-#: ../auth/src/web/pages/account-security-page.tsx:234
+#: ../auth/src/web/pages/account-security-page.tsx:235
 msgid "Delete permanently"
 msgstr "Delete permanently"
 
-#: ../home/src/web/pages/home-page.tsx:228
+#: ../home/src/web/pages/home-page.tsx:231
 msgid "Delete post"
 msgstr "Delete post"
 
-#: ../home/src/web/pages/home-page.tsx:217
+#: ../home/src/web/pages/home-page.tsx:220
 msgid "Delete this post?"
 msgstr "Delete this post?"
 
-#: ../auth/src/web/pages/account-security-page.tsx:226
+#: ../auth/src/web/pages/account-security-page.tsx:227
 msgid "Delete your account permanently?"
 msgstr "Delete your account permanently?"
 
-#: ../auth/src/web/pages/access-permissions-page.tsx:167
+#: ../auth/src/web/pages/access-permissions-page.tsx:168
 msgid "Denied"
 msgstr "Denied"
 
-#: ../__shared__/src/web/components/application-shell.tsx:77
-#: ../auth/src/web/pages/access-permissions-page.tsx:31
-#: ../auth/src/web/pages/access-users-page.tsx:204
-#: ../auth/src/web/pages/access-users-page.tsx:293
-#: ../auth/src/web/pages/access-users-page.tsx:346
-#: ../auth/src/web/pages/access-users-page.tsx:378
-#: ../auth/src/web/pages/account-profile-page.tsx:62
-#: ../home/src/web/pages/home-page.tsx:57
+#: ../notification/src/web/components/messenger-modal.tsx:258
+msgid "Direct conversation"
+msgstr "Direct conversation"
+
+#: ../notification/src/web/components/messenger-modal.tsx:153
+msgid "Direct messages, platform notifications, and announcements."
+msgstr "Direct messages, platform notifications, and announcements."
+
+#: ../__shared__/src/web/components/application-shell.tsx:89
+#: ../auth/src/web/pages/access-permissions-page.tsx:32
+#: ../auth/src/web/pages/access-users-page.tsx:205
+#: ../auth/src/web/pages/access-users-page.tsx:294
+#: ../auth/src/web/pages/access-users-page.tsx:347
+#: ../auth/src/web/pages/access-users-page.tsx:379
+#: ../auth/src/web/pages/account-profile-page.tsx:63
+#: ../home/src/web/pages/home-page.tsx:59
 msgid "Director"
 msgstr "Director"
 
-#: ../auth/src/web/pages/access-users-page.tsx:150
+#: ../auth/src/web/pages/access-users-page.tsx:151
 msgid "Director · read only"
 msgstr "Director · read only"
 
-#: ../auth/src/web/pages/access-sessions-page.tsx:95
+#: ../notification/src/web/components/messenger-modal.tsx:440
+msgid "director or user ID"
+msgstr "director or user ID"
+
+#: ../auth/src/web/pages/access-sessions-page.tsx:96
 msgid "Directors can inspect sessions; administrators can revoke them."
 msgstr "Directors can inspect sessions; administrators can revoke them."
 
-#: ../home/src/web/pages/home-page.tsx:196
+#: ../home/src/web/pages/home-page.tsx:199
 msgid "Draft"
 msgstr "Draft"
 
-#: ../auth/src/web/pages/access-users-page.tsx:270
+#: ../auth/src/web/pages/access-users-page.tsx:271
 #: ../auth/src/web/pages/login-page.tsx:62
 #: ../auth/src/web/pages/login-page.tsx:69
 msgid "Email"
 msgstr "Email"
 
-#: ../auth/src/web/pages/account-security-page.tsx:143
+#: ../auth/src/web/pages/account-security-page.tsx:144
 msgid "Email address"
 msgstr "Email address"
 
-#: ../auth/src/web/pages/account-security-page.tsx:68
+#: ../auth/src/web/pages/account-security-page.tsx:69
 msgid "Email address could not be changed"
 msgstr "Email address could not be changed"
 
-#: ../auth/src/web/pages/account-security-page.tsx:66
+#: ../auth/src/web/pages/account-security-page.tsx:67
 msgid "Email address updated"
 msgstr "Email address updated"
 
-#: ../auth/src/web/pages/account-security-page.tsx:93
+#: ../auth/src/web/pages/account-security-page.tsx:94
 msgid "Email unverified"
 msgstr "Email unverified"
 
-#: ../auth/src/web/pages/account-security-page.tsx:93
+#: ../auth/src/web/pages/account-security-page.tsx:94
 msgid "Email verified"
 msgstr "Email verified"
+
+#: ../notification/src/web/components/notification-permission-alert.tsx:58
+msgid "Enable notifications"
+msgstr "Enable notifications"
+
+#: ../notification/src/web/components/notification-permission-alert.tsx:35
+msgid "Enable notifications to receive messages"
+msgstr "Enable notifications to receive messages"
+
+#: ../notification/src/web/components/notification-permission-alert.tsx:58
+msgid "Enabling…"
+msgstr "Enabling…"
 
 #: ../__shared__/src/web/components/language-switcher.tsx:46
 #~ msgid "English"
 #~ msgstr "English"
 
-#: ../auth/src/web/pages/account-sessions-page.tsx:154
+#: ../auth/src/web/pages/account-sessions-page.tsx:155
 msgid "Every browser, including this one, will need to sign in again."
 msgstr "Every browser, including this one, will need to sign in again."
 
-#: ../home/src/web/pages/home-page.tsx:126
+#: ../notification/src/web/components/messenger-modal.tsx:425
+msgid "Everyone"
+msgstr "Everyone"
+
+#: ../home/src/web/pages/home-page.tsx:129
 msgid "Exercise the permission-protected POST endpoint."
 msgstr "Exercise the permission-protected POST endpoint."
 
-#: ../home/src/web/pages/home-page.tsx:157
+#: ../home/src/web/pages/home-page.tsx:160
 msgid "Exercise the storage:upload permission and endpoint."
 msgstr "Exercise the storage:upload permission and endpoint."
 
-#: ../auth/src/web/pages/access-sessions-page.tsx:139
-#: ../auth/src/web/pages/account-sessions-page.tsx:106
+#: ../auth/src/web/pages/access-sessions-page.tsx:140
+#: ../auth/src/web/pages/account-sessions-page.tsx:107
 msgid "expires"
 msgstr "expires"
 
-#: ../auth/src/web/pages/account-connections-page.tsx:96
+#: ../auth/src/web/pages/account-connections-page.tsx:97
 msgid "External"
 msgstr "External"
 
-#: ../home/src/web/pages/home-page.tsx:155
+#: ../home/src/web/pages/home-page.tsx:158
 msgid "File upload"
 msgstr "File upload"
 
-#: ../home/src/web/pages/home-page.tsx:107
+#: ../home/src/web/pages/home-page.tsx:110
 msgid "Full access"
 msgstr "Full access"
 
-#: ../__shared__/src/web/components/application-shell.tsx:79
-#: ../__shared__/src/web/components/application-shell.tsx:87
+#: ../__shared__/src/web/components/application-shell.tsx:91
+#: ../__shared__/src/web/components/application-shell.tsx:99
 msgid "Home"
 msgstr "Home"
 
-#: ../auth/src/web/pages/access-sessions-page.tsx:115
+#: ../auth/src/web/pages/access-sessions-page.tsx:116
 msgid "Identity"
 msgstr "Identity"
 
-#: ../auth/src/web/pages/access-permissions-page.tsx:44
-#: ../auth/src/web/pages/access-users-page.tsx:454
+#: ../auth/src/web/pages/access-permissions-page.tsx:45
+#: ../auth/src/web/pages/access-users-page.tsx:455
 msgid "Impersonate"
 msgstr "Impersonate"
 
-#: ../auth/src/web/pages/access-permissions-page.tsx:45
+#: ../auth/src/web/pages/access-permissions-page.tsx:46
 msgid "Impersonate administrators"
 msgstr "Impersonate administrators"
 
-#: ../auth/src/web/pages/access-users-page.tsx:330
+#: ../auth/src/web/pages/access-users-page.tsx:331
 msgid "Impersonation could not be started"
 msgstr "Impersonation could not be started"
 
-#: ../__shared__/src/web/components/application-shell.tsx:246
+#: ../__shared__/src/web/components/application-shell.tsx:282
 msgid "Impersonation session"
 msgstr "Impersonation session"
 
-#: ../auth/src/web/pages/access-sessions-page.tsx:86
+#: ../auth/src/web/pages/access-sessions-page.tsx:87
 msgid "Inspect active sessions by identity and revoke compromised access."
 msgstr "Inspect active sessions by identity and revoke compromised access."
 
-#: ../auth/src/web/pages/account-connections-page.tsx:60
+#: ../auth/src/web/pages/account-connections-page.tsx:61
 msgid "Inspect credential and external accounts linked to your identity."
 msgstr "Inspect credential and external accounts linked to your identity."
+
+#: ../notification/src/web/components/messenger-modal.tsx:455
+msgid "Internal link"
+msgstr "Internal link"
 
 #: ../__shared__/src/web/components/language-switcher.tsx:44
 #~ msgid "Language"
 #~ msgstr "Language"
 
-#: ../auth/src/web/pages/access-permissions-page.tsx:37
+#: ../auth/src/web/pages/access-permissions-page.tsx:38
 msgid "List"
 msgstr "List"
 
-#: ../home/src/web/pages/home-page.tsx:188
+#: ../home/src/web/pages/home-page.tsx:191
 msgid "Live data from the protected GET /api/v1/home endpoint."
 msgstr "Live data from the protected GET /api/v1/home endpoint."
 
@@ -417,335 +469,406 @@ msgstr "Live data from the protected GET /api/v1/home endpoint."
 msgid "Loading session"
 msgstr "Loading session"
 
-#: ../auth/src/web/pages/access-permissions-page.tsx:165
+#: ../auth/src/web/pages/access-permissions-page.tsx:166
 msgid "Local policy"
 msgstr "Local policy"
 
-#: ../auth/src/web/pages/account-profile-page.tsx:61
+#: ../auth/src/web/pages/account-profile-page.tsx:62
 msgid "Manage profile details and sign-in identifiers for this account."
 msgstr "Manage profile details and sign-in identifiers for this account."
 
-#: ../home/src/web/pages/home-page.tsx:209
+#: ../notification/src/web/components/messenger-modal.tsx:344
+msgid "Message"
+msgstr "Message"
+
+#: ../notification/src/web/components/messenger-modal.tsx:298
+msgid "Message deleted"
+msgstr "Message deleted"
+
+#: ../notification/src/web/components/notification-permission-alert.tsx:44
+msgid "Messages, security updates, and announcements arrive through Firebase notifications. Portal access remains available if you decline."
+msgstr "Messages, security updates, and announcements arrive through Firebase notifications. Portal access remains available if you decline."
+
+#: ../__shared__/src/web/components/application-shell.tsx:259
+#: ../notification/src/web/components/messenger-modal.tsx:152
+#: ../notification/src/web/components/messenger-modal.tsx:159
+msgid "Messenger"
+msgstr "Messenger"
+
+#: ../home/src/web/pages/home-page.tsx:212
 msgid "Move to draft"
 msgstr "Move to draft"
 
-#: ../auth/src/web/pages/access-users-page.tsx:266
-#: ../auth/src/web/pages/access-users-page.tsx:361
-#: ../auth/src/web/pages/account-profile-page.tsx:76
+#: ../auth/src/web/pages/access-users-page.tsx:267
+#: ../auth/src/web/pages/access-users-page.tsx:362
+#: ../auth/src/web/pages/account-profile-page.tsx:77
 msgid "Name"
 msgstr "Name"
 
-#: ../auth/src/web/pages/account-security-page.tsx:151
+#: ../auth/src/web/pages/account-security-page.tsx:152
 msgid "New email"
 msgstr "New email"
 
-#: ../auth/src/web/pages/access-users-page.tsx:384
-#: ../auth/src/web/pages/account-security-page.tsx:118
+#: ../notification/src/web/components/messenger-modal.tsx:331
+msgid "New messages will appear here after Firebase notifies this device."
+msgstr "New messages will appear here after Firebase notifies this device."
+
+#: ../auth/src/web/pages/access-users-page.tsx:385
+#: ../auth/src/web/pages/account-security-page.tsx:119
 msgid "New password"
 msgstr "New password"
 
-#: ../auth/src/web/pages/account-sessions-page.tsx:130
+#: ../auth/src/web/pages/account-sessions-page.tsx:131
 msgid "No active browser sessions were returned."
 msgstr "No active browser sessions were returned."
 
-#: ../auth/src/web/pages/access-sessions-page.tsx:161
+#: ../auth/src/web/pages/access-sessions-page.tsx:162
 msgid "No active sessions"
 msgstr "No active sessions"
 
-#: ../auth/src/web/pages/account-connections-page.tsx:140
+#: ../auth/src/web/pages/account-connections-page.tsx:141
 msgid "No connected accounts"
 msgstr "No connected accounts"
 
-#: ../auth/src/web/pages/account-connections-page.tsx:142
+#: ../auth/src/web/pages/account-connections-page.tsx:143
 msgid "No credential or external provider accounts were returned."
 msgstr "No credential or external provider accounts were returned."
 
-#: ../home/src/web/pages/home-page.tsx:243
+#: ../notification/src/web/components/messenger-modal.tsx:232
+msgid "No messages yet"
+msgstr "No messages yet"
+
+#: ../home/src/web/pages/home-page.tsx:246
 msgid "No posts yet"
 msgstr "No posts yet"
 
-#: ../auth/src/web/pages/account-sessions-page.tsx:129
+#: ../auth/src/web/pages/account-sessions-page.tsx:130
 msgid "No sessions found"
 msgstr "No sessions found"
 
-#: ../auth/src/web/pages/access-users-page.tsx:218
+#: ../auth/src/web/pages/access-users-page.tsx:219
 msgid "No users found"
 msgstr "No users found"
 
-#: ../auth/src/web/pages/access-users-page.tsx:208
-#: ../auth/src/web/pages/access-users-page.tsx:350
+#: ../auth/src/web/pages/access-users-page.tsx:209
+#: ../auth/src/web/pages/access-users-page.tsx:351
 msgid "not set"
 msgstr "not set"
 
-#: ../auth/src/web/pages/account-connections-page.tsx:69
+#: ../notification/src/web/components/messenger-modal.tsx:330
+msgid "Nothing here yet"
+msgstr "Nothing here yet"
+
+#: ../notification/src/web/components/notification-permission-alert.tsx:43
+msgid "Notification registration failed. Check your connection and try again."
+msgstr "Notification registration failed. Check your connection and try again."
+
+#: ../notification/src/web/components/notification-permission-alert.tsx:41
+msgid "Notifications are blocked. Allow them in your browser site settings, then try again."
+msgstr "Notifications are blocked. Allow them in your browser site settings, then try again."
+
+#: ../auth/src/web/pages/account-connections-page.tsx:70
 msgid "OAuth linking becomes available here when a provider is configured on the server."
 msgstr "OAuth linking becomes available here when a provider is configured on the server."
 
-#: ../__shared__/src/web/components/application-shell.tsx:205
+#: ../notification/src/web/components/messenger-modal.tsx:427
+msgid "One user"
+msgstr "One user"
+
+#: ../__shared__/src/web/components/application-shell.tsx:225
 msgid "Open account menu"
 msgstr "Open account menu"
 
-#: ../home/src/web/pages/home-page.tsx:93
+#: ../home/src/web/pages/home-page.tsx:96
 msgid "operator"
 msgstr "operator"
 
-#: ../auth/src/web/pages/account-sessions-page.tsx:141
+#: ../auth/src/web/pages/account-sessions-page.tsx:142
 msgid "Other sessions revoked"
 msgstr "Other sessions revoked"
 
-#: ../auth/src/web/pages/access-users-page.tsx:278
-#: ../auth/src/web/pages/account-connections-page.tsx:96
-#: ../auth/src/web/pages/account-security-page.tsx:100
+#: ../auth/src/web/pages/access-users-page.tsx:279
+#: ../auth/src/web/pages/account-connections-page.tsx:97
+#: ../auth/src/web/pages/account-security-page.tsx:101
 #: ../auth/src/web/pages/login-page.tsx:82
 msgid "Password"
 msgstr "Password"
 
-#: ../auth/src/web/pages/account-security-page.tsx:48
+#: ../auth/src/web/pages/account-security-page.tsx:49
 msgid "Password changed and other sessions revoked"
 msgstr "Password changed and other sessions revoked"
 
-#: ../auth/src/web/pages/account-security-page.tsx:50
+#: ../auth/src/web/pages/account-security-page.tsx:51
 msgid "Password could not be changed"
 msgstr "Password could not be changed"
 
-#: ../auth/src/web/pages/access-users-page.tsx:425
+#: ../auth/src/web/pages/access-users-page.tsx:426
 msgid "Password updated"
 msgstr "Password updated"
 
-#: ../auth/src/web/pages/access-permissions-page.tsx:116
+#: ../auth/src/web/pages/access-permissions-page.tsx:117
 msgid "Permission check"
 msgstr "Permission check"
 
-#: ../__shared__/src/web/components/application-shell.tsx:93
+#: ../__shared__/src/web/components/application-shell.tsx:105
 #: ../__shared__/src/web/components/section-header.tsx:37
 msgid "Permissions"
 msgstr "Permissions"
 
-#: ../__shared__/src/web/components/application-shell.tsx:128
-#: ../__shared__/src/web/components/application-shell.tsx:179
+#: ../notification/src/web/components/messenger-modal.tsx:258
+msgid "Platform updates"
+msgstr "Platform updates"
+
+#: ../__shared__/src/web/components/application-shell.tsx:140
+#: ../__shared__/src/web/components/application-shell.tsx:194
 msgid "Portal"
 msgstr "Portal"
 
-#: ../auth/src/web/pages/access-permissions-page.tsx:34
-#: ../home/src/web/pages/home-page.tsx:187
+#: ../auth/src/web/pages/access-permissions-page.tsx:35
+#: ../home/src/web/pages/home-page.tsx:190
 msgid "Posts"
 msgstr "Posts"
 
-#: ../home/src/web/pages/home-page.tsx:111
+#: ../home/src/web/pages/home-page.tsx:114
 msgid "Posts endpoint"
 msgstr "Posts endpoint"
 
-#: ../__shared__/src/web/components/application-shell.tsx:254
+#: ../__shared__/src/web/components/application-shell.tsx:290
 msgid "Primary navigation"
 msgstr "Primary navigation"
 
-#: ../__shared__/src/web/components/application-shell.tsx:94
+#: ../__shared__/src/web/components/application-shell.tsx:106
 #: ../__shared__/src/web/components/section-header.tsx:40
-#: ../auth/src/web/pages/account-profile-page.tsx:68
+#: ../auth/src/web/pages/account-profile-page.tsx:69
 msgid "Profile"
 msgstr "Profile"
 
-#: ../auth/src/web/pages/account-profile-page.tsx:36
+#: ../auth/src/web/pages/account-profile-page.tsx:37
 msgid "Profile could not be updated"
 msgstr "Profile could not be updated"
 
-#: ../auth/src/web/pages/account-profile-page.tsx:34
+#: ../auth/src/web/pages/account-profile-page.tsx:35
 msgid "Profile updated"
 msgstr "Profile updated"
 
-#: ../auth/src/web/pages/access-users-page.tsx:149
+#: ../auth/src/web/pages/access-users-page.tsx:150
 msgid "Provision identities, inspect access, and apply the shared Better Auth role policy."
 msgstr "Provision identities, inspect access, and apply the shared Better Auth role policy."
 
-#: ../auth/src/web/pages/access-users-page.tsx:250
+#: ../auth/src/web/pages/access-users-page.tsx:251
 msgid "Public registration is disabled; administrators provision accounts here."
 msgstr "Public registration is disabled; administrators provision accounts here."
 
-#: ../home/src/web/pages/home-page.tsx:209
+#: ../home/src/web/pages/home-page.tsx:212
 msgid "Publish"
 msgstr "Publish"
 
-#: ../home/src/web/pages/home-page.tsx:141
+#: ../home/src/web/pages/home-page.tsx:144
 msgid "Publish immediately"
 msgstr "Publish immediately"
 
-#: ../home/src/web/pages/home-page.tsx:196
+#: ../home/src/web/pages/home-page.tsx:199
 msgid "Published"
 msgstr "Published"
 
-#: ../auth/src/web/pages/access-permissions-page.tsx:47
+#: ../auth/src/web/pages/access-permissions-page.tsx:48
 msgid "Read"
 msgstr "Read"
 
-#: ../auth/src/web/pages/access-sessions-page.tsx:87
-#: ../home/src/web/pages/home-page.tsx:107
+#: ../auth/src/web/pages/access-sessions-page.tsx:88
+#: ../home/src/web/pages/home-page.tsx:110
 msgid "Read only"
 msgstr "Read only"
 
-#: ../auth/src/web/pages/access-sessions-page.tsx:109
-#: ../auth/src/web/pages/account-connections-page.tsx:83
-#: ../auth/src/web/pages/account-sessions-page.tsx:86
+#: ../auth/src/web/pages/access-sessions-page.tsx:110
+#: ../auth/src/web/pages/account-connections-page.tsx:84
+#: ../auth/src/web/pages/account-sessions-page.tsx:87
 msgid "Refresh"
 msgstr "Refresh"
 
-#: ../auth/src/web/pages/access-users-page.tsx:185
+#: ../auth/src/web/pages/access-users-page.tsx:186
 msgid "Refresh users"
 msgstr "Refresh users"
 
 #. placeholder {0}: user.name
-#: ../auth/src/web/pages/access-users-page.tsx:463
+#: ../auth/src/web/pages/access-users-page.tsx:464
 msgid "Remove {0}?"
 msgstr "Remove {0}?"
 
-#: ../auth/src/web/pages/access-users-page.tsx:479
+#: ../auth/src/web/pages/access-users-page.tsx:480
 msgid "Remove permanently"
 msgstr "Remove permanently"
 
-#: ../auth/src/web/pages/access-users-page.tsx:459
+#: ../auth/src/web/pages/access-users-page.tsx:460
 msgid "Remove user"
 msgstr "Remove user"
 
-#: ../auth/src/web/pages/access-permissions-page.tsx:137
+#: ../auth/src/web/pages/access-permissions-page.tsx:138
 msgid "Resource"
 msgstr "Resource"
 
-#: ../auth/src/web/pages/access-users-page.tsx:440
+#: ../auth/src/web/pages/access-users-page.tsx:441
 msgid "Restricted by administrator"
 msgstr "Restricted by administrator"
 
-#: ../auth/src/web/pages/account-sessions-page.tsx:63
+#: ../auth/src/web/pages/account-sessions-page.tsx:64
 msgid "Review and revoke browser sessions associated with your account."
 msgstr "Review and revoke browser sessions associated with your account."
 
-#: ../auth/src/web/pages/access-permissions-page.tsx:69
+#: ../auth/src/web/pages/access-permissions-page.tsx:70
 msgid "Review the single policy shared by Better Auth, its client, and protected API routes."
 msgstr "Review the single policy shared by Better Auth, its client, and protected API routes."
 
-#: ../auth/src/web/pages/access-permissions-page.tsx:46
-#: ../auth/src/web/pages/access-sessions-page.tsx:153
-#: ../auth/src/web/pages/account-sessions-page.tsx:120
+#: ../auth/src/web/pages/access-permissions-page.tsx:47
+#: ../auth/src/web/pages/access-sessions-page.tsx:154
+#: ../auth/src/web/pages/account-sessions-page.tsx:121
 msgid "Revoke"
 msgstr "Revoke"
 
-#: ../auth/src/web/pages/access-sessions-page.tsx:188
-#: ../auth/src/web/pages/account-sessions-page.tsx:167
+#: ../auth/src/web/pages/access-sessions-page.tsx:189
+#: ../auth/src/web/pages/account-sessions-page.tsx:168
 msgid "Revoke all"
 msgstr "Revoke all"
 
-#: ../auth/src/web/pages/account-sessions-page.tsx:148
+#: ../auth/src/web/pages/account-sessions-page.tsx:149
 msgid "Revoke all and sign out"
 msgstr "Revoke all and sign out"
 
-#: ../auth/src/web/pages/access-sessions-page.tsx:173
+#: ../auth/src/web/pages/access-sessions-page.tsx:174
 msgid "Revoke all sessions?"
 msgstr "Revoke all sessions?"
 
-#: ../auth/src/web/pages/access-sessions-page.tsx:169
+#: ../auth/src/web/pages/access-sessions-page.tsx:170
 msgid "Revoke all user sessions"
 msgstr "Revoke all user sessions"
 
-#: ../auth/src/web/pages/access-sessions-page.tsx:87
+#: ../auth/src/web/pages/access-sessions-page.tsx:88
 msgid "Revoke enabled"
 msgstr "Revoke enabled"
 
-#: ../auth/src/web/pages/account-sessions-page.tsx:152
+#: ../auth/src/web/pages/account-sessions-page.tsx:153
 msgid "Revoke every session?"
 msgstr "Revoke every session?"
 
-#: ../auth/src/web/pages/account-sessions-page.tsx:144
+#: ../auth/src/web/pages/account-sessions-page.tsx:145
 msgid "Revoke other sessions"
 msgstr "Revoke other sessions"
 
-#: ../auth/src/web/pages/access-permissions-page.tsx:123
-#: ../auth/src/web/pages/access-users-page.tsx:289
-#: ../auth/src/web/pages/access-users-page.tsx:345
-#: ../auth/src/web/pages/access-users-page.tsx:369
+#: ../auth/src/web/pages/access-permissions-page.tsx:124
+#: ../auth/src/web/pages/access-users-page.tsx:290
+#: ../auth/src/web/pages/access-users-page.tsx:346
+#: ../auth/src/web/pages/access-users-page.tsx:370
+#: ../notification/src/web/components/messenger-modal.tsx:426
 msgid "Role"
 msgstr "Role"
 
-#: ../auth/src/web/pages/access-permissions-page.tsx:75
+#: ../notification/src/web/components/messenger-modal.tsx:435
+msgid "Role or user"
+msgstr "Role or user"
+
+#: ../auth/src/web/pages/access-permissions-page.tsx:76
 msgid "Role permission matrix"
 msgstr "Role permission matrix"
 
-#: ../auth/src/web/pages/access-users-page.tsx:412
+#: ../auth/src/web/pages/access-users-page.tsx:413
 msgid "Role updated"
 msgstr "Role updated"
 
-#: ../auth/src/web/pages/access-users-page.tsx:405
+#: ../auth/src/web/pages/access-users-page.tsx:406
 msgid "Save name"
 msgstr "Save name"
 
-#: ../auth/src/web/pages/account-profile-page.tsx:108
+#: ../auth/src/web/pages/account-profile-page.tsx:109
 msgid "Save profile"
 msgstr "Save profile"
 
-#: ../auth/src/web/pages/access-users-page.tsx:173
+#: ../notification/src/web/components/messenger-modal.tsx:451
+msgid "Schedule"
+msgstr "Schedule"
+
+#: ../notification/src/web/components/messenger-modal.tsx:461
+msgid "Schedule announcement"
+msgstr "Schedule announcement"
+
+#: ../auth/src/web/pages/access-users-page.tsx:174
 msgid "Search names"
 msgstr "Search names"
 
-#: ../auth/src/web/pages/access-users-page.tsx:165
+#: ../notification/src/web/components/messenger-modal.tsx:179
+msgid "Search people"
+msgstr "Search people"
+
+#: ../auth/src/web/pages/access-users-page.tsx:166
 msgid "Search users"
 msgstr "Search users"
 
-#: ../__shared__/src/web/components/application-shell.tsx:95
+#: ../__shared__/src/web/components/application-shell.tsx:107
 #: ../__shared__/src/web/components/section-header.tsx:41
-#: ../auth/src/web/pages/account-security-page.tsx:91
+#: ../auth/src/web/pages/account-security-page.tsx:92
 msgid "Security"
 msgstr "Security"
 
-#: ../home/src/web/pages/home-page.tsx:164
+#: ../notification/src/web/components/messenger-modal.tsx:369
+msgid "Select a conversation"
+msgstr "Select a conversation"
+
+#: ../home/src/web/pages/home-page.tsx:167
 msgid "Select file to upload"
 msgstr "Select file to upload"
 
-#: ../auth/src/web/pages/access-users-page.tsx:337
+#: ../auth/src/web/pages/access-users-page.tsx:338
 msgid "Selected identity"
 msgstr "Selected identity"
 
-#: ../home/src/web/pages/home-page.tsx:170
+#: ../home/src/web/pages/home-page.tsx:173
 msgid "Selected upload preview"
 msgstr "Selected upload preview"
 
-#: ../auth/src/web/pages/account-security-page.tsx:175
+#: ../auth/src/web/pages/account-security-page.tsx:176
 msgid "Self-service deletion permanently removes your identity, credentials, and sessions."
 msgstr "Self-service deletion permanently removes your identity, credentials, and sessions."
 
-#: ../auth/src/web/pages/access-permissions-page.tsx:176
+#: ../notification/src/web/components/messenger-modal.tsx:353
+msgid "Send message"
+msgstr "Send message"
+
+#: ../auth/src/web/pages/access-permissions-page.tsx:177
 msgid "Server allowed this permission"
 msgstr "Server allowed this permission"
 
-#: ../auth/src/web/pages/access-permissions-page.tsx:177
+#: ../auth/src/web/pages/access-permissions-page.tsx:178
 msgid "Server denied this permission"
 msgstr "Server denied this permission"
 
-#: ../home/src/web/pages/home-page.tsx:103
+#: ../home/src/web/pages/home-page.tsx:106
 msgid "Session active"
 msgstr "Session active"
 
-#: ../auth/src/web/pages/access-sessions-page.tsx:150
-#: ../auth/src/web/pages/account-sessions-page.tsx:117
+#: ../auth/src/web/pages/access-sessions-page.tsx:151
+#: ../auth/src/web/pages/account-sessions-page.tsx:118
 msgid "Session revoked"
 msgstr "Session revoked"
 
-#: ../__shared__/src/web/components/application-shell.tsx:92
+#: ../__shared__/src/web/components/application-shell.tsx:104
 #: ../__shared__/src/web/components/section-header.tsx:36
 #: ../__shared__/src/web/components/section-header.tsx:42
-#: ../auth/src/web/pages/access-permissions-page.tsx:33
-#: ../auth/src/web/pages/account-sessions-page.tsx:62
+#: ../auth/src/web/pages/access-permissions-page.tsx:34
+#: ../auth/src/web/pages/account-sessions-page.tsx:63
 msgid "Sessions"
 msgstr "Sessions"
 
-#: ../auth/src/web/pages/access-sessions-page.tsx:68
-#: ../auth/src/web/pages/account-sessions-page.tsx:41
+#: ../auth/src/web/pages/access-sessions-page.tsx:69
+#: ../auth/src/web/pages/account-sessions-page.tsx:42
 msgid "Sessions could not be loaded"
 msgstr "Sessions could not be loaded"
 
-#: ../auth/src/web/pages/access-permissions-page.tsx:42
-#: ../auth/src/web/pages/access-users-page.tsx:429
+#: ../auth/src/web/pages/access-permissions-page.tsx:43
+#: ../auth/src/web/pages/access-users-page.tsx:430
 msgid "Set password"
 msgstr "Set password"
 
-#: ../auth/src/web/pages/access-permissions-page.tsx:41
-#: ../auth/src/web/pages/access-users-page.tsx:416
+#: ../auth/src/web/pages/access-permissions-page.tsx:42
+#: ../auth/src/web/pages/access-users-page.tsx:417
 msgid "Set role"
 msgstr "Set role"
 
@@ -757,27 +880,35 @@ msgstr "Sign in"
 msgid "Sign in to the control plane"
 msgstr "Sign in to the control plane"
 
-#: ../__shared__/src/web/components/application-shell.tsx:236
-#: ../auth/src/web/pages/account-sessions-page.tsx:174
+#: ../__shared__/src/web/components/application-shell.tsx:272
+#: ../auth/src/web/pages/account-sessions-page.tsx:175
 msgid "Sign out"
 msgstr "Sign out"
 
 #. placeholder {0}: labelFor(currentRole)
-#: ../auth/src/web/pages/access-permissions-page.tsx:70
+#: ../auth/src/web/pages/access-permissions-page.tsx:71
 msgid "Signed in as {0}"
 msgstr "Signed in as {0}"
 
-#: ../__shared__/src/web/components/application-shell.tsx:224
+#: ../notification/src/web/components/messenger-modal.tsx:165
+msgid "Start a conversation"
+msgstr "Start a conversation"
+
+#: ../__shared__/src/web/components/application-shell.tsx:251
 msgid "Stop impersonating"
 msgstr "Stop impersonating"
 
-#: ../auth/src/web/pages/access-permissions-page.tsx:35
+#: ../auth/src/web/pages/access-permissions-page.tsx:36
 msgid "Storage"
 msgstr "Storage"
 
-#: ../home/src/web/pages/home-page.tsx:116
+#: ../home/src/web/pages/home-page.tsx:119
 msgid "Storage endpoint"
 msgstr "Storage endpoint"
+
+#: ../notification/src/web/components/messenger-modal.tsx:160
+msgid "Stored securely in your inbox"
+msgstr "Stored securely in your inbox"
 
 #: ../__shared__/src/web/components/language-switcher.tsx:18
 msgid "Switch to Bengali"
@@ -787,7 +918,7 @@ msgstr "Switch to Bengali"
 msgid "Switch to English"
 msgstr "Switch to English"
 
-#: ../auth/src/web/pages/access-users-page.tsx:116
+#: ../auth/src/web/pages/access-users-page.tsx:117
 msgid "The administrator action could not be completed"
 msgstr "The administrator action could not be completed"
 
@@ -795,153 +926,158 @@ msgstr "The administrator action could not be completed"
 msgid "The credentials did not match an active account."
 msgstr "The credentials did not match an active account."
 
-#: ../auth/src/web/pages/account-sessions-page.tsx:72
+#: ../auth/src/web/pages/account-sessions-page.tsx:73
 msgid "The current browser is marked and cannot be revoked individually."
 msgstr "The current browser is marked and cannot be revoked individually."
 
-#: ../home/src/web/pages/home-page.tsx:96
+#: ../home/src/web/pages/home-page.tsx:99
 msgid "The portal is connected to Better Auth, the Elysia API, PostgreSQL, Redis, and S3-compatible storage. Your role determines which controls are available."
 msgstr "The portal is connected to Better Auth, the Elysia API, PostgreSQL, Redis, and S3-compatible storage. Your role determines which controls are available."
 
-#: ../auth/src/web/pages/access-users-page.tsx:104
+#: ../auth/src/web/pages/access-users-page.tsx:105
 msgid "The selected identity could not be loaded"
 msgstr "The selected identity could not be loaded"
 
-#: ../auth/src/web/pages/access-users-page.tsx:82
+#: ../auth/src/web/pages/access-users-page.tsx:83
 msgid "The user directory could not be loaded"
 msgstr "The user directory could not be loaded"
 
-#: ../auth/src/web/pages/account-security-page.tsx:197
+#: ../auth/src/web/pages/account-security-page.tsx:198
 msgid "This action cannot be undone. Enter your current password to continue."
 msgstr "This action cannot be undone. Enter your current password to continue."
 
-#: ../auth/src/web/pages/access-sessions-page.tsx:162
+#: ../notification/src/web/components/notification-permission-alert.tsx:39
+msgid "This browser cannot receive Firebase notifications. You can still open Messenger to check for updates."
+msgstr "This browser cannot receive Firebase notifications. You can still open Messenger to check for updates."
+
+#: ../auth/src/web/pages/access-sessions-page.tsx:163
 msgid "This identity has no active browser sessions."
 msgstr "This identity has no active browser sessions."
 
-#: ../auth/src/web/pages/account-profile-page.tsx:44
+#: ../auth/src/web/pages/account-profile-page.tsx:45
 msgid "This is your current username."
 msgstr "This is your current username."
 
-#: ../auth/src/web/pages/access-users-page.tsx:465
+#: ../auth/src/web/pages/access-users-page.tsx:466
 msgid "This permanently deletes the user, accounts, and sessions. It cannot be undone."
 msgstr "This permanently deletes the user, accounts, and sessions. It cannot be undone."
 
 #. placeholder {0}: post.title
-#: ../home/src/web/pages/home-page.tsx:219
+#: ../home/src/web/pages/home-page.tsx:222
 msgid "This permanently removes “{0}”."
 msgstr "This permanently removes “{0}”."
 
-#: ../home/src/web/pages/home-page.tsx:132
+#: ../home/src/web/pages/home-page.tsx:135
+#: ../notification/src/web/components/messenger-modal.tsx:415
 msgid "Title"
 msgstr "Title"
 
-#: ../__shared__/src/web/components/application-shell.tsx:230
+#: ../__shared__/src/web/components/application-shell.tsx:266
 msgid "Toggle theme"
 msgstr "Toggle theme"
 
-#: ../auth/src/web/pages/access-users-page.tsx:451
+#: ../auth/src/web/pages/access-users-page.tsx:452
 msgid "Unban"
 msgstr "Unban"
 
-#: ../auth/src/web/pages/access-sessions-page.tsx:136
-#: ../auth/src/web/pages/account-sessions-page.tsx:101
+#: ../auth/src/web/pages/access-sessions-page.tsx:137
+#: ../auth/src/web/pages/account-sessions-page.tsx:102
 msgid "Unknown device"
 msgstr "Unknown device"
 
-#: ../auth/src/web/pages/access-sessions-page.tsx:139
-#: ../auth/src/web/pages/account-sessions-page.tsx:106
+#: ../auth/src/web/pages/access-sessions-page.tsx:140
+#: ../auth/src/web/pages/account-sessions-page.tsx:107
 msgid "Unknown IP"
 msgstr "Unknown IP"
 
-#: ../auth/src/web/pages/account-connections-page.tsx:105
+#: ../auth/src/web/pages/account-connections-page.tsx:106
 msgid "Unlink"
 msgstr "Unlink"
 
 #. placeholder {0}: account.providerId
-#: ../auth/src/web/pages/account-connections-page.tsx:109
+#: ../auth/src/web/pages/account-connections-page.tsx:110
 msgid "Unlink {0}?"
 msgstr "Unlink {0}?"
 
-#: ../auth/src/web/pages/account-connections-page.tsx:126
+#: ../auth/src/web/pages/account-connections-page.tsx:127
 msgid "Unlink account"
 msgstr "Unlink account"
 
-#: ../auth/src/web/pages/access-permissions-page.tsx:39
+#: ../auth/src/web/pages/access-permissions-page.tsx:40
 msgid "Update"
 msgstr "Update"
 
-#: ../auth/src/web/pages/access-permissions-page.tsx:48
+#: ../auth/src/web/pages/access-permissions-page.tsx:49
 msgid "Upload"
 msgstr "Upload"
 
-#: ../home/src/web/pages/home-page.tsx:117
+#: ../home/src/web/pages/home-page.tsx:120
 msgid "Upload enabled"
 msgstr "Upload enabled"
 
-#: ../home/src/web/pages/home-page.tsx:175
+#: ../home/src/web/pages/home-page.tsx:178
 msgid "Upload file"
 msgstr "Upload file"
 
-#: ../auth/src/web/pages/access-users-page.tsx:442
+#: ../auth/src/web/pages/access-users-page.tsx:443
 msgid "User banned"
 msgstr "User banned"
 
-#: ../auth/src/web/pages/access-users-page.tsx:136
+#: ../auth/src/web/pages/access-users-page.tsx:137
 msgid "User created"
 msgstr "User created"
 
-#: ../auth/src/web/pages/access-users-page.tsx:159
+#: ../auth/src/web/pages/access-users-page.tsx:160
 msgid "User directory"
 msgstr "User directory"
 
-#: ../auth/src/web/pages/access-users-page.tsx:475
+#: ../auth/src/web/pages/access-users-page.tsx:476
 msgid "User removed"
 msgstr "User removed"
 
-#: ../auth/src/web/pages/access-sessions-page.tsx:93
+#: ../auth/src/web/pages/access-sessions-page.tsx:94
 msgid "User sessions"
 msgstr "User sessions"
 
-#: ../auth/src/web/pages/access-users-page.tsx:442
+#: ../auth/src/web/pages/access-users-page.tsx:443
 msgid "User unbanned"
 msgstr "User unbanned"
 
-#: ../auth/src/web/pages/access-users-page.tsx:401
+#: ../auth/src/web/pages/access-users-page.tsx:402
 msgid "User updated"
 msgstr "User updated"
 
-#: ../auth/src/web/pages/access-users-page.tsx:274
-#: ../auth/src/web/pages/access-users-page.tsx:349
-#: ../auth/src/web/pages/account-profile-page.tsx:80
+#: ../auth/src/web/pages/access-users-page.tsx:275
+#: ../auth/src/web/pages/access-users-page.tsx:350
+#: ../auth/src/web/pages/account-profile-page.tsx:81
 #: ../auth/src/web/pages/login-page.tsx:61
 #: ../auth/src/web/pages/login-page.tsx:69
 msgid "Username"
 msgstr "Username"
 
-#: ../auth/src/web/pages/account-profile-page.tsx:51
+#: ../auth/src/web/pages/account-profile-page.tsx:52
 msgid "Username availability could not be checked."
 msgstr "Username availability could not be checked."
 
-#: ../auth/src/web/pages/account-profile-page.tsx:49
+#: ../auth/src/web/pages/account-profile-page.tsx:50
 msgid "Username is available."
 msgstr "Username is available."
 
-#: ../auth/src/web/pages/account-profile-page.tsx:49
+#: ../auth/src/web/pages/account-profile-page.tsx:50
 msgid "Username is taken."
 msgstr "Username is taken."
 
-#: ../__shared__/src/web/components/application-shell.tsx:91
+#: ../__shared__/src/web/components/application-shell.tsx:103
 #: ../__shared__/src/web/components/section-header.tsx:35
-#: ../auth/src/web/pages/access-permissions-page.tsx:32
+#: ../auth/src/web/pages/access-permissions-page.tsx:33
 msgid "Users"
 msgstr "Users"
 
-#: ../auth/src/web/pages/access-sessions-page.tsx:51
+#: ../auth/src/web/pages/access-sessions-page.tsx:52
 msgid "Users could not be loaded"
 msgstr "Users could not be loaded"
 
-#: ../auth/src/web/pages/access-permissions-page.tsx:38
+#: ../auth/src/web/pages/access-permissions-page.tsx:39
 msgid "View"
 msgstr "View"
 
@@ -950,16 +1086,20 @@ msgid "Welcome back"
 msgstr "Welcome back"
 
 #. placeholder {0}: sessionQuery.data?.user.name ?? t`operator`
-#: ../home/src/web/pages/home-page.tsx:93
+#: ../home/src/web/pages/home-page.tsx:96
 msgid "Welcome, {0}."
 msgstr "Welcome, {0}."
 
+#: ../notification/src/web/components/messenger-modal.tsx:345
+msgid "Write a message"
+msgstr "Write a message"
+
 #. placeholder {0}: user.name
-#: ../__shared__/src/web/components/application-shell.tsx:247
+#: ../__shared__/src/web/components/application-shell.tsx:283
 msgid "You are viewing the portal as {0}. Use the account menu to return to your administrator session."
 msgstr "You are viewing the portal as {0}. Use the account menu to return to your administrator session."
 
-#: ../auth/src/web/pages/account-connections-page.tsx:111
+#: ../auth/src/web/pages/account-connections-page.tsx:112
 msgid "You will no longer be able to sign in through this provider."
 msgstr "You will no longer be able to sign in through this provider."
 
@@ -967,11 +1107,11 @@ msgstr "You will no longer be able to sign in through this provider."
 msgid "you@example.com"
 msgstr "you@example.com"
 
-#: ../auth/src/web/pages/account-profile-page.tsx:60
+#: ../auth/src/web/pages/account-profile-page.tsx:61
 msgid "Your identity"
 msgstr "Your identity"
 
-#: ../auth/src/web/pages/account-profile-page.tsx:70
+#: ../auth/src/web/pages/account-profile-page.tsx:71
 msgid "Your public name and normalized sign-in username."
 msgstr "Your public name and normalized sign-in username."
 

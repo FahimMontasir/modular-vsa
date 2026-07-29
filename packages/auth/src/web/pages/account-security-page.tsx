@@ -3,6 +3,7 @@ import { KeyRoundIcon, MailIcon, Trash2Icon } from "lucide-react";
 import { useState, type FormEvent } from "react";
 
 import { PASSWORD_MAX_LENGTH, PASSWORD_MIN_LENGTH } from "@modular-vsa/env/auth-policy";
+import { trackEvent } from "@modular-vsa/firebase/web/telemetry";
 import { PageContainer } from "@modular-vsa/shared/web/components/page-container";
 import { SectionHeader } from "@modular-vsa/shared/web/components/section-header";
 import { Alert, AlertDescription, AlertTitle } from "@modular-vsa/ui/alert";
@@ -46,8 +47,10 @@ export function AccountSecurityPage() {
       });
       form.reset();
       await auth.refresh();
+      await trackEvent("security_action", { action: "password_change", outcome: "success" });
       toast.success(t`Password changed and other sessions revoked`);
     } catch {
+      void trackEvent("security_action", { action: "password_change", outcome: "failed" });
       toast.error(t`Password could not be changed`);
     } finally {
       setPending(undefined);
@@ -64,8 +67,10 @@ export function AccountSecurityPage() {
         callbackURL: "/account/security",
       });
       await auth.refresh();
+      await trackEvent("security_action", { action: "email_change", outcome: "success" });
       toast.success(t`Email address updated`);
     } catch {
+      void trackEvent("security_action", { action: "email_change", outcome: "failed" });
       toast.error(t`Email address could not be changed`);
     } finally {
       setPending(undefined);
@@ -76,9 +81,11 @@ export function AccountSecurityPage() {
     setPending("delete");
     try {
       await authClient.deleteUser({ password });
+      await trackEvent("security_action", { action: "account_delete", outcome: "success" });
       await auth.refresh();
       window.location.assign("/login");
     } catch {
+      void trackEvent("security_action", { action: "account_delete", outcome: "failed" });
       toast.error(t`Account could not be deleted`);
       setPending(undefined);
     }

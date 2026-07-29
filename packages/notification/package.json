@@ -1,0 +1,45 @@
+{
+  "name": "@modular-vsa/notification",
+  "version": "0.0.0",
+  "private": true,
+  "type": "module",
+  "exports": {
+    "./doc": {
+      "default": "./README.md"
+    },
+    "./*": {
+      "default": "./src/*.ts"
+    },
+    "./server": {
+      "default": "./src/server/index.ts"
+    },
+    "./components/*": {
+      "default": "./src/web/components/*.tsx"
+    }
+  },
+  "scripts": {
+    "test:unit": "bun test __tests__/unit",
+    "test:integration": "bun --env-file=../../apps/server/.env.local test __tests__/integration"
+  },
+  "dependencies": {
+    "@lingui/react": "catalog:",
+    "@modular-vsa/auth": "workspace:*",
+    "@modular-vsa/db": "workspace:*",
+    "@modular-vsa/firebase": "workspace:*",
+    "@modular-vsa/jobs": "workspace:*",
+    "@modular-vsa/shared": "workspace:*",
+    "@modular-vsa/ui": "workspace:*",
+    "@tanstack/react-query": "catalog:",
+    "drizzle-orm": "catalog:",
+    "drizzle-typebox": "catalog:",
+    "elysia": "catalog:",
+    "lucide-react": "1.16.0"
+  },
+  "devDependencies": {
+    "@elysiajs/eden": "catalog:",
+    "@modular-vsa/config": "workspace:*"
+  },
+  "peerDependencies": {
+    "react": "catalog:"
+  }
+}

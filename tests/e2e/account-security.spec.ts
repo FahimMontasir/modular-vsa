@@ -3,21 +3,12 @@ import { expect, test } from "@playwright/test";
 import {
   authenticateAsUser,
   createManagedUser,
-  isMobileProject,
   removeManagedUser,
 } from "./utils/auth";
 
-test("security page changes credentials and deletes a disposable account", async ({
-  page,
-  request,
-}, testInfo) => {
+test("security page changes credentials and deletes a disposable account", async ({ page, request }) => {
   await page.goto("/account/security");
   await expect(page.getByRole("heading", { name: "Security" })).toBeVisible();
-
-  if (isMobileProject(testInfo.project.name)) {
-    await expect(page.getByText("Delete account", { exact: true })).toBeVisible();
-    return;
-  }
 
   const user = await createManagedUser(request, "Security");
   const newPassword = "playwright-updated-password-123";
@@ -37,7 +28,7 @@ test("security page changes credentials and deletes a disposable account", async
     await page.getByLabel("Current password").last().fill(newPassword);
     await page.getByRole("button", { name: "Delete my account" }).click();
     await page.getByRole("button", { name: "Delete permanently" }).click();
-    await expect(page).toHaveURL(/\/login$/);
+    await expect(page).toHaveURL(/\/login(?:\?redirect=%2F)?$/);
   } finally {
     await removeManagedUser(request, user.id);
   }

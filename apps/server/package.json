@@ -25,6 +25,7 @@
     "@modular-vsa/env": "workspace:*",
     "@modular-vsa/home": "workspace:*",
     "@modular-vsa/jobs": "workspace:*",
+    "@modular-vsa/notification": "workspace:*",
     "@modular-vsa/shared": "workspace:*",
     "@sinclair/typebox": "catalog:",
     "better-auth": "catalog:",

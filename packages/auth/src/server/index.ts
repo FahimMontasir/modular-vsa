@@ -11,6 +11,7 @@ import { PASSWORD_MAX_LENGTH, PASSWORD_MIN_LENGTH } from "@modular-vsa/env/auth-
 import { env } from "@modular-vsa/env/server";
 
 import { ac, roles } from "../access-control";
+import { publishAuthNotification } from "./notification-hooks";
 
 export const AUTH_ACCEPT_METHODS = ["POST", "GET"];
 
@@ -65,6 +66,64 @@ function createAuthConfig(appName: string) {
 
       delete: async (key) => {
         await redis.del(key);
+      },
+    },
+    databaseHooks: {
+      user: {
+        update: {
+          after: async (updatedUser) =>
+            publishAuthNotification({
+              source: "account",
+              title: "Account updated",
+              body: "Your account details were updated.",
+              recipientIds: [updatedUser.id],
+              actionUrl: "/account/profile",
+            }),
+        },
+      },
+      session: {
+        create: {
+          after: async (createdSession) =>
+            publishAuthNotification({
+              source: "security",
+              title: "New sign-in",
+              body: "A new session was created for your account.",
+              recipientIds: [createdSession.userId],
+              actionUrl: "/account/sessions",
+            }),
+        },
+        delete: {
+          after: async (deletedSession) =>
+            publishAuthNotification({
+              source: "security",
+              title: "Session ended",
+              body: "A session was removed from your account.",
+              recipientIds: [deletedSession.userId],
+              actionUrl: "/account/sessions",
+            }),
+        },
+      },
+      account: {
+        create: {
+          after: async (createdAccount) =>
+            publishAuthNotification({
+              source: "account",
+              title: "Account connected",
+              body: "A sign-in method was connected to your account.",
+              recipientIds: [createdAccount.userId],
+              actionUrl: "/account/connections",
+            }),
+        },
+        delete: {
+          after: async (deletedAccount) =>
+            publishAuthNotification({
+              source: "account",
+              title: "Account disconnected",
+              body: "A sign-in method was removed from your account.",
+              recipientIds: [deletedAccount.userId],
+              actionUrl: "/account/connections",
+            }),
+        },
       },
     },
     rateLimit: {

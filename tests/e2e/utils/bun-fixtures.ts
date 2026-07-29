@@ -27,3 +27,15 @@ export async function seedExternalAccount(userId: string, providerId: string, ac
 export async function deleteUploadedFile(key: string) {
   await runFixture("delete-upload.ts", key);
 }
+
+export async function deleteNotificationConversation(id: string) {
+  await runFixture("delete-notification.ts", "conversation-id", id);
+}
+
+export async function deleteDirectNotificationConversation(firstUserId: string, secondUserId: string) {
+  await runFixture("delete-notification.ts", "direct-pair", firstUserId, secondUserId);
+}
+
+export async function deleteNotificationAnnouncement(title: string) {
+  await runFixture("delete-notification.ts", "announcement-title", title);
+}

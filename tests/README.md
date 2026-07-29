@@ -23,30 +23,32 @@ npm --prefix tests run test:show-report
 ```
 
 Playwright starts `bun run dev` when needed. That command starts PostgreSQL, Redis, Garage, the API,
-and the portal and pushes the tracked local schema. The configuration uses one worker so mutations
-against these shared services remain deterministic.
+and the portal and pushes the tracked local schema. The configuration runs the desktop suite with
+four workers and enables full parallelism. Mutation tests use unique fixtures and targeted cleanup
+so they can safely share these services.
 
 ## Authentication projects
 
-`login-desktop` and `login-mobile` run `login.setup.ts` before their dependent browser projects.
-The setup checks invalid credentials, username/email behavior, and redirect preservation, then
-saves the bootstrap administrator state under `.auth/`. Desktop Chrome and Mobile Chrome never run
-before their matching login project succeeds.
+The `login` project runs `login.setup.ts` before the `Desktop Chrome` project. It verifies the
+unauthenticated redirect, installs a bootstrap administrator session through the shared Bun fixture,
+then saves that browser state under `.auth/`. This avoids making every desktop test depend on the
+rate-limited sign-in form. The desktop tests do not run until authentication setup succeeds.
 
 ## Page matrix
 
-| Page | Spec | Desktop Chrome | Mobile Chrome |
-| --- | --- | --- | --- |
-| Login | `login.setup.ts` | Validation, username/email login, redirect, saved state | Validation, username/email login, redirect, saved state |
-| Home | `home.spec.ts` | Create, publish/update, upload, delete | Responsive smoke |
-| Profile | `account-profile.spec.ts` | Update disposable name and username | Responsive smoke |
-| Connections | `account-connections.spec.ts` | Inspect and unlink disposable credential | Responsive smoke |
-| Security | `account-security.spec.ts` | Change disposable password/email, delete account | Responsive smoke |
-| Account sessions | `account-sessions.spec.ts` | Create sessions, revoke, sign out | Responsive smoke |
-| Users | `access-users.spec.ts` | Create, edit, role/password, ban/unban, impersonate, remove | Responsive smoke |
-| Access sessions | `access-sessions.spec.ts` | Select identity, revoke one session, revoke all | Responsive smoke |
-| Permissions | `access-permissions.spec.ts` | Allowed and denied local/server checks | Responsive smoke |
-| Shared shell | `shared-shell.spec.ts` | Navigation, breadcrumbs, locale persistence | Responsive navigation |
+| Page | Spec | Desktop Chrome |
+| --- | --- | --- |
+| Login | `login.setup.ts` | Unauthenticated redirect and saved administrator state |
+| Home | `home.spec.ts` | Create, publish/update, upload, delete |
+| Profile | `account-profile.spec.ts` | Update disposable name and username |
+| Connections | `account-connections.spec.ts` | Inspect and unlink disposable credential |
+| Security | `account-security.spec.ts` | Change disposable password/email, delete account |
+| Account sessions | `account-sessions.spec.ts` | Create sessions, revoke, sign out |
+| Users | `access-users.spec.ts` | Create, edit, role/password, ban/unban, impersonate, remove |
+| Access sessions | `access-sessions.spec.ts` | Select identity, revoke one session, revoke all |
+| Permissions | `access-permissions.spec.ts` | Allowed and denied local/server checks |
+| Notifications | `notification.spec.ts` | Unread state, direct messages, announcements, desktop dialog geometry |
+| Shared shell | `shared-shell.spec.ts` | Navigation, breadcrumbs, locale persistence |
 
 Redirect-only account and access-control index routes are asserted in their destination-page specs.
 

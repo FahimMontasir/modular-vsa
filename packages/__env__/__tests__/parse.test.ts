@@ -11,7 +11,7 @@ const validServerEnv = {
   PORT: "3000",
   DATABASE_URL: "postgresql://postgres:postgres@localhost:5432/modular_vsa",
   BETTER_AUTH_SECRET: "local-development-secret-at-least-32-characters",
-  BETTER_AUTH_URL: "http://localhost:3000",
+  BETTER_AUTH_URL: "http://localhost:3100",
   BOOTSTRAP_ADMIN_NAME: "Local Administrator",
   BOOTSTRAP_ADMIN_EMAIL: "admin@modular-vsa.local",
   BOOTSTRAP_ADMIN_USERNAME: "admin",
@@ -31,7 +31,7 @@ const validServerEnv = {
 };
 
 const validWebEnv = {
-  VITE_SERVER_URL: "http://localhost:3000/api/v1",
+  VITE_SERVER_URL: "http://localhost:3100/api/v1",
   VITE_FIREBASE_API_KEY: "firebase-api-key",
   VITE_FIREBASE_AUTH_DOMAIN: "travel-horse.firebaseapp.com",
   VITE_FIREBASE_PROJECT_ID: "travel-horse",

@@ -5,6 +5,7 @@ import {
   onMessage as _onMessage,
   onUnregistered as _onUnregistered,
   unregister as _unregister,
+  isSupported,
   type Messaging,
   type MessagePayload,
 } from "firebase/messaging";
@@ -14,6 +15,10 @@ import { env } from "@modular-vsa/env/web";
 import { getApp } from "./init";
 
 let messaging: Messaging | null = null;
+
+export async function isMessagingSupported(): Promise<boolean> {
+  return isSupported();
+}
 
 /**
  * Returns the singleton Firebase Messaging instance, initializing it on first call.

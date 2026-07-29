@@ -1,20 +1,11 @@
 import { expect, test } from "@playwright/test";
 
-import {
-  findManagedUser,
-  isMobileProject,
-  removeManagedUser,
-} from "./utils/auth";
+import { findManagedUser, removeManagedUser } from "./utils/auth";
 
-test("users page completes the administrator identity workflow", async ({ page, request }, testInfo) => {
+test("users page completes the administrator identity workflow", async ({ page, request }) => {
   await page.goto("/access-control");
   await expect(page).toHaveURL(/\/access-control\/users$/);
   await expect(page.getByRole("heading", { name: "Access Control" })).toBeVisible();
-
-  if (isMobileProject(testInfo.project.name)) {
-    await expect(page.getByText("User directory", { exact: true })).toBeVisible();
-    return;
-  }
 
   const suffix = `${Date.now()}${crypto.randomUUID().replaceAll("-", "").slice(0, 6)}`;
   const user = {

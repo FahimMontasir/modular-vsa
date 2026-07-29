@@ -25,6 +25,9 @@ export default defineConfig({
       presets: [linguiTransformerBabelPreset(), reactCompilerPreset()],
     }),
     VitePWA({
+      strategies: "injectManifest",
+      srcDir: "src",
+      filename: "sw.ts",
       registerType: "autoUpdate",
       manifest: {
         name: "modular-vsa",
@@ -33,7 +36,8 @@ export default defineConfig({
         theme_color: "#0c0c0c",
       },
       pwaAssets: { disabled: false, config: true },
-      devOptions: { enabled: true },
+      devOptions: { enabled: true, type: "module" },
+      injectManifest: { minify: true },
     }),
   ]),
   build: {

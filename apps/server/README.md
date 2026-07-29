@@ -55,10 +55,10 @@ portal, and Drizzle Studio. The development endpoints are:
 
 | Service                   | URL                                                     |
 | ------------------------- | ------------------------------------------------------- |
-| API                       | http://localhost:3000                                   |
-| Application API docs      | http://localhost:3000/api-docs                          |
-| Better Auth API reference | http://localhost:3000/api/auth/reference                |
-| Better Auth OpenAPI JSON  | http://localhost:3000/api/auth/open-api/generate-schema |
+| API                       | http://localhost:3100                                   |
+| Application API docs      | http://localhost:3100/api-docs                          |
+| Better Auth API reference | http://localhost:3100/api/auth/reference                |
+| Better Auth OpenAPI JSON  | http://localhost:3100/api/auth/open-api/generate-schema |
 | Drizzle Studio            | https://local.drizzle.studio                            |
 | Garage S3 API             | http://localhost:3900                                   |
 | Garage dashboard          | http://localhost:3909                                   |

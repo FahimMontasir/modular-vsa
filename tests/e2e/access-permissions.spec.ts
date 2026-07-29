@@ -3,19 +3,13 @@ import { expect, test } from "@playwright/test";
 import {
   authenticateAsUser,
   createManagedUser,
-  isMobileProject,
   removeManagedUser,
 } from "./utils/auth";
 
-test("permissions page compares local and server policy decisions", async ({
-  page,
-  request,
-}, testInfo) => {
+test("permissions page compares local and server policy decisions", async ({ page, request }) => {
   await page.goto("/access-control/permissions");
   await expect(page.getByRole("heading", { name: "Access Control" })).toBeVisible();
   await expect(page.getByText("Role permission matrix", { exact: true })).toBeVisible();
-
-  if (isMobileProject(testInfo.project.name)) return;
 
   const user = await createManagedUser(request, "Permissions");
   try {

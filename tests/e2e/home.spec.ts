@@ -1,17 +1,12 @@
 import { expect, test } from "@playwright/test";
 
 import { deleteUploadedFile } from "./utils/bun-fixtures";
-import { isMobileProject, removePostsByTitle } from "./utils/auth";
+import { removePostsByTitle } from "./utils/auth";
 
-test("home page manages posts and uploads", async ({ page, request }, testInfo) => {
+test("home page manages posts and uploads", async ({ page, request }) => {
   await page.goto("/");
   await expect(page.getByRole("heading", { name: /Welcome,/ })).toBeVisible();
   await expect(page.getByText("Session active")).toBeVisible();
-
-  if (isMobileProject(testInfo.project.name)) {
-    await expect(page.getByText("Posts", { exact: true })).toBeVisible();
-    return;
-  }
 
   const suffix = `${Date.now()}-${crypto.randomUUID().slice(0, 8)}`;
   const title = `PW Home ${suffix}`;

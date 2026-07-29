@@ -14,7 +14,7 @@ type CORSConfig = Parameters<typeof cors>[0];
  */
 export const CORS_CONFIG = {
   origin: env.CORS_ORIGIN,
-  methods: ["GET", "POST", "PATCH", "DELETE", "OPTIONS"],
+  methods: ["GET", "POST", "PUT", "PATCH", "DELETE", "OPTIONS"],
   allowedHeaders: ["Content-Type", "Authorization"],
   credentials: true,
 } satisfies CORSConfig;

@@ -1,5 +1,6 @@
 import { secureAPI } from "@modular-vsa/auth/server/secure-api";
 import { HomeRoutes } from "@modular-vsa/home/server/controllers/routes";
+import { NotificationRoutes } from "@modular-vsa/notification/server/controllers/routes";
 
 /**
  * This is the main entry point for the API version 1 routes. It is exported as APIV1 and can be
@@ -12,4 +13,6 @@ import { HomeRoutes } from "@modular-vsa/home/server/controllers/routes";
 export const APIV1 = secureAPI({
   prefix: "/api/v1",
   // sanitize: [Bun.escapeHTML], // default is true
-}).use(HomeRoutes);
+})
+  .use(HomeRoutes)
+  .use(NotificationRoutes);

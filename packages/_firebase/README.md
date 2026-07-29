@@ -50,6 +50,7 @@ Each module is a standalone file importable via sub-path exports:
 import { getApp } from "@modular-vsa/firebase/web/init";
 import { logEvent } from "@modular-vsa/firebase/web/analytics";
 import { requestFcmToken } from "@modular-vsa/firebase/web/messaging";
+import { traceAsync } from "@modular-vsa/firebase/web/performance";
 ```
 
 ### `web/init`
@@ -86,24 +87,6 @@ Reference: https://firebase.google.com/docs/analytics
 > see https://firebase.google.com/docs/cloud-messaging/js/client#register
 
 Reference: https://firebase.google.com/docs/cloud-messaging
-
-### `web/remote-config`
-
-| Export                       | Description                                                            |
-| ---------------------------- | ---------------------------------------------------------------------- |
-| `getRemoteConfig(settings?)` | Returns the `RemoteConfig` instance (lazy-init, 1-hour fetch interval) |
-| `fetchAndActivate()`         | Fetches and activates latest config, returns `boolean`                 |
-| `getString(key)`             | Returns a string config value                                          |
-| `getNumber(key)`             | Returns a number config value                                          |
-| `getBoolean(key)`            | Returns a boolean config value                                         |
-
-> **A/B Testing** is handled through Remote Config experiments. Create
-> experiments in the Firebase console; they are fetched and applied via
-> `fetchAndActivate()` — no separate SDK is needed.
->
-> Reference: https://firebase.google.com/docs/ab-testing
-
-Reference: https://firebase.google.com/docs/remote-config
 
 ### `web/performance`
 
@@ -180,15 +163,6 @@ onRegistered((fid) => {
 await requestFcmToken();
 ```
 
-### Web — use Remote Config
-
-```ts
-import { fetchAndActivate, getString } from "@modular-vsa/firebase/web/remote-config";
-
-const activated = await fetchAndActivate();
-const greeting = getString("welcome_message");
-```
-
 ### Web — custom performance trace
 
 ```ts
@@ -218,3 +192,14 @@ await sendToTopic({
   notification: { title: "Breaking", body: "Something happened" },
 });
 ```
+
+## Notification service worker and privacy
+
+The portal uses Vite PWA `injectManifest` with `apps/portal/src/sw.ts`. Firebase messages are data-only
+and contain a safe notification type, conversation/message IDs, internal destination, and generic push
+copy. The worker displays the notification and opens the selected Messenger conversation. Authoritative
+content is fetched from PostgreSQL after the app opens.
+
+Analytics and Performance Monitoring initialize lazily after browser hydration. Analytics parameters
+must remain anonymous and content-free: never send user/database/FID identifiers, names, email, search
+text, message bodies, posts, announcement bodies, or external URLs.

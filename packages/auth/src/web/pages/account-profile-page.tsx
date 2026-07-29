@@ -2,6 +2,7 @@ import { useLingui } from "@lingui/react/macro";
 import { UserRoundIcon } from "lucide-react";
 import { useState, type FormEvent } from "react";
 
+import { trackEvent } from "@modular-vsa/firebase/web/telemetry";
 import { PageContainer } from "@modular-vsa/shared/web/components/page-container";
 import { SectionHeader } from "@modular-vsa/shared/web/components/section-header";
 import { Button } from "@modular-vsa/ui/button";
@@ -32,8 +33,10 @@ export function AccountProfilePage() {
         username: getFormString(values, "username").trim(),
       });
       await auth.refresh();
+      await trackEvent("account_action", { action: "profile_update", outcome: "success" });
       toast.success(t`Profile updated`);
     } catch {
+      void trackEvent("account_action", { action: "profile_update", outcome: "failed" });
       toast.error(t`Profile could not be updated`);
     } finally {
       setPending(false);
@@ -71,7 +74,10 @@ export function AccountProfilePage() {
           <CardDescription>{t`Your public name and normalized sign-in username.`}</CardDescription>
         </CardHeader>
         <CardContent>
-          <form onSubmit={updateProfile}>
+          <form
+            key={`${user.id}:${user.name}:${user.displayUsername ?? user.username ?? ""}`}
+            onSubmit={updateProfile}
+          >
             <FieldGroup className="max-w-xl">
               <Field>
                 <FieldLabel htmlFor="profile-name">{t`Name`}</FieldLabel>

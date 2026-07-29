@@ -3,8 +3,10 @@ import { Elysia } from "elysia";
 
 import { ensureBootstrapAdmin } from "@modular-vsa/auth/server/bootstrap-admin";
 import { authHandler } from "@modular-vsa/auth/server/index";
+import { registerAuthNotificationPublisher } from "@modular-vsa/auth/server/notification-hooks";
 import { env } from "@modular-vsa/env/server";
 import { startAllWorkers } from "@modular-vsa/jobs";
+import { publishPlatformNotification } from "@modular-vsa/notification/server";
 import { logger } from "@modular-vsa/shared/common/logger";
 
 import { CORS_CONFIG } from "./utils/cors";
@@ -12,6 +14,7 @@ import { GlobalErrorHandler } from "./utils/globalError";
 import { serverMonitoring } from "./utils/monitoring";
 import { APIV1 } from "./v1-routes";
 
+registerAuthNotificationPublisher(publishPlatformNotification);
 await ensureBootstrapAdmin();
 
 export const app = new Elysia()

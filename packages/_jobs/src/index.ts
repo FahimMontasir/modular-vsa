@@ -3,6 +3,8 @@ import { logger } from "@modular-vsa/shared/common/logger";
 import { startWorkers } from "./core/worker";
 import { JOB_REGISTRY, QUEUE_WORKER_OVERRIDES, registerCronSchedules } from "./registry";
 
+export { closeAllQueues } from "./core/queue";
+
 /** Boot the background pipeline: Starts workers and registers cron schedules. */
 export async function startAllWorkers() {
   const workers = startWorkers(JOB_REGISTRY, QUEUE_WORKER_OVERRIDES);

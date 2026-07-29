@@ -10,6 +10,8 @@ import { Toaster } from "@modular-vsa/ui/sonner";
 import { ThemeProvider } from "@modular-vsa/ui/theme";
 import { TooltipProvider } from "@modular-vsa/ui/tooltip";
 
+import { Telemetry } from "../components/telemetry";
+
 export interface RouterAppContext {
   queryClient: QueryClient;
   auth: AuthContextValue;
@@ -41,6 +43,7 @@ function RootComponent() {
     <>
       <HeadContent />
       <ThemeProvider>
+        <Telemetry />
         <TooltipProvider>
           <Outlet />
         </TooltipProvider>

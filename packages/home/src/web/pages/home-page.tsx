@@ -4,6 +4,7 @@ import { useRef, useState, type FormEvent } from "react";
 
 import { roleHasPermission } from "@modular-vsa/auth/access-control";
 import { authClient } from "@modular-vsa/auth/web/client";
+import { NotificationPermissionAlert } from "@modular-vsa/notification/components/notification-permission-alert";
 import { PageContainer } from "@modular-vsa/shared/web/components/page-container";
 import {
   AlertDialog,
@@ -87,6 +88,7 @@ export function HomePage() {
 
   return (
     <PageContainer>
+      <NotificationPermissionAlert />
       <section className="grid gap-4 rounded-xl border bg-card p-5 sm:p-6 lg:grid-cols-[1fr_auto] lg:items-end">
         <div className="max-w-2xl">
           <p className="text-sm font-medium text-primary">{t`Control plane overview`}</p>

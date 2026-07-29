@@ -3,19 +3,13 @@ import { expect, test } from "@playwright/test";
 import {
   createManagedUser,
   createRemoteSession,
-  isMobileProject,
   removeManagedUser,
 } from "./utils/auth";
 
-test("access sessions page revokes a managed identity's sessions", async ({
-  page,
-  request,
-}, testInfo) => {
+test("access sessions page revokes a managed identity's sessions", async ({ page, request }) => {
   await page.goto("/access-control/sessions");
   await expect(page.getByRole("heading", { name: "Access Control" })).toBeVisible();
   await expect(page.getByText("User sessions", { exact: true })).toBeVisible();
-
-  if (isMobileProject(testInfo.project.name)) return;
 
   const user = await createManagedUser(request, "Access Sessions");
   await createRemoteSession(user);
