@@ -1,0 +1,4 @@
+interface:
+  display_name: "Modular VSA Conventions"
+  short_description: "Follow Modular VSA architecture and code style"
+  default_prompt: "Use $modular-vsa-conventions to implement this change using the repository's established architecture and coding conventions."

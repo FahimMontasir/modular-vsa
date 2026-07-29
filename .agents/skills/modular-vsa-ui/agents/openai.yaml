@@ -1,0 +1,4 @@
+interface:
+  display_name: "Modular VSA UI"
+  short_description: "Build with the project design system"
+  default_prompt: "Use $modular-vsa-ui to build this interface with the project's existing UI and design-system conventions."

@@ -1,25 +1,10 @@
 # modular-vsa
 
-This is a Bun-first TypeScript monorepo that combines React, TanStack Router, Elysia, and Vite+.
+Bun-first TypeScript monorepo with a React/TanStack Router portal, Elysia API, Drizzle/PostgreSQL, Better Auth, shared shadcn/Base UI components, background jobs, S3-compatible storage, Firebase messaging, and Playwright.
 
-## Features
+## Start locally
 
-- **TypeScript** - For type safety and improved developer experience
-- **TanStack Router** - File-based routing with full type safety
-- **TailwindCSS** - Utility-first CSS for rapid UI development
-- **Shared UI package** - shadcn/ui primitives live in `packages/_ui`
-- **Elysia** - Type-safe, high-performance framework
-- **Bun** - Package manager, script runner, application runtime, compiler, and unit-test runner
-- **Vite+** - Vite, formatting, linting, type checking, packaging, and workspace task orchestration
-- **Drizzle** - TypeScript-first ORM
-- **PostgreSQL** - Database engine
-- **Authentication** - Better-Auth
-- **PWA** - Progressive Web App support
-- **Durable Messenger** - PostgreSQL-backed DMs, platform threads, announcements, and Firebase-only realtime notification delivery
-
-## Getting Started
-
-Install Docker Desktop, the Vite+ CLI, and Bun 1.3.13, then run:
+Requires Docker Desktop, Bun 1.3.13, Vite+, and the Node version in `.node-version`.
 
 ```bash
 vp --version
@@ -27,160 +12,62 @@ bun install
 bun dev
 ```
 
-Vite+ uses the Node.js version in `.node-version` internally. Application code, package scripts,
-the server, and unit tests continue to run through Bun. Node/npm are otherwise reserved for the
-separate Playwright package under `tests/`.
+`bun dev` starts PostgreSQL, Redis, Garage, the portal, API, and Drizzle Studio, and pushes the local schema. The tracked `.env.local` files contain development-only values. Never store shared or production secrets there; production must use deployment secrets and `bun run db:migrate`.
 
-`bun dev` starts and health-checks PostgreSQL, Redis, Garage, and the Garage dashboard; pushes the
-local Drizzle schema; then runs the portal, API, and Drizzle Studio concurrently. Docker containers
-remain available after the foreground development processes stop, which keeps restarts fast.
+| Service          | URL                                      |
+| ---------------- | ---------------------------------------- |
+| Portal           | http://localhost:3001                    |
+| API              | http://localhost:3100                    |
+| API docs         | http://localhost:3100/api-docs           |
+| Better Auth docs | http://localhost:3100/api/auth/reference |
+| Drizzle Studio   | https://local.drizzle.studio             |
+| Garage S3 API    | http://localhost:3900                    |
+| Garage dashboard | http://localhost:3909                    |
 
-The API verifies an administrator from the four `BOOTSTRAP_ADMIN_*` variables before it starts
-listening. The tracked local values are development-only. Production must provide secrets and run
-`bun run db:migrate` before server startup; schema push remains a local-development convenience.
+The local Garage dashboard login is `admin` / `admin`.
 
-| Development service       | URL                                      |
-| ------------------------- | ---------------------------------------- |
-| Portal                    | http://localhost:3001                    |
-| API                       | http://localhost:3100                    |
-| Application API docs      | http://localhost:3100/api-docs           |
-| Better Auth API reference | http://localhost:3100/api/auth/reference |
-| Drizzle Studio            | https://local.drizzle.studio             |
-| Garage S3 API             | http://localhost:3900                    |
-| Garage storage dashboard  | http://localhost:3909                    |
-
-The Garage dashboard login is `admin` / `admin`. Use `bun run dkr:stop` to stop infrastructure or
-`bun run dkr:down` to remove its containers and network; named data volumes are preserved.
-
-Host ports, Garage secrets, the WebUI login, and Drizzle Studio host/port are declared explicitly in
-`apps/server/.env.local`. Container images and internal service endpoints remain in Compose. The
-development server prints the Studio URL and storage dashboard credentials at startup. The shared
-logger suppresses console output when `NODE_ENV=production`.
-
-## Local environment and Firebase
-
-Only application `.env.local` files are tracked because they contain deterministic
-local-development values. Ordinary `.env`, staging/production env files, PEM files, and Firebase
-Admin credentials remain ignored. Never put real shared or production secrets in a tracked env file.
-
-The Firebase browser configuration is public and lives in `apps/portal/.env.local`. Firebase Admin uses
-the ignored `packages/_firebase/service-key.json` locally, with production falling back to explicit
-environment credentials or Google Application Default Credentials.
-
-Notification messages and delivery attempts are persisted before FCM is called. Run generated
-Drizzle migrations in production, keep the BullMQ worker and cron scheduler running, and configure the
-portal VAPID key/service worker. FCM acceptance is not a device delivery or read receipt. See
-`packages/notification/README.md` for the schema, API, outbox lifecycle, event/trace catalog, permission
-states, targeting behavior, and troubleshooting.
-
-## UI Customization
-
-React web apps in this stack share shadcn/ui primitives through `packages/_ui`.
-
-- Change design tokens and global styles in `packages/_ui/src/styles/globals.css`
-- Update shared primitives in `packages/_ui/src/components/*`
-- Adjust shadcn aliases or style config in `packages/_ui/components.json`
-
-### Add more shared components
-
-Run this from the project root to add more primitives to the shared UI package:
-
-```bash
-bun run add:ui -- accordion dialog popover sheet table
-```
-
-Import shared components like this:
-
-```tsx
-import { Button } from "@modular-vsa/ui/components/button";
-```
-
-### Add app‑specific blocks
-
-If you want to add app-specific blocks instead of shared primitives, run the Bun-powered shadcn CLI
-from the relevant app directory.
-
-## Git Hooks and Validation
-
-The local pre-commit hook runs `bun run check && bun run test:all`. A commit therefore checks
-formatting, lint rules, and types, then runs unit, integration, and E2E suites in that order. Pull
-request CI remains configured separately.
-
-The suites have intentionally separate boundaries:
-
-- `bun run test:unit` runs package tests that do not require infrastructure.
-- `bun run test:integration` starts the tracked local Docker services, pushes the local schema, and
-  runs package integration scripts against PostgreSQL, Redis, and Garage.
-- `bun run test:e2e` delegates to the Node/npm Playwright package in `tests/`.
-- `bun run test:all` runs unit, integration, and E2E suites sequentially.
-
-Integration and E2E tests require Docker Desktop and the tracked non-production values in
-`apps/server/.env.local`. Install the E2E package once with `npm --prefix tests ci`. Tests create
-uniquely named fixtures and remove only the records and storage objects they own; they never
-truncate shared development tables or buckets.
-
-## Project Structure
+## Workspace
 
 ```text
-modular-vsa/
-├── apps/
-│   ├── server/   # Elysia backend API
-│   └── portal/   # Vite+ React SPA
-├── packages/
-│   ├── __config__/   # Shared TypeScript configuration
-│   ├── __env__/      # Runtime environment schemas
-│   ├── auth/        # Authentication wrapper (better‑auth)
-│   ├── _db/          # Drizzle ORM schema & connection factory
-│   ├── __shared__/       # Shared utility functions
-│   ├── _ui/          # Shared shadcn/ui components and styles
-│   └── home/         # Feature package for the Home domain (posts, comments)
-│   └── notification/ # Durable inbox, Messenger UI, announcement APIs, and FCM outbox
-└── ...
+apps/portal       React PWA and file-based routes
+apps/server       Elysia composition and API versioning
+packages/auth     Authentication and authorization
+packages/home     Home feature
+packages/notification  Durable inbox, messaging, and FCM outbox
+packages/_db      Drizzle schemas and connection
+packages/_ui      Shared components and design tokens
+packages/_storage S3-compatible storage
+packages/_firebase Firebase adapters
+packages/_jobs    BullMQ workers and schedules
+packages/_i18n    Lingui configuration
+packages/__env__  Runtime environment schemas
+packages/__shared__ Shared runtime utilities
+packages/__config__ Shared TypeScript configuration
+tests             Playwright E2E package
 ```
 
-## Repository Configuration
+Feature packages own their server and web behavior. Database shape starts in `_db`; shared UI and tokens stay in `_ui`.
 
-### .github
-
-- **hooks/** – Repository Git hooks.
-  - `pre-commit` – Runs Vite+ checks and Bun unit tests before each commit.
-- **workflows/** – CI pipelines.
-  - `tests.yml` – Installs Vite+ and Bun, then checks, tests, and builds pull requests.
-  - `playwright.yml.disabled` – Separate Node/npm Playwright lane, intentionally disabled.
-
-These configurations help ensure consistent development environment, automated checks, and reproducible CI runs across the monorepo.
-
-## Available Scripts
-
-- `bun run dev`: Start Docker, push the local schema, and run all apps plus Drizzle Studio
-- `bun run build`: Build all applications through cached Vite+ workspace tasks
-- `bun run check`: Check formatting, lint rules, and TypeScript types through Vite+
-- `bun run check -- --fix`: Apply supported formatter and linter fixes
-- `bun run test:unit`: Run package unit tests with `bun:test`
-- `bun run test:integration`: Start local services, push the schema, and run package integration tests
-- `bun run test:e2e`: Run the Playwright login, desktop, and mobile projects through npm
-- `bun run test:all`: Run unit, integration, and E2E suites in order
-- `bun run db:push`: Push schema changes to database
-- `bun run db:generate`: Generate database client/types
-- `bun run db:migrate`: Run database migrations
-- `bun run db:studio`: Open database studio UI
-- `bun run dkr:stop`: Stop local infrastructure without removing containers or volumes
-- `bun run dkr:down`: Remove local infrastructure containers and network while preserving volumes
-- `bun run add:ui -- <component>`: Add shared UI primitives with Bun
-- `cd apps/portal && bun run generate-pwa-assets`: Generate PWA assets
-
-## End-to-End Tests
-
-Playwright remains a Node/npm-driven package outside the Bun workspace. Its setup projects always
-validate the login page and write administrator storage state before the dependent desktop and
-mobile projects run:
+## Common commands
 
 ```bash
-npm --prefix tests ci
-bun run test:e2e
-npm --prefix tests run test:ui
-npm --prefix tests run test:debug
-npm --prefix tests run test:show-report
+bun run dev                 # local stack
+bun run build               # workspace build
+bun run check               # format, lint, and type-check
+bun run test:unit           # dependency-free package logic
+bun run test:integration    # first-party routes with local infrastructure
+bun run test:e2e            # portal pages with Playwright
+bun run test:all            # all suites
+bun run db:generate         # generate migrations
+bun run db:migrate          # apply migrations
+bun run db:studio           # open Drizzle Studio
+bun run add:ui -- button    # add shared shadcn primitives
+bun run dkr:stop            # stop local infrastructure
+bun run dkr:down            # remove containers/network; preserve volumes
 ```
 
-See `tests/README.md` for the page matrix, desktop/mobile split, and cleanup policy.
+Playwright is the only npm-managed area. Install it once with `npm --prefix tests ci`.
+
+## Package guides
+
+Each app and package README states its ownership boundary and critical setup. Start with [`tests/README.md`](tests/README.md) for test policy, [`packages/_ui/README.md`](packages/_ui/README.md) for UI conventions, or the affected feature package for its data flow.

@@ -1,79 +1,17 @@
-# Server App
+# Server
 
-Backend server for the modular VSA application, built with Elysia.
+Elysia composition root for authentication, API routes, middleware, monitoring, and workers.
 
-## Architecture
+- `src/index.ts` assembles the app and starts workers; keep feature logic out of it.
+- `src/v1-routes.ts` mounts first-party versioned route objects.
+- `src/utils/` is for server-app-specific middleware and configuration, not shared utilities.
+- Runtime configuration comes from `@modular-vsa/env/server`.
 
-```text
-apps/server/src/
-├── index.ts            # Server entry point (Elysia app setup)
-├── v1-routes.ts        # API version 1 route aggregation
-└── utils/
-    ├── cors.ts        # CORS middleware configuration
-    └── globalError.ts # Global error handling middleware
-```
+From the repository root, `bun dev` starts the complete stack. API docs are available at http://localhost:3100/api-docs and Better Auth docs at http://localhost:3100/api/auth/reference.
 
-### `src/`
-
-Main source code directory containing server logic.
-
-#### `index.ts`
-
-The entry point of the server. Sets up the Elysia app with:
-
-- Global error handling
-- CORS configuration
-- OpenAPI documentation
-- Authentication routes
-- API routes via `APIV1`
-
-#### `v1-routes.ts`
-
-Main API versioning layer. Aggregates all API v1 routes from various packages (e.g., `HomeRoutes`).
-
-**Purpose**: Keep API versioning organized and maintainable. Import and register routes here, not in `index.ts`.
-
-#### `utils/`
-
-**Scope**: Server-only configuration and utility functions that cannot be imported by other packages.
-
-These utilities are tightly coupled to this server app's implementation details and are **not meant to be shared**. Examples include:
-
-- `globalError.ts` - Global error handling middleware
-- `cors.ts` - CORS configuration specific to this server
-
-## Development
+Local ports and development credentials live in the tracked `apps/server/.env.local`. Use deployment secrets in production and run `bun run db:migrate` before startup.
 
 ```bash
-# From the repository root
-bun install
-bun run dev
+bun -F @modular-vsa/server dev
+bun -F @modular-vsa/server build
 ```
-
-The root command waits for Docker, pushes the local Drizzle schema, and then starts the server,
-portal, and Drizzle Studio. The development endpoints are:
-
-| Service                   | URL                                                     |
-| ------------------------- | ------------------------------------------------------- |
-| API                       | http://localhost:3100                                   |
-| Application API docs      | http://localhost:3100/api-docs                          |
-| Better Auth API reference | http://localhost:3100/api/auth/reference                |
-| Better Auth OpenAPI JSON  | http://localhost:3100/api/auth/open-api/generate-schema |
-| Drizzle Studio            | https://local.drizzle.studio                            |
-| Garage S3 API             | http://localhost:3900                                   |
-| Garage dashboard          | http://localhost:3909                                   |
-
-The Garage dashboard uses `admin` / `admin` for local development.
-
-Exposed host ports, Garage secrets, the dashboard login, and Drizzle Studio host/port are configured
-in the tracked `.env.local`. Image tags and internal service endpoints stay in Compose. There are no
-implicit Compose or server-schema defaults. Startup output uses the shared logger, which suppresses
-console output in production.
-
-Use `bun run dkr:stop` to stop infrastructure or `bun run dkr:down` to remove its containers and
-network. Neither command deletes named volumes.
-
-## Environment
-
-Configuration is managed via `@modular-vsa/env/server`. `apps/server/.env.local` contains tracked,
-local-only values; use ignored local files or deployment secrets for real credentials.

@@ -1,0 +1,4 @@
+interface:
+  display_name: "Modular VSA Testing"
+  short_description: "Apply the project's test boundaries"
+  default_prompt: "Use $modular-vsa-testing to add the appropriate unit, route-integration, and page-level E2E coverage for this change."

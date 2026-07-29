@@ -1,50 +1,16 @@
-# Portal (web)
+# Portal
 
-The web front-end for the **modular-vsa** monorepo, built with Vite+, React, and TanStack Router.
+React PWA and composition root for browser features.
 
-## Project Layout
-
-```text
-apps/portal/
-├── src/
-│   ├── main.tsx          # Entry point
-│   ├── routeTree.gen.ts  # Generated route tree for TanStack Router
-│   └── routes/           # File‑based routes
-├── public/
-│   └── assets/           # Static assets (logo, etc.)
-├── components.json       # Shadcn UI component config
-└── vite.config.ts        # Vite configuration
-```
-
-## Shared UI
-
-All UI primitives live in `packages/_ui`. Import them like:
-
-```tsx
-import { Button } from "@modular-vsa/ui/components/button";
-```
-
-## Messenger, notifications, and telemetry
-
-The authenticated shell mounts the `@modular-vsa/notification` Messenger modal. Its account-menu
-badge is the authoritative PostgreSQL unread total. Desktop renders a centered two-pane dialog;
-mobile fills the viewport above the existing bottom navigation. A Home-page warning requests FCM
-permission without blocking portal access.
-
-FCM is the only realtime transport. Foreground messages invalidate React Query caches, while modal
-open, focus, reconnect, and app resume perform one-shot database reconciliation. The custom service
-worker at `src/sw.ts` displays background pushes and routes clicks to the selected conversation.
-
-Firebase Analytics lazy-loads after hydration. Route telemetry is normalized and anonymous; do not
-log content or identifiers. See
-`packages/notification/README.md` and `packages/_firebase/README.md` for setup and troubleshooting.
-
-## Build
+- `src/routes/` contains thin TanStack file routes; feature pages live in package `src/web` folders.
+- `src/routeTree.gen.ts` is generated and must not be edited.
+- Shared primitives and tokens come from `@modular-vsa/ui`; server state uses React Query.
+- `src/sw.ts` handles background Firebase notifications; foreground events invalidate authoritative queries.
+- Analytics must stay anonymous and must not include content or identifiers.
 
 ```bash
-bun run build # Produces a static site in `dist/`
+bun -F @modular-vsa/portal dev
+bun -F @modular-vsa/portal build
 ```
 
-## Documentation
-
-See the root **README.md** for the full monorepo overview and available scripts.
+See [`../../packages/_ui/README.md`](../../packages/_ui/README.md), [`../../packages/_firebase/README.md`](../../packages/_firebase/README.md), and [`../../packages/notification/README.md`](../../packages/notification/README.md).
