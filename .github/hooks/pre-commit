@@ -1,4 +1,4 @@
 #!/bin/sh
 
-# Run comprehensive monorepo validation and Bun unit tests.
-bun run check && bun run test:unit
+# Run comprehensive validation and every independent test suite before committing.
+bun run check && bun run test:all

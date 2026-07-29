@@ -15,7 +15,8 @@
     }
   },
   "scripts": {
-    "test:unit": "bun test __tests__"
+    "test:unit": "bun test __tests__/unit",
+    "test:integration": "bun --env-file=../../apps/server/.env.local test __tests__/integration"
   },
   "dependencies": {
     "@lingui/core": "catalog:",
@@ -31,6 +32,7 @@
     "lucide-react": "1.16.0"
   },
   "devDependencies": {
+    "@elysiajs/eden": "catalog:",
     "@modular-vsa/config": "workspace:*"
   },
   "peerDependencies": {

@@ -279,6 +279,7 @@
         "lucide-react": "1.16.0",
       },
       "devDependencies": {
+        "@elysiajs/eden": "catalog:",
         "@modular-vsa/config": "workspace:*",
       },
       "peerDependencies": {

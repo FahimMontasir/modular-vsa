@@ -95,9 +95,22 @@ from the relevant app directory.
 
 ## Git Hooks and Validation
 
-- Run formatting, linting, and type checking: `bun run check`
-- Apply safe fixes: `bun run check -- --fix`
-- Run Bun unit tests: `bun run test:unit`
+The local pre-commit hook runs `bun run check && bun run test:all`. A commit therefore checks
+formatting, lint rules, and types, then runs unit, integration, and E2E suites in that order. Pull
+request CI remains configured separately.
+
+The suites have intentionally separate boundaries:
+
+- `bun run test:unit` runs package tests that do not require infrastructure.
+- `bun run test:integration` starts the tracked local Docker services, pushes the local schema, and
+  runs package integration scripts against PostgreSQL, Redis, and Garage.
+- `bun run test:e2e` delegates to the Node/npm Playwright package in `tests/`.
+- `bun run test:all` runs unit, integration, and E2E suites sequentially.
+
+Integration and E2E tests require Docker Desktop and the tracked non-production values in
+`apps/server/.env.local`. Install the E2E package once with `npm --prefix tests ci`. Tests create
+uniquely named fixtures and remove only the records and storage objects they own; they never
+truncate shared development tables or buckets.
 
 ## Project Structure
 
@@ -136,6 +149,9 @@ These configurations help ensure consistent development environment, automated c
 - `bun run check`: Check formatting, lint rules, and TypeScript types through Vite+
 - `bun run check -- --fix`: Apply supported formatter and linter fixes
 - `bun run test:unit`: Run package unit tests with `bun:test`
+- `bun run test:integration`: Start local services, push the schema, and run package integration tests
+- `bun run test:e2e`: Run the Playwright login, desktop, and mobile projects through npm
+- `bun run test:all`: Run unit, integration, and E2E suites in order
 - `bun run db:push`: Push schema changes to database
 - `bun run db:generate`: Generate database client/types
 - `bun run db:migrate`: Run database migrations
@@ -147,10 +163,16 @@ These configurations help ensure consistent development environment, automated c
 
 ## End-to-End Tests
 
-Playwright remains outside the Bun workspace because it requires Node.js:
+Playwright remains a Node/npm-driven package outside the Bun workspace. Its setup projects always
+validate the login page and write administrator storage state before the dependent desktop and
+mobile projects run:
 
 ```bash
-cd tests
-npm ci
-npm test
+npm --prefix tests ci
+bun run test:e2e
+npm --prefix tests run test:ui
+npm --prefix tests run test:debug
+npm --prefix tests run test:show-report
 ```
+
+See `tests/README.md` for the page matrix, desktop/mobile split, and cleanup policy.

@@ -40,6 +40,9 @@ lerna-debug.log*
 # Testing
 coverage
 .nyc_output
+tests/.auth
+tests/playwright-report
+tests/test-results
 
 # Misc
 *.tgz

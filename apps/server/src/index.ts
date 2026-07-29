@@ -40,6 +40,13 @@ export const app = new Elysia()
         `\n\x1b[36m🔐 Auth docs:\x1b[0m http://localhost:${env.PORT}/api/auth/reference` +
         `\n\x1b[36m🗄️ Drizzle Studio:\x1b[0m ${env.DRIZZLE_STUDIO_URL ?? "not configured"}` +
         `\n\x1b[36m📦 Storage dashboard:\x1b[0m ${storageDashboard}` +
-        `\n\x1b[36m🔑 Storage login:\x1b[0m ${storageLogin}`
+        `\n\x1b[36m🔑 Storage login:\x1b[0m ${storageLogin}` +
+        `\n\x1b[36m🧪 Unit tests:\x1b[0m bun run test:unit` +
+        `\n\x1b[36m🧪 Integration tests:\x1b[0m bun run test:integration` +
+        `\n\x1b[36m🧪 End-to-end tests:\x1b[0m bun run test:e2e` +
+        `\n\x1b[36m🧪 Complete test suite:\x1b[0m bun run test:all` +
+        `\n\x1b[36m🎭 Playwright UI:\x1b[0m npm --prefix tests run test:ui` +
+        `\n\x1b[36m🎭 Playwright debug:\x1b[0m npm --prefix tests run test:debug` +
+        `\n\x1b[36m🎭 Playwright report:\x1b[0m npm --prefix tests run test:show-report`
     );
   });

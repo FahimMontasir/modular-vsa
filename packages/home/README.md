@@ -33,7 +33,8 @@ packages/home/
 │       ├── components/            # UI components (currently empty)
 │       └── pages/                 # Page components (e.g., home-page.tsx)
 └── __tests__/
- └── unit/                    # Unit tests for package behavior
+    ├── unit/                    # Pure helper and package behavior tests
+    └── integration/             # Eden route tests backed by real local services
 ```
 
 ### `src/server`
@@ -220,7 +221,28 @@ Comments already have database schema support and validation/type foundations. F
 Run workspace checks from the repository root and package tests from either location:
 
 - `bun run check` at the repository root → format, lint, and type-check the workspace with Vite+
-- `bun run test:unit` → run unit tests under `__tests__` with `bun:test`
+- `bun run test:unit` → run tests under `__tests__/unit` with `bun:test`
+- `bun run test:integration` at the repository root → start local services, push the schema, and run
+  the Home route integration suite
+- `bun run test:integration` in this package → run only the suite, assuming services and schema are
+  already ready
+
+### Route integration seam
+
+Integration tests construct `treaty(HomeRoutes)` directly. This exercises Elysia route validation,
+controllers, services, database calls, and the same controller-derived Eden types used by the web
+client without opening another HTTP listener. All six Home route operations are covered: create,
+filtered list, read by ID, update, delete, and upload.
+
+Protected route tests use `__tests__/integration/utils/auth.ts`. The helper runs
+`ensureBootstrapAdmin()`, signs in through Better Auth's `/api/auth/sign-in/username` handler with
+the tracked bootstrap credentials, verifies that the returned session belongs to an administrator,
+and converts the response cookies into reusable `Cookie` and `Origin` headers for the Eden client.
+
+These tests intentionally use the real local PostgreSQL, Redis, and Garage services. Every fixture
+uses a unique identifier, tracks the exact inserted post IDs or object keys, and removes only those
+values in teardown. Never add table truncation, unscoped deletes, bucket clearing, or assumptions
+that the local development stores are otherwise empty.
 
 ## Notes for AI agents
 
