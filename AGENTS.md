@@ -12,3 +12,4 @@
 - React Doctor reports live in `react-doctor/`. Read `diagnostics.json` completely plus each relevant per-rule `.txt` file before fixing findings, and treat a shared `fixGroupId` as one root cause.
 - At the very end, run `bun run doctor --verbose --yes`, fix the requested actionable findings by severity, and rerun it to confirm the improvements.
 - After the requested fixes and validations pass, confirm `react-doctor/` contains only generated `diagnostics.json`, `deslop--*.txt`, and `react-doctor--*.txt` reports, then delete every file in that folder. Do not delete the reports before final verification.
+- Finally run `bun test:all && bun check --fix`
