@@ -75,21 +75,8 @@ export function useUsersQuery(query: string, enabled = true) {
   });
 }
 
-function useRefreshNotificationData() {
-  const client = useQueryClient();
-  return async (conversationId?: string) => {
-    await Promise.all([
-      client.invalidateQueries({ queryKey: notificationKeys.unread }),
-      client.invalidateQueries({ queryKey: notificationKeys.conversations }),
-      conversationId
-        ? client.invalidateQueries({ queryKey: notificationKeys.messages(conversationId) })
-        : Promise.resolve(),
-    ]);
-  };
-}
-
 export function useCreateDirectMutation() {
-  const refresh = useRefreshNotificationData();
+  const client = useQueryClient();
   return useMutation({
     mutationFn: async (userId: string) =>
       requireData(
@@ -98,7 +85,11 @@ export function useCreateDirectMutation() {
       ),
     onSuccess: async (row) => {
       await trackEvent("messenger_action", { action: "start_direct", outcome: "success" });
-      await refresh(row.id);
+      await Promise.all([
+        client.invalidateQueries({ queryKey: notificationKeys.unread }),
+        client.invalidateQueries({ queryKey: notificationKeys.conversations }),
+        client.invalidateQueries({ queryKey: notificationKeys.messages(row.id) }),
+      ]);
     },
     onError: () => {
       void trackEvent("messenger_action", { action: "start_direct", outcome: "failed" });
@@ -108,7 +99,7 @@ export function useCreateDirectMutation() {
 }
 
 export function useSendMessageMutation() {
-  const refresh = useRefreshNotificationData();
+  const client = useQueryClient();
   return useMutation({
     mutationFn: async ({ conversationId, body }: { conversationId: string; body: string }) =>
       requireData(
@@ -119,7 +110,11 @@ export function useSendMessageMutation() {
       ),
     onSuccess: async (_, values) => {
       await trackEvent("messenger_action", { action: "send", outcome: "success" });
-      await refresh(values.conversationId);
+      await Promise.all([
+        client.invalidateQueries({ queryKey: notificationKeys.unread }),
+        client.invalidateQueries({ queryKey: notificationKeys.conversations }),
+        client.invalidateQueries({ queryKey: notificationKeys.messages(values.conversationId) }),
+      ]);
     },
     onError: () => {
       void trackEvent("messenger_action", { action: "send", outcome: "failed" });
@@ -129,7 +124,7 @@ export function useSendMessageMutation() {
 }
 
 export function useMarkReadMutation() {
-  const refresh = useRefreshNotificationData();
+  const client = useQueryClient();
   return useMutation({
     mutationFn: async ({
       conversationId,
@@ -144,25 +139,36 @@ export function useMarkReadMutation() {
           .read.post({ throughMessageId }),
         "Messages could not be marked read"
       ),
-    onSuccess: async (_, values) => refresh(values.conversationId),
+    onSuccess: async (_, values) => {
+      await Promise.all([
+        client.invalidateQueries({ queryKey: notificationKeys.unread }),
+        client.invalidateQueries({ queryKey: notificationKeys.conversations }),
+        client.invalidateQueries({ queryKey: notificationKeys.messages(values.conversationId) }),
+      ]);
+    },
   });
 }
 
 export function useDeleteMessageMutation() {
-  const refresh = useRefreshNotificationData();
+  const client = useQueryClient();
   return useMutation({
     mutationFn: async ({ id }: { id: string; conversationId: string }) =>
       requireData(
         await notificationApi.notification.messages({ id }).delete(),
         "Message could not be deleted"
       ),
-    onSuccess: async (_, values) => refresh(values.conversationId),
+    onSuccess: async (_, values) => {
+      await Promise.all([
+        client.invalidateQueries({ queryKey: notificationKeys.unread }),
+        client.invalidateQueries({ queryKey: notificationKeys.conversations }),
+        client.invalidateQueries({ queryKey: notificationKeys.messages(values.conversationId) }),
+      ]);
+    },
     onError: () => toast.error("Message could not be deleted"),
   });
 }
 
 export function useCreateAnnouncementMutation() {
-  const refresh = useRefreshNotificationData();
   const client = useQueryClient();
   return useMutation({
     mutationFn: async (values: {
@@ -179,7 +185,8 @@ export function useCreateAnnouncementMutation() {
     onSuccess: async () => {
       await trackEvent("announcement_action", { action: "schedule", outcome: "success" });
       await Promise.all([
-        refresh(),
+        client.invalidateQueries({ queryKey: notificationKeys.unread }),
+        client.invalidateQueries({ queryKey: notificationKeys.conversations }),
         client.invalidateQueries({ queryKey: notificationKeys.announcements }),
       ]);
       toast.success("Announcement scheduled");

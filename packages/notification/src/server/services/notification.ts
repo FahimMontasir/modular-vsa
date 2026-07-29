@@ -125,33 +125,35 @@ export async function listConversations(userId: string) {
 
   const summaries = await Promise.all(
     rows.map(async (row) => {
-      const [last] = await db
-        .select({ body: message.body, deletedAt: message.deletedAt })
-        .from(message)
-        .leftJoin(
-          messageRecipient,
-          and(eq(messageRecipient.messageId, message.id), eq(messageRecipient.userId, userId))
-        )
-        .where(
-          and(
-            eq(message.conversationId, row.id),
-            or(eq(message.senderId, userId), eq(messageRecipient.userId, userId))
+      const [[last], [unread]] = await Promise.all([
+        db
+          .select({ body: message.body, deletedAt: message.deletedAt })
+          .from(message)
+          .leftJoin(
+            messageRecipient,
+            and(eq(messageRecipient.messageId, message.id), eq(messageRecipient.userId, userId))
           )
-        )
-        .orderBy(desc(message.createdAt), desc(message.id))
-        .limit(1);
-      const [unread] = await db
-        .select({ count: count() })
-        .from(messageRecipient)
-        .innerJoin(message, eq(message.id, messageRecipient.messageId))
-        .where(
-          and(
-            eq(messageRecipient.userId, userId),
-            eq(message.conversationId, row.id),
-            isNull(messageRecipient.readAt),
-            isNull(messageRecipient.hiddenAt)
+          .where(
+            and(
+              eq(message.conversationId, row.id),
+              or(eq(message.senderId, userId), eq(messageRecipient.userId, userId))
+            )
           )
-        );
+          .orderBy(desc(message.createdAt), desc(message.id))
+          .limit(1),
+        db
+          .select({ count: count() })
+          .from(messageRecipient)
+          .innerJoin(message, eq(message.id, messageRecipient.messageId))
+          .where(
+            and(
+              eq(messageRecipient.userId, userId),
+              eq(message.conversationId, row.id),
+              isNull(messageRecipient.readAt),
+              isNull(messageRecipient.hiddenAt)
+            )
+          ),
+      ]);
       let title = row.title;
       let image: string | null = null;
       if (row.kind === "direct") {
