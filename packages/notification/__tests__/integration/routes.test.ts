@@ -88,7 +88,46 @@ describe("Notification read controller", () => {
     expect(unread.data).toEqual({ count: unreadBefore });
     expect(users.data?.map(({ id }) => id)).toContain(peer.id);
     expect(history.data?.items.map(({ body }) => body)).toContain("Readable route message");
-    expect(announcements.data?.some(({ id }) => id === announcement.data?.id)).toBe(true);
+    expect(announcements.data?.items.some(({ id }) => id === announcement.data?.id)).toBe(true);
+  });
+
+  test("paginates announcements newest-first in pages of twenty", async () => {
+    const created = await Promise.all(
+      Array.from({ length: 21 }, (_, index) =>
+        auth.api.notification.announcements.post({
+          title: `Paginated route announcement ${index} ${crypto.randomUUID()}`,
+          body: "Paginated announcement",
+          status: "draft",
+          targets: [{ kind: "all" }],
+        })
+      )
+    );
+    for (const result of created) {
+      if (!result.data) throw new Error("Paginated announcement route returned no data");
+      fixtures.trackAnnouncement(result.data.id);
+    }
+
+    const first = await auth.api.notification.announcements.get({
+      query: { limit: 20, section: "all" },
+    });
+    expect(first.error).toBeNull();
+    expect(first.data?.items).toHaveLength(20);
+    expect(first.data?.nextCursor).not.toBeNull();
+    const firstItems = first.data?.items ?? [];
+    for (let index = 1; index < firstItems.length; index++) {
+      const previous = firstItems[index - 1];
+      const current = firstItems[index];
+      if (!previous || !current) continue;
+      expect(previous.createdAt.getTime()).toBeGreaterThanOrEqual(current.createdAt.getTime());
+    }
+
+    const second = await auth.api.notification.announcements.get({
+      query: { cursor: first.data?.nextCursor ?? undefined, limit: 20, section: "all" },
+    });
+    expect(second.error).toBeNull();
+    expect(second.data?.items.length).toBeGreaterThan(0);
+    const firstIds = new Set(firstItems.map(({ id }) => id));
+    expect(second.data?.items.some(({ id }) => firstIds.has(id))).toBe(false);
   });
 });
 

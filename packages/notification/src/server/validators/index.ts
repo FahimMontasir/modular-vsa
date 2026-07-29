@@ -106,7 +106,10 @@ export const NotificationSchema = {
     createdAt: t.Date(),
   }),
   Announcement,
-  AnnouncementsList: t.Array(Announcement),
+  AnnouncementsPage: t.Object({
+    items: t.Array(Announcement),
+    nextCursor: NullableString,
+  }),
   DeletedAnnouncement: t.Object({ id: t.String(), deletedAt: NullableDate }),
   Success: t.Object({ success: t.Boolean() }),
   Id: t.Object({ id: t.String({ minLength: 1 }) }),
@@ -114,6 +117,13 @@ export const NotificationSchema = {
   ListQuery: t.Object({
     cursor: t.Optional(t.String()),
     limit: t.Optional(t.Numeric({ minimum: 1, maximum: 100 })),
+  }),
+  AnnouncementListQuery: t.Object({
+    cursor: t.Optional(t.String()),
+    limit: t.Optional(t.Numeric({ minimum: 1, maximum: 100 })),
+    section: t.Optional(
+      t.Union([t.Literal("all"), t.Literal("scheduled"), t.Literal("delivered")])
+    ),
   }),
   SearchQuery: t.Object({ q: t.Optional(t.String({ maxLength: 100 })) }),
   CreateDirect: t.Object({ userId: t.String({ minLength: 1 }) }),

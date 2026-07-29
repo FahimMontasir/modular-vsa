@@ -425,13 +425,41 @@ export async function createAnnouncement(userId: string, values: CreateAnnouncem
   return created;
 }
 
-export async function listAnnouncements() {
-  return db
+export async function listAnnouncements(
+  section: "all" | "delivered" | "scheduled" = "all",
+  limit = 20,
+  cursorValue?: string
+) {
+  const cursor = decodeCursor(cursorValue);
+  if (cursorValue && !cursor) throw new ApiError("Bad Request", "Invalid announcement cursor");
+  const rows = await db
     .select()
     .from(announcement)
-    .where(isNull(announcement.deletedAt))
-    .orderBy(desc(announcement.createdAt))
-    .limit(100);
+    .where(
+      and(
+        isNull(announcement.deletedAt),
+        section === "scheduled"
+          ? eq(announcement.status, "scheduled")
+          : section === "delivered"
+            ? eq(announcement.status, "sent")
+            : undefined,
+        cursor
+          ? or(
+              lt(announcement.createdAt, cursor.createdAt),
+              and(eq(announcement.createdAt, cursor.createdAt), lt(announcement.id, cursor.id))
+            )
+          : undefined
+      )
+    )
+    .orderBy(desc(announcement.createdAt), desc(announcement.id))
+    .limit(limit + 1);
+  const hasMore = rows.length > limit;
+  const items = rows.slice(0, limit);
+  const oldest = items.at(-1);
+  return {
+    items,
+    nextCursor: hasMore && oldest ? encodeCursor(oldest.createdAt, oldest.id) : null,
+  };
 }
 
 export async function cancelAnnouncement(id: string, userId: string) {

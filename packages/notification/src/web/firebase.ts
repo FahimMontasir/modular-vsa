@@ -54,7 +54,9 @@ export function listenForFirebaseMessages(queryClient: QueryClient) {
       queryClient.invalidateQueries({ queryKey: notificationKeys.unread }),
       queryClient.invalidateQueries({ queryKey: notificationKeys.conversations }),
       conversationId
-        ? queryClient.invalidateQueries({ queryKey: notificationKeys.messages(conversationId) })
+        ? queryClient.invalidateQueries({
+            queryKey: notificationKeys.messagePages(conversationId),
+          })
         : Promise.resolve(),
     ]);
   });

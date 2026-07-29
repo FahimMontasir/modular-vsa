@@ -1,21 +1,31 @@
-import { queryOptions, useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
+import {
+  infiniteQueryOptions,
+  useInfiniteQuery,
+  useMutation,
+  useQuery,
+  useQueryClient,
+} from "@tanstack/react-query";
 
 import { trackEvent } from "@modular-vsa/firebase/web/telemetry";
 import { createApiClient } from "@modular-vsa/shared/web/api-client";
 import { toast } from "@modular-vsa/ui/toast";
 
 import type { APINotificationType } from "../../server/controllers/routes";
-import type { listMessages } from "../../server/services/notification";
+import type { listAnnouncements, listMessages } from "../../server/services/notification";
 
 type MessagePage = Awaited<ReturnType<typeof listMessages>>;
+type AnnouncementPage = Awaited<ReturnType<typeof listAnnouncements>>;
 
 export const notificationKeys = {
   root: ["notification"] as const,
   unread: ["notification", "unread"] as const,
   conversations: ["notification", "conversations"] as const,
-  messages: (conversationId: string) => ["notification", "messages", conversationId] as const,
+  messagePages: (conversationId: string) =>
+    ["notification", "messages", "infinite-v1", conversationId] as const,
   users: (query: string) => ["notification", "users", query] as const,
   announcements: ["notification", "announcements"] as const,
+  announcementSection: (section: "all" | "delivered" | "scheduled") =>
+    ["notification", "announcements", section] as const,
 };
 
 export const notificationApi = createApiClient<APINotificationType>();
@@ -46,20 +56,38 @@ export function useConversationsQuery(enabled = true) {
 }
 
 export function useMessagesQuery(conversationId?: string) {
-  return useQuery({
-    ...queryOptions({
-      queryKey: notificationKeys.messages(conversationId ?? "none"),
-      queryFn: async () => {
+  return useInfiniteQuery({
+    ...infiniteQueryOptions({
+      queryKey: notificationKeys.messagePages(conversationId ?? "none"),
+      queryFn: async ({ pageParam }) => {
         const page = (await requireData(
           await notificationApi.notification
             .conversations({ conversationId: conversationId! })
-            .messages.get({ query: { limit: 50 } }),
+            .messages.get({ query: { cursor: pageParam, limit: 20 } }),
           "Messages unavailable"
         )) as MessagePage;
-        return page.items;
+        return page;
       },
+      initialPageParam: undefined as string | undefined,
+      getNextPageParam: (lastPage) => lastPage.nextCursor ?? undefined,
     }),
     enabled: Boolean(conversationId),
+  });
+}
+
+export function useAnnouncementsQuery(section: "all" | "delivered" | "scheduled", enabled = true) {
+  return useInfiniteQuery({
+    queryKey: notificationKeys.announcementSection(section),
+    queryFn: async ({ pageParam }) =>
+      (await requireData(
+        await notificationApi.notification.announcements.get({
+          query: { cursor: pageParam, limit: 20, section },
+        }),
+        "Announcements unavailable"
+      )) as AnnouncementPage,
+    initialPageParam: undefined as string | undefined,
+    getNextPageParam: (lastPage) => lastPage.nextCursor ?? undefined,
+    enabled,
   });
 }
 
@@ -88,7 +116,7 @@ export function useCreateDirectMutation() {
       await Promise.all([
         client.invalidateQueries({ queryKey: notificationKeys.unread }),
         client.invalidateQueries({ queryKey: notificationKeys.conversations }),
-        client.invalidateQueries({ queryKey: notificationKeys.messages(row.id) }),
+        client.invalidateQueries({ queryKey: notificationKeys.messagePages(row.id) }),
       ]);
     },
     onError: () => {
@@ -113,7 +141,9 @@ export function useSendMessageMutation() {
       await Promise.all([
         client.invalidateQueries({ queryKey: notificationKeys.unread }),
         client.invalidateQueries({ queryKey: notificationKeys.conversations }),
-        client.invalidateQueries({ queryKey: notificationKeys.messages(values.conversationId) }),
+        client.invalidateQueries({
+          queryKey: notificationKeys.messagePages(values.conversationId),
+        }),
       ]);
     },
     onError: () => {
@@ -143,7 +173,9 @@ export function useMarkReadMutation() {
       await Promise.all([
         client.invalidateQueries({ queryKey: notificationKeys.unread }),
         client.invalidateQueries({ queryKey: notificationKeys.conversations }),
-        client.invalidateQueries({ queryKey: notificationKeys.messages(values.conversationId) }),
+        client.invalidateQueries({
+          queryKey: notificationKeys.messagePages(values.conversationId),
+        }),
       ]);
     },
   });
@@ -161,7 +193,9 @@ export function useDeleteMessageMutation() {
       await Promise.all([
         client.invalidateQueries({ queryKey: notificationKeys.unread }),
         client.invalidateQueries({ queryKey: notificationKeys.conversations }),
-        client.invalidateQueries({ queryKey: notificationKeys.messages(values.conversationId) }),
+        client.invalidateQueries({
+          queryKey: notificationKeys.messagePages(values.conversationId),
+        }),
       ]);
     },
     onError: () => toast.error("Message could not be deleted"),

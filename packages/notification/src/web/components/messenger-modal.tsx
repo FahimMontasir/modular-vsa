@@ -2,6 +2,7 @@ import { useLingui } from "@lingui/react/macro";
 import {
   ArrowLeftIcon,
   BellRingIcon,
+  CalendarClockIcon,
   MegaphoneIcon,
   MessageCircleIcon,
   PlusIcon,
@@ -9,8 +10,9 @@ import {
   SendIcon,
   Trash2Icon,
 } from "lucide-react";
-import { useEffect, useMemo, useState, type FormEvent } from "react";
+import { useEffect, useLayoutEffect, useMemo, useRef, useState, type FormEvent } from "react";
 
+import { Alert, AlertTitle } from "@modular-vsa/ui/alert";
 import { Avatar, AvatarFallback, AvatarImage } from "@modular-vsa/ui/avatar";
 import { Badge } from "@modular-vsa/ui/badge";
 import { Bubble, BubbleContent } from "@modular-vsa/ui/bubble";
@@ -31,6 +33,15 @@ import {
 } from "@modular-vsa/ui/empty";
 import { Field, FieldGroup, FieldLabel } from "@modular-vsa/ui/field";
 import { Input } from "@modular-vsa/ui/input";
+import {
+  Item,
+  ItemContent,
+  ItemDescription,
+  ItemGroup,
+  ItemHeader,
+  ItemMedia,
+  ItemTitle,
+} from "@modular-vsa/ui/item";
 import { Marker, MarkerContent } from "@modular-vsa/ui/marker";
 import {
   Message,
@@ -48,9 +59,11 @@ import {
   MessageScrollerViewport,
 } from "@modular-vsa/ui/message-scroller";
 import { Skeleton } from "@modular-vsa/ui/skeleton";
+import { Spinner } from "@modular-vsa/ui/spinner";
 import { Textarea } from "@modular-vsa/ui/textarea";
 
 import {
+  useAnnouncementsQuery,
   useConversationsQuery,
   useCreateAnnouncementMutation,
   useCreateDirectMutation,
@@ -60,6 +73,8 @@ import {
   useSendMessageMutation,
   useUsersQuery,
 } from "../api/query";
+import { flattenMessagePages } from "../helpers/message-order";
+import { formatFullNotificationDate, formatNotificationDate } from "../helpers/notification-date";
 
 function initials(name: string) {
   return name
@@ -85,44 +100,35 @@ export function MessengerModal({
 }) {
   const { t } = useLingui();
   const conversationsQuery = useConversationsQuery(open);
+  const scheduledAnnouncementsQuery = useAnnouncementsQuery("scheduled", open && isAdmin);
+  const deliveredAnnouncementsQuery = useAnnouncementsQuery("delivered", open && isAdmin);
   const [selectedConversationId, setSelectedConversationId] = useState<string>();
+  const [showAnnouncementComposer, setShowAnnouncementComposer] = useState(false);
   const [showConversationList, setShowConversationList] = useState(false);
   const [search, setSearch] = useState("");
   const [showUsers, setShowUsers] = useState(false);
   const usersQuery = useUsersQuery(search, open && showUsers);
   const selectedId =
     selectedConversationId ?? initialConversationId ?? conversationsQuery.data?.[0]?.id;
-  const messagesQuery = useMessagesQuery(selectedId);
   const createDirect = useCreateDirectMutation();
-  const sendMessage = useSendMessageMutation();
-  const { mutate: markRead } = useMarkReadMutation();
-  const deleteMessage = useDeleteMessageMutation();
   const createAnnouncement = useCreateAnnouncementMutation();
   const selected = conversationsQuery.data?.find(({ id }) => id === selectedId);
 
-  const latestMessageId = messagesQuery.data?.at(-1)?.id;
-  useEffect(() => {
-    if (selectedId && latestMessageId)
-      markRead({ conversationId: selectedId, throughMessageId: latestMessageId });
-  }, [selectedId, latestMessageId, markRead]);
-
   const selectedUserTargets = useMemo(() => usersQuery.data ?? [], [usersQuery.data]);
+  const scheduledAnnouncements = useMemo(
+    () => scheduledAnnouncementsQuery.data?.pages.flatMap(({ items }) => items) ?? [],
+    [scheduledAnnouncementsQuery.data?.pages]
+  );
+  const deliveredAnnouncements = useMemo(
+    () => deliveredAnnouncementsQuery.data?.pages.flatMap(({ items }) => items) ?? [],
+    [deliveredAnnouncementsQuery.data?.pages]
+  );
 
   async function startDirect(userId: string) {
     const row = await createDirect.mutateAsync(userId);
     setSelectedConversationId(row.id);
     setShowConversationList(false);
     setShowUsers(false);
-  }
-
-  async function submitMessage(event: FormEvent<HTMLFormElement>) {
-    event.preventDefault();
-    if (!selectedId) return;
-    const form = event.currentTarget;
-    const body = formValue(new FormData(form), "message").trim();
-    if (!body) return;
-    await sendMessage.mutateAsync({ conversationId: selectedId, body });
-    form.reset();
   }
 
   async function submitAnnouncement(event: FormEvent<HTMLFormElement>) {
@@ -140,6 +146,7 @@ export function MessengerModal({
       targets: [{ kind: targetKind, value: targetKind === "all" ? undefined : targetValue }],
     });
     form.reset();
+    setShowAnnouncementComposer(false);
   }
 
   return (
@@ -174,7 +181,7 @@ export function MessengerModal({
           >
             {selected ? (
               <>
-                <div className="flex h-14 items-center gap-3 border-b px-4">
+                <div className="flex h-14 items-center gap-3 border-b ps-4 pe-14">
                   <Button
                     className="md:hidden"
                     size="icon-sm"
@@ -191,110 +198,45 @@ export function MessengerModal({
                       {selected.kind === "direct" ? t`Direct conversation` : t`Platform updates`}
                     </p>
                   </div>
-                </div>
-                <MessageScrollerProvider autoScroll>
-                  <MessageScroller>
-                    <MessageScrollerViewport>
-                      <MessageScrollerContent>
-                        {messagesQuery.data?.length ? (
-                          messagesQuery.data.map((item) => {
-                            const own = item.senderId === currentUserId;
-                            return (
-                              <MessageScrollerItem
-                                key={item.id}
-                                messageId={item.id}
-                                scrollAnchor={own}
-                              >
-                                {item.kind !== "direct" && item.title ? (
-                                  <Marker variant="separator">
-                                    <MarkerContent>{item.title}</MarkerContent>
-                                  </Marker>
-                                ) : null}
-                                <Message align={own ? "end" : "start"}>
-                                  {!own && item.senderName ? (
-                                    <MessageAvatar>
-                                      <Avatar className="size-8">
-                                        <AvatarImage
-                                          src={item.senderImage ?? undefined}
-                                          alt={item.senderName}
-                                        />
-                                        <AvatarFallback>{initials(item.senderName)}</AvatarFallback>
-                                      </Avatar>
-                                    </MessageAvatar>
-                                  ) : null}
-                                  <MessageContent>
-                                    {!own && item.senderName ? (
-                                      <MessageHeader>{item.senderName}</MessageHeader>
-                                    ) : null}
-                                    <Bubble align={own ? "end" : "start"}>
-                                      <BubbleContent>
-                                        {item.deletedAt ? t`Message deleted` : item.body}
-                                      </BubbleContent>
-                                    </Bubble>
-                                    <MessageFooter className="flex items-center gap-1">
-                                      {new Date(item.createdAt).toLocaleString()}
-                                      {own && !item.deletedAt ? (
-                                        <Button
-                                          variant="ghost"
-                                          size="icon-xs"
-                                          aria-label={t`Delete message`}
-                                          onClick={() =>
-                                            deleteMessage.mutate({
-                                              id: item.id,
-                                              conversationId: item.conversationId,
-                                            })
-                                          }
-                                        >
-                                          <Trash2Icon />
-                                        </Button>
-                                      ) : null}
-                                    </MessageFooter>
-                                  </MessageContent>
-                                </Message>
-                              </MessageScrollerItem>
-                            );
-                          })
-                        ) : (
-                          <Empty>
-                            <EmptyHeader>
-                              <EmptyMedia variant="icon">
-                                <MessageCircleIcon />
-                              </EmptyMedia>
-                              <EmptyTitle>{t`Nothing here yet`}</EmptyTitle>
-                              <EmptyDescription>{t`New messages will appear here after Firebase notifies this device.`}</EmptyDescription>
-                            </EmptyHeader>
-                          </Empty>
-                        )}
-                      </MessageScrollerContent>
-                    </MessageScrollerViewport>
-                    <MessageScrollerButton />
-                  </MessageScroller>
-                </MessageScrollerProvider>
-                {selected.kind === "direct" ? (
-                  <form className="flex gap-2 border-t p-3" onSubmit={submitMessage}>
-                    <Input
-                      name="message"
-                      aria-label={t`Message`}
-                      placeholder={t`Write a message`}
-                      maxLength={5000}
-                      required
-                    />
+                  {selected.kind === "announcement" && isAdmin ? (
                     <Button
-                      type="submit"
-                      size="icon"
-                      disabled={sendMessage.isPending}
-                      aria-label={t`Send message`}
+                      className="ms-auto"
+                      size="icon-sm"
+                      variant="outline"
+                      aria-label={t`Create notification`}
+                      aria-expanded={showAnnouncementComposer}
+                      onClick={() => setShowAnnouncementComposer((value) => !value)}
                     >
-                      <SendIcon />
+                      <PlusIcon />
                     </Button>
-                  </form>
-                ) : selected.kind === "announcement" && isAdmin ? (
-                  <AnnouncementComposer
+                  ) : null}
+                </div>
+                {selected.kind === "announcement" && isAdmin ? (
+                  <AdminAnnouncementView
+                    hasMoreNotifications={deliveredAnnouncementsQuery.hasNextPage}
+                    hasMoreScheduled={scheduledAnnouncementsQuery.hasNextPage}
+                    loadingNotifications={deliveredAnnouncementsQuery.isFetchingNextPage}
+                    loadingScheduled={scheduledAnnouncementsQuery.isFetchingNextPage}
+                    notificationsError={deliveredAnnouncementsQuery.isError}
+                    notificationsLoading={deliveredAnnouncementsQuery.isLoading}
+                    notifications={deliveredAnnouncements}
+                    onLoadMoreNotifications={deliveredAnnouncementsQuery.fetchNextPage}
+                    onLoadMoreScheduled={scheduledAnnouncementsQuery.fetchNextPage}
                     onSubmit={submitAnnouncement}
                     pending={createAnnouncement.isPending}
+                    scheduled={scheduledAnnouncements}
+                    scheduledError={scheduledAnnouncementsQuery.isError}
+                    scheduledLoading={scheduledAnnouncementsQuery.isLoading}
+                    showComposer={showAnnouncementComposer}
                     users={selectedUserTargets}
                   />
-                ) : null}
+                ) : (
+                  <ConversationMessageView
+                    conversation={selected}
+                    currentUserId={currentUserId}
+                    open={open}
+                  />
+                )}
               </>
             ) : (
               <Empty>
@@ -317,6 +259,164 @@ function formValue(data: FormData, name: string) {
 
 type Conversation = NonNullable<ReturnType<typeof useConversationsQuery>["data"]>[number];
 type UserTarget = NonNullable<ReturnType<typeof useUsersQuery>["data"]>[number];
+type AnnouncementItem = NonNullable<
+  ReturnType<typeof useAnnouncementsQuery>["data"]
+>["pages"][number]["items"][number];
+
+function ConversationMessageView({
+  conversation,
+  currentUserId,
+  open,
+}: {
+  conversation: Conversation;
+  currentUserId: string;
+  open: boolean;
+}) {
+  const { i18n, t } = useLingui();
+  const messagesQuery = useMessagesQuery(conversation.id);
+  const sendMessage = useSendMessageMutation();
+  const { mutate: markRead } = useMarkReadMutation();
+  const deleteMessage = useDeleteMessageMutation();
+  const viewportRef = useRef<HTMLDivElement>(null);
+  const latestMessageId = messagesQuery.data?.pages[0]?.items.at(-1)?.id;
+  const direct = conversation.kind === "direct";
+  const displayedMessages = useMemo(
+    () => flattenMessagePages(messagesQuery.data?.pages ?? [], !direct),
+    [direct, messagesQuery.data?.pages]
+  );
+
+  useEffect(() => {
+    if (latestMessageId)
+      markRead({ conversationId: conversation.id, throughMessageId: latestMessageId });
+  }, [conversation.id, latestMessageId, markRead]);
+
+  useLayoutEffect(() => {
+    if (!direct || !open || !latestMessageId) return;
+    const viewport = viewportRef.current;
+    if (viewport) viewport.scrollTop = viewport.scrollHeight;
+  }, [conversation.id, direct, latestMessageId, open]);
+
+  async function submitMessage(event: FormEvent<HTMLFormElement>) {
+    event.preventDefault();
+    const form = event.currentTarget;
+    const body = formValue(new FormData(form), "message").trim();
+    if (!body) return;
+    await sendMessage.mutateAsync({ conversationId: conversation.id, body });
+    form.reset();
+  }
+
+  return (
+    <>
+      <MessageScrollerProvider autoScroll>
+        <MessageScroller>
+          <MessageScrollerViewport ref={viewportRef}>
+            <MessageScrollerContent className={direct ? undefined : "justify-start"}>
+              {direct ? (
+                <InfiniteLoadTrigger
+                  hasMore={messagesQuery.hasNextPage}
+                  loading={messagesQuery.isFetchingNextPage}
+                  onLoadMore={messagesQuery.fetchNextPage}
+                />
+              ) : null}
+              {displayedMessages.length ? (
+                displayedMessages.map((item) => {
+                  const own = item.senderId === currentUserId;
+                  return (
+                    <MessageScrollerItem key={item.id} messageId={item.id} scrollAnchor={own}>
+                      {item.kind !== "direct" && item.title ? (
+                        <Marker variant="separator">
+                          <MarkerContent>{item.title}</MarkerContent>
+                        </Marker>
+                      ) : null}
+                      <Message align={own ? "end" : "start"}>
+                        {!own && item.senderName ? (
+                          <MessageAvatar>
+                            <Avatar className="size-8">
+                              <AvatarImage
+                                src={item.senderImage ?? undefined}
+                                alt={item.senderName}
+                              />
+                              <AvatarFallback>{initials(item.senderName)}</AvatarFallback>
+                            </Avatar>
+                          </MessageAvatar>
+                        ) : null}
+                        <MessageContent>
+                          {!own && item.senderName ? (
+                            <MessageHeader>{item.senderName}</MessageHeader>
+                          ) : null}
+                          <Bubble align={own ? "end" : "start"}>
+                            <BubbleContent>
+                              {item.deletedAt ? t`Message deleted` : item.body}
+                            </BubbleContent>
+                          </Bubble>
+                          <MessageFooter className="flex items-center gap-1">
+                            <NotificationTime value={item.createdAt} locale={i18n.locale} />
+                            {own && !item.deletedAt ? (
+                              <Button
+                                variant="ghost"
+                                size="icon-xs"
+                                aria-label={t`Delete message`}
+                                onClick={() =>
+                                  deleteMessage.mutate({
+                                    id: item.id,
+                                    conversationId: item.conversationId,
+                                  })
+                                }
+                              >
+                                <Trash2Icon />
+                              </Button>
+                            ) : null}
+                          </MessageFooter>
+                        </MessageContent>
+                      </Message>
+                    </MessageScrollerItem>
+                  );
+                })
+              ) : (
+                <Empty>
+                  <EmptyHeader>
+                    <EmptyMedia variant="icon">
+                      <MessageCircleIcon />
+                    </EmptyMedia>
+                    <EmptyTitle>{t`Nothing here yet`}</EmptyTitle>
+                    <EmptyDescription>{t`New messages will appear here after Firebase notifies this device.`}</EmptyDescription>
+                  </EmptyHeader>
+                </Empty>
+              )}
+              {!direct ? (
+                <InfiniteLoadTrigger
+                  hasMore={messagesQuery.hasNextPage}
+                  loading={messagesQuery.isFetchingNextPage}
+                  onLoadMore={messagesQuery.fetchNextPage}
+                />
+              ) : null}
+            </MessageScrollerContent>
+          </MessageScrollerViewport>
+          <MessageScrollerButton />
+        </MessageScroller>
+      </MessageScrollerProvider>
+      {direct ? (
+        <form className="flex gap-2 border-t p-3" onSubmit={submitMessage}>
+          <Input
+            name="message"
+            aria-label={t`Message`}
+            placeholder={t`Write a message`}
+            maxLength={5000}
+            required
+          />
+          <Button
+            type="submit"
+            size="icon"
+            disabled={sendMessage.isPending}
+            aria-label={t`Send message`}
+          >
+            <SendIcon />
+          </Button>
+        </form>
+      ) : null}
+    </>
+  );
+}
 
 function ConversationSidebar({
   conversations,
@@ -452,6 +552,219 @@ function ConversationSkeleton() {
   );
 }
 
+function AdminAnnouncementView({
+  hasMoreNotifications,
+  hasMoreScheduled,
+  loadingNotifications,
+  loadingScheduled,
+  notificationsError,
+  notificationsLoading,
+  notifications,
+  onLoadMoreNotifications,
+  onLoadMoreScheduled,
+  onSubmit,
+  pending,
+  scheduled,
+  scheduledError,
+  scheduledLoading,
+  showComposer,
+  users,
+}: {
+  hasMoreNotifications: boolean;
+  hasMoreScheduled: boolean;
+  loadingNotifications: boolean;
+  loadingScheduled: boolean;
+  notificationsError: boolean;
+  notificationsLoading: boolean;
+  notifications: AnnouncementItem[];
+  onLoadMoreNotifications: () => Promise<unknown>;
+  onLoadMoreScheduled: () => Promise<unknown>;
+  onSubmit: (event: FormEvent<HTMLFormElement>) => Promise<void>;
+  pending: boolean;
+  scheduled: AnnouncementItem[];
+  scheduledError: boolean;
+  scheduledLoading: boolean;
+  showComposer: boolean;
+  users: UserTarget[];
+}) {
+  const { i18n, t } = useLingui();
+
+  return (
+    <div className="min-h-0 flex-1 overflow-y-auto">
+      {showComposer ? (
+        <section className="border-b bg-muted/30 p-4" aria-labelledby="new-announcement-title">
+          <div className="mb-3 flex flex-col gap-1">
+            <h2 id="new-announcement-title" className="font-heading font-semibold">
+              {t`Create notification`}
+            </h2>
+            <p className="text-sm text-muted-foreground">
+              {t`Choose an audience and publish now or schedule it for later.`}
+            </p>
+          </div>
+          <AnnouncementComposer onSubmit={onSubmit} pending={pending} users={users} />
+        </section>
+      ) : null}
+      <div className="flex flex-col gap-8 p-4 md:p-6">
+        <section aria-labelledby="scheduled-notifications-title">
+          <div className="mb-3 flex items-end justify-between gap-3">
+            <div>
+              <h2 id="scheduled-notifications-title" className="font-heading font-semibold">
+                {t`Scheduled notifications`}
+              </h2>
+              <p className="text-sm text-muted-foreground">
+                {t`Upcoming announcements, newest first.`}
+              </p>
+            </div>
+          </div>
+          {scheduledError ? (
+            <Alert variant="destructive">
+              <AlertTitle>{t`Scheduled notifications could not be loaded.`}</AlertTitle>
+            </Alert>
+          ) : scheduledLoading ? (
+            <NotificationListSkeleton />
+          ) : scheduled.length ? (
+            <ItemGroup>
+              {scheduled.map((item) => (
+                <Item key={item.id} variant="outline" render={<article />}>
+                  <ItemMedia variant="icon">
+                    <CalendarClockIcon />
+                  </ItemMedia>
+                  <ItemContent>
+                    <ItemHeader>
+                      <ItemTitle>{item.title}</ItemTitle>
+                      <Badge variant="outline">{t`Scheduled`}</Badge>
+                    </ItemHeader>
+                    <ItemDescription>{item.body}</ItemDescription>
+                    <NotificationTime
+                      value={item.scheduledAt}
+                      locale={i18n.locale}
+                      prefix={t`Scheduled for`}
+                    />
+                  </ItemContent>
+                </Item>
+              ))}
+            </ItemGroup>
+          ) : (
+            <p className="rounded-lg border border-dashed p-4 text-sm text-muted-foreground">
+              {t`No notifications are scheduled.`}
+            </p>
+          )}
+          <InfiniteLoadTrigger
+            hasMore={hasMoreScheduled}
+            loading={loadingScheduled}
+            onLoadMore={onLoadMoreScheduled}
+          />
+        </section>
+
+        <section aria-labelledby="notification-history-title">
+          <div className="mb-3">
+            <h2 id="notification-history-title" className="font-heading font-semibold">
+              {t`Latest notifications`}
+            </h2>
+            <p className="text-sm text-muted-foreground">
+              {t`Delivered announcements, newest first.`}
+            </p>
+          </div>
+          {notificationsError ? (
+            <Alert variant="destructive">
+              <AlertTitle>{t`Notifications could not be loaded.`}</AlertTitle>
+            </Alert>
+          ) : notificationsLoading ? (
+            <NotificationListSkeleton />
+          ) : notifications.length ? (
+            <ItemGroup>
+              {notifications.map((item) => (
+                <Item key={item.id} variant="muted" render={<article />}>
+                  <ItemMedia variant="icon">
+                    <MegaphoneIcon />
+                  </ItemMedia>
+                  <ItemContent>
+                    <ItemTitle>{item.title ?? t`Announcement`}</ItemTitle>
+                    <ItemDescription>{item.body}</ItemDescription>
+                    <NotificationTime value={item.sentAt ?? item.createdAt} locale={i18n.locale} />
+                  </ItemContent>
+                </Item>
+              ))}
+            </ItemGroup>
+          ) : (
+            <p className="rounded-lg border border-dashed p-4 text-sm text-muted-foreground">
+              {t`No notifications have been delivered yet.`}
+            </p>
+          )}
+          <InfiniteLoadTrigger
+            hasMore={hasMoreNotifications}
+            loading={loadingNotifications}
+            onLoadMore={onLoadMoreNotifications}
+          />
+        </section>
+      </div>
+    </div>
+  );
+}
+
+function NotificationTime({
+  locale,
+  prefix,
+  value,
+}: {
+  locale: string;
+  prefix?: string;
+  value: Date | string;
+}) {
+  return (
+    <time
+      className="text-xs text-muted-foreground"
+      dateTime={new Date(value).toISOString()}
+      title={formatFullNotificationDate(value, locale)}
+    >
+      {prefix ? `${prefix} ` : null}
+      {formatNotificationDate(value, new Date(), locale)}
+    </time>
+  );
+}
+
+function InfiniteLoadTrigger({
+  hasMore,
+  loading,
+  onLoadMore,
+}: {
+  hasMore: boolean;
+  loading: boolean;
+  onLoadMore: () => Promise<unknown>;
+}) {
+  const triggerRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    const trigger = triggerRef.current;
+    if (!trigger || !hasMore || loading) return;
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry?.isIntersecting) void onLoadMore();
+      },
+      { rootMargin: "160px" }
+    );
+    observer.observe(trigger);
+    return () => observer.disconnect();
+  }, [hasMore, loading, onLoadMore]);
+
+  return hasMore || loading ? (
+    <div ref={triggerRef} className="flex min-h-10 items-center justify-center py-3">
+      {loading ? <Spinner /> : null}
+      <span className="sr-only">Loading more notifications</span>
+    </div>
+  ) : null;
+}
+
+function NotificationListSkeleton() {
+  return (
+    <div className="flex flex-col gap-3">
+      {[0, 1, 2].map((value) => (
+        <Skeleton key={value} className="h-24 w-full" />
+      ))}
+    </div>
+  );
+}
+
 function AnnouncementComposer({
   onSubmit,
   pending,
@@ -463,7 +776,7 @@ function AnnouncementComposer({
 }) {
   const { t } = useLingui();
   return (
-    <form className="border-t p-3" onSubmit={(event) => void onSubmit(event)}>
+    <form onSubmit={(event) => void onSubmit(event)}>
       <FieldGroup className="grid gap-2 md:grid-cols-2">
         <Field>
           <FieldLabel htmlFor="announcement-title">{t`Title`}</FieldLabel>

@@ -80,12 +80,17 @@ export const ReadRoutes = secureAPI()
   )
   .get(
     ENDPOINTS_PATH.announcements,
-    async () => {
-      return await listAnnouncements();
+    async ({ query }) => {
+      return await listAnnouncements(
+        query.section ?? "all",
+        query.limit ? Number(query.limit) : undefined,
+        query.cursor
+      );
     },
     {
       authorize: { notification: [applicationActions.notification.announce] },
-      response: { [StatusMap.OK]: NotificationSchema.AnnouncementsList },
+      query: NotificationSchema.AnnouncementListQuery,
+      response: { [StatusMap.OK]: NotificationSchema.AnnouncementsPage },
       detail: {
         summary: "Read announcements",
         description: "Get announcements available to administrators",
