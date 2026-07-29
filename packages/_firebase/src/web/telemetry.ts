@@ -28,13 +28,3 @@ export async function trackScreen(pathname: string) {
     screen_name: pathname.replaceAll(/[^a-zA-Z0-9/_-]/g, "").slice(0, 100) || "/",
   });
 }
-
-export async function measure<T>(name: string, operation: () => Promise<T>): Promise<T> {
-  if (typeof window === "undefined") return operation();
-  try {
-    const { traceAsync } = await import("./performance");
-    return await traceAsync(name, operation);
-  } catch {
-    return operation();
-  }
-}

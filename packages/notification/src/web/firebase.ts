@@ -5,7 +5,7 @@ import {
   onForegroundMessage,
   requestFcmToken,
 } from "@modular-vsa/firebase/web/messaging";
-import { measure, trackEvent } from "@modular-vsa/firebase/web/telemetry";
+import { trackEvent } from "@modular-vsa/firebase/web/telemetry";
 
 import { notificationApi, notificationKeys } from "./api/query";
 
@@ -24,18 +24,16 @@ export async function enableNotifications(): Promise<PermissionState> {
   await trackEvent("notification_permission", { outcome: permission });
   if (permission !== "granted") return permission;
   try {
-    await measure("notification_registration", async () => {
-      const registration = await navigator.serviceWorker.ready;
-      const fid = await requestFcmToken({ serviceWorkerRegistration: registration });
-      const registrationResult = await notificationApi.notification.devices.put({
-        fid,
-        platform: "web",
-        userAgent: navigator.userAgent,
-      });
-      if (registrationResult.error || !registrationResult.data)
-        throw new Error("Firebase device registration could not be persisted");
-      localStorage.setItem(FID_KEY, fid);
+    const registration = await navigator.serviceWorker.ready;
+    const fid = await requestFcmToken({ serviceWorkerRegistration: registration });
+    const registrationResult = await notificationApi.notification.devices.put({
+      fid,
+      platform: "web",
+      userAgent: navigator.userAgent,
     });
+    if (registrationResult.error || !registrationResult.data)
+      throw new Error("Firebase device registration could not be persisted");
+    localStorage.setItem(FID_KEY, fid);
     return "granted";
   } catch {
     return "error";

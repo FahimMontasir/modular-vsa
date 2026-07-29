@@ -1,6 +1,6 @@
 import { queryOptions, useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 
-import { measure, trackEvent } from "@modular-vsa/firebase/web/telemetry";
+import { trackEvent } from "@modular-vsa/firebase/web/telemetry";
 import { createApiClient } from "@modular-vsa/shared/web/api-client";
 import { toast } from "@modular-vsa/ui/sonner";
 
@@ -37,11 +37,9 @@ export function useConversationsQuery(enabled = true) {
   return useQuery({
     queryKey: notificationKeys.conversations,
     queryFn: async () =>
-      measure("notification_conversation_load", async () =>
-        requireData(
-          await notificationApi.notification.conversations.get(),
-          "Conversations unavailable"
-        )
+      requireData(
+        await notificationApi.notification.conversations.get(),
+        "Conversations unavailable"
       ),
     enabled,
   });
@@ -52,13 +50,11 @@ export function useMessagesQuery(conversationId?: string) {
     ...queryOptions({
       queryKey: notificationKeys.messages(conversationId ?? "none"),
       queryFn: async () => {
-        const page = (await measure("notification_history_load", async () =>
-          requireData(
-            await notificationApi.notification
-              .conversations({ conversationId: conversationId! })
-              .messages.get({ query: { limit: 50 } }),
-            "Messages unavailable"
-          )
+        const page = (await requireData(
+          await notificationApi.notification
+            .conversations({ conversationId: conversationId! })
+            .messages.get({ query: { limit: 50 } }),
+          "Messages unavailable"
         )) as MessagePage;
         return page.items;
       },

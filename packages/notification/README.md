@@ -115,33 +115,26 @@ recipient rows, and delivery rows in the dispatch transaction. Scheduled times a
 There are intentionally no SSE endpoints, EventSource clients, WebSockets, Redis pub/sub, timed inbox
 polling, group chat, attachments, typing, presence, reactions, edits, or sender-visible receipts.
 
-## Analytics and performance
+## Analytics
 
-Firebase Analytics and Performance Monitoring lazy-load after hydration. Every TanStack route emits a
-normalized `screen_view`; route readiness and notification registration use custom traces. Safe
-notification events include permission outcome and messenger/announcement outcomes. Automatic page
-and network monitoring remains enabled by Firebase Performance.
+Firebase Analytics lazy-loads after hydration. Every TanStack route emits a normalized `screen_view`.
+Safe notification events include permission outcome and messenger/announcement outcomes.
 
 Never add IDs, FIDs, names, emails, search text, message/post/announcement bodies, or arbitrary URLs to
 Analytics. `sanitizeTelemetryParams` only accepts normalized event names/keys and short safe scalar
 values. Database identifiers are used for cache invalidation and FCM data routing only, never Analytics.
 
-| Signal                                                        | Safe dimensions / scope                                                             |
-| ------------------------------------------------------------- | ----------------------------------------------------------------------------------- |
-| `screen_view`                                                 | Normalized route path only.                                                         |
-| `auth_action`                                                 | Action, method when relevant, and success/failed outcome.                           |
-| `account_action`, `security_action`                           | Normalized action and outcome.                                                      |
-| `home_action`                                                 | Create/update/delete action and outcome; never post content or ID.                  |
-| `notification_permission`                                     | Granted/denied/default outcome.                                                     |
-| `messenger_action`, `announcement_action`                     | Normalized action and outcome; never conversation, message, user, or target values. |
-| `route_<normalized-path>`                                     | Route-ready Performance trace.                                                      |
-| `home_load`                                                   | Home query Performance trace.                                                       |
-| `notification_registration`                                   | Permission-granted FID registration Performance trace.                              |
-| `notification_conversation_load`, `notification_history_load` | Database-backed inbox query Performance traces without IDs as attributes.           |
+| Signal                                    | Safe dimensions / scope                                                             |
+| ----------------------------------------- | ----------------------------------------------------------------------------------- |
+| `screen_view`                             | Normalized route path only.                                                         |
+| `auth_action`                             | Action, method when relevant, and success/failed outcome.                           |
+| `account_action`, `security_action`       | Normalized action and outcome.                                                      |
+| `home_action`                             | Create/update/delete action and outcome; never post content or ID.                  |
+| `notification_permission`                 | Granted/denied/default outcome.                                                     |
+| `messenger_action`, `announcement_action` | Normalized action and outcome; never conversation, message, user, or target values. |
 
 Server-side message persistence, FCM dispatch, and announcement fan-out are observable through durable
-outbox timestamps/statuses and structured worker logs. Firebase Performance Monitoring is a browser SDK;
-server operations are deliberately not mislabeled as Firebase client traces.
+outbox timestamps/statuses and structured worker logs.
 
 ## Local setup and troubleshooting
 

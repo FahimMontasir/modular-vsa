@@ -50,7 +50,6 @@ Each module is a standalone file importable via sub-path exports:
 import { getApp } from "@modular-vsa/firebase/web/init";
 import { logEvent } from "@modular-vsa/firebase/web/analytics";
 import { requestFcmToken } from "@modular-vsa/firebase/web/messaging";
-import { traceAsync } from "@modular-vsa/firebase/web/performance";
 ```
 
 ### `web/init`
@@ -87,18 +86,6 @@ Reference: https://firebase.google.com/docs/analytics
 > see https://firebase.google.com/docs/cloud-messaging/js/client#register
 
 Reference: https://firebase.google.com/docs/cloud-messaging
-
-### `web/performance`
-
-| Export                      | Description                                                                |
-| --------------------------- | -------------------------------------------------------------------------- |
-| `getPerformance(settings?)` | Returns the `FirebasePerformance` instance (lazy-init)                     |
-| `trace(name)`               | Creates a custom `PerformanceTrace` (call `.start()` / `.stop()` manually) |
-| `traceAsync(name, fn)`      | Wraps an async function with automatic start/stop timing                   |
-
-Reference: https://firebase.google.com/docs/perf-mon
-
----
 
 ## Server modules
 
@@ -163,14 +150,6 @@ onRegistered((fid) => {
 await requestFcmToken();
 ```
 
-### Web — custom performance trace
-
-```ts
-import { traceAsync } from "@modular-vsa/firebase/web/performance";
-
-const result = await traceAsync("data-load", () => fetch("/api/data").then((r) => r.json()));
-```
-
 ### Server — send push notification
 
 ```ts
@@ -200,6 +179,6 @@ and contain a safe notification type, conversation/message IDs, internal destina
 copy. The worker displays the notification and opens the selected Messenger conversation. Authoritative
 content is fetched from PostgreSQL after the app opens.
 
-Analytics and Performance Monitoring initialize lazily after browser hydration. Analytics parameters
-must remain anonymous and content-free: never send user/database/FID identifiers, names, email, search
-text, message bodies, posts, announcement bodies, or external URLs.
+Analytics initializes lazily after browser hydration. Analytics parameters must remain anonymous and
+content-free: never send user/database/FID identifiers, names, email, search text, message bodies,
+posts, announcement bodies, or external URLs.

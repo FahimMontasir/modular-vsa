@@ -1,6 +1,6 @@
 import { queryOptions, useMutation, useQueryClient, useSuspenseQuery } from "@tanstack/react-query";
 
-import { measure, trackEvent } from "@modular-vsa/firebase/web/telemetry";
+import { trackEvent } from "@modular-vsa/firebase/web/telemetry";
 // import { t } from "@lingui/core/macro";
 import { createApiClient } from "@modular-vsa/shared/web/api-client";
 import { useUploadFileMutation } from "@modular-vsa/storage/web/hooks";
@@ -17,7 +17,7 @@ const homeKeys = {
 const apiClient = createApiClient<APIHomeType>();
 
 async function getAllPosts() {
-  const { data, error } = await measure("home_load", () => apiClient.home.get());
+  const { data, error } = await apiClient.home.get();
 
   if (error) {
     toast.error("Failed to fetch posts");

@@ -35,8 +35,8 @@ FCM is the only realtime transport. Foreground messages invalidate React Query c
 open, focus, reconnect, and app resume perform one-shot database reconciliation. The custom service
 worker at `src/sw.ts` displays background pushes and routes clicks to the selected conversation.
 
-Firebase Analytics and Performance Monitoring lazy-load after hydration. Route telemetry is
-normalized and anonymous; do not log content or identifiers. See
+Firebase Analytics lazy-loads after hydration. Route telemetry is normalized and anonymous; do not
+log content or identifiers. See
 `packages/notification/README.md` and `packages/_firebase/README.md` for setup and troubleshooting.
 
 ## Build
