@@ -32,7 +32,7 @@ export const SCHEDULES: readonly ScheduleEntry[] = [
     run: schedulerSendSMS,
   },
   {
-    cron: "*/1 * * * *",
+    cron: "@hourly",
     description: "Reconcile Firebase notification outbox",
     run: async () => Promise.all([reconcileNotificationDeliveries(), reconcileAnnouncements()]),
   },

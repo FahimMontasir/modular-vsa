@@ -148,6 +148,21 @@ describe("Notification update controller", () => {
     const device = await auth.api.notification.devices.put({ fid, platform: "web" });
     expect(device.error).toBeNull();
     expect(device.data?.fid).toBe(fid);
+    const refreshedDevice = await auth.api.notification.devices.put({
+      fid,
+      platform: "web",
+      userAgent: "notification-route-test",
+    });
+    expect(refreshedDevice.error).toBeNull();
+    expect(refreshedDevice.data).toMatchObject({
+      id: device.data?.id,
+      disabledAt: null,
+      fid,
+      userAgent: "notification-route-test",
+    });
+    expect(refreshedDevice.data?.lastSeenAt.getTime()).toBeGreaterThanOrEqual(
+      device.data?.lastSeenAt.getTime() ?? 0
+    );
 
     const scheduled = await auth.api.notification.announcements.post({
       title: `Scheduled route ${crypto.randomUUID()}`,
@@ -180,6 +195,9 @@ describe("Notification delete controller", () => {
     await auth.api.notification.devices.put({ fid, platform: "web" });
     const detached = await auth.api.notification.devices.delete({ fid, platform: "web" });
     expect(detached.data).toEqual({ success: true });
+    const reactivated = await auth.api.notification.devices.put({ fid, platform: "web" });
+    expect(reactivated.error).toBeNull();
+    expect(reactivated.data).toMatchObject({ disabledAt: null, fid });
 
     const announcement = await auth.api.notification.announcements.post({
       title: `Delete route draft ${crypto.randomUUID()}`,

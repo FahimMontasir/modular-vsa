@@ -1,25 +1,18 @@
 import { useQueryClient } from "@tanstack/react-query";
 import { useEffect } from "react";
 
-import {
-  enableNotifications,
-  listenForFirebaseMessages,
-  reconcileNotificationQueries,
-} from "../firebase";
+import { reconcileNotificationQueries, startFirebaseNotificationRuntime } from "../firebase";
 
 export function NotificationRuntime() {
   const queryClient = useQueryClient();
 
   useEffect(() => {
     let unsubscribe: (() => void) | undefined;
-    if ("Notification" in window && Notification.permission === "granted") {
-      void enableNotifications();
-      import("@modular-vsa/firebase/web/messaging").then(({ isMessagingSupported }) =>
-        isMessagingSupported().then((supported) => {
-          if (supported) unsubscribe = listenForFirebaseMessages(queryClient);
-        })
-      );
-    }
+    let active = true;
+    void startFirebaseNotificationRuntime(queryClient).then((stop) => {
+      if (active) unsubscribe = stop;
+      else stop();
+    });
     function reconcile() {
       void reconcileNotificationQueries(queryClient);
     }
@@ -30,6 +23,7 @@ export function NotificationRuntime() {
     window.addEventListener("online", reconcile);
     document.addEventListener("visibilitychange", visible);
     return () => {
+      active = false;
       unsubscribe?.();
       window.removeEventListener("focus", reconcile);
       window.removeEventListener("online", reconcile);

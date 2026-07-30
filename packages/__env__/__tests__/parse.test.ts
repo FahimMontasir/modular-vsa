@@ -38,6 +38,7 @@ const validWebEnv = {
   VITE_FIREBASE_STORAGE_BUCKET: "travel-horse.firebasestorage.app",
   VITE_FIREBASE_MESSAGING_SENDER_ID: "757164574402",
   VITE_FIREBASE_APP_ID: "1:757164574402:web:a75e958e2ec3994af41d5b",
+  VITE_FIREBASE_VAPID_KEY: "firebase-vapid-key",
 };
 
 describe("parseEnv", () => {
@@ -66,11 +67,9 @@ describe("parseEnv", () => {
     const parsed = parseEnv(WebEnvSchema, {
       ...validWebEnv,
       VITE_FIREBASE_MEASUREMENT_ID: "",
-      VITE_FIREBASE_VAPID_KEY: "",
     });
 
     expect(parsed.VITE_FIREBASE_MEASUREMENT_ID).toBeUndefined();
-    expect(parsed.VITE_FIREBASE_VAPID_KEY).toBeUndefined();
   });
 
   test("rejects missing required values", () => {
@@ -79,6 +78,7 @@ describe("parseEnv", () => {
     expect(() =>
       parseEnv(ServerEnvSchema, { ...validServerEnv, BOOTSTRAP_ADMIN_PASSWORD: "short" })
     ).toThrow();
+    expect(() => parseEnv(WebEnvSchema, { ...validWebEnv, VITE_FIREBASE_VAPID_KEY: "" })).toThrow();
   });
 
   test("rejects malformed URLs and numeric values", () => {

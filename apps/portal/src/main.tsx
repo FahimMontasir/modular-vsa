@@ -16,11 +16,15 @@ function AppRouter() {
   return <RouterProvider router={router} context={{ auth }} />;
 }
 
+import { registerSW } from "virtual:pwa-register";
+
 const rootElement = document.getElementById("app");
 
 if (!rootElement) {
   throw new Error("Root element not found");
 }
+
+registerSW({ immediate: true });
 
 await initializeI18n();
 

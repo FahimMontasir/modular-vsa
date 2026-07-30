@@ -45,11 +45,13 @@ export function getMessaging(): Messaging {
  * @returns The Firebase Installation ID (FID).
  * @see https://firebase.google.com/docs/cloud-messaging/js/client#register
  */
-export async function requestFcmToken(options?: {
+export async function registerFcmInstallation(options?: {
   vapidKey?: string;
   serviceWorkerRegistration?: ServiceWorkerRegistration;
 }): Promise<string> {
   const instance = getMessaging();
+  const vapidKey = options?.vapidKey ?? env.VITE_FIREBASE_VAPID_KEY;
+  if (!vapidKey) throw new Error("Firebase web push requires a VAPID key");
 
   const fid = await new Promise<string>((resolve, reject) => {
     const unsub = _onRegistered(instance, (fid) => {
@@ -58,7 +60,7 @@ export async function requestFcmToken(options?: {
     });
 
     _register(instance, {
-      vapidKey: options?.vapidKey ?? env.VITE_FIREBASE_VAPID_KEY,
+      vapidKey,
       serviceWorkerRegistration: options?.serviceWorkerRegistration,
     }).catch((err) => {
       unsub();
@@ -91,7 +93,7 @@ export function onRegistered(callback: (fid: string) => void): () => void {
  *
  * @see https://firebase.google.com/docs/cloud-messaging/js/client#unregister
  */
-export async function unregisterFcm(): Promise<void> {
+export async function unregisterFcmInstallation(): Promise<void> {
   return _unregister(getMessaging());
 }
 

@@ -8,6 +8,7 @@ import {
   normalizeInternalUrl,
   tombstone,
 } from "../../src/server/helpers/notification";
+import { replacedFirebaseRegistration } from "../../src/web/helpers/firebase-registration";
 import { flattenMessagePages } from "../../src/web/helpers/message-order";
 import { formatNotificationDate } from "../../src/web/helpers/notification-date";
 
@@ -30,6 +31,12 @@ describe("notification helpers", () => {
 
     expect(flattenMessagePages(pages, true)).toEqual([4, 3, 2, 1]);
     expect(flattenMessagePages(pages, false)).toEqual([1, 2, 3, 4]);
+  });
+
+  test("detaches only a Firebase registration replaced by a rotated FID", () => {
+    expect(replacedFirebaseRegistration("old-fid", "new-fid")).toBe("old-fid");
+    expect(replacedFirebaseRegistration("current-fid", "current-fid")).toBeUndefined();
+    expect(replacedFirebaseRegistration(null, "new-fid")).toBeUndefined();
   });
 
   test("canonicalizes a direct conversation pair", () => {

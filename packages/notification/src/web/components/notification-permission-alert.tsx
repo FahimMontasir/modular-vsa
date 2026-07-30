@@ -22,13 +22,11 @@ export function NotificationPermissionAlert() {
       try {
         const permission = await notificationPermissionState();
         if (!active) return;
-        if (permission !== "granted") {
-          setState(permission);
+        if (permission === "granted") {
+          setState("granted");
           return;
         }
-        setState("registering");
-        const registration = await enableNotifications();
-        if (active) setState(registration);
+        setState(permission);
       } catch {
         if (active) setState("error");
       }

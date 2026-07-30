@@ -13,7 +13,7 @@ export const WebEnvSchema = t.Object({
   VITE_FIREBASE_MESSAGING_SENDER_ID: nonEmptyString(),
   VITE_FIREBASE_APP_ID: nonEmptyString(),
   VITE_FIREBASE_MEASUREMENT_ID: t.Optional(nonEmptyString()),
-  VITE_FIREBASE_VAPID_KEY: t.Optional(nonEmptyString()),
+  VITE_FIREBASE_VAPID_KEY: nonEmptyString(),
 });
 
 export type WebEnv = typeof WebEnvSchema.static;

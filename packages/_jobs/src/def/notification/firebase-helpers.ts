@@ -8,12 +8,18 @@ const TRANSIENT_CODES = new Set([
 const INVALID_CODES = new Set([
   "messaging/invalid-registration-token",
   "messaging/registration-token-not-registered",
+  "messaging/installation-id-not-registered",
   "messaging/invalid-argument",
 ]);
 
-export function classifyFirebaseError(code: string) {
+export const MAX_FIREBASE_RETRIES = 3;
+
+export function classifyFirebaseError(code: string, attempts = 0) {
   if (INVALID_CODES.has(code)) return "invalid" as const;
-  if (TRANSIENT_CODES.has(code)) return "transient" as const;
+  if (TRANSIENT_CODES.has(code)) {
+    if (attempts >= MAX_FIREBASE_RETRIES) return "permanent" as const;
+    return "transient" as const;
+  }
   return "permanent" as const;
 }
 

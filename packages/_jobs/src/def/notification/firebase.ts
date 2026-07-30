@@ -1,4 +1,4 @@
-import { and, eq, inArray, isNull, lte, or } from "drizzle-orm";
+import { and, eq, isNull, lte, or } from "drizzle-orm";
 
 import { db } from "@modular-vsa/db";
 import { user } from "@modular-vsa/db/schema/auth";
@@ -11,12 +11,14 @@ import {
   message,
   messageRecipient,
   notificationDelivery,
+  notificationDeliveryTarget,
 } from "@modular-vsa/db/schema/notification";
-import { sendMulticastPushNotification } from "@modular-vsa/firebase/server/messaging";
+import { sendFidMulticastPushNotification } from "@modular-vsa/firebase/server/messaging";
 import { logger } from "@modular-vsa/shared/common/logger";
 
 import { defineJob } from "../../core/job";
 import { enqueue } from "../../core/queue";
+import { aggregateFirebaseDeliveryState } from "./firebase-delivery-state";
 import { classifyFirebaseError, firebaseDeliveryJobId, retryDelayMs } from "./firebase-helpers";
 
 export { classifyFirebaseError, firebaseDeliveryJobId, retryDelayMs } from "./firebase-helpers";
@@ -49,23 +51,58 @@ async function deliver(deliveryId: string) {
     .leftJoin(user, eq(user.id, message.senderId))
     .where(eq(notificationDelivery.id, deliveryId))
     .limit(1);
-  if (!row || row.status === "accepted" || row.status === "skipped") return;
+  if (!row || row.status === "accepted" || row.status === "failed" || row.status === "skipped")
+    return;
 
   const devices = await db
     .select({ id: deviceRegistration.id, fid: deviceRegistration.fid })
     .from(deviceRegistration)
     .where(and(eq(deviceRegistration.userId, row.userId), isNull(deviceRegistration.disabledAt)));
+  const now = new Date();
   if (!devices.length) {
     await db
       .update(notificationDelivery)
       .set({
         status: "skipped",
         lastError: "No active Firebase registration",
-        updatedAt: new Date(),
+        updatedAt: now,
       })
       .where(eq(notificationDelivery.id, row.id));
     return;
   }
+
+  await db
+    .insert(notificationDeliveryTarget)
+    .values(
+      devices.map(({ id: deviceRegistrationId }) => ({
+        deliveryId: row.id,
+        deviceRegistrationId,
+      }))
+    )
+    .onConflictDoNothing();
+
+  const targets = await db
+    .select({
+      id: notificationDeliveryTarget.id,
+      deviceRegistrationId: notificationDeliveryTarget.deviceRegistrationId,
+      fid: deviceRegistration.fid,
+      status: notificationDeliveryTarget.status,
+      attempts: notificationDeliveryTarget.attempts,
+      nextAttemptAt: notificationDeliveryTarget.nextAttemptAt,
+      lastError: notificationDeliveryTarget.lastError,
+    })
+    .from(notificationDeliveryTarget)
+    .innerJoin(
+      deviceRegistration,
+      eq(deviceRegistration.id, notificationDeliveryTarget.deviceRegistrationId)
+    )
+    .where(
+      and(eq(notificationDeliveryTarget.deliveryId, row.id), isNull(deviceRegistration.disabledAt))
+    );
+  const dueTargets = targets.filter(
+    ({ status, nextAttemptAt }) =>
+      (status === "pending" || status === "retry") && nextAttemptAt.getTime() <= now.getTime()
+  );
 
   const title =
     row.kind === "direct"
@@ -80,12 +117,12 @@ async function deliver(deliveryId: string) {
         ? "A new announcement is available"
         : "A new platform update is available";
   const destination = `/?messenger=${encodeURIComponent(row.conversationId)}`;
-  const responses = [];
-  for (let index = 0; index < devices.length; index += 500) {
-    const batch = devices.slice(index, index + 500);
+  for (let index = 0; index < dueTargets.length; index += 500) {
+    const batch = dueTargets.slice(index, index + 500);
+    let responses;
     try {
-      const response = await sendMulticastPushNotification({
-        tokens: batch.map(({ fid }) => fid),
+      const response = await sendFidMulticastPushNotification({
+        fids: batch.map(({ fid }) => fid),
         data: {
           type: row.kind,
           conversationId: row.conversationId,
@@ -96,56 +133,87 @@ async function deliver(deliveryId: string) {
         },
         webpush: { fcmOptions: { link: destination } },
       });
-      responses.push(...response.responses);
+      responses = response.responses;
     } catch (error) {
       const failure = safeError(error);
-      responses.push(...batch.map(() => ({ success: false, error: failure })));
+      responses = batch.map(() => ({ success: false as const, error: failure }));
     }
-  }
 
-  const failures = responses.flatMap((result, index) => {
-    if (result.success) return [];
-    return [{ device: devices[index], error: safeError(result.error) }];
-  });
-  const invalidIds = failures
-    .filter(({ error }) => classifyFirebaseError(error.code) === "invalid")
-    .flatMap(({ device }) => (device ? [device.id] : []));
-  if (invalidIds.length)
-    await db
-      .update(deviceRegistration)
-      .set({ disabledAt: new Date() })
-      .where(inArray(deviceRegistration.id, invalidIds));
+    await Promise.all(
+      responses.map(async (result, responseIndex) => {
+        const target = batch[responseIndex];
+        if (!target) return;
+        if (result.success) {
+          await db
+            .update(notificationDeliveryTarget)
+            .set({
+              status: "accepted",
+              attempts: target.attempts + 1,
+              acceptedAt: now,
+              lastError: null,
+              updatedAt: now,
+            })
+            .where(eq(notificationDeliveryTarget.id, target.id));
+          return;
+        }
 
-  if (responses.some(({ success }) => success)) {
-    await db
-      .update(notificationDelivery)
-      .set({
-        status: "accepted",
-        attempts: row.attempts + 1,
-        acceptedAt: new Date(),
-        lastError: failures[0]?.error.code ?? null,
-        updatedAt: new Date(),
+        const failure = safeError(result.error);
+        const classification = classifyFirebaseError(failure.code, target.attempts);
+        if (classification === "invalid")
+          await db
+            .update(deviceRegistration)
+            .set({ disabledAt: now })
+            .where(eq(deviceRegistration.id, target.deviceRegistrationId));
+        await db
+          .update(notificationDeliveryTarget)
+          .set({
+            status:
+              classification === "transient"
+                ? "retry"
+                : classification === "invalid"
+                  ? "skipped"
+                  : "failed",
+            attempts: target.attempts + 1,
+            nextAttemptAt: new Date(now.getTime() + retryDelayMs(target.attempts)),
+            lastError: failure.code,
+            updatedAt: now,
+          })
+          .where(eq(notificationDeliveryTarget.id, target.id));
       })
-      .where(eq(notificationDelivery.id, row.id));
-    return;
+    );
   }
 
-  const failure = failures[0]?.error ?? {
-    code: "messaging/unknown-error",
-    message: "Firebase rejected every device",
-  };
-  const transient = classifyFirebaseError(failure.code) === "transient";
+  const activeTargets = await db
+    .select({
+      status: notificationDeliveryTarget.status,
+      nextAttemptAt: notificationDeliveryTarget.nextAttemptAt,
+      lastError: notificationDeliveryTarget.lastError,
+    })
+    .from(notificationDeliveryTarget)
+    .innerJoin(
+      deviceRegistration,
+      eq(deviceRegistration.id, notificationDeliveryTarget.deviceRegistrationId)
+    )
+    .where(
+      and(eq(notificationDeliveryTarget.deliveryId, row.id), isNull(deviceRegistration.disabledAt))
+    );
+  const aggregate = aggregateFirebaseDeliveryState(activeTargets, now);
   await db
     .update(notificationDelivery)
     .set({
-      status: transient ? "retry" : "failed",
-      attempts: row.attempts + 1,
-      nextAttemptAt: new Date(Date.now() + retryDelayMs(row.attempts)),
-      lastError: failure.code,
-      updatedAt: new Date(),
+      status: aggregate.status,
+      attempts: dueTargets.length ? row.attempts + 1 : row.attempts,
+      nextAttemptAt: aggregate.nextAttemptAt,
+      acceptedAt: aggregate.status === "accepted" ? now : null,
+      lastError: aggregate.lastError,
+      updatedAt: now,
     })
     .where(eq(notificationDelivery.id, row.id));
-  if (transient) throw new Error(failure.message);
+
+  if (aggregate.status === "retry") {
+    const delayMs = Math.max(0, aggregate.nextAttemptAt.getTime() - Date.now());
+    await enqueueNotificationDeliveries([row.id], delayMs);
+  }
 }
 
 export const firebaseDeliveryJob = defineJob({
@@ -157,13 +225,18 @@ export const firebaseDeliveryJob = defineJob({
   },
 });
 
-export function enqueueNotificationDeliveries(deliveryIds: string[]) {
+export function enqueueNotificationDeliveries(deliveryIds: string[], delayMs = 0) {
   return Promise.all(
     deliveryIds.map((deliveryId) =>
       enqueue(
         firebaseDeliveryJob,
         { deliveryIds: [deliveryId] },
-        { jobId: firebaseDeliveryJobId(deliveryId), removeOnComplete: 100, removeOnFail: true }
+        {
+          jobId: firebaseDeliveryJobId(deliveryId),
+          delay: delayMs,
+          removeOnComplete: 100,
+          removeOnFail: true,
+        }
       )
     )
   );
@@ -303,8 +376,10 @@ export async function reconcileNotificationDeliveries() {
       )
     )
     .limit(500);
-  if (rows.length) await enqueueNotificationDeliveries(rows.map(({ id }) => id));
-  logger.info(`[notification] reconciled ${rows.length} Firebase deliveries`);
+  if (rows.length) {
+    await enqueueNotificationDeliveries(rows.map(({ id }) => id));
+    logger.info(`[notification] reconciled ${rows.length} Firebase deliveries`);
+  }
   return { count: rows.length };
 }
 

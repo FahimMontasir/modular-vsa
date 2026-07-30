@@ -119,3 +119,54 @@ test("administrator schedules an announcement from the pinned thread", async ({ 
     await cleanupAnnouncement(title);
   }
 });
+
+test("receives a foreground notification and triggers service worker presentation", async ({
+  page,
+  context,
+}) => {
+  await context.grantPermissions(["notifications"]);
+  await page.goto("/");
+
+  // Mock showNotification and Notification.permission to track calls and ensure permission
+  await page.evaluate(() => {
+    Object.defineProperty(window.Notification, "permission", {
+      get: () => "granted",
+      configurable: true,
+    });
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    (window as any).__e2eNotifications = [];
+    const original = ServiceWorkerRegistration.prototype.showNotification;
+    ServiceWorkerRegistration.prototype.showNotification = function (title, options) {
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      (window as any).__e2eNotifications.push({ title, options });
+      return original.call(this, title, options);
+    };
+  });
+
+  // Wait for the test seam to be available
+  await page.waitForFunction(() => typeof (window as any).__simulateFirebaseMessage === "function");
+
+  const pushPayload = {
+    data: {
+      type: "direct",
+      conversationId: "test-conversation",
+      messageId: "test-message",
+      destination: "/?messenger=test-conversation",
+      pushTitle: "Test Sender",
+      pushBody: "Sent you a message",
+    },
+  };
+
+  await page.evaluate(
+    (payload) => (window as any).__simulateFirebaseMessage(payload),
+    pushPayload
+  );
+
+  // Assert that showNotification was called with correct data
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  const notifications = await page.evaluate(() => (window as any).__e2eNotifications);
+  expect(notifications.length).toBe(1);
+  expect(notifications[0].title).toBe("Test Sender");
+  expect(notifications[0].options.body).toBe("Sent you a message");
+});
+

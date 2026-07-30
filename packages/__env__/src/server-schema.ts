@@ -47,6 +47,7 @@ export const ServerEnvSchema = t.Object({
   FIREBASE_PROJECT_ID: t.Optional(nonEmptyString()),
   FIREBASE_CLIENT_EMAIL: t.Optional(t.String({ format: "email" })),
   FIREBASE_PRIVATE_KEY: t.Optional(nonEmptyString()),
+  FIREBASE_SERVICE_ACCOUNT_PATH: t.Optional(nonEmptyString()),
 });
 
 export type ServerEnv = typeof ServerEnvSchema.static;

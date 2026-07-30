@@ -136,6 +136,33 @@ export const notificationDelivery = pgTable(
   ]
 );
 
+export const notificationDeliveryTarget = pgTable(
+  "notification_delivery_target",
+  {
+    id: id().primaryKey(),
+    deliveryId: text("delivery_id")
+      .notNull()
+      .references(() => notificationDelivery.id, { onDelete: "cascade" }),
+    deviceRegistrationId: text("device_registration_id")
+      .notNull()
+      .references(() => deviceRegistration.id, { onDelete: "cascade" }),
+    status: text("status").default("pending").notNull(),
+    attempts: integer("attempts").default(0).notNull(),
+    nextAttemptAt: timestamp("next_attempt_at").defaultNow().notNull(),
+    acceptedAt: timestamp("accepted_at"),
+    lastError: text("last_error"),
+    createdAt: timestamp("created_at").defaultNow().notNull(),
+    updatedAt: timestamp("updated_at").defaultNow().notNull(),
+  },
+  (table) => [
+    uniqueIndex("notification_delivery_target_device_uidx").on(
+      table.deliveryId,
+      table.deviceRegistrationId
+    ),
+    index("notification_delivery_target_pending_idx").on(table.status, table.nextAttemptAt),
+  ]
+);
+
 export const announcement = pgTable(
   "notification_announcement",
   {
@@ -186,3 +213,21 @@ export const messageRelations = relations(message, ({ one, many }) => ({
   recipients: many(messageRecipient),
   deliveries: many(notificationDelivery),
 }));
+
+export const notificationDeliveryRelations = relations(notificationDelivery, ({ many }) => ({
+  targets: many(notificationDeliveryTarget),
+}));
+
+export const notificationDeliveryTargetRelations = relations(
+  notificationDeliveryTarget,
+  ({ one }) => ({
+    delivery: one(notificationDelivery, {
+      fields: [notificationDeliveryTarget.deliveryId],
+      references: [notificationDelivery.id],
+    }),
+    device: one(deviceRegistration, {
+      fields: [notificationDeliveryTarget.deviceRegistrationId],
+      references: [deviceRegistration.id],
+    }),
+  })
+);
