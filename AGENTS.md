@@ -4,11 +4,11 @@
 
 Load the matching skill from `.agents/skills/` before substantial work:
 
-| Skill | When to load |
-|---|---|
-| `modular-vsa-conventions` | Code, packages, database, API, or architecture |
-| `modular-vsa-ui` | Routes, pages, components, styling, design system |
-| `modular-vsa-testing` | Tests, behavior changes, regressions |
+| Skill                     | When to load                                      |
+| ------------------------- | ------------------------------------------------- |
+| `modular-vsa-conventions` | Code, packages, database, API, or architecture    |
+| `modular-vsa-ui`          | Routes, pages, components, styling, design system |
+| `modular-vsa-testing`     | Tests, behavior changes, regressions              |
 
 ## Rules
 
