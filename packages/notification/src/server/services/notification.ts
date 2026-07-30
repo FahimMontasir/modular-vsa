@@ -99,7 +99,7 @@ export async function listUsers(currentUserId: string, query = "") {
     .limit(30);
 }
 
-export async function listConversations(userId: string) {
+export async function listConversations(userId: string, isAdmin = false) {
   const announcements = await ensureConversation(ANNOUNCEMENT_KEY, {
     kind: "announcement",
     key: ANNOUNCEMENT_KEY,
@@ -175,7 +175,7 @@ export async function listConversations(userId: string) {
         ...row,
         title,
         image,
-        unreadCount: unread?.count ?? 0,
+        unreadCount: isAdmin && row.kind === "announcement" ? 0 : (unread?.count ?? 0),
         lastMessage: last ? (last.deletedAt ? "Message deleted" : last.body) : null,
       };
     })
@@ -188,15 +188,18 @@ export async function listConversations(userId: string) {
   });
 }
 
-export async function unreadTotal(userId: string) {
+export async function unreadTotal(userId: string, isAdmin = false) {
   const [row] = await db
     .select({ count: count() })
     .from(messageRecipient)
+    .innerJoin(message, eq(message.id, messageRecipient.messageId))
+    .innerJoin(conversation, eq(conversation.id, message.conversationId))
     .where(
       and(
         eq(messageRecipient.userId, userId),
         isNull(messageRecipient.readAt),
-        isNull(messageRecipient.hiddenAt)
+        isNull(messageRecipient.hiddenAt),
+        isAdmin ? ne(conversation.kind, "announcement") : undefined
       )
     );
   return { count: row?.count ?? 0 };

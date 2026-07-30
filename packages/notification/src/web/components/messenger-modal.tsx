@@ -104,7 +104,7 @@ export function MessengerModal({
   const deliveredAnnouncementsQuery = useAnnouncementsQuery("delivered", open && isAdmin);
   const [selectedConversationId, setSelectedConversationId] = useState<string>();
   const [showAnnouncementComposer, setShowAnnouncementComposer] = useState(false);
-  const [showConversationList, setShowConversationList] = useState(false);
+  const [showConversationList, setShowConversationList] = useState(!initialConversationId);
   const [search, setSearch] = useState("");
   const [showUsers, setShowUsers] = useState(false);
   const usersQuery = useUsersQuery(search, open && showUsers);
@@ -175,6 +175,7 @@ export function MessengerModal({
             showConversationList={showConversationList}
             showUsers={showUsers}
             users={selectedUserTargets}
+            isAdmin={isAdmin}
           />
           <section
             className={`${selectedId && !showConversationList ? "flex" : "hidden"} min-h-0 flex-col md:flex`}
@@ -430,6 +431,7 @@ function ConversationSidebar({
   showConversationList,
   showUsers,
   users,
+  isAdmin,
 }: {
   conversations: Conversation[] | undefined;
   conversationsLoading: boolean;
@@ -442,6 +444,7 @@ function ConversationSidebar({
   showConversationList: boolean;
   showUsers: boolean;
   users: UserTarget[];
+  isAdmin: boolean;
 }) {
   const { t } = useLingui();
 
@@ -449,7 +452,7 @@ function ConversationSidebar({
     <aside
       className={`${selectedId && !showConversationList ? "hidden" : "flex"} min-h-0 flex-col border-r md:flex`}
     >
-      <div className="flex h-14 items-center justify-between border-b px-4">
+      <div className="flex h-14 items-center justify-between border-b ps-4 pe-14 md:pe-4">
         <div>
           <p className="font-heading font-semibold">{t`Messenger`}</p>
           <p className="text-xs text-muted-foreground">{t`Stored securely in your inbox`}</p>
@@ -519,7 +522,7 @@ function ConversationSidebar({
                 <span className="min-w-0 flex-1">
                   <span className="flex items-center justify-between gap-2">
                     <span className="truncate font-medium">{item.title}</span>
-                    {item.unreadCount ? (
+                    {item.unreadCount && (!isAdmin || item.kind !== "announcement") ? (
                       <Badge>{item.unreadCount > 99 ? "99+" : item.unreadCount}</Badge>
                     ) : null}
                   </span>

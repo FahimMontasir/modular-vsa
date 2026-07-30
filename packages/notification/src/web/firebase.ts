@@ -78,6 +78,9 @@ export async function startFirebaseNotificationRuntime(queryClient: QueryClient)
     console.warn("[Notification] Permission state:", Notification.permission);
   }
   const stopMessages = listenForFirebaseMessages(queryClient, registration);
+
+  // eslint-disable-next-line no-console
+  console.info("[Notification] Firebase runtime Success");
   return () => {
     stopRegistered();
     stopUnregistered();

@@ -48,7 +48,7 @@
     "dev": "bun run dkr:start && bun run db:push && bun run dev:workspace",
     "dev:workspace": "vp run --parallel --no-cache -F @modular-vsa/portal -F @modular-vsa/server -F @modular-vsa/db dev",
     "build": "vp run -r --cache build",
-    "check": "vp check",
+    "check": "vp check --fix",
     "check:perf": "bunx --bun react-doctor@latest",
     "test:unit": "vp run -F '@modular-vsa/*' --no-cache test:unit",
     "test:integration": "bun run dkr:start && bun run db:push && vp run -F '@modular-vsa/*' --no-cache test:integration",

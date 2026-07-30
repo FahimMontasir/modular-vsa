@@ -30,14 +30,29 @@ const serviceWorker = globalThis as MessagingServiceWorker;
 
 export async function initializeBackgroundMessaging() {
   try {
-    if (!(await isSupported())) return;
+    if (!(await isSupported())) {
+      // eslint-disable-next-line no-console
+      console.warn("[SW] Background messaging is not supported in this environment.");
+      return;
+    }
 
+    // eslint-disable-next-line no-console
+    console.info("[SW] Initializing background messaging...");
     const messaging = getMessaging(getApp());
     return onBackgroundMessage(messaging, (payload) => {
+      // eslint-disable-next-line no-console
+      console.log("[SW] Background message received", payload);
       const notification = firebaseNotificationPresentation(payload.data);
-      void serviceWorker.registration.showNotification(notification.title, notification.options);
+      void serviceWorker.registration
+        .showNotification(notification.title, notification.options)
+        .catch((err) => {
+          // eslint-disable-next-line no-console
+          console.error("[SW] Background notification popup failed:", err);
+        });
     });
-  } catch {
+  } catch (err) {
+    // eslint-disable-next-line no-console
+    console.error("[SW] Failed to initialize background messaging:", err);
     // Messaging is optional in service-worker contexts that lack the required APIs.
   }
 }
@@ -57,8 +72,12 @@ async function openNotificationDestination(destination: string) {
 }
 
 globalThis.addEventListener("notificationclick", (event) => {
+  // eslint-disable-next-line no-console
+  console.log("[SW] Notification clicked", event);
   const notificationEvent = event as NotificationClickEvent;
   notificationEvent.notification.close();
   const destination = safeNotificationDestination(notificationEvent.notification.data?.destination);
+  // eslint-disable-next-line no-console
+  console.info("[SW] Opening destination:", destination);
   notificationEvent.waitUntil(openNotificationDestination(destination));
 });

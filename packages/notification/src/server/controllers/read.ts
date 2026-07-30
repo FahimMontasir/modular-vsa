@@ -17,7 +17,8 @@ export const ReadRoutes = secureAPI()
   .get(
     ENDPOINTS_PATH.conversations,
     async ({ user }) => {
-      return await listConversations(user.id);
+      const isAdmin = user.role?.split(",").includes("admin") ?? false;
+      return await listConversations(user.id, isAdmin);
     },
     {
       authorize: { notification: [applicationActions.notification.read] },
@@ -31,7 +32,8 @@ export const ReadRoutes = secureAPI()
   .get(
     ENDPOINTS_PATH.unread,
     async ({ user }) => {
-      return await unreadTotal(user.id);
+      const isAdmin = user.role?.split(",").includes("admin") ?? false;
+      return await unreadTotal(user.id, isAdmin);
     },
     {
       authorize: { notification: [applicationActions.notification.read] },

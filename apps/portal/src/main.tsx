@@ -24,7 +24,27 @@ if (!rootElement) {
   throw new Error("Root element not found");
 }
 
-registerSW({ immediate: true });
+// eslint-disable-next-line no-console
+console.info("[PWA] Registering service worker...");
+registerSW({
+  immediate: true,
+  onNeedRefresh() {
+    // eslint-disable-next-line no-console
+    console.info("[PWA] New content available, please refresh.");
+  },
+  onOfflineReady() {
+    // eslint-disable-next-line no-console
+    console.info("[PWA] App ready to work offline.");
+  },
+  onRegistered(r) {
+    // eslint-disable-next-line no-console
+    console.info("[PWA] Service Worker registered", r);
+  },
+  onRegisterError(error) {
+    // eslint-disable-next-line no-console
+    console.error("[PWA] Service Worker registration failed", error);
+  },
+});
 
 await initializeI18n();
 
