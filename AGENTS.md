@@ -1,15 +1,25 @@
 # Repository Instructions
 
-- Follow the nearest existing structure and style; do not introduce a new layer or abstraction without a demonstrated need.
-- Before substantial work, inspect `.agents/skills/` and load the most specific matching skill completely.
-- Load `modular-vsa-conventions` for code, package, database, API, or architecture changes.
-- Load `modular-vsa-ui` for routes, pages, components, styling, or design-system changes.
-- Load `modular-vsa-testing` whenever behavior, routes, pages, or tests change.
-- Run `bunx @tanstack/intent@latest list` at the workspace root before relevant TanStack work; load the matching package skill before editing.
-- Use Context7 for version-sensitive third-party APIs: confirm the installed version, resolve the official library, then query the specific API.
-- Use Bun for workspace tasks and Vite+ for formatting, linting, types, builds, and orchestration. Use npm only in `tests/` for Playwright.
-- Run the narrowest relevant test first, then broader checks proportional to the change.
-- React Doctor reports live in `react-doctor/`. Read `diagnostics.json` completely plus each relevant per-rule `.txt` file before fixing findings, and treat a shared `fixGroupId` as one root cause.
-- At the very end, run `bun run doctor --verbose --yes`, fix the requested actionable findings by severity, and rerun it to confirm the improvements.
-- After the requested fixes and validations pass, confirm `react-doctor/` contains only generated `diagnostics.json`, `deslop--*.txt`, and `react-doctor--*.txt` reports, then delete every file in that folder. Do not delete the reports before final verification.
-- Finally run `bun test:all && bun check --fix` also open the built in browser mode in the editor or agent to check all the changes works perfectly and nothing breaks
+## Skills
+
+Load the matching skill from `.agents/skills/` before substantial work:
+
+| Skill | When to load |
+|---|---|
+| `modular-vsa-conventions` | Code, packages, database, API, or architecture |
+| `modular-vsa-ui` | Routes, pages, components, styling, design system |
+| `modular-vsa-testing` | Tests, behavior changes, regressions |
+
+## Rules
+
+- Follow nearest existing structure and style — no new abstractions without clear need.
+- Use **Bun** for workspace tasks; use **npm** only in `tests/` for Playwright.
+- Use **Context7** for version-sensitive third-party APIs before writing code.
+- Run `bunx @tanstack/intent@latest list` before TanStack work; load the matching package skill.
+
+## Verification
+
+1. Run the narrowest relevant test first, then broaden proportionally.
+2. Run `bun run doctor --verbose --yes`, fix actionable findings, rerun to confirm.
+3. Clean `react-doctor/` after final verification (keep only generated reports until then).
+4. Run `bun test:all && bun check --fix` and visually verify changes in the browser.
