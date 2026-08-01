@@ -26,6 +26,8 @@
     "@modular-vsa/firebase": "workspace:*",
     "@modular-vsa/shared": "workspace:*",
     "@modular-vsa/ui": "workspace:*",
+    "@tanstack/react-pacer": "catalog:",
+    "@tanstack/react-table": "catalog:",
     "better-auth": "catalog:",
     "drizzle-orm": "catalog:",
     "elysia": "catalog:",

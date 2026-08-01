@@ -28,6 +28,17 @@ description: Build Modular VSA React pages and components with its shared Base U
 - Choose overlays by behavior: `Tooltip`, `HoverCard`, `Popover`, `Dialog`, then `Sheet`/`Drawer`.
 - Use `Alert`, `Sonner`, `Skeleton`, `Spinner`, and `Empty` for their existing feedback roles.
 
+## Choose TanStack utilities by behavior
+
+- Use `@modular-vsa/ui/form` for editable workflows. Keep values, validators, API calls, resets, and localized errors in the feature.
+- Use TanStack Table for genuinely tabular data that needs sorting, filtering, selection, pagination, or reusable column state; render it with `@modular-vsa/ui/table`.
+- Use TanStack Virtual for unbounded or measured-large collections. Supply stable domain IDs, realistic estimates, measured rows, overscan, and `useFlushSync: false` under React 19.
+- Give virtual scrollports a concrete size and provide `initialRect` when the first real measurement can occur after mount.
+- Put `"use no memo";` at the top of TanStack Table v8 and Virtual v3 owner components because their imperative state reads can be hidden from the React Compiler. Remove it only after verifying a compiler-compatible upstream release.
+- Use TanStack Pacer when debounce, throttle, rate limiting, queueing, or batching is intentional product behavior. Do not duplicate timing already owned by Form or Query.
+- Use the shared shadcn Chart/Recharts wrapper for visualization. Do not introduce TanStack Charts.
+- Before TanStack changes, run Intent discovery and use Context7 for installed-package APIs.
+
 ## Build complete interfaces
 
 - Localize user-facing copy with Lingui macros.

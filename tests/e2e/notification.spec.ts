@@ -65,6 +65,7 @@ test("user starts a direct conversation and sends a text message", async ({ page
         await expect(
           page.getByRole("button", { name: new RegExp(fixture.target.name) })
         ).toBeVisible();
+        await expect(page.locator("[data-index]").first()).toBeVisible();
       });
       await test.step("select the recipient", async () => {
         await page.getByRole("button", { name: new RegExp(fixture.target.name) }).click();
@@ -169,4 +170,3 @@ test("receives a foreground notification and triggers service worker presentatio
   expect(notifications[0].title).toBe("Test Sender");
   expect(notifications[0].options.body).toBe("Sent you a message");
 });
-

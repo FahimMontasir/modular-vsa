@@ -1,6 +1,9 @@
+"use no memo";
+
 import { useLingui } from "@lingui/react/macro";
+import { getCoreRowModel, useReactTable, type ColumnDef } from "@tanstack/react-table";
 import { LogOutIcon, RefreshCwIcon } from "lucide-react";
-import { useCallback, useEffect, useState } from "react";
+import { useCallback, useEffect, useMemo, useState } from "react";
 
 import { PageContainer } from "@modular-vsa/shared/web/components/page-container";
 import { SectionHeader } from "@modular-vsa/shared/web/components/section-header";
@@ -24,6 +27,7 @@ import { Spinner } from "@modular-vsa/ui/spinner";
 import { toast } from "@modular-vsa/ui/toast";
 
 import { authClient } from "../client";
+import { DataTable } from "../components/data-table";
 import { useAuth } from "../provider";
 
 type Session = Awaited<ReturnType<typeof authClient.listSessions>>[number];
@@ -54,6 +58,52 @@ export function AccountSessionsPage() {
     await auth.refresh();
     window.location.assign("/login");
   }
+
+  const columns = useMemo<Array<ColumnDef<Session>>>(
+    () => [
+      {
+        accessorKey: "userAgent",
+        header: t`Device`,
+        cell: ({ row }) => row.original.userAgent ?? t`Unknown device`,
+      },
+      {
+        accessorKey: "ipAddress",
+        header: t`IP address`,
+        cell: ({ row }) => row.original.ipAddress ?? t`Unknown IP`,
+      },
+      {
+        accessorKey: "expiresAt",
+        header: t`Expires`,
+        cell: ({ row }) => new Date(row.original.expiresAt).toLocaleString(i18n.locale),
+      },
+      {
+        id: "status",
+        header: t`Status`,
+        cell: ({ row }) =>
+          row.original.token === auth.session?.session.token ? <Badge>{t`Current`}</Badge> : null,
+      },
+      {
+        id: "actions",
+        header: t`Actions`,
+        cell: ({ row }) =>
+          row.original.token !== auth.session?.session.token ? (
+            <Button
+              variant="outline"
+              size="sm"
+              onClick={async () => {
+                await authClient.revokeSession({ token: row.original.token });
+                await loadSessions();
+                toast.success(t`Session revoked`);
+              }}
+            >
+              {t`Revoke`}
+            </Button>
+          ) : null,
+      },
+    ],
+    [auth.session?.session.token, i18n.locale, loadSessions, t]
+  );
+  const table = useReactTable({ data: sessions, columns, getCoreRowModel: getCoreRowModel() });
 
   return (
     <PageContainer>
@@ -89,49 +139,19 @@ export function AccountSessionsPage() {
           </div>
         </CardHeader>
         <CardContent className="flex flex-col gap-3">
-          {sessions.map((session) => {
-            const current = session.token === auth.session?.session.token;
-            return (
-              <article
-                key={session.id}
-                className="flex flex-col gap-3 rounded-lg border p-4 sm:flex-row sm:items-center"
-              >
-                <div className="min-w-0 flex-1">
-                  <div className="flex flex-wrap items-center gap-2">
-                    <p className="truncate text-sm font-medium">
-                      {session.userAgent ?? t`Unknown device`}
-                    </p>
-                    {current ? <Badge>{t`Current`}</Badge> : null}
-                  </div>
-                  <p className="truncate text-xs text-muted-foreground">
-                    {session.ipAddress ?? t`Unknown IP`} · {t`expires`}{" "}
-                    {new Date(session.expiresAt).toLocaleString(i18n.locale)}
-                  </p>
-                </div>
-                {!current && (
-                  <Button
-                    variant="outline"
-                    size="sm"
-                    onClick={async () => {
-                      await authClient.revokeSession({ token: session.token });
-                      await loadSessions();
-                      toast.success(t`Session revoked`);
-                    }}
-                  >
-                    {t`Revoke`}
-                  </Button>
-                )}
-              </article>
-            );
-          })}
-          {!loading && sessions.length === 0 && (
-            <Empty>
-              <EmptyHeader>
-                <EmptyTitle>{t`No sessions found`}</EmptyTitle>
-                <EmptyDescription>{t`No active browser sessions were returned.`}</EmptyDescription>
-              </EmptyHeader>
-            </Empty>
-          )}
+          <DataTable
+            table={table}
+            empty={
+              !loading ? (
+                <Empty>
+                  <EmptyHeader>
+                    <EmptyTitle>{t`No sessions found`}</EmptyTitle>
+                    <EmptyDescription>{t`No active browser sessions were returned.`}</EmptyDescription>
+                  </EmptyHeader>
+                </Empty>
+              ) : null
+            }
+          />
           <Separator />
           <div className="flex flex-wrap gap-2">
             <Button

@@ -1,47 +1,42 @@
 import { useLingui } from "@lingui/react/macro";
 import { UserRoundIcon } from "lucide-react";
-import { useState, type FormEvent } from "react";
+import { useState } from "react";
 
 import { trackEvent } from "@modular-vsa/firebase/web/telemetry";
 import { PageContainer } from "@modular-vsa/shared/web/components/page-container";
 import { SectionHeader } from "@modular-vsa/shared/web/components/section-header";
 import { Button } from "@modular-vsa/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@modular-vsa/ui/card";
-import { Field, FieldDescription, FieldGroup, FieldLabel } from "@modular-vsa/ui/field";
-import { Input } from "@modular-vsa/ui/input";
-import { Spinner } from "@modular-vsa/ui/spinner";
+import { Field, FieldDescription, FieldGroup } from "@modular-vsa/ui/field";
+import { useAppForm } from "@modular-vsa/ui/form";
 import { toast } from "@modular-vsa/ui/toast";
 
 import { authClient } from "../client";
 import { useAuth } from "../provider";
-import { getFormString } from "./shared";
-
 export function AccountProfilePage() {
   const { t } = useLingui();
   const auth = useAuth();
   const user = auth.session!.user;
   const [usernameStatus, setUsernameStatus] = useState<string>();
-  const [pending, setPending] = useState(false);
-
-  async function updateProfile(event: FormEvent<HTMLFormElement>) {
-    event.preventDefault();
-    const values = new FormData(event.currentTarget);
-    setPending(true);
-    try {
-      await authClient.updateUser({
-        name: getFormString(values, "name").trim(),
-        username: getFormString(values, "username").trim(),
-      });
-      await auth.refresh();
-      await trackEvent("account_action", { action: "profile_update", outcome: "success" });
-      toast.success(t`Profile updated`);
-    } catch {
-      void trackEvent("account_action", { action: "profile_update", outcome: "failed" });
-      toast.error(t`Profile could not be updated`);
-    } finally {
-      setPending(false);
-    }
-  }
+  const form = useAppForm({
+    defaultValues: {
+      name: user.name,
+      username: user.displayUsername ?? user.username ?? "",
+    },
+    onSubmit: async ({ value }) => {
+      try {
+        const next = { name: value.name.trim(), username: value.username.trim() };
+        await authClient.updateUser(next);
+        await auth.refresh();
+        form.reset(next);
+        await trackEvent("account_action", { action: "profile_update", outcome: "success" });
+        toast.success(t`Profile updated`);
+      } catch {
+        void trackEvent("account_action", { action: "profile_update", outcome: "failed" });
+        toast.error(t`Profile could not be updated`);
+      }
+    },
+  });
 
   async function checkUsername(username: string) {
     if (username === user.username || username === user.displayUsername) {
@@ -75,47 +70,56 @@ export function AccountProfilePage() {
         </CardHeader>
         <CardContent>
           <form
-            key={`${user.id}:${user.name}:${user.displayUsername ?? user.username ?? ""}`}
-            onSubmit={updateProfile}
+            onSubmit={(event) => {
+              event.preventDefault();
+              event.stopPropagation();
+              void form.handleSubmit();
+            }}
           >
-            <FieldGroup className="max-w-xl">
-              <Field>
-                <FieldLabel htmlFor="profile-name">{t`Name`}</FieldLabel>
-                <Input id="profile-name" name="name" defaultValue={user.name} required />
-              </Field>
-              <Field>
-                <FieldLabel htmlFor="profile-username">{t`Username`}</FieldLabel>
-                <div className="flex flex-col gap-2 sm:flex-row">
-                  <Input
-                    id="profile-username"
-                    name="username"
-                    defaultValue={user.displayUsername ?? user.username ?? ""}
-                    minLength={3}
-                    maxLength={30}
-                    required
-                  />
+            <form.AppForm>
+              <FieldGroup className="max-w-xl">
+                <form.AppField
+                  name="name"
+                  validators={{
+                    onBlur: ({ value }) => (value.trim() ? undefined : t`Enter your name.`),
+                  }}
+                >
+                  {(field) => <field.TextField id="profile-name" label={t`Name`} required />}
+                </form.AppField>
+                <form.AppField
+                  name="username"
+                  validators={{
+                    onBlur: ({ value }) =>
+                      value.trim().length >= 3 ? undefined : t`Use at least 3 characters.`,
+                  }}
+                >
+                  {(field) => (
+                    <field.TextField
+                      id="profile-username"
+                      label={t`Username`}
+                      minLength={3}
+                      maxLength={30}
+                      required
+                    />
+                  )}
+                </form.AppField>
+                <div className="flex flex-wrap gap-2">
                   <Button
                     type="button"
                     variant="outline"
-                    onClick={(event) => {
-                      const input = event.currentTarget.form?.elements.namedItem(
-                        "username"
-                      ) as HTMLInputElement | null;
-                      if (input) void checkUsername(input.value.trim());
-                    }}
+                    onClick={() => void checkUsername(form.getFieldValue("username").trim())}
                   >
                     {t`Check availability`}
                   </Button>
+                  {usernameStatus ? (
+                    <FieldDescription className="self-center">{usernameStatus}</FieldDescription>
+                  ) : null}
                 </div>
-                {usernameStatus && <FieldDescription>{usernameStatus}</FieldDescription>}
-              </Field>
-              <Field>
-                <Button type="submit" disabled={pending}>
-                  {pending ? <Spinner data-icon="inline-start" /> : null}
-                  {t`Save profile`}
-                </Button>
-              </Field>
-            </FieldGroup>
+                <Field>
+                  <form.SubmitButton>{t`Save profile`}</form.SubmitButton>
+                </Field>
+              </FieldGroup>
+            </form.AppForm>
           </form>
         </CardContent>
       </Card>

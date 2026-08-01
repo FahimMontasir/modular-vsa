@@ -4,10 +4,18 @@ import { useState } from "react";
 import { PageContainer } from "@modular-vsa/shared/web/components/page-container";
 import { SectionHeader } from "@modular-vsa/shared/web/components/section-header";
 import { Badge } from "@modular-vsa/ui/badge";
-import { Button } from "@modular-vsa/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@modular-vsa/ui/card";
 import { Field, FieldLabel } from "@modular-vsa/ui/field";
+import { useAppForm } from "@modular-vsa/ui/form";
 import { NativeSelect, NativeSelectOption } from "@modular-vsa/ui/native-select";
+import {
+  Table,
+  TableBody,
+  TableCell,
+  TableHead,
+  TableHeader,
+  TableRow,
+} from "@modular-vsa/ui/table";
 
 import {
   accessControlStatement,
@@ -23,9 +31,6 @@ export function AccessPermissionsPage() {
   const { t } = useLingui();
   const auth = useAuth();
   const currentRole = (auth.session?.user.role ?? "director") as RoleName;
-  const [role, setRole] = useState<RoleName>(currentRole);
-  const [resource, setResource] = useState<AccessControlResource>("user");
-  const [action, setAction] = useState<string>(accessControlStatement.user[0]);
   const [remoteResult, setRemoteResult] = useState<string>();
   const labels: Record<string, string> = {
     admin: t`Administrator`,
@@ -52,14 +57,23 @@ export function AccessPermissionsPage() {
     return labels[value] ?? value;
   }
 
-  function selectResource(next: AccessControlResource) {
-    setResource(next);
-    setAction(accessControlStatement[next][0]);
-    setRemoteResult(undefined);
-  }
-
-  const permissions = { [resource]: [action] } as never;
-  const localAllowed = authClient.admin.checkRolePermission({ role, permissions });
+  const form = useAppForm({
+    defaultValues: {
+      role: currentRole as string,
+      resource: "user" as string,
+      action: accessControlStatement.user[0] as string,
+    },
+    onSubmit: async ({ value }) => {
+      const permissions = { [value.resource]: [value.action] } as never;
+      const result = await authClient.admin.hasPermission({
+        role: value.role as RoleName,
+        permissions,
+      });
+      setRemoteResult(
+        result.success ? t`Server allowed this permission` : t`Server denied this permission`
+      );
+    },
+  });
 
   return (
     <PageContainer>
@@ -78,38 +92,44 @@ export function AccessPermissionsPage() {
               {t`Allowed actions use a filled badge; denied actions use an outline.`}
             </CardDescription>
           </CardHeader>
-          <CardContent className="flex flex-col gap-4">
-            {Object.entries(accessControlStatement).map(([resourceName, actions]) => (
-              <div
-                key={resourceName}
-                className="grid gap-3 rounded-lg border p-4 md:grid-cols-[9rem_1fr_1fr]"
-              >
-                <p className="font-medium">{labelFor(resourceName)}</p>
-                {roleNames.map((roleName) => (
-                  <div key={roleName} className="flex flex-col gap-2">
-                    <p className="text-xs font-medium tracking-wide text-muted-foreground uppercase">
-                      {labelFor(roleName)}
-                    </p>
-                    <div className="flex flex-wrap gap-1">
-                      {actions.map((permissionAction) => (
-                        <Badge
-                          key={permissionAction}
-                          variant={
-                            roles[roleName].authorize({
-                              [resourceName]: [permissionAction],
-                            } as never).success
-                              ? "default"
-                              : "outline"
-                          }
-                        >
-                          {labelFor(permissionAction)}
-                        </Badge>
-                      ))}
-                    </div>
-                  </div>
+          <CardContent>
+            <Table>
+              <TableHeader>
+                <TableRow>
+                  <TableHead>{t`Resource`}</TableHead>
+                  {roleNames.map((roleName) => (
+                    <TableHead key={roleName}>{labelFor(roleName)}</TableHead>
+                  ))}
+                </TableRow>
+              </TableHeader>
+              <TableBody>
+                {Object.entries(accessControlStatement).map(([resourceName, actions]) => (
+                  <TableRow key={resourceName}>
+                    <TableCell className="font-medium">{labelFor(resourceName)}</TableCell>
+                    {roleNames.map((roleName) => (
+                      <TableCell key={roleName}>
+                        <div className="flex flex-wrap gap-1">
+                          {actions.map((permissionAction) => (
+                            <Badge
+                              key={permissionAction}
+                              variant={
+                                roles[roleName].authorize({
+                                  [resourceName]: [permissionAction],
+                                } as never).success
+                                  ? "default"
+                                  : "outline"
+                              }
+                            >
+                              {labelFor(permissionAction)}
+                            </Badge>
+                          ))}
+                        </div>
+                      </TableCell>
+                    ))}
+                  </TableRow>
                 ))}
-              </div>
-            ))}
+              </TableBody>
+            </Table>
           </CardContent>
         </Card>
         <Card className="h-fit">
@@ -119,69 +139,88 @@ export function AccessPermissionsPage() {
               {t`Compare synchronous role policy with the authenticated server check.`}
             </CardDescription>
           </CardHeader>
-          <CardContent className="flex flex-col gap-4">
-            <Field>
-              <FieldLabel htmlFor="permission-role">{t`Role`}</FieldLabel>
-              <NativeSelect
-                id="permission-role"
-                value={role}
-                onChange={(event) => setRole(event.target.value as RoleName)}
-              >
-                {roleNames.map((name) => (
-                  <NativeSelectOption key={name} value={name}>
-                    {labelFor(name)}
-                  </NativeSelectOption>
-                ))}
-              </NativeSelect>
-            </Field>
-            <Field>
-              <FieldLabel htmlFor="permission-resource">{t`Resource`}</FieldLabel>
-              <NativeSelect
-                id="permission-resource"
-                value={resource}
-                onChange={(event) => selectResource(event.target.value as AccessControlResource)}
-              >
-                {Object.keys(accessControlStatement).map((name) => (
-                  <NativeSelectOption key={name} value={name}>
-                    {labelFor(name)}
-                  </NativeSelectOption>
-                ))}
-              </NativeSelect>
-            </Field>
-            <Field>
-              <FieldLabel htmlFor="permission-action">{t`Action`}</FieldLabel>
-              <NativeSelect
-                id="permission-action"
-                value={action}
-                onChange={(event) => setAction(event.target.value)}
-              >
-                {accessControlStatement[resource].map((name) => (
-                  <NativeSelectOption key={name} value={name}>
-                    {labelFor(name)}
-                  </NativeSelectOption>
-                ))}
-              </NativeSelect>
-            </Field>
-            <p className="text-sm">
-              {t`Local policy`}:{" "}
-              <Badge variant={localAllowed ? "default" : "outline"}>
-                {localAllowed ? t`Allowed` : t`Denied`}
-              </Badge>
-            </p>
-            <Button
-              variant="outline"
-              onClick={async () => {
-                const result = await authClient.admin.hasPermission({ role, permissions });
-                setRemoteResult(
-                  result.success
-                    ? t`Server allowed this permission`
-                    : t`Server denied this permission`
-                );
+          <CardContent>
+            <form
+              onSubmit={(event) => {
+                event.preventDefault();
+                void form.handleSubmit();
               }}
             >
-              {t`Check on server`}
-            </Button>
-            {remoteResult && <p className="text-sm font-medium">{remoteResult}</p>}
+              <form.AppForm>
+                <div className="flex flex-col gap-4">
+                  <form.AppField name="role">
+                    {(field) => (
+                      <field.NativeSelectField id="permission-role" label={t`Role`}>
+                        {roleNames.map((name) => (
+                          <NativeSelectOption key={name} value={name}>
+                            {labelFor(name)}
+                          </NativeSelectOption>
+                        ))}
+                      </field.NativeSelectField>
+                    )}
+                  </form.AppField>
+                  <form.Field name="resource">
+                    {(field) => (
+                      <Field>
+                        <FieldLabel htmlFor="permission-resource">{t`Resource`}</FieldLabel>
+                        <NativeSelect
+                          id="permission-resource"
+                          value={field.state.value}
+                          onChange={(event) => {
+                            const resource = event.target.value as AccessControlResource;
+                            field.handleChange(resource);
+                            form.setFieldValue("action", accessControlStatement[resource][0]);
+                            setRemoteResult(undefined);
+                          }}
+                        >
+                          {Object.keys(accessControlStatement).map((name) => (
+                            <NativeSelectOption key={name} value={name}>
+                              {labelFor(name)}
+                            </NativeSelectOption>
+                          ))}
+                        </NativeSelect>
+                      </Field>
+                    )}
+                  </form.Field>
+                  <form.Subscribe selector={(state) => state.values.resource}>
+                    {(resource) => (
+                      <form.AppField name="action">
+                        {(field) => (
+                          <field.NativeSelectField id="permission-action" label={t`Action`}>
+                            {accessControlStatement[resource as AccessControlResource].map(
+                              (name) => (
+                                <NativeSelectOption key={name} value={name}>
+                                  {labelFor(name)}
+                                </NativeSelectOption>
+                              )
+                            )}
+                          </field.NativeSelectField>
+                        )}
+                      </form.AppField>
+                    )}
+                  </form.Subscribe>
+                  <form.Subscribe selector={(state) => state.values}>
+                    {(value) => {
+                      const permissions = { [value.resource]: [value.action] } as never;
+                      const localAllowed = authClient.admin.checkRolePermission({
+                        role: value.role as RoleName,
+                        permissions,
+                      });
+                      return (
+                        <p className="text-sm">
+                          {t`Local policy`}:{" "}
+                          <Badge variant={localAllowed ? "default" : "outline"}>
+                            {localAllowed ? t`Allowed` : t`Denied`}
+                          </Badge>
+                        </p>
+                      );
+                    }}
+                  </form.Subscribe>
+                  <form.SubmitButton variant="outline">{t`Check on server`}</form.SubmitButton>
+                  {remoteResult ? <p className="text-sm font-medium">{remoteResult}</p> : null}
+                </div>
+              </form.AppForm>
+            </form>
           </CardContent>
         </Card>
       </div>

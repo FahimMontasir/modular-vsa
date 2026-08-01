@@ -10,6 +10,7 @@ test("permissions page compares local and server policy decisions", async ({ pag
   await page.goto("/access-control/permissions");
   await expect(page.getByRole("heading", { name: "Access Control" })).toBeVisible();
   await expect(page.getByText("Role permission matrix", { exact: true })).toBeVisible();
+  await expect(page.getByRole("table")).toBeVisible();
 
   const user = await createManagedUser(request, "Permissions");
   try {

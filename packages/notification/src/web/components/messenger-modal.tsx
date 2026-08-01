@@ -1,4 +1,5 @@
 import { useLingui } from "@lingui/react/macro";
+import { useDebouncedValue } from "@tanstack/react-pacer";
 import {
   ArrowLeftIcon,
   BellRingIcon,
@@ -10,7 +11,7 @@ import {
   SendIcon,
   Trash2Icon,
 } from "lucide-react";
-import { useEffect, useLayoutEffect, useMemo, useRef, useState, type FormEvent } from "react";
+import { useEffect, useLayoutEffect, useMemo, useRef, useState } from "react";
 
 import { Alert, AlertTitle } from "@modular-vsa/ui/alert";
 import { Avatar, AvatarFallback, AvatarImage } from "@modular-vsa/ui/avatar";
@@ -31,13 +32,13 @@ import {
   EmptyMedia,
   EmptyTitle,
 } from "@modular-vsa/ui/empty";
-import { Field, FieldGroup, FieldLabel } from "@modular-vsa/ui/field";
+import { Field, FieldGroup } from "@modular-vsa/ui/field";
+import { useAppForm } from "@modular-vsa/ui/form";
 import { Input } from "@modular-vsa/ui/input";
 import {
   Item,
   ItemContent,
   ItemDescription,
-  ItemGroup,
   ItemHeader,
   ItemMedia,
   ItemTitle,
@@ -58,9 +59,9 @@ import {
   MessageScrollerProvider,
   MessageScrollerViewport,
 } from "@modular-vsa/ui/message-scroller";
+import { NativeSelectOption } from "@modular-vsa/ui/native-select";
 import { Skeleton } from "@modular-vsa/ui/skeleton";
 import { Spinner } from "@modular-vsa/ui/spinner";
-import { Textarea } from "@modular-vsa/ui/textarea";
 
 import {
   useAnnouncementsQuery,
@@ -75,6 +76,7 @@ import {
 } from "../api/query";
 import { flattenMessagePages } from "../helpers/message-order";
 import { formatFullNotificationDate, formatNotificationDate } from "../helpers/notification-date";
+import { VirtualItems } from "./virtual-items";
 
 function initials(name: string) {
   return name
@@ -106,8 +108,9 @@ export function MessengerModal({
   const [showAnnouncementComposer, setShowAnnouncementComposer] = useState(false);
   const [showConversationList, setShowConversationList] = useState(!initialConversationId);
   const [search, setSearch] = useState("");
+  const [debouncedSearch] = useDebouncedValue(search, { wait: 250 });
   const [showUsers, setShowUsers] = useState(false);
-  const usersQuery = useUsersQuery(search, open && showUsers);
+  const usersQuery = useUsersQuery(debouncedSearch, open && showUsers);
   const selectedId =
     selectedConversationId ?? initialConversationId ?? conversationsQuery.data?.[0]?.id;
   const createDirect = useCreateDirectMutation();
@@ -131,21 +134,16 @@ export function MessengerModal({
     setShowUsers(false);
   }
 
-  async function submitAnnouncement(event: FormEvent<HTMLFormElement>) {
-    event.preventDefault();
-    const form = event.currentTarget;
-    const values = new FormData(form);
-    const targetKind = formValue(values, "targetKind") as "all" | "role" | "user";
-    const targetValue = formValue(values, "targetValue").trim();
-    const scheduled = formValue(values, "scheduledAt");
+  async function submitAnnouncement(values: AnnouncementValues) {
+    const targetKind = values.targetKind as "all" | "role" | "user";
+    const targetValue = values.targetValue.trim();
     await createAnnouncement.mutateAsync({
-      title: formValue(values, "title").trim(),
-      body: formValue(values, "body").trim(),
-      actionUrl: formValue(values, "actionUrl").trim() || undefined,
-      scheduledAt: scheduled ? new Date(scheduled) : undefined,
+      title: values.title.trim(),
+      body: values.body.trim(),
+      actionUrl: values.actionUrl.trim() || undefined,
+      scheduledAt: values.scheduledAt ? new Date(values.scheduledAt) : undefined,
       targets: [{ kind: targetKind, value: targetKind === "all" ? undefined : targetValue }],
     });
-    form.reset();
     setShowAnnouncementComposer(false);
   }
 
@@ -253,16 +251,19 @@ export function MessengerModal({
   );
 }
 
-function formValue(data: FormData, name: string) {
-  const value = data.get(name);
-  return typeof value === "string" ? value : "";
-}
-
 type Conversation = NonNullable<ReturnType<typeof useConversationsQuery>["data"]>[number];
 type UserTarget = NonNullable<ReturnType<typeof useUsersQuery>["data"]>[number];
 type AnnouncementItem = NonNullable<
   ReturnType<typeof useAnnouncementsQuery>["data"]
 >["pages"][number]["items"][number];
+type AnnouncementValues = {
+  title: string;
+  targetKind: string;
+  body: string;
+  targetValue: string;
+  scheduledAt: string;
+  actionUrl: string;
+};
 
 function ConversationMessageView({
   conversation,
@@ -285,6 +286,15 @@ function ConversationMessageView({
     () => flattenMessagePages(messagesQuery.data?.pages ?? [], !direct),
     [direct, messagesQuery.data?.pages]
   );
+  const messageForm = useAppForm({
+    defaultValues: { message: "" },
+    onSubmit: async ({ value }) => {
+      const body = value.message.trim();
+      if (!body) return;
+      await sendMessage.mutateAsync({ conversationId: conversation.id, body });
+      messageForm.reset();
+    },
+  });
 
   useEffect(() => {
     if (latestMessageId)
@@ -294,17 +304,18 @@ function ConversationMessageView({
   useLayoutEffect(() => {
     if (!direct || !open || !latestMessageId) return;
     const viewport = viewportRef.current;
-    if (viewport) viewport.scrollTop = viewport.scrollHeight;
+    if (!viewport) return;
+    let secondFrame = 0;
+    const firstFrame = requestAnimationFrame(() => {
+      secondFrame = requestAnimationFrame(() => {
+        viewport.scrollTop = viewport.scrollHeight;
+      });
+    });
+    return () => {
+      cancelAnimationFrame(firstFrame);
+      cancelAnimationFrame(secondFrame);
+    };
   }, [conversation.id, direct, latestMessageId, open]);
-
-  async function submitMessage(event: FormEvent<HTMLFormElement>) {
-    event.preventDefault();
-    const form = event.currentTarget;
-    const body = formValue(new FormData(form), "message").trim();
-    if (!body) return;
-    await sendMessage.mutateAsync({ conversationId: conversation.id, body });
-    form.reset();
-  }
 
   return (
     <>
@@ -320,59 +331,65 @@ function ConversationMessageView({
                 />
               ) : null}
               {displayedMessages.length ? (
-                displayedMessages.map((item) => {
-                  const own = item.senderId === currentUserId;
-                  return (
-                    <MessageScrollerItem key={item.id} messageId={item.id} scrollAnchor={own}>
-                      {item.kind !== "direct" && item.title ? (
-                        <Marker variant="separator">
-                          <MarkerContent>{item.title}</MarkerContent>
-                        </Marker>
-                      ) : null}
-                      <Message align={own ? "end" : "start"}>
-                        {!own && item.senderName ? (
-                          <MessageAvatar>
-                            <Avatar className="size-8">
-                              <AvatarImage
-                                src={item.senderImage ?? undefined}
-                                alt={item.senderName}
-                              />
-                              <AvatarFallback>{initials(item.senderName)}</AvatarFallback>
-                            </Avatar>
-                          </MessageAvatar>
+                <VirtualItems
+                  items={displayedMessages}
+                  scrollRef={viewportRef}
+                  estimateSize={() => 92}
+                  getItemKey={(item) => item.id}
+                  renderItem={(item) => {
+                    const own = item.senderId === currentUserId;
+                    return (
+                      <MessageScrollerItem className="pb-4" messageId={item.id} scrollAnchor={own}>
+                        {item.kind !== "direct" && item.title ? (
+                          <Marker variant="separator">
+                            <MarkerContent>{item.title}</MarkerContent>
+                          </Marker>
                         ) : null}
-                        <MessageContent>
+                        <Message align={own ? "end" : "start"}>
                           {!own && item.senderName ? (
-                            <MessageHeader>{item.senderName}</MessageHeader>
+                            <MessageAvatar>
+                              <Avatar className="size-8">
+                                <AvatarImage
+                                  src={item.senderImage ?? undefined}
+                                  alt={item.senderName}
+                                />
+                                <AvatarFallback>{initials(item.senderName)}</AvatarFallback>
+                              </Avatar>
+                            </MessageAvatar>
                           ) : null}
-                          <Bubble align={own ? "end" : "start"}>
-                            <BubbleContent>
-                              {item.deletedAt ? t`Message deleted` : item.body}
-                            </BubbleContent>
-                          </Bubble>
-                          <MessageFooter className="flex items-center gap-1">
-                            <NotificationTime value={item.createdAt} locale={i18n.locale} />
-                            {own && !item.deletedAt ? (
-                              <Button
-                                variant="ghost"
-                                size="icon-xs"
-                                aria-label={t`Delete message`}
-                                onClick={() =>
-                                  deleteMessage.mutate({
-                                    id: item.id,
-                                    conversationId: item.conversationId,
-                                  })
-                                }
-                              >
-                                <Trash2Icon />
-                              </Button>
+                          <MessageContent>
+                            {!own && item.senderName ? (
+                              <MessageHeader>{item.senderName}</MessageHeader>
                             ) : null}
-                          </MessageFooter>
-                        </MessageContent>
-                      </Message>
-                    </MessageScrollerItem>
-                  );
-                })
+                            <Bubble align={own ? "end" : "start"}>
+                              <BubbleContent>
+                                {item.deletedAt ? t`Message deleted` : item.body}
+                              </BubbleContent>
+                            </Bubble>
+                            <MessageFooter className="flex items-center gap-1">
+                              <NotificationTime value={item.createdAt} locale={i18n.locale} />
+                              {own && !item.deletedAt ? (
+                                <Button
+                                  variant="ghost"
+                                  size="icon-xs"
+                                  aria-label={t`Delete message`}
+                                  onClick={() =>
+                                    deleteMessage.mutate({
+                                      id: item.id,
+                                      conversationId: item.conversationId,
+                                    })
+                                  }
+                                >
+                                  <Trash2Icon />
+                                </Button>
+                              ) : null}
+                            </MessageFooter>
+                          </MessageContent>
+                        </Message>
+                      </MessageScrollerItem>
+                    );
+                  }}
+                />
               ) : (
                 <Empty>
                   <EmptyHeader>
@@ -397,22 +414,48 @@ function ConversationMessageView({
         </MessageScroller>
       </MessageScrollerProvider>
       {direct ? (
-        <form className="flex gap-2 border-t p-3" onSubmit={submitMessage}>
-          <Input
-            name="message"
-            aria-label={t`Message`}
-            placeholder={t`Write a message`}
-            maxLength={5000}
-            required
-          />
-          <Button
-            type="submit"
-            size="icon"
-            disabled={sendMessage.isPending}
-            aria-label={t`Send message`}
-          >
-            <SendIcon />
-          </Button>
+        <form
+          className="flex gap-2 border-t p-3"
+          onSubmit={(event) => {
+            event.preventDefault();
+            void messageForm.handleSubmit();
+          }}
+        >
+          <messageForm.AppForm>
+            <messageForm.Field
+              name="message"
+              validators={{
+                onSubmit: ({ value }) => (value.trim() ? undefined : t`Write a message.`),
+              }}
+            >
+              {(field) => (
+                <Input
+                  name={field.name}
+                  value={field.state.value}
+                  onBlur={field.handleBlur}
+                  onChange={(event) => field.handleChange(event.target.value)}
+                  aria-label={t`Message`}
+                  placeholder={t`Write a message`}
+                  maxLength={5000}
+                  required
+                />
+              )}
+            </messageForm.Field>
+            <messageForm.Subscribe
+              selector={(state) => [state.canSubmit, state.isSubmitting] as const}
+            >
+              {([canSubmit, isSubmitting]) => (
+                <Button
+                  type="submit"
+                  size="icon"
+                  disabled={!canSubmit || isSubmitting || sendMessage.isPending}
+                  aria-label={t`Send message`}
+                >
+                  <SendIcon />
+                </Button>
+              )}
+            </messageForm.Subscribe>
+          </messageForm.AppForm>
         </form>
       ) : null}
     </>
@@ -447,6 +490,8 @@ function ConversationSidebar({
   isAdmin: boolean;
 }) {
   const { t } = useLingui();
+  const peopleScrollRef = useRef<HTMLDivElement>(null);
+  const conversationScrollRef = useRef<HTMLDivElement>(null);
 
   return (
     <aside
@@ -477,61 +522,71 @@ function ConversationSidebar({
               placeholder={t`Search people`}
             />
           </div>
-          <div className="flex min-h-0 flex-col gap-1 overflow-y-auto">
-            {users.map((person) => (
-              <Button
-                key={person.id}
-                variant="ghost"
-                className="h-auto justify-start"
-                onClick={() => void onStartDirect(person.id)}
-              >
-                <Avatar className="size-8">
-                  <AvatarImage src={person.image ?? undefined} alt={person.name} />
-                  <AvatarFallback>{initials(person.name)}</AvatarFallback>
-                </Avatar>
-                <span className="truncate">{person.name}</span>
-              </Button>
-            ))}
+          <div ref={peopleScrollRef} className="min-h-0 flex-1 overflow-y-auto">
+            <VirtualItems
+              items={users}
+              scrollRef={peopleScrollRef}
+              estimateSize={() => 44}
+              getItemKey={(person) => person.id}
+              renderItem={(person) => (
+                <Button
+                  variant="ghost"
+                  className="h-10 w-full justify-start"
+                  onClick={() => void onStartDirect(person.id)}
+                >
+                  <Avatar className="size-8">
+                    <AvatarImage src={person.image ?? undefined} alt={person.name} />
+                    <AvatarFallback>{initials(person.name)}</AvatarFallback>
+                  </Avatar>
+                  <span className="truncate">{person.name}</span>
+                </Button>
+              )}
+            />
           </div>
         </div>
       ) : (
-        <div className="min-h-0 flex-1 overflow-y-auto p-2">
+        <div ref={conversationScrollRef} className="min-h-0 flex-1 overflow-y-auto p-2">
           {conversationsLoading ? (
             <ConversationSkeleton />
           ) : (
-            conversations?.map((item) => (
-              <button
-                key={item.id}
-                type="button"
-                onClick={() => onSelect(item.id)}
-                className="flex w-full items-center gap-3 rounded-lg p-3 text-left hover:bg-muted data-[active=true]:bg-muted"
-                data-active={item.id === selectedId}
-              >
-                <Avatar className="size-10">
-                  <AvatarImage src={item.image ?? undefined} alt={item.title} />
-                  <AvatarFallback>
-                    {item.kind === "announcement" ? (
-                      <MegaphoneIcon />
-                    ) : item.kind === "platform" ? (
-                      <BellRingIcon />
-                    ) : (
-                      initials(item.title)
-                    )}
-                  </AvatarFallback>
-                </Avatar>
-                <span className="min-w-0 flex-1">
-                  <span className="flex items-center justify-between gap-2">
-                    <span className="truncate font-medium">{item.title}</span>
-                    {item.unreadCount && (!isAdmin || item.kind !== "announcement") ? (
-                      <Badge>{item.unreadCount > 99 ? "99+" : item.unreadCount}</Badge>
-                    ) : null}
+            <VirtualItems
+              items={conversations ?? []}
+              scrollRef={conversationScrollRef}
+              estimateSize={() => 68}
+              getItemKey={(item) => item.id}
+              renderItem={(item) => (
+                <button
+                  type="button"
+                  onClick={() => onSelect(item.id)}
+                  className="flex h-16 w-full items-center gap-3 rounded-lg p-3 text-left hover:bg-muted data-[active=true]:bg-muted"
+                  data-active={item.id === selectedId}
+                >
+                  <Avatar className="size-10">
+                    <AvatarImage src={item.image ?? undefined} alt={item.title} />
+                    <AvatarFallback>
+                      {item.kind === "announcement" ? (
+                        <MegaphoneIcon />
+                      ) : item.kind === "platform" ? (
+                        <BellRingIcon />
+                      ) : (
+                        initials(item.title)
+                      )}
+                    </AvatarFallback>
+                  </Avatar>
+                  <span className="min-w-0 flex-1">
+                    <span className="flex items-center justify-between gap-2">
+                      <span className="truncate font-medium">{item.title}</span>
+                      {item.unreadCount && (!isAdmin || item.kind !== "announcement") ? (
+                        <Badge>{item.unreadCount > 99 ? "99+" : item.unreadCount}</Badge>
+                      ) : null}
+                    </span>
+                    <span className="block truncate text-xs text-muted-foreground">
+                      {item.lastMessage ?? t`No messages yet`}
+                    </span>
                   </span>
-                  <span className="block truncate text-xs text-muted-foreground">
-                    {item.lastMessage ?? t`No messages yet`}
-                  </span>
-                </span>
-              </button>
-            ))
+                </button>
+              )}
+            />
           )}
         </div>
       )}
@@ -582,7 +637,7 @@ function AdminAnnouncementView({
   notifications: AnnouncementItem[];
   onLoadMoreNotifications: () => Promise<unknown>;
   onLoadMoreScheduled: () => Promise<unknown>;
-  onSubmit: (event: FormEvent<HTMLFormElement>) => Promise<void>;
+  onSubmit: (values: AnnouncementValues) => Promise<void>;
   pending: boolean;
   scheduled: AnnouncementItem[];
   scheduledError: boolean;
@@ -591,6 +646,8 @@ function AdminAnnouncementView({
   users: UserTarget[];
 }) {
   const { i18n, t } = useLingui();
+  const scheduledScrollRef = useRef<HTMLDivElement>(null);
+  const notificationsScrollRef = useRef<HTMLDivElement>(null);
 
   return (
     <div className="min-h-0 flex-1 overflow-y-auto">
@@ -626,27 +683,35 @@ function AdminAnnouncementView({
           ) : scheduledLoading ? (
             <NotificationListSkeleton />
           ) : scheduled.length ? (
-            <ItemGroup>
-              {scheduled.map((item) => (
-                <Item key={item.id} variant="outline" render={<article />}>
-                  <ItemMedia variant="icon">
-                    <CalendarClockIcon />
-                  </ItemMedia>
-                  <ItemContent>
-                    <ItemHeader>
-                      <ItemTitle>{item.title}</ItemTitle>
-                      <Badge variant="outline">{t`Scheduled`}</Badge>
-                    </ItemHeader>
-                    <ItemDescription>{item.body}</ItemDescription>
-                    <NotificationTime
-                      value={item.scheduledAt}
-                      locale={i18n.locale}
-                      prefix={t`Scheduled for`}
-                    />
-                  </ItemContent>
-                </Item>
-              ))}
-            </ItemGroup>
+            <div ref={scheduledScrollRef} className="h-80 overflow-y-auto">
+              <VirtualItems
+                items={scheduled}
+                scrollRef={scheduledScrollRef}
+                estimateSize={() => 104}
+                getItemKey={(item) => item.id}
+                renderItem={(item) => (
+                  <div className="pb-3">
+                    <Item variant="outline" render={<article />}>
+                      <ItemMedia variant="icon">
+                        <CalendarClockIcon />
+                      </ItemMedia>
+                      <ItemContent>
+                        <ItemHeader>
+                          <ItemTitle>{item.title}</ItemTitle>
+                          <Badge variant="outline">{t`Scheduled`}</Badge>
+                        </ItemHeader>
+                        <ItemDescription>{item.body}</ItemDescription>
+                        <NotificationTime
+                          value={item.scheduledAt}
+                          locale={i18n.locale}
+                          prefix={t`Scheduled for`}
+                        />
+                      </ItemContent>
+                    </Item>
+                  </div>
+                )}
+              />
+            </div>
           ) : (
             <p className="rounded-lg border border-dashed p-4 text-sm text-muted-foreground">
               {t`No notifications are scheduled.`}
@@ -675,20 +740,31 @@ function AdminAnnouncementView({
           ) : notificationsLoading ? (
             <NotificationListSkeleton />
           ) : notifications.length ? (
-            <ItemGroup>
-              {notifications.map((item) => (
-                <Item key={item.id} variant="muted" render={<article />}>
-                  <ItemMedia variant="icon">
-                    <MegaphoneIcon />
-                  </ItemMedia>
-                  <ItemContent>
-                    <ItemTitle>{item.title ?? t`Announcement`}</ItemTitle>
-                    <ItemDescription>{item.body}</ItemDescription>
-                    <NotificationTime value={item.sentAt ?? item.createdAt} locale={i18n.locale} />
-                  </ItemContent>
-                </Item>
-              ))}
-            </ItemGroup>
+            <div ref={notificationsScrollRef} className="h-80 overflow-y-auto">
+              <VirtualItems
+                items={notifications}
+                scrollRef={notificationsScrollRef}
+                estimateSize={() => 96}
+                getItemKey={(item) => item.id}
+                renderItem={(item) => (
+                  <div className="pb-3">
+                    <Item variant="muted" render={<article />}>
+                      <ItemMedia variant="icon">
+                        <MegaphoneIcon />
+                      </ItemMedia>
+                      <ItemContent>
+                        <ItemTitle>{item.title ?? t`Announcement`}</ItemTitle>
+                        <ItemDescription>{item.body}</ItemDescription>
+                        <NotificationTime
+                          value={item.sentAt ?? item.createdAt}
+                          locale={i18n.locale}
+                        />
+                      </ItemContent>
+                    </Item>
+                  </div>
+                )}
+              />
+            </div>
           ) : (
             <p className="rounded-lg border border-dashed p-4 text-sm text-muted-foreground">
               {t`No notifications have been delivered yet.`}
@@ -773,43 +849,69 @@ function AnnouncementComposer({
   pending,
   users,
 }: {
-  onSubmit: (event: FormEvent<HTMLFormElement>) => Promise<void>;
+  onSubmit: (values: AnnouncementValues) => Promise<void>;
   pending: boolean;
   users: Array<{ id: string; name: string }>;
 }) {
   const { t } = useLingui();
+  const form = useAppForm({
+    defaultValues: {
+      title: "",
+      targetKind: "all",
+      body: "",
+      targetValue: "",
+      scheduledAt: "",
+      actionUrl: "",
+    },
+    onSubmit: async ({ value }) => {
+      await onSubmit(value);
+      form.reset();
+    },
+  });
   return (
-    <form onSubmit={(event) => void onSubmit(event)}>
-      <FieldGroup className="grid gap-2 md:grid-cols-2">
-        <Field>
-          <FieldLabel htmlFor="announcement-title">{t`Title`}</FieldLabel>
-          <Input id="announcement-title" name="title" required maxLength={200} />
-        </Field>
-        <Field>
-          <FieldLabel htmlFor="announcement-target-kind">{t`Audience`}</FieldLabel>
-          <select
-            id="announcement-target-kind"
-            name="targetKind"
-            aria-label={t`Audience`}
-            className="h-9 rounded-lg border bg-background px-3 text-sm"
-          >
-            <option value="all">{t`Everyone`}</option>
-            <option value="role">{t`Role`}</option>
-            <option value="user">{t`One user`}</option>
-          </select>
-        </Field>
-        <Field className="md:col-span-2">
-          <FieldLabel htmlFor="announcement-body">{t`Announcement`}</FieldLabel>
-          <Textarea id="announcement-body" name="body" required maxLength={5000} />
-        </Field>
-        <Field>
-          <FieldLabel htmlFor="announcement-target">{t`Role or user`}</FieldLabel>
-          <Input
-            id="announcement-target"
-            name="targetValue"
-            list="announcement-users"
-            placeholder={t`director or user ID`}
-          />
+    <form
+      onSubmit={(event) => {
+        event.preventDefault();
+        void form.handleSubmit();
+      }}
+    >
+      <form.AppForm>
+        <FieldGroup className="grid gap-2 md:grid-cols-2">
+          <form.AppField name="title">
+            {(field) => (
+              <field.TextField id="announcement-title" label={t`Title`} required maxLength={200} />
+            )}
+          </form.AppField>
+          <form.AppField name="targetKind">
+            {(field) => (
+              <field.NativeSelectField id="announcement-target-kind" label={t`Audience`}>
+                <NativeSelectOption value="all">{t`Everyone`}</NativeSelectOption>
+                <NativeSelectOption value="role">{t`Role`}</NativeSelectOption>
+                <NativeSelectOption value="user">{t`One user`}</NativeSelectOption>
+              </field.NativeSelectField>
+            )}
+          </form.AppField>
+          <form.AppField name="body">
+            {(field) => (
+              <field.TextareaField
+                id="announcement-body"
+                label={t`Announcement`}
+                className="md:col-span-2"
+                required
+                maxLength={5000}
+              />
+            )}
+          </form.AppField>
+          <form.AppField name="targetValue">
+            {(field) => (
+              <field.TextField
+                id="announcement-target"
+                label={t`Role or user`}
+                list="announcement-users"
+                placeholder={t`director or user ID`}
+              />
+            )}
+          </form.AppField>
           <datalist id="announcement-users">
             {users.map((person) => (
               <option key={person.id} value={person.id}>
@@ -817,22 +919,32 @@ function AnnouncementComposer({
               </option>
             ))}
           </datalist>
-        </Field>
-        <Field>
-          <FieldLabel htmlFor="announcement-schedule">{t`Schedule`}</FieldLabel>
-          <Input id="announcement-schedule" name="scheduledAt" type="datetime-local" />
-        </Field>
-        <Field>
-          <FieldLabel htmlFor="announcement-url">{t`Internal link`}</FieldLabel>
-          <Input id="announcement-url" name="actionUrl" placeholder={t`/account/security`} />
-        </Field>
-        <Field className="justify-end">
-          <Button type="submit" disabled={pending}>
-            <MegaphoneIcon data-icon="inline-start" />
-            {t`Schedule announcement`}
-          </Button>
-        </Field>
-      </FieldGroup>
+          <form.AppField name="scheduledAt">
+            {(field) => (
+              <field.TextField
+                id="announcement-schedule"
+                label={t`Schedule`}
+                type="datetime-local"
+              />
+            )}
+          </form.AppField>
+          <form.AppField name="actionUrl">
+            {(field) => (
+              <field.TextField
+                id="announcement-url"
+                label={t`Internal link`}
+                placeholder={t`/account/security`}
+              />
+            )}
+          </form.AppField>
+          <Field className="justify-end">
+            <form.SubmitButton disabled={pending}>
+              <MegaphoneIcon data-icon="inline-start" />
+              {t`Schedule announcement`}
+            </form.SubmitButton>
+          </Field>
+        </FieldGroup>
+      </form.AppForm>
     </form>
   );
 }

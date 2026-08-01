@@ -1,6 +1,9 @@
+"use no memo";
+
 import { useLingui } from "@lingui/react/macro";
+import { getCoreRowModel, useReactTable, type ColumnDef } from "@tanstack/react-table";
 import { RefreshCwIcon } from "lucide-react";
-import { useCallback, useEffect, useState } from "react";
+import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 
 import { PageContainer } from "@modular-vsa/shared/web/components/page-container";
 import { SectionHeader } from "@modular-vsa/shared/web/components/section-header";
@@ -24,6 +27,7 @@ import { Spinner } from "@modular-vsa/ui/spinner";
 import { toast } from "@modular-vsa/ui/toast";
 
 import { authClient } from "../client";
+import { DataTable } from "../components/data-table";
 import { useAuth } from "../provider";
 
 type UsersResponse = Awaited<ReturnType<typeof authClient.admin.listUsers>>;
@@ -38,6 +42,7 @@ export function AccessSessionsPage() {
   const [selectedId, setSelectedId] = useState("");
   const [sessions, setSessions] = useState<ManagedSession[]>([]);
   const [loading, setLoading] = useState(true);
+  const sessionsRequestRef = useRef(0);
   const canMutate = auth.hasPermission({ session: ["revoke"] });
 
   useEffect(() => {
@@ -56,6 +61,7 @@ export function AccessSessionsPage() {
   }, [t]);
 
   const loadSessions = useCallback(async () => {
+    const requestId = ++sessionsRequestRef.current;
     if (!selectedId) {
       setSessions([]);
       setLoading(false);
@@ -64,11 +70,11 @@ export function AccessSessionsPage() {
     setLoading(true);
     try {
       const response = await authClient.admin.listUserSessions({ userId: selectedId });
-      setSessions(response.sessions);
+      if (requestId === sessionsRequestRef.current) setSessions(response.sessions);
     } catch {
-      toast.error(t`Sessions could not be loaded`);
+      if (requestId === sessionsRequestRef.current) toast.error(t`Sessions could not be loaded`);
     } finally {
-      setLoading(false);
+      if (requestId === sessionsRequestRef.current) setLoading(false);
     }
   }, [selectedId, t]);
 
@@ -77,6 +83,45 @@ export function AccessSessionsPage() {
   }, [loadSessions]);
 
   const selectedUser = users.find((user) => user.id === selectedId);
+  const columns = useMemo<Array<ColumnDef<ManagedSession>>>(
+    () => [
+      {
+        accessorKey: "userAgent",
+        header: t`Device`,
+        cell: ({ row }) => row.original.userAgent ?? t`Unknown device`,
+      },
+      {
+        accessorKey: "ipAddress",
+        header: t`IP address`,
+        cell: ({ row }) => row.original.ipAddress ?? t`Unknown IP`,
+      },
+      {
+        accessorKey: "expiresAt",
+        header: t`Expires`,
+        cell: ({ row }) => new Date(row.original.expiresAt).toLocaleString(i18n.locale),
+      },
+      {
+        id: "actions",
+        header: t`Actions`,
+        cell: ({ row }) =>
+          canMutate ? (
+            <Button
+              variant="outline"
+              size="sm"
+              onClick={async () => {
+                await authClient.admin.revokeUserSession({ sessionToken: row.original.token });
+                await loadSessions();
+                toast.success(t`Session revoked`);
+              }}
+            >
+              {t`Revoke`}
+            </Button>
+          ) : null,
+      },
+    ],
+    [canMutate, i18n.locale, loadSessions, t]
+  );
+  const table = useReactTable({ data: sessions, columns, getCoreRowModel: getCoreRowModel() });
 
   return (
     <PageContainer>
@@ -127,43 +172,19 @@ export function AccessSessionsPage() {
               ))}
             </NativeSelect>
           </Field>
-          {sessions.map((session) => (
-            <article
-              key={session.id}
-              className="flex flex-col gap-3 rounded-lg border p-4 sm:flex-row sm:items-center"
-            >
-              <div className="min-w-0 flex-1">
-                <p className="truncate text-sm font-medium">
-                  {session.userAgent ?? t`Unknown device`}
-                </p>
-                <p className="truncate text-xs text-muted-foreground">
-                  {session.ipAddress ?? t`Unknown IP`} · {t`expires`}{" "}
-                  {new Date(session.expiresAt).toLocaleString(i18n.locale)}
-                </p>
-              </div>
-              {canMutate && (
-                <Button
-                  variant="outline"
-                  size="sm"
-                  onClick={async () => {
-                    await authClient.admin.revokeUserSession({ sessionToken: session.token });
-                    await loadSessions();
-                    toast.success(t`Session revoked`);
-                  }}
-                >
-                  {t`Revoke`}
-                </Button>
-              )}
-            </article>
-          ))}
-          {!loading && sessions.length === 0 && (
-            <Empty>
-              <EmptyHeader>
-                <EmptyTitle>{t`No active sessions`}</EmptyTitle>
-                <EmptyDescription>{t`This identity has no active browser sessions.`}</EmptyDescription>
-              </EmptyHeader>
-            </Empty>
-          )}
+          <DataTable
+            table={table}
+            empty={
+              !loading ? (
+                <Empty>
+                  <EmptyHeader>
+                    <EmptyTitle>{t`No active sessions`}</EmptyTitle>
+                    <EmptyDescription>{t`This identity has no active browser sessions.`}</EmptyDescription>
+                  </EmptyHeader>
+                </Empty>
+              ) : null
+            }
+          />
           {canMutate && selectedUser && sessions.length > 0 && (
             <AlertDialog>
               <AlertDialogTrigger render={<Button variant="destructive" className="self-start" />}>

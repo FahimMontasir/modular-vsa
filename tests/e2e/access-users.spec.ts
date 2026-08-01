@@ -6,6 +6,8 @@ test("users page completes the administrator identity workflow", async ({ page, 
   await page.goto("/access-control");
   await expect(page).toHaveURL(/\/access-control\/users$/);
   await expect(page.getByRole("heading", { name: "Access Control" })).toBeVisible();
+  await expect(page.getByRole("table")).toBeVisible();
+  await expect(page.getByRole("button", { name: "Name", exact: true })).toBeVisible();
 
   const suffix = `${Date.now()}${crypto.randomUUID().replaceAll("-", "").slice(0, 6)}`;
   const user = {
@@ -29,6 +31,7 @@ test("users page completes the administrator identity workflow", async ({ page, 
 
     await page.getByPlaceholder("Search names").fill(user.name);
     await page.getByRole("button", { name: new RegExp(user.email) }).click();
+    await expect(page.getByText(/Page 1 of/)).toBeVisible();
 
     const updatedName = `${user.name} Updated`;
     await page.getByLabel("Name", { exact: true }).last().fill(updatedName);

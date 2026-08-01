@@ -17,13 +17,13 @@ test("account sessions page revokes browser sessions and signs out", async ({ pa
     await authenticateAsUser(page, user, "/account/sessions");
     await createRemoteSession(user);
     await page.getByRole("button", { name: "Refresh" }).click();
-    await expect(page.locator("article")).toHaveCount(2);
+    await expect(page.getByRole("row")).toHaveCount(3);
     await page.getByRole("button", { name: "Revoke", exact: true }).click();
     await expect(page.getByText("Session revoked")).toBeVisible();
 
     await createRemoteSession(user);
     await page.getByRole("button", { name: "Refresh" }).click();
-    await expect(page.locator("article")).toHaveCount(2);
+    await expect(page.getByRole("row")).toHaveCount(3);
     await page.getByRole("button", { name: "Revoke other sessions" }).click();
     await expect(page.getByText("Other sessions revoked")).toBeVisible();
 

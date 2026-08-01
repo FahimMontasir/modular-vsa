@@ -29,7 +29,9 @@
     "@modular-vsa/jobs": "workspace:*",
     "@modular-vsa/shared": "workspace:*",
     "@modular-vsa/ui": "workspace:*",
+    "@tanstack/react-pacer": "catalog:",
     "@tanstack/react-query": "catalog:",
+    "@tanstack/react-virtual": "catalog:",
     "drizzle-orm": "catalog:",
     "elysia": "catalog:",
     "lucide-react": "1.16.0"

@@ -1,6 +1,6 @@
 # modular-vsa
 
-Bun-first TypeScript monorepo with a React/TanStack Router portal, Elysia API, Drizzle/PostgreSQL, Better Auth, shared shadcn/Base UI components, background jobs, S3-compatible storage, Firebase messaging, and Playwright.
+Bun-first TypeScript monorepo with a React/TanStack Router portal, Elysia API, Drizzle/PostgreSQL, Better Auth, shared shadcn/Base UI components, TanStack Form/Table/Virtual/Pacer utilities, background jobs, S3-compatible storage, Firebase messaging, and Playwright.
 
 ## Start locally
 

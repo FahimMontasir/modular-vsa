@@ -27,6 +27,13 @@ data; the service worker displays background popups. Notification clicks focus a
 window when possible and navigate only to safe internal paths. Modal open, focus, reconnect, and
 resume reconcile the PostgreSQL-backed state.
 
+Messenger search uses TanStack Pacer before React Query requests. Unbounded people,
+conversation, message, and announcement collections use TanStack Virtual with stable database IDs,
+measured rows, concrete scrollports, initial viewport estimates, overscan, and React 19 batching.
+Virtualizer owners opt out of React Compiler memoization while the workspace is on Virtual v3.
+Message and announcement composers use the shared
+TanStack Form/shadcn bindings.
+
 Permission denial is non-blocking: messaging remains available without realtime push.
 
 ## Setup and tests

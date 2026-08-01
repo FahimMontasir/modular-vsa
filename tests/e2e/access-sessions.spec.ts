@@ -17,10 +17,10 @@ test("access sessions page revokes a managed identity's sessions", async ({ page
 
   try {
     await page.reload();
-    await expect(page.locator("article").first()).toBeVisible();
+    await expect(page.getByRole("table")).toBeVisible();
     await page.getByLabel("Identity").selectOption(user.id);
     await expect(page.getByLabel("Identity")).toHaveValue(user.id);
-    await expect(page.locator("article")).toHaveCount(2);
+    await expect(page.getByRole("row")).toHaveCount(3);
     await page.getByRole("button", { name: "Revoke", exact: true }).first().click();
     await expect(page.getByText("Session revoked")).toBeVisible();
     await page.getByRole("button", { name: "Revoke all user sessions" }).click();

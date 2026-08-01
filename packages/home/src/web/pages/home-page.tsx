@@ -1,6 +1,6 @@
 import { useLingui } from "@lingui/react/macro";
 import { ActivityIcon, DatabaseIcon, FileUpIcon, ShieldCheckIcon, Trash2Icon } from "lucide-react";
-import { useRef, useState, type FormEvent } from "react";
+import { useState } from "react";
 
 import { roleHasPermission } from "@modular-vsa/auth/access-control";
 import { authClient } from "@modular-vsa/auth/web/client";
@@ -28,9 +28,8 @@ import {
   EmptyTitle,
 } from "@modular-vsa/ui/empty";
 import { Field, FieldGroup, FieldLabel } from "@modular-vsa/ui/field";
+import { useAppForm } from "@modular-vsa/ui/form";
 import { Input } from "@modular-vsa/ui/input";
-import { Switch } from "@modular-vsa/ui/switch";
-import { Textarea } from "@modular-vsa/ui/textarea";
 
 import {
   useCreatePostMutation,
@@ -40,11 +39,6 @@ import {
   useUploadMutation,
 } from "../api/query";
 
-function getFormString(values: FormData, name: string) {
-  const value = values.get(name);
-  return typeof value === "string" ? value : "";
-}
-
 export function HomePage() {
   const { t } = useLingui();
   const sessionQuery = authClient.useSession();
@@ -53,37 +47,42 @@ export function HomePage() {
   const createMutation = useCreatePostMutation();
   const updateMutation = useUpdatePostMutation();
   const deleteMutation = useDeletePostMutation();
-  const fileInputRef = useRef<HTMLInputElement>(null);
   const [preview, setPreview] = useState<string | null>(null);
   const role = sessionQuery.data?.user.role ?? "director";
   const roleLabel = role === "admin" ? t`Administrator` : t`Director`;
   const canManageContent = roleHasPermission(role, { post: ["create"] });
 
-  async function createPost(event: FormEvent<HTMLFormElement>) {
-    event.preventDefault();
-    const form = event.currentTarget;
-    const values = new FormData(form);
-    await createMutation.mutateAsync({
-      title: getFormString(values, "title").trim(),
-      content: getFormString(values, "content").trim(),
-      published: values.get("published") === "on",
-    });
-    form.reset();
-  }
+  const postForm = useAppForm({
+    defaultValues: { title: "", content: "", published: false },
+    onSubmit: async ({ value }) => {
+      await createMutation.mutateAsync({
+        title: value.title.trim(),
+        content: value.content.trim(),
+        published: value.published,
+      });
+      postForm.reset();
+    },
+  });
+  const uploadForm = useAppForm({
+    defaultValues: { file: null as File | null },
+    onSubmit: async ({ value }) => {
+      if (!value.file) return;
+      await uploadMutation.mutateAsync(value.file);
+      uploadForm.reset();
+      setPreview(null);
+    },
+  });
 
-  function handleFileChange(event: React.ChangeEvent<HTMLInputElement>) {
-    const file = event.target.files?.[0];
-    if (!file) return;
+  function previewFile(file: File | null) {
+    if (!file) {
+      setPreview(null);
+      return;
+    }
     const reader = new FileReader();
     reader.addEventListener("load", () => {
       if (typeof reader.result === "string") setPreview(reader.result);
     });
     reader.readAsDataURL(file);
-  }
-
-  function upload() {
-    const file = fileInputRef.current?.files?.[0];
-    if (file) uploadMutation.mutate(file);
   }
 
   return (
@@ -129,26 +128,55 @@ export function HomePage() {
               <CardDescription>{t`Exercise the permission-protected POST endpoint.`}</CardDescription>
             </CardHeader>
             <CardContent>
-              <form onSubmit={createPost}>
-                <FieldGroup>
-                  <Field>
-                    <FieldLabel htmlFor="post-title">{t`Title`}</FieldLabel>
-                    <Input id="post-title" name="title" maxLength={200} required />
-                  </Field>
-                  <Field>
-                    <FieldLabel htmlFor="post-content">{t`Content`}</FieldLabel>
-                    <Textarea id="post-content" name="content" maxLength={5000} required />
-                  </Field>
-                  <Field orientation="horizontal">
-                    <Switch id="post-published" name="published" />
-                    <FieldLabel htmlFor="post-published">{t`Publish immediately`}</FieldLabel>
-                  </Field>
-                  <Field>
-                    <Button type="submit" disabled={createMutation.isPending}>
-                      {t`Create post`}
-                    </Button>
-                  </Field>
-                </FieldGroup>
+              <form
+                onSubmit={(event) => {
+                  event.preventDefault();
+                  event.stopPropagation();
+                  void postForm.handleSubmit();
+                }}
+              >
+                <postForm.AppForm>
+                  <FieldGroup>
+                    <postForm.AppField
+                      name="title"
+                      validators={{
+                        onBlur: ({ value }) => (value.trim() ? undefined : t`Enter a title.`),
+                      }}
+                    >
+                      {(field) => (
+                        <field.TextField
+                          id="post-title"
+                          label={t`Title`}
+                          maxLength={200}
+                          required
+                        />
+                      )}
+                    </postForm.AppField>
+                    <postForm.AppField
+                      name="content"
+                      validators={{
+                        onBlur: ({ value }) => (value.trim() ? undefined : t`Enter post content.`),
+                      }}
+                    >
+                      {(field) => (
+                        <field.TextareaField
+                          id="post-content"
+                          label={t`Content`}
+                          maxLength={5000}
+                          required
+                        />
+                      )}
+                    </postForm.AppField>
+                    <postForm.AppField name="published">
+                      {(field) => (
+                        <field.SwitchField id="post-published" label={t`Publish immediately`} />
+                      )}
+                    </postForm.AppField>
+                    <Field>
+                      <postForm.SubmitButton>{t`Create post`}</postForm.SubmitButton>
+                    </Field>
+                  </FieldGroup>
+                </postForm.AppForm>
               </form>
             </CardContent>
           </Card>
@@ -160,26 +188,61 @@ export function HomePage() {
                 {t`Exercise the storage:upload permission and endpoint.`}
               </CardDescription>
             </CardHeader>
-            <CardContent className="flex flex-col gap-4">
-              <Input
-                ref={fileInputRef}
-                type="file"
-                aria-label={t`Select file to upload`}
-                onChange={handleFileChange}
-              />
-              {preview && (
-                <img
-                  src={preview}
-                  alt={t`Selected upload preview`}
-                  className="max-h-48 rounded-lg border object-contain"
-                />
-              )}
-              <Button onClick={upload} disabled={uploadMutation.isPending}>
-                <FileUpIcon data-icon="inline-start" /> {t`Upload file`}
-              </Button>
-              {uploadMutation.data && (
-                <code className="rounded-lg bg-muted p-3 text-xs">{uploadMutation.data.key}</code>
-              )}
+            <CardContent>
+              <form
+                onSubmit={(event) => {
+                  event.preventDefault();
+                  event.stopPropagation();
+                  void uploadForm.handleSubmit();
+                }}
+              >
+                <uploadForm.AppForm>
+                  <FieldGroup>
+                    <uploadForm.Field
+                      name="file"
+                      validators={{
+                        onSubmit: ({ value }) => (value ? undefined : t`Select a file to upload.`),
+                      }}
+                    >
+                      {(field) => (
+                        <Field
+                          data-invalid={field.state.meta.isTouched && !field.state.meta.isValid}
+                        >
+                          <FieldLabel htmlFor="upload-file">{t`Select file to upload`}</FieldLabel>
+                          <Input
+                            id="upload-file"
+                            type="file"
+                            aria-invalid={field.state.meta.isTouched && !field.state.meta.isValid}
+                            onBlur={field.handleBlur}
+                            onChange={(event) => {
+                              const file = event.target.files?.[0] ?? null;
+                              field.handleChange(file);
+                              previewFile(file);
+                            }}
+                          />
+                        </Field>
+                      )}
+                    </uploadForm.Field>
+                    {preview ? (
+                      <img
+                        src={preview}
+                        alt={t`Selected upload preview`}
+                        className="max-h-48 rounded-lg border object-contain"
+                      />
+                    ) : null}
+                    <Field>
+                      <uploadForm.SubmitButton>
+                        <FileUpIcon data-icon="inline-start" /> {t`Upload file`}
+                      </uploadForm.SubmitButton>
+                    </Field>
+                    {uploadMutation.data ? (
+                      <code className="rounded-lg bg-muted p-3 text-xs">
+                        {uploadMutation.data.key}
+                      </code>
+                    ) : null}
+                  </FieldGroup>
+                </uploadForm.AppForm>
+              </form>
             </CardContent>
           </Card>
         </div>

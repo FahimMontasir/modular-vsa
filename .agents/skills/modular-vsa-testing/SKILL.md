@@ -38,6 +38,9 @@ description: Apply Modular VSA's test boundaries and existing Bun, Eden, and Pla
 - Do not use fixed sleeps. Keep tests independent and safe under full parallelism.
 - Clean up through public APIs or the existing Bun fixtures, targeting captured identifiers only.
 - Run `bun run test:e2e`; use npm only for commands defined inside `tests/`.
+- For TanStack Form, cover validation, keyboard submission, pending state, success/reset behavior, and observable server failure.
+- For controlled tables, cover sorting, filtering, pagination, and selection through accessible headers and row controls.
+- For paced input, assert the final result without fixed sleeps. For virtualized lists, scroll through multiple pages and verify stable items, load triggers, focus, and message anchoring.
 
 ## Finish
 

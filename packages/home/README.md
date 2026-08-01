@@ -16,4 +16,4 @@ When a data shape changes, update the Drizzle schema first, then validators/type
 
 ## Web and tests
 
-`src/web/pages` owns Home UI rendered by thin portal routes. Unit tests cover pure helpers; `__tests__/integration/routes.test.ts` covers every Home HTTP operation through Eden with real local infrastructure and targeted cleanup. Page behavior belongs in `tests/e2e/home.spec.ts`.
+`src/web/pages` owns Home UI rendered by thin portal routes. Editable post and upload workflows use shared TanStack Form/shadcn bindings; post cards remain feature composition rather than tabular data. Unit tests cover pure helpers; `__tests__/integration/routes.test.ts` covers every Home HTTP operation through Eden with real local infrastructure and targeted cleanup. Page behavior belongs in `tests/e2e/home.spec.ts`.
